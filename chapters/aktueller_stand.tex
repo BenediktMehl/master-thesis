@@ -1,0 +1,63 @@
+\section{Aktueller Stand}\label{sec:aktStand}
+
+Wie ist der aktuelle Stand?
+
+
+Welche Instrumente gibt es?
+
+
+Wie ist der Stand der Forschung?
+
+
+\subsection{Generell}
+Ok, erstmal ganz ganz grundlegend. 
+
+Was ist code qualitäts visualisierung?
+
+für mich gibt einen einen großen unterschied zwischen code qualitäts visualisierung und code visualisierung.
+Das eine soll die qualität darstellen. Das andere zb. architektur.
+Das eine soll nach außen qualität zeigen und das andere eher nach innen als hilfe dienen, nicht das große ganze aus den augen zu verlieren. - grob gesagt, nur mein aktueller gedanke
+
+In dieser arbeit geht es ausdrücklich um code qualitäts visualisierung. IMMER 
+
+Was ist das ziel von code visualisierung?
+
+Code qualitäts visualisierung soll schwach stellen und probleme im Code sichbar machen.
+code visualisierung soll code gut vergleichbar machen
+Es soll zeigen ob code gut oder schlecht ist.
+Es soll die qualität von code aufzeigen.
+
+
+Kann code qualitäts visualisierung diese ansprüche erfüllen?
+so halb. Die messbarkeit von Code Qualität ist sowieso unfassbar schwer oder kaum möglich. Die Code Visualisierung kann maximal nur so gut sein wie die generelle messbarkeit von code qualität. dies ist ein komplett eigenes forschungs gebiet und hängt auch natürlich immer vom gewünschten Ziel ab.
+Wir nehmen also als voraussetzung, dass das Ziel bekannt ist und die art und weise wie man die Qualität messen will auch bekannt ist.
+Messwerte werden in sogenannten Metriken fest gehalten.
+Bekannte und häufig genutzte metriken können sein:
+lines of code
+complexity
+churn
+coverage
+issues ...
+wie gesagt, ein thema für sich.
+
+
+Warum braucht man also wenn man diese metriken schon hat, überhaupt noch eine visualisierung dafür?
+reicht es nicht zu sagen, das sind die stellen mit schlechten werten, diese müssen angepasst werden? Oder: Diese werte sich schlecht, diese werte sind gut?
+So einfach ist es oft leider nicht. 
+1. zur klarstellung, was allen eigentlich schon klar ist: nur weil werte schlecht sind muss es nicht wirklich schlechter code sein
+2. ist es oft wichtig auch mit personen zu kommunizieren, die keine ahnung von diesen Metriken haben. Es ist schwer zu greifen üer reine zahlen zu reden, personen wie stakeholder müssen schnell verstehen, worum es geht auch wenn sie keine ahnung von code selbst haben
+3. man will sich einen generellen überblick verschaffen, in welchen bereichen sieht es gut aus, wo kann man vielleicht muster erkennen -> mit visualisierung ist es einfacher ein generelles gefühl zu entwickeln
+4. übersichtlichkeit erhöhen. mit visualisierung werden die bloßen auflistungen von werten übersichtlicher
+
+
+Es geht also nicht darum visualisierung als begründung für änderungen zu nehmen oder um entwicklern zu sagen, was und wo sie etwas besser machen müssen.
+Es geht darum besonders unbeteiligten personen eine gesrächsgrundlage und einen schnellen überblick zu verschaffen. eine grundlage bieten auf der entwickler, die den code kennen mit anderen personen kommunizieren und diskutieren können. Dabei geht es nicht nur um reine funktionalität sondern auch um dinge wie UX und teilweise vielleicht auch ästethik.
+
+
+Ist code visualisierung gut für entwickler?
+Meine Meinung, Code Visualisierung ist nicht wirklich notwendig für entwickler, weil diese den code bereits kennen und über probleme bescheid wissen. Wenn überhaupt würden die generellen metriken wahrscheinlich ausreichen, bzw sind andere maßnahmen wie bessere Prozesse, pipelines, die automatisch metriken tracken und rückmeldung geben im alltag besser geeignet.
+Für mich als entwickler wäre dann eher wieder code visualisierung und nicht code qualitäts visualisierung interessant, das ist aber wie am anfang gesagt nicht die idee hier.
+
+\subsection{so}
+Also wir gehen jetzt davon aus:
+Code qualität wird mittels Metriken gemessen und wir suchen einen weg diese Metriken für (unbeteiligte) personen möglichst übersichtlich und ausagekräftig darzustellen.
