@@ -1,16 +1,15 @@
 \section{Aktueller Stand}\label{sec:aktStand}
 
-Wie ist der aktuelle Stand?
-
-
-Welche Instrumente gibt es?
-
-
-Wie ist der Stand der Forschung?
-
-
 \subsection{Generell}
 Ok, erstmal ganz ganz grundlegend. 
+
+was ist software qualität?
+The ISO/IEC 25010:2011 standard [17] describes how software attributes and qualities are related. This standard decomposes software quality into eight quality characteristics:
+functional suitability, performance efficiency, compatibility,
+usability, reliability, security, maintainability, and portability.
+
+ABER das ist software qualität und nicht code qualität
+
 
 Was ist code qualitäts visualisierung?
 
@@ -19,6 +18,8 @@ Das eine soll die qualität darstellen. Das andere zb. architektur.
 Das eine soll nach außen qualität zeigen und das andere eher nach innen als hilfe dienen, nicht das große ganze aus den augen zu verlieren. - grob gesagt, nur mein aktueller gedanke
 
 In dieser arbeit geht es ausdrücklich um code qualitäts visualisierung. IMMER 
+
+in mehr als 60\% geht es um softwre entwickler als zielgruppe (https://ieeexplore.ieee.org/abstract/document/7780158)
 
 Was ist das ziel von code visualisierung?
 
@@ -50,6 +51,10 @@ So einfach ist es oft leider nicht.
 4. übersichtlichkeit erhöhen. mit visualisierung werden die bloßen auflistungen von werten übersichtlicher
 
 
+Metriken bieten außerdem niemals die qualität ab, sondern immer nur spezielle aspekte von qualität (https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8530132)
+Eine visualisierung kann dabei helfen zugleich einzelne aspekte, aber auch ein generelles bild von qualität zu erzeugen (J. Stasko, Software visualization: Programming as a multimedia experience. MIT press, 1998.)
+Das macht es vielleicht doch wieder gut, vorallem wenn zb. architekten sich einen ersten groben überblick über legacy systeme verschaffen wollen.
+
 Es geht also nicht darum visualisierung als begründung für änderungen zu nehmen oder um entwicklern zu sagen, was und wo sie etwas besser machen müssen.
 Es geht darum besonders unbeteiligten personen eine gesrächsgrundlage und einen schnellen überblick zu verschaffen. eine grundlage bieten auf der entwickler, die den code kennen mit anderen personen kommunizieren und diskutieren können. Dabei geht es nicht nur um reine funktionalität sondern auch um dinge wie UX und teilweise vielleicht auch ästethik.
 
@@ -61,3 +66,125 @@ Für mich als entwickler wäre dann eher wieder code visualisierung und nicht co
 \subsection{so}
 Also wir gehen jetzt davon aus:
 Code qualität wird mittels Metriken gemessen und wir suchen einen weg diese Metriken für (unbeteiligte) personen möglichst übersichtlich und ausagekräftig darzustellen.
+
+\subsection{aktueller stand}
+Es geht nicht um dinge wie z.b. dependency structures: https://www.ndepend.com/docs/dependency-structure-matrix-dsm
+
+
+ideen von \cite{ennowulff_2021}
+
+Wie ist der aktuelle Stand?
+
+
+Welche Instrumente gibt es?
+Moose - ich würde das eher bewreten für entwickler. Es werden hier verbindungen von klassen dargestellt - abhängigkeiten undco.
+Another great but maybe discontinued project is Code City by Richard Wettel
+https://wettel.github.io/codecity.html
+
+"
+Planung größerer Refactoring-Maßnahmen
+Welche Bereiche des Codes mussten in der Vergangenheit besonders oft angepasst werden? Welche Klassen haben immer noch eine hohe Komplexität und verursachen damit hohe Wartungsaufwände? Welche Klassen besitzen einen hohen Anteil an Code-Duplikation und bergen damit das Risiko zukünftiger Fehler, falls Änderungen nicht konsistent durchgeführt werden? Mit Hilfe von SoWaCa können diese Fragen beantwortet und für alle nachvollziehbar veranschaulicht werden - vom Junior-Entwickler bis zum Manager. SoWaCa fördert damit die Kommunikation zwischen den verschiedenen Akteuren der Software-Entwickler.
+
+Zur Retrospektive im Team
+Womit hat sich das Team im letzten Sprint beschäftigt? Welche Dateien wurden am häufigsten geändert? Und in welchem Umfang? Eine Visualisierung mit Hilfe von SoWaCa hilft dem Team, sich im Rahmen der Retrospektive nochmals die wesentliche Aktivitäten des vergangenen Sprints zu vergegenwärtigen, sowie gelöste Probleme und gemachte Erfahrungen zu reflektieren.
+
+Direkte Einblicke, automatisiert erstellt
+Das letzte Architekturdiagramm ist schon drei Monate alt und berücksichtigt nicht die aktuellsten Entwicklungen? Aggregierte Kennzahlen sind gut und schön, aber wie sieht es im Detail aus? SoWaCa visualisiert voll automatisiert den aktuellen Stand der Code-Basis und ermöglicht, aus dem Überblick der gesamten Code-Basis direkt mittels "Drill-Down" auf die konkrete Code-Ebene zu springen. Damit können auf Basis aktueller Kennzahlen der Codebasis und der unmittelbaren Überprüfbarkeit fundierte Entscheidungen zur Wartung und Weiterentwicklung der Codebasis getroffen werden."
+\cite{systect_2015}
+
+
+code-is-beautiful: letzter commit vor 7 jahren
+https://github.com/quantifiedcode/code-is-beautiful
+bietet: code city, 
+Sunburst (2d): im grunde ein kreis diagram, welches von  innen nach außen die ordner strukturen zeigt. die es können die größe (wie viel des kreises nimmt etwas ein) und die farbe als metric gewählt werden
+Stack (2d): im grund wie das kreis diagram nur von oben nach unten
+
+
+Code Radar:
+https://github.com/pschild/CodeRadarVisualization
+Wie code city speziell auf vergleich von versionen ausgelegt, indem man zwei karten direkt nebeneinander sehen kann
+letzter commit vor 7 jahren
+
+
+softvis:
+vor 2 jahren
+https://softvis3d.com/#/
+wie code city
+
+
+Ndepend:
+https://www.ndepend.com/docs/treemap-visualization-of-code-metrics?cx=015095677987321916295%3Ar_17mxn8qfg&cof=FORID%3A11&q=Visualize&sa=Search#
+2D
+Aber interessant: hier werden die kanten dunkel eingefärbt, um die einzelnen elemente visuell zu unterscheiden
+
+
+https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true:
+hat die idee dass gebäude wirklich echt sein könnten
+ein gebäude an dem gebaut wird, wurde kürzlich geändert
+alte gebäude wurden lange nicht mehr verändert
+oft geänderte objekte sind nah an einem hafen oder so
+
+ein kommentar auf deren seite:
+"Playing around with these metrics seems like an easy way to identify those objects where a refactoring promises to be most beneficial, because large and complex objects that are changed often tend to introduce bugs and slow down the development process.
+
+It also seems that this visual approach helps to promote topics like clean code within an organisation as the negative impact of such skyscraper classes becomes clearer when you look at these graphics.
+
+I think I will take a Code City Snapshot from time to time to track how the red skyscrapers steadily turn into beautiful, clean and green suburbs.
+
+Even without medieval buildings that can be accessed using VR, this might help a lot to navigate towards a clean code base."
+
+
+https://home.uni-leipzig.de/svis/getaviz/index.php?setup=web/City%20bricks%20freemind&model=City%20bricks%20freemind&aframe=false:
+auch sehr sehr nice
+mit bausteinen verschiedene sachen visualisieren
+
+
+https://codescene.com/product:
+2d kreis diagramme
+
+https://github.com/adamtornhill/code-maat
+bietet auch einiges in 2d
+
+Wie ist der Stand der Forschung?
+overview of 3d software visualisierung: https://ieeexplore.ieee.org/document/4564449
+
+interessant: https://opus-htw-aalen.bsz-bw.de/frontdoor/deliver/index/docId/658/file/ICCSE16-SEE.pdf
+
+\cite{MERINO2018165}:
+A systematic literature review of software visualization evaluation:
+Wie kann man visualisierungen bewerten?
+Hier geht es vor allem darum: "help analysts make sense of multivariate data
+(Merino et al., 2015), to support programmers in comprehending the
+architecture of systems (Panas et al., 2016), to help researchers analyze
+version control repositories (Greene et al., 2017), and to aid developers
+of software product lines"
+
+
+Quality models are usually defined based on concrete measurements of software metrics (N. Fenton and J. Bieman, Software metrics: a rigorous and practical approach. CRC Press, 2014)
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7332436:
+4 metriken werden visualisiert: farbe, position, höhe, breite
+
+https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6462737:
+sehr interessant.
+1. Idee unterschiedliche metriken zu stacken
+2. gibt einen generelen qualitäts wert am ende heraus, erstellt aber eine grafik, die die einflüsse verschiedener klassen auf die verschiedenen metriken zeigt und die generelle bedeutung für die allgemein metrik am ende.
+
+
+Was ist das? Ist das sinnvoll für mich?
+To present our findings
+we employ Shahin’s pre-defined classification of
+visualization techniques – Graph-based, notationbased, matrix-based and metaphor-based
+visualizations. 
+
+\subsection{original square treemap algo}
+– display space is used more efficiently. The number of pixels to be used for the border
+is proportional to its circumference. For rectangles this number is minimal if a square
+is used;
+– square items are easier to detect and point at, thin rectangles clutter up and give rise
+to aliasing errors;
+– comparison of the size of rectangles is easier when their aspect ratios are similar;
+– the accuracy of the presentation is improved. A rectangle with a prescribed width of,
+say, 300 pixels, can only present sizes in coarse steps.
+
+
