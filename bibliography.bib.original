@@ -1,0 +1,74 @@
+@misc{ennowulff_2021,
+    title   = {Re: I Have A Dream: Code Visualization},
+    url     = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true},
+    journal = {SAP Community},
+    author  = {EnnoWulff},
+    year    = {2021},
+    month   = {Feb},
+}
+
+@misc{systect_2015,
+    title   = {systect // SoWaCa},
+    url     = {https://www.systect.de/sowaca.html},
+    journal = {Systect.de},
+    author  = {systect},
+    year    = {2015},
+}
+
+‌@article{MERINO2018165,
+    title    = {A systematic literature review of software visualization evaluation},
+    journal  = {Journal of Systems and Software},
+    volume   = {144},
+    pages    = {165-180},
+    year     = {2018},
+    issn     = {0164-1212},
+    doi      = {https://doi.org/10.1016/j.jss.2018.06.027},
+    url      = {https://www.sciencedirect.com/science/article/pii/S0164121218301237},
+    author   = {L. Merino and M. Ghafari and C. Anslow and O. Nierstrasz},
+    keywords = {Software visualisation, Evaluation, Literature review},
+}
+
+
+@inproceedings{bruls2000squarified,
+    title        = {Squarified treemaps},
+    author       = {Bruls, Mark and Huizing, Kees and Van Wijk, Jarke J},
+    booktitle    = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
+    pages        = {33-42},
+    year         = {2000},
+    organization = {Springer},
+}
+
+‌@misc{d3_treemap_code,
+    url     = {https://d3js.org/d3-hierarchy/treemap},
+    journal = {D3js.org},
+    note    = {[Online; accessed 19-May-2025]},
+    year    = {2025},
+}
+
+@misc{laubheimer_2019,
+    title   = {Treemaps: Data Visualization of Complex Hierarchies},
+    url     = {https://www.nngroup.com/articles/treemaps/},
+    journal = {Nielsen Norman Group},
+    author  = {Laubheimer, Page},
+    year    = {2019},
+    note    = {[Online; accessed 19-May-2025]},
+    month   = {Sep},
+}
+
+‌@techreport{johnson1991tree,
+  title={Tree-maps: A space filling approach to the visualization of hierarchical information structures},
+  author={Johnson, Brian and Shneiderman, Ben},
+  year={1991},
+  institution={UM Computer Science Department; CS-TR-2657}
+}
+‌
+@book{def_qual_metric,
+  author    = {{Institute of Electrical and Electronics Engineers (Hrsg.)}},
+  title     = {{IEEE Std 1061-1998: IEEE Standard for a Software Quality Metrics Methodology}},
+  year      = {1998},
+  publisher = {IEEE},
+  address   = {New York},
+  isbn      = {1-55937-529-9},
+  note      = {Kapitel 2. Definitions, S. 2}
+}
+
