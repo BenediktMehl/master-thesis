@@ -1,6 +1,8 @@
 \section{Grundlagen} \label{sec:Grundlagen}
 
 \subsection{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
+Die ISO/IEC 25010 Norm \cite{iso25010_2024} beschreibt wie Software-Attribute und -Qualitäten miteinander in Beziehung stehen. Diese Norm zerlegt die Software-Qualität in acht Qualitätsmerkmale, wie zum Beispiel funktionale Eignung. Dies ist der Blick von außen auf die Software, wir interessieren uns allerdings für den Blick auf die Software von innen, wenn wir also von Software-Qualität sprechen, dann sprechen wir von der Qualität des Codes und darüber wie man diese bewerten und verständlich machen kann. 
+
 Qualitätsmetriken sind Kennzahlen, die zur Bewertung der Qualität verwendet werden. Sie sind ein wichtiges Werkzeug zur Analyse und Verbesserung jeglicher Dinge. Im grunde sind metriken einfach nur messungen, die eine bestimmte Aussagekraft haben. OFt ist es nicht möglich eine Metrik zu identifizieren, die eine vollumfängliche aussage über etwas trifft. Oft ist es notwenig verschiedene metriken im zusammenspiel miteinander zu betrachten, um ein verständis für aspekte zu erhalten. 
 
 Dies gilt auch für Software-Qualitätsmetriken: \enquote{Eine Softwarequalitätsmetrik ist eine Funktion, die eine Software-Einheit in einen Zahlenwert abbildet, welcher als Erfüllungsgrad einer Qualitätseigenschaft der Software-Einheit interpretierbar ist.}\cite{def_qual_metric}
@@ -48,14 +50,23 @@ Trotzdem können wir auch für unser Ziel der Software-Qualitätsmetrik-Visualis
         \item Stabilität gegenüber Änderungen: Die Visualisierung sollte stabil gegenüber Änderungen in der Software sein. Das bedeutet, dass die Visualisierung sich nur so sehr wie nötig ändert, wenn sich die Software ändert, um eine Versions konsistente Vergleichbarkeit zu ermöglichen und bereits mit der Visualierung vertraute Nutzer nicht zu überfordern.
         \item Gute Visuelle Metaphern: Die Visualisierung sollte gute visuelle Metaphern verwenden, um bereits bekannte Konzepte zu verwenden, um die Software verständlicher zu machen.
     \end{itemize}
-    \item \textbf{Abstraktion}: Das Ziel von Visualierung muss sein, unwichtige Details auszublenden und ein verständliches Modell der Software zu erstellen. 
+    \item \textbf{Abstraktion}: Das Ziel von Visualierung muss sein, unwichtige Details auszublenden und ein verständliches Modell der Software zu erstellen.
     \item \textbf{Navigation}: Da wir häufig über große Software-Systeme sprechen, kann es schnall passeiren dass Nutzer in der Visualisierung verloren gehen. Es muss also möglich sein, sich gut zurecht zu finden und intuitiv zu wissen, wo was ist, um so ein grfühl für die software zu erhalten.
     \item \textbf{Korrelation mit dem Code}: Die Visualisierung sollte eine gute Korrelation mit dem Code haben. Wenn man die Visualierung sieht, soll man diese auch mit dem Code in Verbindung bringen können. Es sollte also möglich sein, die Visualisierung mit dem Code zu verknüpfen und so ein besseres Verständnis für die Software zu bekommen.
     \item \textbf{Automatisierung}: Die Visualisierung sollte automatisiert werden können - ein Punkt der trivialier weise gegeben ist, da wir hier über algorithmen sprechen, die keine manuelle eingabe benötigen.
 \end{itemize}
 
 \subsubsection{CodeCity} \label{sec:CodeCity}
+Der Cornerstone von 3D Software-Qualitätsvisualisierung ist das Konzept von CodeCity \cite{codeCity1}. Das Paper von Richard Wettel und Michele Lanza verbindet einige Aspekte, die zu diesem Zeitpunkt neu waren. Sie reden zwar nicht konkret von software-qualitäts-visualierung, nutzen aber trotzdem qualitätsmetriken auf Klassenebene, um die richtige Granulariät von Software visualierung zu finden. Herkommliche paper waren oft noch auf niedrigeren ebenen z.b. Marcus Adrian et al. auf Ausdrucks-Ebene \cite{3dsoftwareMarcus}. Zudem nutzen sie, wie von Young und Munro \cite{visSoftwareVR} gefordert, eine gute visuelle Metapher, um die Software darzustellen. Sie nutzen das Konzept einer Stadt, um die Software darzustellen. Dabei wird jede Klasse als Gebäude dargestellt, dabei hat jedes Artefakt (Klassen, Pakete und Ordner) verschiedene Attribute: Die Dimension, die Position, die Farbe, die Farbsättigung und die Transparenz. Ein Beispiel für eine solche Visualisierung ist in Abbildung \ref{fig:codeCity} dargestellt.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/codeCityExample.pdf}
+    \caption{Beispiel für eine original CodeCity-Visualisierung \cite[2]{codeCity1}}
+    \label{fig:codeCity}
+\end{figure}
+
+Das Layout der Stadt wird lässt sich dabei herunterbrechen auf ein 2D-Layout Problem. Um dieses problem zu lösen, implementieren sie eine abwandlung von Treemap-Algoithmen (Was treemaps sind wird in abschnit \ref{sec:Treemap} erklärt). Auffällig bei Ihrer implementierung ist, dass es viele ungenutzte leere flächen ohne gebäude gibt und gebäude anhand ihrer Größe sortiert plaziert werden (groß weiter unten links, klein weiter oben rechts). Leider ist der algotihmus nicht frei zugänglich, sodass in dieser Arbeit zum vergleich eine eigene Implementierung des Algorithmus verwendet wird, wodurch natürlich auch die Ergebnisse, von der original implementierung abweichen werden (außer wenn anders gekennzeichnet).
 
 \subsection{Treemap-Layouts} \label{sec:Treemap}
 
