@@ -12,6 +12,51 @@ Die besonderheit bei Software-Qualitätsmetriken im vergleich zu anderen Metrike
 
 Software-Qualitätsmetriken werden meist auf Software-Einheiten angewendet. Also z.B. auf Dateien des Quellcodes, auf Module oder auf Klassen. Diese Software-Einheiten sind in der Regel hierarchisch strukturiert. Auch die im folgenden vorgesllten ansätze zur Visualisierung von hierarchischen Daten sind nicht speziell für Software-Qualitätsmetriken gedacht, sondern stellen allgemeine Ansätze dar. Ich behaupte, dass die Sturktur von Software gemeinsamkeiten hat, zB. ein ordner hat nicht mehr als 20 Kinder, was interessante annahmen darstellt, die eventuell in die visualierungs algorithmen verbessernd einfließen können.  
 
+\subsection{Software-Visualisierung} \label{sec:SoftwareVisualisierung} 
+
+• Tasks – why is the visualization needed?
+• Audience – who will use the visualization?
+• Target – what is the data source to represent?
+• Representation – how to represent it?
+• Medium – where to represent the visualization?
+\cite[2]{3dsoftwareMarcus}
+
+\subsection{3D-Software Visualisierung} \label{sec:3DSoftwareVisualisierung}   
+Warum 3D? Ist es nicht ausreichend software-qualität einfach als zahlenwerte darzustellen oder zumindest in 2D darzustellen?
+wie in Abschnitt \ref{sec:Ziel} aufgezeigt, wollen wir software qualität auch für nicht-software-entwickler greifbar machen, einfache werte sind dafür nicht ausreichend.
+\begin{quote}
+Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from "outside". 3D visualizations on the other hand provide the potential to create such an immersive experience... \cite[1]{codeCity1}
+\end{quote}
+2D visualisierung bietet zwar bestimmt einen guten überblick, aber macht die software nicht wirklich greifbar. 
+
+Die Idee Software in 3D darzustellen ist nicht neu. Schon 1995 stellte Steven P. Reiss einen Ansatz vor, der es ermöglichte Software in 3D darzustellen \cite{first_3D_vis}. Die meisten dieser ersten Ansätze verfolgten das Ziel Software für Entwickler greifbar zu machen, die Struktur aufzuzeigen und einen Highlevel überblick über eine Software zu geben, was speziell Hilfreich ist, wenn Entwickler ein System neu kennenlernen müssen \cite{visSoftwareVR}.  Diese Ansätze sind in der Regel nicht für die Visualisierung von Software-Qualitätsmetriken gedacht, sondern zielen darauf ab, die Struktur und den Aufbau der Software zu verdeutlichen (siehe Abbildung \ref{fig:3DVis}).  
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/visVRExample.png}
+    \caption{Beispiel für eine 3D-Visualisierung von Young und Munro \cite[6]{visSoftwareVR}}
+    \label{fig:3DVis}
+\end{figure}
+
+Trotzdem können wir auch für unser Ziel der Software-Qualitätsmetrik-Visualisierung Kriterien ableiten, die für eine gute Visualisierung wichtig sind \cite{visSoftwareVR}:
+\begin{itemize}
+    \item \textbf{Darstellung}: Der wichtigste Aspekt ist die Darstellung der Software. Die Visualisierung sollte die Struktur und den Aufbau der Software verdeutlichen. Die Frage ist also, wie wird die Software dargestellt? 
+    \begin{itemize}
+        \item Informationsgehalt: Die Visualisierung sollte so viele Informationen wie möglich enthalten.
+        \item Niedrige visuelle Komplexität: Als Gegenspieler zum Informationsgehalt steht die visuelle Komplexität. Die Visualisierung sollte so einfach wie möglich gehalten werden, um den Betrachter nicht zu überfordern.
+        \item Skalierbarkeit: Die Visualisierung sollte auch bei großen Software-Systemen noch gut lesbar sein. Dies ist besonders wichtig, da wir hier über große Software-Systeme sprechen. Die Autoren von \textit{Visualising Software in virtual reality} \cite{visSoftwareVR} sagen zudem, dass mechanismen Nötig sind, um Komplexität und Informationsgehalt zu steuern und je nach Software-System anpassen zu können.
+        \item Stabilität gegenüber Änderungen: Die Visualisierung sollte stabil gegenüber Änderungen in der Software sein. Das bedeutet, dass die Visualisierung sich nur so sehr wie nötig ändert, wenn sich die Software ändert, um eine Versions konsistente Vergleichbarkeit zu ermöglichen und bereits mit der Visualierung vertraute Nutzer nicht zu überfordern.
+        \item Gute Visuelle Metaphern: Die Visualisierung sollte gute visuelle Metaphern verwenden, um bereits bekannte Konzepte zu verwenden, um die Software verständlicher zu machen.
+    \end{itemize}
+    \item \textbf{Abstraktion}: Das Ziel von Visualierung muss sein, unwichtige Details auszublenden und ein verständliches Modell der Software zu erstellen. 
+    \item \textbf{Navigation}: Da wir häufig über große Software-Systeme sprechen, kann es schnall passeiren dass Nutzer in der Visualisierung verloren gehen. Es muss also möglich sein, sich gut zurecht zu finden und intuitiv zu wissen, wo was ist, um so ein grfühl für die software zu erhalten.
+    \item \textbf{Korrelation mit dem Code}: Die Visualisierung sollte eine gute Korrelation mit dem Code haben. Wenn man die Visualierung sieht, soll man diese auch mit dem Code in Verbindung bringen können. Es sollte also möglich sein, die Visualisierung mit dem Code zu verknüpfen und so ein besseres Verständnis für die Software zu bekommen.
+    \item \textbf{Automatisierung}: Die Visualisierung sollte automatisiert werden können - ein Punkt der trivialier weise gegeben ist, da wir hier über algorithmen sprechen, die keine manuelle eingabe benötigen.
+\end{itemize}
+
+\subsubsection{CodeCity} \label{sec:CodeCity}
+
+
 \subsection{Treemap-Layouts} \label{sec:Treemap}
 
 Eine Treemap visualisiert einen Baum, indem jedem Knoten ein Rechteck mit der Fläche A zugewiesen wird, proportional zu seinem zugewiesenen Wert (z.B. Datenmenge oder Marktwert). Nicht-Blatt-Knoten werden dabei üblicherweise durch Rahmen (Container-Rectangles) gekennzeichnet, um die Gruppierung der Kinder zu zeigen. \cite{bruls2000squarified} Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus. Mathematisch entspricht die Eingabedatenstruktur einem gewichteten Baum, bei dem jede Blatteinheit eine numerische Größe hat. Die Fläche eines Eltern-Rechtecks entspricht der Summe der Flächen (Werte) seiner Kinder.
@@ -120,3 +165,5 @@ Das Ziel ist es das Verhältnis der Seitenlängen gleich zu halten. Im ursprüng
     \caption{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (Durchschnittliches Seitenverhältnis 2.79)}
     \label{fig:squarifyRatio5}
 \end{figure}
+
+%wie wirkt sich die reihenfolge auf das layout aus?

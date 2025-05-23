@@ -224,3 +224,5 @@ TSWLatexianTemp*
 # any other stuff
 *.swp
 *.sic
+
+.DS_Store
