@@ -1,75 +1,8 @@
 \section{Problemstellung} \label{sec:Problemstellung}
 
-Obwohl bereits leistungsfähige Werkzeuge zur Visualisierung existieren, stehen wir vor
-zentralen Herausforderungen bei der Darstellung von Codequalitätsmetriken:
-• Aussagekraft: Wie lässt sich die Aussagekraft einer Visualisierung erhöhen? Wie
-viele Metriken können simultan dargestellt werden?
-• Übersichtlichkeit: Wie lässt sich die Übersichtlichkeit der Darstellung erhöhen?
-Ermöglicht sie eine gezielte Erkennung individueller Qualitätsprobleme? Ist eine
-schnelle Erfassung der Inhalte ohne umfangreiches Vorwissen und Zeitaufwand
-möglich?
-• Skalierbarkeit: Wie lassen sich umfangreiche Codebasen effektiv visualisieren,
-ohne an Übersichtlichkeit einzubüßen? Wie schnell können diese
-Visualisierungen generiert werden?
 
-Zielsetzung
-Das Ziel dieser Arbeit ist es, Anforderungen an eine effektive Visualisierung von
-Codequalitätsmetriken zu definieren und zu zeigen, ob eine verbesserte
-Darstellungsmethode existiert.
-
-
-
-----------
-Was ist uns maibornwolff wichtig bei dem layout?
-
-
-Christian Hühn gespräch:
-Eine Sortierung innerhalb der Ordner ist nicht so wichtig, da die Sortierung eigentlich schon über die ordner struktur hergestellt wird. Außerdem nach was, es macht das bild nicht wirklich übersichtlicher
-
-Kohäsion: entweder gut strukturiert oder schlecht - dann bringt das eh nichts
-
-
-
-Ziel ist es schnell und einfach Hotspots zu finden:
-Code Charta ist die ausgangslage um die größten Hotspots zu finden
-
-Geredet wird meistens mit Entwicklern
-
-CodeCharta hilft systeme schnell zu verstehen und wo man hinschauen muss
-Schnell einen Überblick verschaffen und CodeBasis greifbar machen
-
-Durch 3D mehr verbindungen herstellen: Zb sind große Gebäude auch gut gecovert
-
-
-
-Software entwickler nutzen für die analyse selbst erstmal 
-Selbst entwickler geben gutes Feedback
-
-
-Streemap ist nicht so intuitiv - Vorteile sind, dass es sehr stabil ist
-
-
-
-
-Kunden zeigen wie sich ein Projekt geändert hat:
-Bei modernisierungs Projekten 
-Ansonsten bleibt in audits die basisfläche gleich, somit ist das nicht so wichtig
-
-DD-Audits: 
-Screenshots von ein paar Ansichten
-Sprechen über hotspots
-
-Software Health-Check
-Kunde hat system, was ist da nicht rund?
-
-Code Quality Insights
-Screenshots generieren
-
-
-----
-
-moment mal: ich will eigentlich nur dass die kind knoten ein gutes Seitenverhältnis haben, der rest kann mir ja eigentlich egal sein - oder zumindest nicht so wichtig
-
+\subsection{Code Qualität greifbar machen} \label{sec:CodeQualitaetGreifbar}
+Es gibt bereits viele ansätze code zu visualisieren und es gibt auch viele Ansätze dies drei dimensional zu tun, um die greifbarkeit und die plastizität zu erhöhen, um so das Verständnis zu fördern \cite{3dsoftwareMarcus,codeCity1,first_3D_vis,virtualButVisibleMunro}. Spezieller wird, es wenn es darum geht die Qualität des codes 3d zu visualisieren. Am bekanntesten und am erfolgreichsten ist hier die Code-Stadt Analogie, die in Abschnitt \ref{sec:CodeCity} beschrieben wurde. Die fundamentale und schwerste Frage, bei den Stadt-Analogien ist, wie das Layout der Stadt aussehen soll.
 
 \subsection{Das Treemap Problem} \label{sec:TreemapProblem}
 In Abschnnit \ref{sec:Treemap} wurde aufgezeigt, dass bereits der initiale Algorithmus von Johnson und Shneiderman \cite{johnson1991tree} ein fundamentales Problem aufweist, wenn Treemaps mit Abständen zwischen Knoten dargestellt werden sollen. 
@@ -78,3 +11,5 @@ In Abschnnit \ref{sec:Treemap} wurde aufgezeigt, dass bereits der initiale Algor
     \item Durch das Abziehen der Abstände kann es passieren, dass Knoten verschwinden, wenn entweder die Länge oder die Breite der Knoten kleiner oder gleich dem Abstand ist.
 \end{itemize}
 
+
+Warum stadt? es ist einfach und mit 3d blöcken anders als zb. wald metaphern\cite{softwareForest}
