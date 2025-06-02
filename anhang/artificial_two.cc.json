@@ -1,0 +1,180 @@
+{
+  "nodes": [
+    {
+      "name": "root",
+      "type": "Folder",
+      "attributes": {},
+      "children": [
+        {
+          "name": "leaf 0",
+          "type": "File",
+          "attributes": {
+            "rloc": 10,
+            "functions": 5,
+            "mcc": 100
+          }
+        },
+        {
+          "name": "small_parent_1",
+          "type": "Folder",
+          "attributes": {},
+          "children": [
+            {
+              "name": "leaf 1",
+              "type": "File",
+              "attributes": {
+                "rloc": 30,
+                "functions": 100,
+                "mcc": 100
+              }
+            },
+            {
+              "name": "small_parent_2",
+              "type": "Folder",
+              "attributes": {},
+              "children": [
+                {
+                  "name": "leaf 2",
+                  "type": "File",
+                  "attributes": {
+                    "rloc": 30,
+                    "functions": 10,
+                    "mcc": 100
+                  }
+                },
+                {
+                  "name": "small_parent_3",
+                  "type": "Folder",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "name": "leaf 3",
+                      "type": "File",
+                      "attributes": {
+                        "rloc": 30,
+                        "functions": 10,
+                        "mcc": 100
+                      }
+                    },
+                    {
+                      "name": "small_parent_4",
+                      "type": "Folder",
+                      "attributes": {},
+                      "children": [
+                        {
+                          "name": "leaf 4",
+                          "type": "File",
+                          "attributes": {
+                            "rloc": 30,
+                            "functions": 10,
+                            "mcc": 100
+                          }
+                        },
+                        {
+                          "name": "small_parent_5",
+                          "type": "Folder",
+                          "attributes": {},
+                          "children": [
+                            {
+                              "name": "leaf 5",
+                              "type": "File",
+                              "attributes": {
+                                "rloc": 30,
+                                "functions": 10,
+                                "mcc": 100
+                              }
+                            },
+                            {
+                              "name": "small_parent_6",
+                              "type": "Folder",
+                              "attributes": {},
+                              "children": [
+                                {
+                                  "name": "leaf 6",
+                                  "type": "File",
+                                  "attributes": {
+                                    "rloc": 30,
+                                    "functions": 10,
+                                    "mcc": 100
+                                  }
+                                },
+                                {
+                                  "name": "small_parent_7",
+                                  "type": "Folder",
+                                  "attributes": {},
+                                  "children": [
+                                    {
+                                      "name": "leaf 7",
+                                      "type": "File",
+                                      "attributes": {
+                                        "rloc": 30,
+                                        "functions": 10,
+                                        "mcc": 100
+                                      }
+                                    },
+                                    {
+                                      "name": "small_parent_8",
+                                      "type": "Folder",
+                                      "attributes": {},
+                                      "children": [
+                                        {
+                                          "name": "leaf 8",
+                                          "type": "File",
+                                          "attributes": {
+                                            "rloc": 30,
+                                            "functions": 10,
+                                            "mcc": 100
+                                          }
+                                        },
+                                        {
+                                          "name": "small_parent_9",
+                                          "type": "Folder",
+                                          "attributes": {},
+                                          "children": [
+                                            {
+                                              "name": "leaf 9",
+                                              "type": "File",
+                                              "attributes": {
+                                                "rloc": 30,
+                                                "functions": 10,
+                                                "mcc": 100
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "huge_parent",
+          "type": "Folder",
+          "attributes": {},
+          "children": [
+            {
+              "name": "leaf 6",
+              "type": "File",
+              "attributes": {
+                "rloc": 5000,
+                "functions": 100,
+                "mcc": 100
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
