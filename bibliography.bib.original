@@ -128,85 +128,82 @@
 }
 
 @article{2010-perception-treemaps,
-  title = {Perceptual Guidelines for Creating Rectangular Treemaps},
-  author = {Nicholas Kong AND Jeffrey Heer AND Maneesh Agrawala},
-  journal = {IEEE Trans. Visualization \& Comp. Graphics (Proc. InfoVis)},
-  year = {2010},
-  url = {http://vis.stanford.edu/papers/perception-treemaps}
+	title        = {Perceptual Guidelines for Creating Rectangular Treemaps},
+	author       = {Nicholas Kong AND Jeffrey Heer AND Maneesh Agrawala},
+	year         = 2010,
+	journal      = {IEEE Trans. Visualization \& Comp. Graphics (Proc. InfoVis)},
+	url          = {http://vis.stanford.edu/papers/perception-treemaps}
 }
 
 @article{baudel2012capturing,
-  title={Capturing the design space of sequential space-filling layouts},
-  author={Baudel, Thomas and Broeksema, Bertjan},
-  journal={IEEE Transactions on Visualization and Computer Graphics},
-  volume={18},
-  number={12},
-  pages={2593--2602},
-  year={2012},
-  publisher={IEEE}
+	title        = {Capturing the design space of sequential space-filling layouts},
+	author       = {Baudel, Thomas and Broeksema, Bertjan},
+	year         = 2012,
+	journal      = {IEEE Transactions on Visualization and Computer Graphics},
+	publisher    = {IEEE},
+	volume       = 18,
+	number       = 12,
+	pages        = {2593--2602}
 }
 
 @article{goldenRatio,
-doi = {10.1088/1742-6596/787/1/012007},
-url = {https://dx.doi.org/10.1088/1742-6596/787/1/012007},
-year = {2017},
-month = {jan},
-publisher = {IOP Publishing},
-volume = {787},
-number = {1},
-pages = {012007},
-author = {Lu, Liangfu and Fan, Shiliang and Huang, Maolin and Huang, Weidong and Yang, Ruolan},
-title = {Golden Rectangle Treemap},
-journal = {Journal of Physics: Conference Series},
-abstract = {Treemaps, a visualization method of representing hierarchical data sets, are becoming more and more popular for its efficient and compact displays. Several algorithms have been proposed to create more useful display by controlling the aspect ratios of the rectangles that make up a treemap. In this paper, we introduce a new treemap algorithm, generating layout in which the rectangles are easier to select and hierarchy information is easier to obtain. This algorithm generates rectangles which approximate golden rectangles. To prove the effectiveness of our algorithm, at the end of this paper several analyses on golden rectangle treemap have been done on disk file system.}
+	title        = {Golden Rectangle Treemap},
+	author       = {Lu, Liangfu and Fan, Shiliang and Huang, Maolin and Huang, Weidong and Yang, Ruolan},
+	year         = 2017,
+	month        = {jan},
+	journal      = {Journal of Physics: Conference Series},
+	publisher    = {IOP Publishing},
+	volume       = 787,
+	number       = 1,
+	pages        = {012007},
+	doi          = {10.1088/1742-6596/787/1/012007},
+	url          = {https://dx.doi.org/10.1088/1742-6596/787/1/012007},
+	abstract     = {Treemaps, a visualization method of representing hierarchical data sets, are becoming more and more popular for its efficient and compact displays. Several algorithms have been proposed to create more useful display by controlling the aspect ratios of the rectangles that make up a treemap. In this paper, we introduce a new treemap algorithm, generating layout in which the rectangles are easier to select and hierarchy information is easier to obtain. This algorithm generates rectangles which approximate golden rectangles. To prove the effectiveness of our algorithm, at the end of this paper several analyses on golden rectangle treemap have been done on disk file system.}
 }
 
-
 @inproceedings{scheibel2020survey,
-  title={Survey of treemap layout algorithms},
-  author={Scheibel, Willy and Limberger, Daniel and D{\"o}llner, J{\"u}rgen},
-  booktitle={Proceedings of the 13th international symposium on visual information communication and interaction},
-  pages={1--9},
-  year={2020}
+	title        = {Survey of treemap layout algorithms},
+	author       = {Scheibel, Willy and Limberger, Daniel and D{\"o}llner, J{\"u}rgen},
+	year         = 2020,
+	booktitle    = {Proceedings of the 13th international symposium on visual information communication and interaction},
+	pages        = {1--9}
 }
 
 @article{johnson1992improving,
-  title={Improving the visualization of hierarchies with treemaps: design issues and experimentation},
-  author={Johnson, Brian and Turo, David},
-  journal={Proc. IEEE Visualization 1992},
-  year={1992},
-  publisher={Citeseer}
+	title        = {Improving the visualization of hierarchies with treemaps: design issues and experimentation},
+	author       = {Johnson, Brian and Turo, David},
+	year         = 1992,
+	journal      = {Proc. IEEE Visualization 1992},
+	publisher    = {Citeseer}
 }
 
 @article{demian2006finding,
-  title={Finding and understanding reusable designs from large hierarchical repositories},
-  author={Demian, Peter and Fruchter, Renate},
-  journal={Information Visualization},
-  volume={5},
-  number={1},
-  pages={28--46},
-  year={2006},
-  publisher={SAGE Publications Sage UK: London, England}
+	title        = {Finding and understanding reusable designs from large hierarchical repositories},
+	author       = {Demian, Peter and Fruchter, Renate},
+	year         = 2006,
+	journal      = {Information Visualization},
+	publisher    = {SAGE Publications Sage UK: London, England},
+	volume       = 5,
+	number       = 1,
+	pages        = {28--46}
 }
 
-@INPROCEEDINGS{cushionTreemaps,
-  author={Van Wijk, J.J. and Van de Wetering, H.},
-  booktitle={Proceedings 1999 IEEE Symposium on Information Visualization (InfoVis'99)}, 
-  title={Cushion treemaps: visualization of hierarchical information}, 
-  year={1999},
-  volume={},
-  number={},
-  pages={73-78},
-  keywords={Visualization;Displays;Mathematics;Pervasive computing;File systems},
-  doi={10.1109/INFVIS.1999.801860}
+@inproceedings{cushionTreemaps,
+	title        = {Cushion treemaps: visualization of hierarchical information},
+	author       = {Van Wijk, J.J. and Van de Wetering, H.},
+	year         = 1999,
+	booktitle    = {Proceedings 1999 IEEE Symposium on Information Visualization (InfoVis'99)},
+	pages        = {73--78},
+	doi          = {10.1109/INFVIS.1999.801860},
+	keywords     = {Visualization;Displays;Mathematics;Pervasive computing;File systems}
 }
 
 @inproceedings{lu2008cascaded,
-  title={Cascaded treemaps: examining the visibility and stability of structure in treemaps},
-  author={L{\"u}, Hao and Fogarty, James},
-  booktitle={Proceedings of graphics interface 2008},
-  pages={259--266},
-  year={2008}
+	title        = {Cascaded treemaps: examining the visibility and stability of structure in treemaps},
+	author       = {L{\"u}, Hao and Fogarty, James},
+	year         = 2008,
+	booktitle    = {Proceedings of graphics interface 2008},
+	pages        = {259--266}
 }
 
 @misc{iso25010_2024,
@@ -217,17 +214,17 @@ abstract = {Treemaps, a visualization method of representing hierarchical data s
 
 ‌
 @book{johnson1993treemapsPhd,
-  title={Treemaps: Visualizing hierarchical and categorical data},
-  author={Johnson, Brian Scott},
-  year={1993},
-  publisher={University of Maryland, College Park}
+	title        = {Treemaps: Visualizing hierarchical and categorical data},
+	author       = {Johnson, Brian Scott},
+	year         = 1993,
+	publisher    = {University of Maryland, College Park}
 }
 
 @inproceedings{softwareForest,
-author = {Atzberger, Daniel and Cech, Tim and Haye, Merlin and Söchting, Maximilian and Scheibel, Willy and Limberger, Daniel and Döllner, Jürgen},
-year = {2021},
-month = {02},
-pages = {112-122},
-title = {Software Forest: A Visualization of Semantic Similarities in Source Code using a Tree Metaphor},
-doi = {10.5220/0010267601120122}
+	title        = {Software Forest: A Visualization of Semantic Similarities in Source Code using a Tree Metaphor},
+	author       = {Atzberger, Daniel and Cech, Tim and Haye, Merlin and S\"{o}chting, Maximilian and Scheibel, Willy and Limberger, Daniel and D\"{o}llner, J\"{u}rgen},
+	year         = 2021,
+	month        = {02},
+	pages        = {112--122},
+	doi          = {10.5220/0010267601120122}
 }
