@@ -64,18 +64,15 @@ Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmal
 Dieser Effekt kann einfach behoben werden, wie wir in Abschnitt \ref{sec:ScalingKnoten} sehen werden.
 
 \subsubsection{Relative Größenanpassung}
-
+Bei der berechnung zuvor wurde einfach der margin fläche eines Elternknotens berechnet, auf basis der alten Fläche, ohne die Flächenädnerung durch die Kinderknoten zu berücksichtigen. dadurch wird die resultierende Fläche der Elternknoten zu klein sein, da die Fläche der Kinderknoten nicht berücksichtigt wird.
+Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dafür muss die relative Flächenänderung durch die Kindknoten berechnet werden. und damit dann die Seitenlängen anpassen und dann die margins hinzufügen, um die neue Fläche zu erhalten.
 Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:ZweifachBerechnung}). 
 
 \begin{algorithm}[H]
-\caption{Größenanpassung}
+\caption{Relative Größenanpassung}
 \label{alg:ZweifachBerechnung}
 \begin{algorithmic}[1]
 \Function{increaseValues}{node: SquarifyNode, margin: number}
-    \If{node.value = 0}
-        \State \Return 0
-    \EndIf
-
     \State childrenValueIncrease $\gets$ 0
     \If{node.children}
         \For{child in node.children}
@@ -83,26 +80,33 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
         \EndFor
     \EndIf
 
-    \State oldValue $\gets$ node.value
-    \State ratioChildrenValueIncrease $\gets$ (oldValue + childrenValueIncrease) / oldValue
+    \State ratioChildrenValueIncrease $\gets$ (node.value + childrenValueIncrease) / node.value
 
-    \State newWidth $\gets$ sqrt(ratioChildrenValueIncrease) * currentWidth
-    \State newLength $\gets$ sqrt(ratioChildrenValueIncrease) * currentLength
+    \State valueIncrease $\gets$ 
+        Math.sqrt(ratioChildrenValueIncrease) * width * margin * 2 +
+        Math.sqrt(ratioChildrenValueIncrease) * length * margin * 2 +
+        margin * margin * 4 +
+        childrenValueIncrease
 
-    \State newWidth += margin * 2
-    \State newLength += margin * 2
-
-    \State node.value $\gets$ newWidth * newLength
-    \State \Return node.value - oldValue
+    \State node.value += valueIncrease
+    \State \Return valueIncrease
 \EndFunction
 \end{algorithmic}
 \end{algorithm}
 
 Problem:
-Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus \ref{alg:ZweifachBerechnung}). 
+Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus ZEILEN ANPASSEN  \ref{alg:ZweifachBerechnung}). 
+es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel platz als auch zu wenig Platz bekommen, jenachdem ob Sie im zweiten schritt quadratischer oder schmaler werden.  Siehe Abbildung \ref{fig:relativeIncreaseMarginOne} für ein Beispiel.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/increaseMarginOne.png}
+    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellen map (siehe Anhang).}
+    \label{fig:relativeIncreaseMarginOne}
+\end{figure}
 
 \subsection{Scaling der Knoten} \label{sec:ScalingKnoten}
-Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung HIER BEISPIEL ZEIGEN zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
+Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
 Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten werden dadurch natürlich nicht mehr proportional zu ihren Werten sein. Knoten 10 hat zum beispiel ein Verhältnis von ca. 0.5 zu seinem Wert, während Knoten 6 ein Verhältnis von ca. 1.4 zu seinem Wert hat.
@@ -114,7 +118,15 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
     \label{fig:simpleIncreaseMarginOneScale}
 \end{figure}
 
-Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlich dieser Effekt aus.
+Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlich dieser Effekt aus. Siehe im Vergleich dazu Abbildung \ref{fig:relativeIncreaseMarginOneScale}, da die relative Größenanpassung deutlich genauer ist, ist der Effekt hier auch deutlich geringer. Knoten 10 hat Größe 40 und Knoten 6 hat Größe 41, was fast ähnlich Groß ist.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/increaseMarginOneScale.png}
+    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
+    \label{fig:relativeIncreaseMarginOneScale}
+\end{figure}
+
 Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Diese jetzt hier sehr subjektive Einschätzung wird aber nochmal genauer beläuchtet in der evaluation und vergleich.
 
 \subsection{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
