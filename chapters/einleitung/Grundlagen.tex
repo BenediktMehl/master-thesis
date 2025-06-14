@@ -125,6 +125,8 @@ Der Abstand zwischen den Knoten wird nämlich dadurch erzeugt, dass die Rechteck
 
 Ein weiteres Problem bei diesem Algorithmus ist auch generell, dass unter umständen die Rechtecke sehr langgezogen werden können, was unter Umständen auch Kriterium 3 der Ästethik verletzt. Es gibt viele Ideen dieses Problem anzugehen. Eine Möglichkeit, den Squarify Algorithmus zu verwenden, wird im nöchsten Abschnitt vorgestellt.
 
+Zuletzt noch eine klarstellung im Bezug auf die erweiterung von 2D treemaps um eine Dimension. In der Literatur kommt es hier öfter zu unklarheit. Eigenlicht sind 3D treemaps so ähnlich wie 2D treemaps, nur dass sie anstatt ein rechteck zu unterteilen. Würfel bzw Quader unterteilen, wobei dann nicht die Fläche sondern das Volumen betrachtet wird. In dieser Arbeit geht es aber nicht darum, sondern um sogenannte 2.5D Treemaps, wobei das 2D Treemap layout nach oben extrudiert wird, um eine dritte Dimension zu erhalten. Wenn in dieser ARbeit also von 3D Darstellung die Rede ist, dann ist damit im Kontext von Treemaps eigentlich eine 2.5D Treemap gemeint.
+
 \subsubsection{Squarify-Algorithmus} \label{sec:Squarify}
 
 Der Squarify-Algorithmus ist ein Layout-Algorithmus für Treemaps, der darauf abzielt, die Fläche der Rechtecke so ausgewogen wie möglich zu gestalten. Beduetet, dass die Rechtecke möglichst quadratisch sind. Die ursprüngliche form des algorithmusses wurde im Jahr 2000 von Bruls et al. \cite{bruls2000squarified} vorgestellt. Sie stellten fest: \enquote{another problem of standard treemaps [is] the emergence of thin, elongated rectangles}\cite[1]{bruls2000squarified}. wenn rechtecke nicht mehr so langgezogen sind, Es ist einfacher auf Rechtecke zu zeigen, diese wahrzunehmen, sie zu vergleichen und ihre größe einzuschätzen. 
@@ -156,7 +158,7 @@ Analog dazu gilt das gleich auch für $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot 
 
 $w$ ist für den gesamten Zeitraum des füllens einer Reihe konstant und muss daher nur einmal berechnet werden. $sV$ wird mit jedem Rechteck aktualisiert. 
 
-Das Ziel ist es das Verhältnis der Seitenlängen gleich zu halten. Im ursprünglichen Paper von Bruls et al. \cite{bruls2000squarified} wird darauf noch nicht so eingegangen, aber viele implementierungen z.b. die von d3.js \cite{d3_treemap_code} ermöglichen es, das Verhältnis nicht nur an den Wert 1 anzunähern, sondern auch an andere Werte, zum Beispiel den goldenen Schnitt. 
+Das Ziel ist es das Verhältnis der Seitenlängen gleich zu halten. Im ursprünglichen Paper von Bruls et al. \cite{bruls2000squarified} wird darauf noch nicht so eingegangen, aber viele implementierungen z.b. die von d3.js \cite{d3_treemap_code} ermöglichen es, das Verhältnis nicht nur an den Wert 1 anzunähern, sondern auch an andere Werte, zum Beispiel den goldenen Schnitt \cite{goldenRatio}. 
 
 \begin{figure}[h]
     \centering
