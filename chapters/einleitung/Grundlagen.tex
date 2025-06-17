@@ -1,16 +1,53 @@
-\section{Grundlagen} \label{sec:Grundlagen}
+\section{Grundlagen}[ht] \label{sec:Grundlagen}
+In diesem Abschnitt werden für diese Arbeit Grundlegende Konzepte erläutert und Begriffe definiert. Zuerst geht es um Software-Qualitätsmetriken, die die Ausgangsdaten für alle Visualierungen in dieser Arbeit sind. Dann wird auf Software-Visualisierung und speziell auf 3D-Software-Visualisierung mittels Treemaps eingegangen.
 
 \subsection{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
-Die ISO/IEC 25010 Norm \cite{iso25010_2024} beschreibt wie Software-Attribute und -Qualitäten miteinander in Beziehung stehen. Diese Norm zerlegt die Software-Qualität in acht Qualitätsmerkmale, wie zum Beispiel funktionale Eignung. Dies ist der Blick von außen auf die Software, wir interessieren uns allerdings für den Blick auf die Software von innen, wenn wir also von Software-Qualität sprechen, dann sprechen wir von der Qualität des Codes und darüber wie man diese bewerten und verständlich machen kann. 
+Software-Qualitätsmetriken sind ein wichtiges Werkzeug zur Analyse der Qualität von Software. Sie ermöglichen es, verschiedene Aspekte der Software quantitativ zu bewerten. Software-Metriken werden oft sehr ähnlich definiert:
 
-Qualitätsmetriken sind Kennzahlen, die zur Bewertung der Qualität verwendet werden. Sie sind ein wichtiges Werkzeug zur Analyse und Verbesserung jeglicher Dinge. Im grunde sind metriken einfach nur messungen, die eine bestimmte Aussagekraft haben. OFt ist es nicht möglich eine Metrik zu identifizieren, die eine vollumfängliche aussage über etwas trifft. Oft ist es notwenig verschiedene metriken im zusammenspiel miteinander zu betrachten, um ein verständis für aspekte zu erhalten. 
+\enquote{Eine Softwaremetrik, oder kurz Metrik, ist eine (meist mathematische) Funktion, die eine Eigenschaft von Software in einen Zahlenwert, auch Maßzahl genannt, abbildet. Hierdurch werden formale Vergleichs- und Bewertungsmöglichkeiten geschaffen.}\cite{wikipedia_softwaremetrik}
 
-Dies gilt auch für Software-Qualitätsmetriken: \enquote{Eine Softwarequalitätsmetrik ist eine Funktion, die eine Software-Einheit in einen Zahlenwert abbildet, welcher als Erfüllungsgrad einer Qualitätseigenschaft der Software-Einheit interpretierbar ist.}\cite{def_qual_metric}
+\enquote{Softwaremetrik ist ein quantitatives Maß, das verwendet wird, um die Eigenschaften eines Softwareproduktes oder des Softwareentwicklungsprozesses zu bewerten.}\cite{softwaremetriken_2019}
+
+\enquote{Eine Softwarequalitätsmetrik ist eine Funktion, die eine Software-Einheit in einen Zahlenwert abbildet, welcher als Erfüllungsgrad einer Qualitätseigenschaft der Software-Einheit interpretierbar ist.}\cite{def_qual_metric}
+
+Alle definitionen ist zu entnehmen, dass Sie nur einen Speziellen Eigentschaft von Software messen. Das ist auch eine der wichtigsten Learnings hier und auch eine Kritik an Software-Qualitätsmetriken: Sie messen nur bestimmte Aspekte der Software und können keine vollumfängliche Aussage über die Qualität der Software treffen.
+
+\smallskip
+
+Den definitionen am anfang ist zu entnehmen, dass Software-Qualitätsmetriken also Kennzahlen sind, die zur Bewertung der Qualität von Software verwendet verwendet werden und ein wichtiges Werkzeug zur Analyse und Verbesserung sind, obwohl sie nur in der lage sind bestimmte Aspekte der Software zu messen.  
+
+\enquote{Eine Metrik alleine kann nie eine vollständige Aussage über die Qualität der Software treffen. Metriken sollten immer in Kombination bewertet werden. Die Güte und Reife von Software kann nur in Kombination mit statischer Code Analyse, Code Reviews und funktionalen Tests final beurteilt werden.}\cite{schmitz_2019}
 
 Es ist nicht möglich eine einzige Metrik zu finden, die eine vollumfängliche aussage über die Qualität einer Software trifft - was ist schon gute Software? Wann ist software gut? SEblst wenn man als Ziel von software definieren würde, dass sie fehlerfrei ist, wäre es nicht möglich eine einzige Metrik zu finden, die dies beschreibt. Wann ist eine software fehlerfrei? Ist sie fehlerfrei, wenn sie keine Bugs hat? Wenn sie keine Bugs hat, aber trotzdem nicht benutzbar ist, ist sie dann fehlerfrei?
+Also ist es nicht möglich eine Metrik zu identifizieren, die eine vollumfängliche aussage über ein programm trifft. es ist also notwenig verschiedene metriken im zusammenspiel miteinander zu betrachten, um die aussagekraft von metriken zu erhöhen. 
 
 Dieser Eigenschaft macht es notwendig verschiedene Metriken im zusammenspiel zu betrachten und sich einen übersblick über die Indizien zu verschaffen, die auf eine gute oder schlechte Qualität hinweisen.
 Die besonderheit bei Software-Qualitätsmetriken im vergleich zu anderen Metriken mag sein, dass die Daten hierarchisch strukturiert sind. Meist wird dies auf die orderner und datei-struktur abgebildet. So werden die Metriken in der Regel auf der Ebene der einzelnen Dateien ermittelt und dann auf die Ordner-Ebene aggregiert, wodurch eine hierarchische Baumstruktur entsteht. 
+
+\smallskip
+
+Probleme mit software metriken treten vorallem dann auf wenn initial gar nicht klar ist, welches Ziel eine Software hat \cite{hall1994implementing}. Metriken müssen immer so definiert und gemessen werden, dass sie die Qualität der Software in Bezug auf das definierte Ziel messen. WEnn zum Beispiel das Ziel der Software ist möglichst schnell zu sein, ist vielleicht das arbeiten mit einer Komplexitäts metrik sinnlos oder sogar kontraproduktiv, da dadurch die Software zwar einfacher aber nicht schneller macht. Zudem muss auch beachtet werden, dass das erfassen selbst und die Orientierung an Metriken Zeit einnimmt \cite{hall1994implementing}.
+
+Außerdem wird die Kritik ausgeübt, dass Metriken oft nicht wissenschaftlich fundiert sind und die Wahre Kosten-Nutzen -Bilanz von Metriken gar nicht klar ist, man sollte sich nicht zu sehr an Metriken orientieren und sein Entscheidungen darauf basieren, wenn nicht wirklich klar ist, wie viel es zu dem eigentlich Ziel der Software beiträgt \cite{voas_kuhn_2017}.
+
+Zudem muss klar sein, dass sobald Metriken definiert sind, die nicht exakt das Software Ziel verfolgen, es passieren kann, dass die Software-Entwickler versuchen diese Metriken zu optimieren, anstatt das eigentliche Ziel der Software zu verfolgen. Wodruch zwar die Metriken optimiert werden, aber die Software nicht besser.
+Es dürfen also keine unrealistischen erwartungen an software metriken gestellt werden. Es muss klar sein, dass Software-Qualitätsmetriken nur Indizien für die Qualität der Software liefern und niemals, Prozesse wie Code-Reviews oder Tests ersetzen können. 
+Außerdem muss klar sein, wie man Metriken interpretiert. Zum Beispiel kann eine Lines-Of-Code Metrik, obwohl sie immernoch weit verbreitet ist, keine Aussage über die geleistete Arbeit eines Entwicklers oder die Komplexität / Funktionalität eines Programms sein. Allein der Unterschied von Programmiersprache zu Programmiersprache macht dies undurchsichtig und Code-Qualität wird hier auch in keinster weise gemessen - stichwort duplizierter Code - das selbe gilt übrigens über die anzahl an commits \cite{worst_gitclear_2025}
+
+Einfache metriken können keine komplexen Qualitätsprobleme aufdecken \cite{voas_kuhn_2017}. 
+
+Oft sind metriken auch stark von der Sprache oder dem individuellen Programmierstil abhängig \cite{voas_kuhn_2017}. 
+
+\smallskip
+
+Die ISO/IEC 25010 Norm \cite{iso25010_2024} beschreibt wie Software-Attribute und -Qualitäten miteinander in Beziehung stehen. Diese Norm zerlegt die Software-Qualität in acht Qualitätsmerkmale, wie zum Beispiel funktionale Eignung. Dies ist der Blick von außen auf die Software. Zum Beispiel wie oft stürzt die Software ab, wie gut ist die Benutzeroberfläche, wie gut ist die Performance und so weiter. Diese Merkmale sind wichtig, um die Software aus der Sicht des Benutzers zu bewerten.
+
+\enquote{Qualität wird als Abwesenheit von Fehlern im Systemverhalten verstanden, die Software verhält sich demnach so, wie der Benutzer es erwartet}\cite[1]{Witte2018}
+
+Aber was sind die Gründe für diese Fehler? Gibt es eventuell eine Möglichkeit SoftwareQualität auch von innen her zu messen? In den Siebziger jahren entstand die Notwendigkeit Programm-Code selbst zu bewerten und dadurch die Qualität von software zu messen \cite{ludewig}. Es entstanden erste Metriken wie die McCabe Komplexität.
+Diese Innere Qualtät- oder im folgenden einfach Code Qualität genannt interessiert besonders entwickler und auftrageber und stakeholder von Software, damit die Software langfristig wartbar, fehlerfrei und erweiterbar bleibt. In dieser ARbeit wird ausschließlich von Code-Qualitätsmetriken gesprochen, wenn es um Software-Metriken geht.
+
+\smallskip
 
 Software-Qualitätsmetriken werden meist auf Software-Einheiten angewendet. Also z.B. auf Dateien des Quellcodes, auf Module oder auf Klassen. Diese Software-Einheiten sind in der Regel hierarchisch strukturiert. Auch die im folgenden vorgesllten ansätze zur Visualisierung von hierarchischen Daten sind nicht speziell für Software-Qualitätsmetriken gedacht, sondern stellen allgemeine Ansätze dar. Ich behaupte, dass die Sturktur von Software gemeinsamkeiten hat, zB. ein ordner hat nicht mehr als 20 Kinder, was interessante annahmen darstellt, die eventuell in die visualierungs algorithmen verbessernd einfließen können.  
 
