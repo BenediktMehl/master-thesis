@@ -62,19 +62,21 @@ Software-Qualitätsmetriken beziehen sich in der Regel auf spezifische Softwaree
 
 Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrik-Daten sind nicht zwingend spezifisch für Softwaremetriken, sondern lassen sich auch auf andere Anwendungsfälle übertragen. Dennoch weist die Struktur von Software-Einheiten und deren Metrik-Daten gewisse Eigenheiten auf, was Einfluss auf die Gestaltung der Visualisierungen haben kann (siehe Abschnitt \ref{INPUT DATEN ANALYSE}).
 
-\subsection{Software-Visualisierung} \label{sec:SoftwareVisualisierung} 
+\subsection{Software-Visualisierung} 
+\label{sec:SoftwareVisualisierung} 
 
+Die Darstellung von Softwarestrukturen zählt zu den entscheidenden Schritten, um komplexe Softwaresysteme für Menschen verständlich zu machen. Während numerische Metriken oder tabellarische Darstellungen für Fachleute in der Softwareentwicklung oft ausreichend sind, können diese Darstellungsformen für Personen ohne technischen Hintergrund abstrakt und schwer zugänglich bleiben. Es besteht daher das Ziel, Softwarequalität auch für nicht-technische Stakeholder intuitiv und erlebbar zu machen.
 
+HIER NOCH QUELLEN UND BISSCHEN WAS ZU DER HISTORIE UND WARUM WIESO PIPAPO
 
-\subsection{3D-Software Visualisierung} \label{sec:3DSoftwareVisualisierung}   
-Warum 3D? Ist es nicht ausreichend software-qualität einfach als zahlenwerte darzustellen oder zumindest in 2D darzustellen?
-wie in Abschnitt \ref{sec:Ziel} aufgezeigt, wollen wir software qualität auch für nicht-software-entwickler greifbar machen, einfache werte sind dafür nicht ausreichend.
+\subsection{3D-Software-Visualisierung} \label{sec:3DSoftwareVisualisierung}
+
+Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. Diese Formen liefern zwar einen guten Überblick, vermitteln jedoch wenig \textit{Greifbarkeit} des Softwaresystems. 3D-Visualisierungen bieten dagegen das Potenzial, immersive und erfahrbare Eindrücke zu schaffen, sodass Nutzer \textit{in die Software eintauchen} können:
 \begin{quote}
-Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from "outside". 3D visualizations on the other hand provide the potential to create such an immersive experience... \cite[1]{codeCity1}
+Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from 'outside'. 3D visualizations on the other hand provide the potential to create such an immersive experience \cite[1]{codeCity1}
 \end{quote}
-2D visualisierung bietet zwar bestimmt einen guten überblick, aber macht die software nicht wirklich greifbar. 
 
-Die Idee Software in 3D darzustellen ist nicht neu. Schon 1995 stellte Steven P. Reiss einen Ansatz vor, der es ermöglichte Software in 3D darzustellen \cite{first_3D_vis}. Die meisten dieser ersten Ansätze verfolgten das Ziel Software für Entwickler greifbar zu machen, die Struktur aufzuzeigen und einen Highlevel überblick über eine Software zu geben, was speziell Hilfreich ist, wenn Entwickler ein System neu kennenlernen müssen \cite{visSoftwareVR}.  Diese Ansätze sind in der Regel nicht für die Visualisierung von Software-Qualitätsmetriken gedacht, sondern zielen darauf ab, die Struktur und den Aufbau der Software zu verdeutlichen (siehe Abbildung \ref{fig:3DVis}).  
+Die Idee, Softwarestrukturen dreidimensional darzustellen, ist nicht neu. Bereits 1995 stellte Steven P. Reiss einen ersten Ansatz zur 3D-Visualisierung von Software vor \cite{first_3D_vis}. Ursprünglich zielten diese Ansätze darauf ab, Entwicklern einen schnellen Überblick über Struktur und Aufbau umfangreicher Systeme, insbesondere beim Einarbeiten in unbekannte Software, zu verschaffen \cite{visSoftwareVR}. Die frühen Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger jedoch die Visualisierung von Softwarequalitätsmetriken (siehe Abbildung \ref{fig:3DVis}).
 
 \begin{figure}[h]
     \centering
@@ -83,33 +85,39 @@ Die Idee Software in 3D darzustellen ist nicht neu. Schon 1995 stellte Steven P.
     \label{fig:3DVis}
 \end{figure}
 
-Trotzdem können wir auch für unser Ziel der Software-Qualitätsmetrik-Visualisierung Kriterien ableiten, die für eine gute Visualisierung wichtig sind \cite{visSoftwareVR}:
+Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Literatur Kriterien für eine gelungene 3D-Darstellung ableiten \cite{visSoftwareVR}:
 \begin{itemize}
-    \item \textbf{Darstellung}: Der wichtigste Aspekt ist die Darstellung der Software. Die Visualisierung sollte die Struktur und den Aufbau der Software verdeutlichen. Die Frage ist also, wie wird die Software dargestellt? 
+    \item \textbf{Darstellung der Struktur:} Die Visualisierung soll Architektur und Aufbau der Software möglichst anschaulich und nachvollziehbar zeigen. Wichtige Aspekte dabei sind:
     \begin{itemize}
-        \item Informationsgehalt: Die Visualisierung sollte so viele Informationen wie möglich enthalten.
-        \item Niedrige visuelle Komplexität: Als Gegenspieler zum Informationsgehalt steht die visuelle Komplexität. Die Visualisierung sollte so einfach wie möglich gehalten werden, um den Betrachter nicht zu überfordern.
-        \item Skalierbarkeit: Die Visualisierung sollte auch bei großen Software-Systemen noch gut lesbar sein. Dies ist besonders wichtig, da wir hier über große Software-Systeme sprechen. Die Autoren von \textit{Visualising Software in virtual reality} \cite{visSoftwareVR} sagen zudem, dass mechanismen Nötig sind, um Komplexität und Informationsgehalt zu steuern und je nach Software-System anpassen zu können.
-        \item Stabilität gegenüber Änderungen: Die Visualisierung sollte stabil gegenüber Änderungen in der Software sein. Das bedeutet, dass die Visualisierung sich nur so sehr wie nötig ändert, wenn sich die Software ändert, um eine Versions konsistente Vergleichbarkeit zu ermöglichen und bereits mit der Visualierung vertraute Nutzer nicht zu überfordern.
-        \item Gute Visuelle Metaphern: Die Visualisierung sollte gute visuelle Metaphern verwenden, um bereits bekannte Konzepte zu verwenden, um die Software verständlicher zu machen.
+        \item \emph{Informationsgehalt:} Die Darstellung soll möglichst viele relevante Informationen kompakt vermitteln.
+        \item \emph{Visuelle Komplexität:} Trotz hoher Informationsdichte soll die Visualisierung übersichtlich und nicht überfordernd wirken. Dies ist als Gegenspieler zum Informationsgehalt zu verstehen.
+        \item \emph{Skalierbarkeit:} Auch große Softwaresysteme müssen klar und verständlich dargestellt werden können. Die Autoren von \textit{Visualising Software in virtual reality} \cite{visSoftwareVR} sagen sogar, dass Mechanismen notwendig wären, um Komplexität und Informationsgehalt bei zunehmender Größe manuelll zu steuern und je nach Software-System anpassen zu können.
+        \item \emph{Stabilität gegenüber Änderungen:} Die Visualisierung soll bei Software-Änderungen konsistent bleiben, um Vergleichbarkeit über Versionen hinweg zu gewährleisten.
+        \item \emph{Visuelle Metaphern:} Der Einsatz eingängiger Metaphern erleichtert das Verständnis komplexer Softwarestrukturen.
     \end{itemize}
-    \item \textbf{Abstraktion}: Das Ziel von Visualierung muss sein, unwichtige Details auszublenden und ein verständliches Modell der Software zu erstellen.
-    \item \textbf{Navigation}: Da wir häufig über große Software-Systeme sprechen, kann es schnall passeiren dass Nutzer in der Visualisierung verloren gehen. Es muss also möglich sein, sich gut zurecht zu finden und intuitiv zu wissen, wo was ist, um so ein grfühl für die software zu erhalten.
-    \item \textbf{Korrelation mit dem Code}: Die Visualisierung sollte eine gute Korrelation mit dem Code haben. Wenn man die Visualierung sieht, soll man diese auch mit dem Code in Verbindung bringen können. Es sollte also möglich sein, die Visualisierung mit dem Code zu verknüpfen und so ein besseres Verständnis für die Software zu bekommen.
-    \item \textbf{Automatisierung}: Die Visualisierung sollte automatisiert werden können - ein Punkt der trivialier weise gegeben ist, da wir hier über algorithmen sprechen, die keine manuelle eingabe benötigen.
+    \item \textbf{Abstraktion:} Unwesentliche Details sollten ausgeblendet werden, um ein verständliches, abstrahiertes Modell zu erzeugen.
+    \item \textbf{Navigation:} Die Orientierung innerhalb der Visualisierung muss auch bei sehr großen Systemen einfach und intuitiv möglich sein.
+    \item \textbf{Korrelation mit dem Code:} Es sollte eine klare Zuordnung zwischen Visualisierungselementen und Quellcodebestandteilen existieren.
+    \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte vollständig automatisierbar sein, sodass keine manuelle Nachbearbeitung notwendig ist.
 \end{itemize}
 
-\subsubsection{CodeCity} \label{sec:CodeCity}
-Der Cornerstone von 3D Software-Qualitätsvisualisierung ist das Konzept von CodeCity \cite{codeCity1}. Das Paper von Richard Wettel und Michele Lanza verbindet einige Aspekte, die zu diesem Zeitpunkt neu waren. Sie reden zwar nicht konkret von software-qualitäts-visualierung, nutzen aber trotzdem qualitätsmetriken auf Klassenebene, um die richtige Granulariät von Software visualierung zu finden. Herkommliche paper waren oft noch auf niedrigeren ebenen z.b. Marcus Adrian et al. auf Ausdrucks-Ebene \cite{3dsoftwareMarcus}. Zudem nutzen sie, wie von Young und Munro \cite{visSoftwareVR} gefordert, eine gute visuelle Metapher, um die Software darzustellen. Sie nutzen das Konzept einer Stadt, um die Software darzustellen. Dabei wird jede Klasse als Gebäude dargestellt, dabei hat jedes Artefakt (Klassen, Pakete und Ordner) verschiedene Attribute: Die Dimension, die Position, die Farbe, die Farbsättigung und die Transparenz. Ein Beispiel für eine solche Visualisierung ist in Abbildung \ref{fig:codeCity} dargestellt.
+\subsubsection{CodeCity: Grundstein für 3D-Visualisierung}
+\label{sec:CodeCity}
+
+Eine prägende Arbeit für die 3D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 3D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
 
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/codeCityExample.png}
-    \caption{Beispiel für eine original CodeCity-Visualisierung \cite[2]{codeCity1}}
+    \caption{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
     \label{fig:codeCity}
 \end{figure}
 
-Das Layout der Stadt wird lässt sich dabei herunterbrechen auf ein 2D-Layout Problem. Um dieses problem zu lösen, implementieren sie eine abwandlung von Treemap-Algoithmen (Was treemaps sind wird in abschnit \ref{sec:Treemap} erklärt). Auffällig bei Ihrer implementierung ist, dass es viele ungenutzte leere flächen ohne gebäude gibt und gebäude anhand ihrer Größe sortiert plaziert werden (groß weiter unten links, klein weiter oben rechts). Leider ist der algotihmus nicht frei zugänglich, sodass in dieser Arbeit zum vergleich eine eigene Implementierung des Algorithmus verwendet wird, wodurch natürlich auch die Ergebnisse, von der original implementierung abweichen werden (außer wenn anders gekennzeichnet).
+Während frühere Arbeiten, wie die von Marcus et al. \cite{3dsoftwareMarcus}, auf sehr feingranulare Codebestandteile, wie Attribute und Methoden, fokussierten, bietet CodeCity eine abstrahierende Sicht auf Klassen, Pakete und deren Struktur und ist dadurch vorallem für nicht-technische Stakeholder verständlicher und leichter zu überblicken.
+
+Der Grundriss (folgend auch Layout) der Städte beruht auf einer Variante der Treemap-Algorithmen (erklärt im folgenden Abschnitt \ref{sec:Treemap}). Es ist zu erkennen, dass größere Gebäude im unteren linken Bereich, kleinere weiter oben rechts angeordnet sind. Gebäude (Module) und Viertel (Pakete) sind immer quadratisch, dadurch bleibt viel ungenutze \textit{leere} Fläche. 
+
+Das Originalverfahren des CodeCity-Algorithmus ist nicht öffentlich verfügbar. In dieser Arbeit wird daher für vergleichende Analysen eine eigene Implementierung verwendet, so dass Abweichungen zur Originalvisualisierung möglich sind (außer wenn anders gekennzeichnet).
 
 \subsection{Treemap-Layouts} \label{sec:Treemap}
 
