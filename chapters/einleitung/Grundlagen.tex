@@ -121,16 +121,20 @@ Das Originalverfahren des CodeCity-Algorithmus ist nicht öffentlich verfügbar.
 
 \subsection{Treemap-Layouts} \label{sec:Treemap}
 
-Eine Treemap visualisiert einen Baum, indem jedem Knoten ein Rechteck mit der Fläche A zugewiesen wird, proportional zu seinem zugewiesenen Wert (z.B. Datenmenge oder Marktwert). Nicht-Blatt-Knoten werden dabei üblicherweise durch Rahmen (Container-Rectangles) gekennzeichnet, um die Gruppierung der Kinder zu zeigen. \cite{bruls2000squarified} Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus. Mathematisch entspricht die Eingabedatenstruktur einem gewichteten Baum, bei dem jede Blatteinheit eine numerische Größe hat. Die Fläche eines Eltern-Rechtecks entspricht der Summe der Flächen (Werte) seiner Kinder.
+Hierarchische Daten werden häufig als Bäume dargestellt, jedoch zeigen sich klassische Darstellungen wie Baumdiagramme oder Venn-Diagramme insbesondere bei großen Datenmengen als ineffizient hinsichtlich der Flächennutzung und generell unübersichtlich \cite{johnson1991tree}. Besonders für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an ihre Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können.
 
-Die konkrete Idee hierarchische DAten in form von Treemaps darzustellen wurde erstmals 1991 von Shneiderman und Johnson \cite{johnson1991tree} vorgestellt. Sie stellten fest, dass die Darstellung von hierarchischen Daten in Form von Bäumen in der Regel nicht sehr anschaulich ist. Sie entwickelten eine Methode, um diese Daten in Form von Rechtecken darzustellen, die die Fläche der Knoten proportional zu ihrem Wert darstellen. Diese Methode wurde als \enquote{Treemap} bezeichnet. Als Ziele dieser Visualierung formulierten sie unter anderem diese Aspekte:
+Um diese Herausforderungen zu adressieren, entwickelten Shneiderman und Johnson 1991 das Konzept der \textit{Treemap} zur effizienten Darstellung hierarchischer Strukturen \cite{johnson1991tree}.
+Das zentrale Prinzip von Treemaps besteht darin, jedem Knoten eines gewichteten Baums ein Rechteck zuzuweisen, dessen Fläche proportional zu dem Gewicht (beispielsweise Datenmenge, Marktwert, o. ä.) ist.
+Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus, sodass die Gesamtfläche der Kindknoten exakt der Fläche ihres Elternrechtecks entspricht. Mathematisch liegt der Visualisierung also ein gewichteter Baum zugrunde, wobei insbesondere die Blattknoten jeweils einen numerischen Wert besitzen.
+
+Shneiderman und Johnson identifizieren für gelungene Treemaps folgende Schlüsselziele:
 \begin{itemize}
-    \item \textbf{Effiziente Nutzung des Platzes:} Generell soll es darum gehen möglichst viele Informationen auf einem kleinen Raum darzustellen.
-    \item \textbf{Verständlichkeit:} Die Visualisierung soll so gestaltet sein, dass sie für den Betrachter leicht verständlich ist. Es soll möglich sein schnell und mit nur niedrigem kognitiven Aufwand die dargesllten Informationen zu erfassen.
-    \item \textbf{Ästethik:} Die Visualisierung soll ansprechend gestaltet sein.
+    \item \textbf{Effiziente Platznutzung:} Maximale Informationsdichte auf minimalem Raum.
+    \item \textbf{Verständlichkeit:} Einfache Erfassbarkeit der dargestellten Hierarchie und Werte mit geringem kognitiven Aufwand. Die Struktur soll möglichst schnell erkennbar sein.
+    \item \textbf{Ästhetik:} Ansprechende und übersichtliche Anordnung der Rechtecke.
 \end{itemize}
 
-Zuvor bestehende Ansätze zur Visualisierung von hierarchischen Daten waren in der Regel nicht sehr anschaulich, besonders, wenn es um große Datenmengen ging. Listen, Baumdiagramme (siehe Abbildung \ref{fig:baumdiagramm}) oder andere Darstellungen (auch bekannt als Node oder Link-Diagramme) sind nicht in der lage alle diese Aspekte zu erfüllen. Bei Einem typischen Baumdiagram zum Beispiel werden teilweise mehr als die Hälfte der Fläche für Hintergrund genutzt \cite[3]{johnson1991tree} außerdem ist es schwer, außer der Struktur der Daten auch die Metriken darzustellen. Sie kritisieren auch die Darstellung von hierarchischen Daten in Form von Venn-Diagrammen (siehe Abbildung \ref{fig:venndiagram}): \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}\cite[5]{johnson1991tree} Es ist zwar möglich durch die Größe der Kreise eine Metrik darzustellen, es sei aber nicht möglich eine große Anzahl an Knoten sinnvoll darzustellen. 
+Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung \ref{fig:baumdiagramm}) oder Venn-Diagramme (Abbildung \ref{fig:venndiagram}) konnten diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. So kann zum Beispiel in klassischen Baumdiagrammen bei großen Datenmengen mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum bestehen \cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}\cite[5]{johnson1991tree}
 
 \begin{figure}[ht]
     \centering
@@ -146,26 +150,15 @@ Zuvor bestehende Ansätze zur Visualisierung von hierarchischen Daten waren in d
     \label{fig:venndiagram}
 \end{figure}
 
-\enquote{Using boxes instead of ovals and a bin-packing algorithm could partially solve this space
-problem. But bin-packing is an NP-complete problem and does not preserve order.}\cite[5]{johnson1991tree} Sie stellen fest, dass es theoretisch eine dem Venn Diagramm ähnliche Lösung gibt, die allerdings NP-Hard ist. 
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/rectVennDiagram.png}
-    \caption{Beispiel für ein Boxed Venn-Diagramm}
-    \label{fig:rectVennDiagramm}
-\end{figure}
-
-Shneiderman und Johnson schlagen zur Lösung dieser Schwierigkeiten ihren Treemap ansatz vor. Sie legen vier Eigenschaften fest, die bei der Erstellung der Treemaps gewährleistet werden:
-
+Um die genannten Schwierigkeiten zu lösen, formulieren Shneiderman und Johnson vier grundlegende Eigenschaften für Treemap-Layouts:
 \begin{itemize}
-    \item Wenn ein Knoten 1 ein Vorfahre von Knoten 2 ist, dann ist der Bereich von Knoten 1 vollständig enthalten in dem Bereich von Knoten 2.
-    \item Die Bereiche von zwei Knoten schneiden sich, wenn ein Knoten ein Vorfahre des anderen ist.
-    \item Knoten belegen eine Fläche, die streng proportional zu ihrem Gewicht ist.
-    \item Das Gewicht eines Knotens ist größer oder gleich der Summe der Gewichte seiner Kinder.
+    \item Ist Knoten 1 ein Vorfahre von Knoten 2, so ist der Bereich von Knoten 2 vollständig innerhalb des Bereichs von Knoten 1 enthalten.
+    \item Die Bereiche von Knoten schneiden sich, wenn einer ein Vorfahre des anderen ist.
+    \item Jeder Knoten erhält eine Fläche, die streng proportional zu seinem Gewicht ist.
+    \item Das Gewicht eines Knotens ist (mindestens) so groß wie die Summe der Gewichte seiner Kinder.
 \end{itemize}
 
-Sie stellen auch einen Algorithmus vor, der diese Eigenschaften erfüllen soll. Ein von diesem Algorithmus erzeugtes Layout ist in Abbildung \ref{fig:nestedTreemap} dargestellt. 
+Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung erfolgt von der Wurzel bis zu den Blättern und ist mit einer Laufzeit von $O(n)$ effizient. Ein Beispiel für eine Treemap, die mit diesem Algorithmus erstellt wurde, ist in Abbildung \ref{fig:nestedTreemap} zu sehen.
 
 \begin{figure}[ht]
     \centering
@@ -174,31 +167,43 @@ Sie stellen auch einen Algorithmus vor, der diese Eigenschaften erfüllen soll. 
     \label{fig:nestedTreemap}
 \end{figure}
 
-Der Algorithmus unterteilt den Raum abwechselnd vertikal und horizontal, je nach größe der Knoten. Der Algorithmus arbeitet sich rekursiv von der Wurzel bis zu den Blättern herunter und hat eine Laufzeit von O(n), wobei n die Anzahl der Knoten ist. Im nächsten Abschnitt wird ein ähnlicher Algorithmus im Detail beschrieben, was zum besseren verständis dieser Art von Algorithmen helfen wird.
+Trotz der weiten Verbreitung des Ansatzes weisen Shneiderman und Johnson auf ein zentrales Problem nicht explizit hin: Der notwendige Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche oftmals nicht mehr proportional zu den zugehörigen Werten. Insbesondere sehr kleine oder langgestreckte Rechtecken können im Extremfall sogar komplett verschwinden. Dies verletzt die dritte Eigenschaft (strikte Proportionalität). In praktischen Anwendungsfällen, zum Beispiel wenn die Rechtecksfläche eine Kennzahl wie \enquote{Lines of Code} darstellen soll, können kleine Dateien oder Knoten durch die Ränder also komplett verloren gehen. Problematisch ist dies insbesondere, wenn eine weitere Dimension (wie beispielsweise die Testabdeckung) diese Elemente eigentlich hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
 
-Obwohl es sich hier um ein renomiertes und viel Zitiertes Paper handelt, machen die Authoren einen entscheidenden Fehler, der in manchen Fällen sogar dazu führen kann, dass Rechtecke komplett verschwinden. Die Authoren betrachten dieses Problem in ihrem Paper leider nicht. 
-Der Abstand zwischen den Knoten wird nämlich dadurch erzeugt, dass die Rechtecke diesen Abstand links, recht, oben und unten abgezogen bekommen. Dadurch ist die dargestellte Fläche der Rechtecke nicht mehr proportional zu den Werten, die sie darstellen sollen. Eigenschaft 3 wird also verletzt. Dies ist besonders problematisch, wenn die Rechtecke sehr klein bzw. sehr langgezogen sind. In diesem Fall kann es dazu kommen, dass die Rechtecke so klein werden, dass sie nicht mehr dargestellt werden können. Dies stellt in der Praxis ein riesiges Problem dar, speziell wenn das Problem dieser Arbeit also 3D im kopf bahalten wird. Es kann ja theoretisch vorkommen, dass als Flächenmetrik die lines of code verwendet wird und dort ein file, weil er wenige lines hat sehr klein wird und deswegen aufgrund der margins nicht angezeigt wird. Wenn jetzt aber die metrik für die Höhen berechnung die prozentualle test abdeckung der lines ist und der file nicht getestet ist, dann würde ein potentiell großes problem, was auch eigentlich direkt in auge springen sollte, nicht angezeigt werden. 
+Ein weiteres ästhetisches Manko liegt darin, dass die rekursive Unterteilung längliche oder stark verzerrte Rechtecksformen erzeugen kann. Dies widerspricht ebenfalls dem Anspruch übersichtlicher und ansprechender Visualisierung. Verschiedene Verbesserungsansätze wie etwa \textit{Squarified Treemaps} begegnen diesem Problem und werden im Folgenden diskutiert (siehe Abschnitt \ref{sec:Squarify}).
 
-Ein weiteres Problem bei diesem Algorithmus ist auch generell, dass unter umständen die Rechtecke sehr langgezogen werden können, was unter Umständen auch Kriterium 3 der Ästethik verletzt. Es gibt viele Ideen dieses Problem anzugehen. Eine Möglichkeit, den Squarify Algorithmus zu verwenden, wird im nöchsten Abschnitt vorgestellt.
+\smallskip
 
-Zuletzt noch eine klarstellung im Bezug auf die erweiterung von 2D treemaps um eine Dimension. In der Literatur kommt es hier öfter zu unklarheit. Eigenlicht sind 3D treemaps so ähnlich wie 2D treemaps, nur dass sie anstatt ein rechteck zu unterteilen. Würfel bzw Quader unterteilen, wobei dann nicht die Fläche sondern das Volumen betrachtet wird. In dieser Arbeit geht es aber nicht darum, sondern um sogenannte 2.5D Treemaps, wobei das 2D Treemap layout nach oben extrudiert wird, um eine dritte Dimension zu erhalten. Wenn in dieser ARbeit also von 3D Darstellung die Rede ist, dann ist damit im Kontext von Treemaps eigentlich eine 2.5D Treemap gemeint.
+In der Literatur besteht häufig Unklarheit über die Definition von 3D-Treemaps. Streng genommen bedeutet 3D-Treemap die rekursive Unterteilung eines Würfels (oder Quaders) in kleinere Volumina, wobei zum Wertvergleich das Volumen und nicht mehr die Fläche herangezogen wird. Gegenstand der vorliegenden Arbeit sind jedoch sogenannte \textit{2.5D-Treemaps}, bei denen ein klassisches 2D-Treemap-Layout um eine zusätzliche dritte Dimension (zum Beispiel durch Extrusion nach oben) erweitert wird. Im Kontext dieser Arbeit ist mit einer \enquote{3D-Darstellung} stets dieses 2.5D-Modell gemeint.
+
 
 \subsubsection{Squarify-Algorithmus} \label{sec:Squarify}
 
-Der Squarify-Algorithmus ist ein Layout-Algorithmus für Treemaps, der darauf abzielt, die Fläche der Rechtecke so ausgewogen wie möglich zu gestalten. Beduetet, dass die Rechtecke möglichst quadratisch sind. Die ursprüngliche form des algorithmusses wurde im Jahr 2000 von Bruls et al. \cite{bruls2000squarified} vorgestellt. Sie stellten fest: \enquote{another problem of standard treemaps [is] the emergence of thin, elongated rectangles}\cite[1]{bruls2000squarified}. wenn rechtecke nicht mehr so langgezogen sind, Es ist einfacher auf Rechtecke zu zeigen, diese wahrzunehmen, sie zu vergleichen und ihre größe einzuschätzen. 
+Der Squarify-Algorithmus ist ein Verfahren zur Anordnung von Rechtecken in Treemaps, bei dem die Seitenverhältnisse der Rechtecke möglichst ausgeglichen gestaltet werden sollen. Ziel ist es, annähernd quadratische Rechtecke zu erzeugen, um die Nachteile herkömmlicher Treemap-Layouts zu überwinden, bei denen oft sehr schmale und langgezogene Rechtecke entstehen. Bruls et al. betonen dazu: 
+\enquote{another problem of standard treemaps [is] the emergence of thin, elongated rectangles}\cite[1]{bruls2000squarified}. Rechtecke mit möglichst ähnlichen Seitenlängen sind einerseits leichter wahrzunehmen, zu vergleichen sowie in ihrer Größe intuitiv abschätzbar.
 
-Der Algorithmus arbeitet rekursiv und teilt die Fläche in Rechtecke auf, wobei er versucht, die Seitenverhältnisse der Rechtecke so nah wie möglich an 1 zu halten. Sie stellen einen rekursiven Ansatz vor, bei dem, wie auch bei den meisten anderen Treemap-Algorithmen, die Rechtecke von oben nach unten (also vom Wurzelknoten bis zu den Blattknoten) aufgeteilt werden.
+Der Squarify-Algorithmus arbeitet rekursiv, indem er die zu verteilende Fläche schrittweise in Rechtecke aufteilt. Dabei wird stets angestrebt, das Verhältnis von Breite zu Länge der Rechtecke so nah wie möglich an einen Zielwert (idealerweise $1$) zu bringen. Wie viele andere Treemap-Algorithmen erfolgt die Aufteilung vom Wurzelknoten her, indem die Fläche sukzessive in kleinere Teilflächen untergliedert wird, bis auf Blattknotenebene.
 
-Im Folgenden wird der Algorithmus beschrieben, da er eine wichtige Grundlage für das Verständnis des Problems darstellt und außerdem eine gute Grundlage zum Verständnis der anderen Algorithmen bietet, da viele Algorithmen ähnliche Ideen verwenden.
+Im Folgenden wird der Algorithmus anhand eines Beispiels aus dem Originalartikel von Bruls et al. \cite[5]{bruls2000squarified} erläutert, wobei die Erklärung näher an einer praktischen Implementierung aus der d3-Bibliothek \cite{d3_treemap_code} ausgerichtet ist.
 
-Der Algorithmus wird anhand eines Beispiels aus dem originalen Squarify-Paper \cite[5]{bruls2000squarified} erläutert. Wir werden den Algorithmus jedoch anders erklären als im Paper, da wir uns näher an der Implementierung orientieren, wie sie in der bekannten d3-Bibliothek \cite{d3_treemap_code} umgesetzt ist.
-Es sollen Rechtecke mit den Größen 6, 6, 4, 3, 2, 2, 1 in ein 6 mal 4 Rechteck einsortiert werden.
+Der Algorithmus füllt die zur Verfügung stehende Fläche stets in Reihen auf, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt dabei iterativ: Das erste Rechteck wird eingefügt, dann das aktuelle Seitenverhältnis des Rechtecks berechnet. Dann wird das nächste Rechteck eingefügt. Wenn durch das Einfügen das Seitenverhältnis eines Rechtecks der Reihe schlechter wird, wird eine neue Reihe eröffnet.
 
-Der algorithmus arbeitet immer in Reihen, die er versucht zu füllen und dabei die Rechtecke möglichst quadratisch zu halten. Das erste Rechteck ist breiter als lang. (In dieser Arbeit werden wir, anders als in den herkömmlichen papern zu layout algorithmen, das Wort breit als x koordinate und das wort lang als y koordinate nutzen - das hat den hintergrund, dass das wort hoch im drei dimensionalen meist für die z komponent genutzt wird und es sonst zu verwirrungen kommen könnte)
-Da das Rechteck in das wir einfügen breiter als lang ist, werden wir eine imaginäre horizontale Reihe so lange mit Rechtecken befüllen, bis ein Threshold erreicht ist. Das erste Rechteck mit größe 6 fügen wir also in Schritt 1 in diese Reihe ein. Das Seitenverhältnis dieses Rechtecks beträgt 8 zu 3 (das Rechteck ist 1.5 Einheiten breit und 4 Einheiten lang). Das zweite Rechteck mit größe 6 fügen wir in Schritt 2 in diese horizontale Reihe ein, dabei wird die Reihe entsprechend breiter. Das Seitenverhältnis des jetzt eingefügten Rechecks beträgt 3 zu 2 (das Rechteck ist 3 Einheiten breit und 2 Einheiten lang). Jetzt kommt das nächste Rechteck mit größe 4. Dieses Rechteck ist hat ein Seitenverhältnis von 4 zu 1 (das Rechteck ist 4 Einheiten breit und 1 Einheit lang). Das hinzufügen dieses Rechtecks führt nun aber dazu, dass das schlechteste Seitenverhältnis der Reihe von 3 zu 2 auf 4 zu 1 ansteigt. Deshalb wird diese Reihe als abgeschlossen angesehen und die nächste Reihe wird begonnen - Schritt 4. 
+In dieser Arbeit wird (abweichend von einigen Publikationen) die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente (Höhe im dreidimensionalen Raum) zu vermeiden.
 
-Dieser Schritt des suchens des schlechtesten Seitenverhältnisses lässt sich von der rechenkomplexität her gut optimieren, sodass der Ratio berechnet werden kann, ohne dass die Reihe wirklich mit Rechtecken gefüllt werden muss. 
-Anstatt für jeder Rechteck max(w/l, l/w) zu berechnen, ziehen wir folgende vereinfachung heran.
+\smallskip
+
+Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konkreten Beispiels erläutert. Es sollen Rechtecke mit den Größen $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ einsortiert werden. 
+
+Da das Rechteck, in welches eingefügt wird, breiter als hoch ist, werden die zu platzierenden Rechtecke einer vertikalen Reihe platziert. Zunächst wird eine imaginäre vertikale Reihe gebildet, in welche die Rechtecke hintereinander einsortiert werden. Diese Reihe wird solange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) einen festgelegten Grenzwert überschreitet.
+
+Zunächst wird ein Rechteck mit einer Fläche von 6 Einheiten in die leere Reihe eingefügt. Das Seitenverhältnis dieses Rechtecks beträgt 8:3, das bedeutet, es ist 1,5 Einheiten breit und 4 Einheiten lang. Anschließend wird ein weiteres Rechteck der gleichen Fläche (6 Einheiten) neben das erste in dieselbe Reihe platziert, sodass die Gesamtreihe breiter wird. Das neue Rechteck weist ein Seitenverhältnis von 3:2 auf, ist also 3 Einheiten breit und 2 Einheiten lang.
+
+In einem weiteren Schritt soll ein Rechteck der Fläche 4 Einheiten eingefügt werden. Wenn dieses Rechteck eingefügt werden würde, besäße es ein stark asymmetrisches Seitenverhältnis von 4:1. Das Hinzufügen dieses langgestreckten Rechtecks würde dazu führen, dass das schlechteste Seitenverhältnis innerhalb dieser Reihe von zuvor 3:2 auf nun 4:1 ansteigt.
+
+Um zu verhindern, dass ungünstig proportionierte Rechtecke entstehen, wird die aktuelle Reihe in diesem Moment als abgeschlossen betrachtet. Das zuletzt betrachtete Rechteck (mit Fläche 4) wird daher nicht mehr in dieser, sondern in einer neuen horizontalen Reihe einsortiert.
+
+\smallskip
+
+Der Schritt, das jeweils schlechteste Seitenverhältnis in einer Reihe zu bestimmen, lässt sich rechnerisch effizient gestalten. Für ein Rechteck mit Fläche $w_i$ in einer Reihe mit konstanter Länge $l$ und Breite $w$ sowie Gesamtfläche $sV$ innerhalb der Reihe kann das maximale Seitenverhältnis durch folgende Umformungen vereinfacht berechnet werden:
 
 \begin{align}
     \frac{w_i}{l_i} 
@@ -210,25 +215,26 @@ Anstatt für jeder Rechteck max(w/l, l/w) zu berechnen, ziehen wir folgende vere
     \quad\text{da } \forall i, j \in \{0, \dots, n\}, l_i = l_j \\
     &= \frac{V_i \cdot w^2}{sV^2}
 \end{align}
-Analog dazu gilt das gleich auch für $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Da wir nur an dem maximalen Wert beider Ausdrücke interessiert sind und die Länge ($l_i$) aller Rechtecke in der Reihe gleich ist, reicht es den Wert für das größte und das kleinste Rechteck zu berechnen und davon den maximalen Wert zu nehmen.
 
-$w$ ist für den gesamten Zeitraum des füllens einer Reihe konstant und muss daher nur einmal berechnet werden. $sV$ wird mit jedem Rechteck aktualisiert. 
+Ebenso gilt analog $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Es genügt daher, für das jeweils größte und kleinste Rechteck in der Reihe den Wert zu berechnen und daraus das schlechteste Seitenverhältnis zu nehmen.
 
-Das Ziel ist es das Verhältnis der Seitenlängen gleich zu halten. Im ursprünglichen Paper von Bruls et al. \cite{bruls2000squarified} wird darauf noch nicht so eingegangen, aber viele implementierungen z.b. die von d3.js \cite{d3_treemap_code} ermöglichen es, das Verhältnis nicht nur an den Wert 1 anzunähern, sondern auch an andere Werte, zum Beispiel den goldenen Schnitt \cite{goldenRatio}. 
+Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal berechnet werden; $sV$ wird bei jedem neuen Rechteck in der Reihe aktualisiert.
+
+\smallskip
+
+Obwohl sich das ursprüngliche Paper von Bruls et al. \cite{bruls2000squarified} vor allem auf das Seitenverhältnis $1$ als Idealwert konzentriert, erlauben viele Implementierungen, wie auch die implementierungen von d3.js \cite{d3_treemap_code} auch die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt \cite{goldenRatio}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/oneSquarify.png}
-    \caption{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (Durchschnittliches Seitenverhältnis 1.42)}
+    \caption{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
     \label{fig:squarifyRatio1}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/fiveSquarify.png}
-    \caption{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (Durchschnittliches Seitenverhältnis 2.79)}
+    \caption{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
     \label{fig:squarifyRatio5}
 \end{figure}
-
-%wie wirkt sich die reihenfolge auf das layout aus?
 %was ist mit kd-bäumen
