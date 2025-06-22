@@ -1,107 +1,121 @@
 \section{Problemstellung} \label{sec:Problemstellung}
-Die fundamentale und schwerste Frage, bei den Stadt-Analogien ist, wie das Layout der Stadt aussehen soll. In Abschnitt \ref{sec:CodeCity} wurde das erste Layout vorgestellt, welches die Stadt-Analogie verfolgt. Die verbindende kompente dieser ARbeit ist, dass die 3D-Visualierung am Ende darüber entsteht, dass ein 2D-Layout generiert wird, welches dann durch eine weitere Metrik ins 3 dimensionale extrudiert wird. Und Anschließend weitere Metriken als einfärbung genutzt werden.
 
+Die zentrale Herausforderung bei der Entwicklung von Stadtmetaphern zur Softwarevisualisierung besteht in der Festlegung eines geeigneten Layouts für die Visualisierung. Im Abschnitt \ref{sec:CodeCity} wurde das ursprüngliche Layout-Konzept der CodeCity-Analogie vorgestellt. Ein gemeinsames Grundprinzip dieser und verwandter Arbeiten ist, dass zunächst ein 2D-Layout erzeugt wird, das anschließend durch eine zusätzliche Metrik in die dritte Dimension extrudiert und schließlich durch weitere Metriken (z.B. Farbe, Transparenz) angereichert wird.
+In dieser Arbeit werden wir uns genau auf dieses Grundprinzip konzentrieren und untersuchen, wie sich verschiedene Layout-Algorithmen auf die Visualisierung von Code-Qualitätsmetriken auswirken.
+Die daraus entstehende Leitfrage lautet:
 
-Die übergeordnete Frage dieser Arbeit, die sich aber gar nicht wirklich beantworten lässt, ist:
+\begin{quote}
+Welches Layout eignet sich am besten zur Visualisierung von Code-Qualitätsmetriken? Gibt es Ansätze, die Übersichtlichkeit und Verständlichkeit im Vergleich zu bestehenden Lösungen (insbesondere der CodeCity-Metapher) verbessern?
+\end{quote}
 
-Welches Layout ist am besten geeignet, um Code-Qualitätsmetriken zu visualisieren? Gibt es bessere Layouts (als das von CodeCity), die eine bessere Übersichtlichkeit und Verständlichkeit bieten? 
-
-Daraus leiten wir zwei konkrete Fragen ab, die in dieser Arbeit beantwortet werden sollen:
+Daraus ergeben sich für diese Arbeit folgende konkrete Forschungsfragen:
 \begin{enumerate}
-    \item Wie lassen sich die Treemap-Layout-Algorithmen für das konkrete Problem dieser Arbeit verbessern? Welche Vor- und Nachteile haben diese Anpassungen?
-    \item Lassen sich über Recherche zu verwandten Arbeiten und bestehenden Tools Layouts finden, die sich besser eignen, um Code-Qualitätsmetriken zu visualisieren? 
+    \item Wie lassen sich bestehende Treemap-Layout-Algorithmen an das spezifische Anwendungsproblem dieser Arbeit anpassen? Welche Vor- und Nachteile resultieren daraus?
+    \item Lassen sich durch Analyse verwandter Arbeiten und bestehender Tools alternative Layouts identifizieren, die eine bessere Grundlage für die Visualisierung von Code-Qualitätsmetriken bieten? 
     \begin{enumerate}
-        \item Beispiel: Ist das Sunburst Layout besser geeignet als das "beste" Treemap-Layout, um Code-Qualitätsmetriken zu visualisieren?
-        \item Beispiel: Ist das Stack Layout besser geeignet als das "beste" Treemap-Layout, um Code-Qualitätsmetriken zu visualisieren?
+        \item Beispielhaft: Übertrifft das Sunburst-Layout das beste Treemap-Layout im Hinblick auf die Darstellung von Code-Qualitätsmetriken?
+        \item Beispielhaft: Bietet das Stack-Layout Vorteile gegenüber klassischen Treemap-Layouts für diesen Anwendungszweck?
     \end{enumerate}
 \end{enumerate}
 
-Laut Marcus Adrian et al.  gibt es 5 Dimensionen die man beachten muss, wenn es um software visualierung geht: 
-\begin{quote}    
-    • Tasks - why is the visualization needed?
-    • Audience - who will use the visualization?
-    • Target - what is the data source to represent?
-    • Representation - how to represent it?
-    • Medium - where to represent the visualization? \cite[2]{3dsoftwareMarcus}
+\subsection{Evaluationsrahmen} \label{sec:Evaluationsrahmen}
+
+Um die angestrebten Visualisierungen eindeutiger zu evaluieren und in ihrem Ziel klarer zu definieren, orientieren wir uns an den fünf Dimensionen der Softwarevisualisierung nach Marcus Adrian et al. \cite[2]{3dsoftwareMarcus}:
+\begin{quote}
+    \begin{itemize}
+        \item \textbf{Tasks}: Warum wird die Visualisierung benötigt?
+        \item \textbf{Audience}: Wer nutzt die Visualisierung?
+        \item \textbf{Target}: Welche Datenbasis/Quelle wird abgebildet?
+        \item \textbf{Representation}: Wie wird die Information dargestellt?
+        \item \textbf{Medium}: Wo findet die Darstellung statt?
+    \end{itemize}
 \end{quote}
 
-Wir beantworten diese Fragen, um das Ziel dieser Arbeit zu begründen.
-\textbf{Warum ist die Visualisierung von Codequalitätsmetriken wichtig?}
-Die Visualisierung von Codequalitätsmetriken ist wichtig, um die Qualität von Softwareprojekten zu bewerten und zu verstehen, aber auch um einen schnellen Überblick über die Codebasis zu geben und einen Einstieg in vertiefende Codeanalysen zu ermöglichen. Eine effektive Visualisierung kann helfen, schnell Hotspots im Code zu identifizieren, die möglicherweise verbessert werden müssen, und somit die Wartbarkeit und Qualität des Codes zu erhöhen. Außerdem soll die Visualisierung ermöglichen verschiedene Metriken in verbindung zu setzen, um so eine höhere Aussagekraft über den Code, den die einzelne betrachtung jeder Metrik nicht bieten kann.
-Der wichtigste Punkt ist, das subjektive \textit{Greifbar} machend der CodeQualität.
+\subsubsection*{1. Warum ist die Visualisierung von Code-Qualitätsmetriken wichtig?}
+Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das bessere Verständnis der Softwarequalität. Sie dient dazu, einen schnellen Überblick über komplexe Codebasen zu erhalten, Hotspots zu identifizieren und vertiefende Analysen effizient einzuleiten. Besonders wichtig ist es dabei, Zusammenhänge zwischen verschiedenen Metriken auf einen Blick erfassbar zu machen, was in rein tabellarischer oder isolierter Darstellung kaum möglich ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität \textit{greifbar} und anschaulich zu machen.
 
-\textbf{Wer wird die Visualisierung nutzen?}
-Die Visualisierung ist vorallem an Personen gerichtet, die sich nicht mit der Codebasis auskennen. Das können Entscheidungsträger sein, die keine ahung von software entwicklung haben, das können aber auch entwickler sein, die sich neu in ein Projekt einarbeiten müssen, um die qualität einer software zu erhöhen.
+\subsubsection*{2. Wer ist die Zielgruppe der Visualisierung?}
+Die Visualisierung richtet sich primär an Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse. Trotzdem kann die Visualierung aber auch Entwicklerinnen und Entwicklern helfen, die sich neu in ein Projekt einarbeiten oder Teams, die systematisch die Softwarequalität verbessern wollen, in der Kommunikation unterstützen.
 
-\textbf{Was ist die Datenquelle?}
-Die Datenquelle sind hierarschiche Codequalitätsmetriken, die aus dem Quellcode eines Softwareprojekts extrahiert werden. 
-Dabei wird jeder Knoten in dieser Hierarchie als "Node" bezeichnet.
-Jede Node hat folgendes Schema:
-```json
-"node": {
-    "name": string,
-    "children": List[Node] | "value": number,
-}
-```
+\subsubsection*{3. Was ist die Datenquelle?}
+Grundlage sind hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Source Code extrahiert werden. Jeder Knoten der Hierarchie (Node) besitzt dabei einen Namen und entweder eine Liste von Kindknoten (children) oder einen Wert (value), der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}). 
+Diese Struktur ermöglicht es, komplexe Softwareprojekte in übersichtliche Hierarchien zu zerlegen, die dann visualisiert werden können.
 
+\begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeSchema}]
+    "node": {
+        "name": string,
+        "children": List[Node] | "value": number
+    }
+\end{lstlisting}
 
-\textbf{Wo soll die Visualisierung dargestellt werden?}
-Die Visualisierung soll digital auf herkömmlichen Bildschirmen dargestellt werden. Speziell wird in dieser Arbeit beispielhaft eine darstellung in einem Webbrowser angestrebt und die Algorithmen in Typescript implementiert. Natürlich können aber alle Ergebnisse auch in anderen Programmiersprachen und Umgebungen umgesetzt werden.
+\subsubsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
+Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp wird eine Umsetzung im Webbrowser mittels TypeScript und Three.js realisiert. Die Übertragung der Methoden auf andere Programmierumgebungen ist möglich.
 
+\subsubsection*{5. Wie erfolgt die Darstellung?}
+Das Visualisierungskonzept lehnt sich an den in den Grundlagen erläuterten Stadtmetapher-Ansatz an (Abschnitt \ref{sec:CodeCity}). Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch eingeschränkt, dadurch, dass Fläche, Höhe und Farbgebung (auch Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von verschiedenen Ordnern oder Modulen, zur besseren visuellen Unterscheidung fallen für die Visualisierung in dieser Arbeit weg. Stattdessen wird der Fokus auf die geschickte Platzierung, Wahl von Abständen und Beschriftung gelegt. 
 
-\textbf{Wie soll die Visualisierung dargestellt werden?}
-Im GRunde soll eine Visualierung in Anlehnung an den in Abschnitt \ref{sec:CodeCity} beschriebenen Stadt-Metapher ansatz verfolgt werden. - Speziell soll es in dieser Arbeit um das Layout der Knoten gehen, aber im hinterkopf soll die stadtmetapher bleiben und immer als grundlage für die bewrtung des 2d layouts dienen. 
-Wie in der CodeCity arbeit beschrieben, soll es möglich sein Metriken in form von Fläche, Höhe und farbe (ob jetzt nur farbe oder durchsichtigkeit wie bei dem codecity paper oder sogar textur von knoten - wird hier ignoriert). Das heißt also, dass das 2D layout in gewisser weise eingeschtränkt wird, zB. wenn Farbe als visulaisrung von struktur verwendet werden soll oder wie in \cite{bruls2000squarified} schattierung.
+\smallskip
 
-Speziell soll die Visualisierung am Ende optimiert auf folgende Aspekte sein, die sich aus den im Abschnitt \ref{sec:Grundlagen} beschriebenen Grundlegenden Aspekten von Softwarevisualierung, leicht angepasst and das Problem dieser Arbeit, ableiten lassen: 
+Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen Grundlegenden Anforderungen (Abschnitt \ref{sec:3DSoftwareVisualisierung}) leiten sich für die, im Rahmen dieser Arbeit entwickelte, Visualisierung folgende Anforderungen ab:
 
 \begin{itemize}
-    \item \textbf{Informationsgehalt und Effiziente Nutzung des Platzes:} Die Visualisierung sollte so viele Informationen wie möglich auf so wenig Platz wie möglich darstellen.
-    \item \textbf{Niedrige visuelle Komplexität und Verständlichkeit:} Als Gegenspieler zum Informationsgehalt steht die visuelle Komplexität. Die Visualisierung sollte so einfach und verständlich wie möglich gehalten werden, um den Betrachter nicht zu überfordern.
-    \item \textbf{Skalierbarkeit:} Die Visualisierung sollte auch bei großen Software-Systemen noch gut lesbar sein. Dies ist besonders wichtig, da wir hier über große Software-Systeme sprechen.
-    \item \textbf{Korrelation mit dem Code:} Die Visualisierung sollte eine gute Korrelation mit dem Code haben. Wenn man die Visualierung sieht, soll man diese auch mit dem Code in Verbindung bringen können. Es sollte also möglich sein, die Visualisierung mit dem Code zu verknüpfen und so ein besseres Verständnis für die Software zu bekommen.
-    \item \textbf{Zweitrangig ist Stabilität gegenüber Änderungen:} Die Visualisierung sollte stabil gegenüber Änderungen in der Software sein, damit der Qualitätszustand der Software einfacher über die Zeit verfolgt werden kann.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Möglichst viel relevante Information soll bei minimalem Flächenverbrauch dargestellt werden.
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Das Layout muss klar und intuitiv lesbar bleiben, um Überforderung zu vermeiden.
+    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein.
+    \item \textbf{Korrelation mit dem Code:} Eine gute Zuordnung zwischen Visualisierung und Source Code muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen.
+    \item \textbf{Stabilität gegenüber Änderungen:} Nachrangig, aber erwünscht ist, dass die Visualisierung auf Änderungen im Code robust reagiert, um zeitliche Vergleiche zu ermöglichen, ohne dass der Betrachter sich neu orientieren muss.
 \end{itemize}
 
+\subsection{Das Treemap-Problem} \label{sec:TreemapProblem}
 
-\subsection{Das Treemap Problem} \label{sec:TreemapProblem}
-In Abschnnit \ref{sec:Treemap} wurde aufgezeigt, dass bereits der initiale Algorithmus von Johnson und Shneiderman \cite{johnson1991tree} ein fundamentales Problem aufweist, wenn Treemaps mit Abständen zwischen Knoten dargestellt werden sollen. Zudem ist bereits das Problem, welches von Johnson und Shneiderman addressiert wird NP-Hard \cite[3]{bruls2000squarified} und das Problem mit Abständen macht es nicht einfacher.
+Durch die nähere Erlärung des Treemap-Algorithmus (siehe Abschnitt \ref{sec:Treemap}) wurde gezeigt, dass klassische Treemap-Algorithmen grundlegende Schwächen auf weisen, insbesondere wenn Abstände (\textit{Margins}) zwischen den Knoten dargestellt werden sollen. Das Grundproblem, das von Johnson und Shneiderman \cite{johnson1991tree} adressiert wurde, ist bereits ohne Abstände NP-Hard \cite[3]{bruls2000squarified}, und zusätzliche Abstände verkomplizieren die Problematik noch weiter.
+
+Wesentliche Schwierigkeiten bei der Integration von Abständen in das Layout ergeben sich durch:
 \begin{itemize}
-    \item Da der Abstand von der Fläche der Knoten abgezogen wird, ist die dargestellte Fläche nicht mehr proportional zum Wert des Knotens.
-    \item Durch das Abziehen der Abstände kann es passieren, dass Knoten verschwinden, wenn entweder die Länge oder die Breite der Knoten kleiner oder gleich dem Abstand ist.
+    \item Die abgezogenen Flächen für Abstände führen dazu, dass die verbleibende Knotenfläche nicht mehr proportional zum Wert des Knotens ist.
+    \item Bei kleinen Knoten können durch Abzüge von Minimalabständen einzelne Knoten ganz verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand wird.
 \end{itemize}
 
-In den Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} sind Treemap Layouts abgebildet, die mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} generiert wurden. Der Visualierten Metriken sind händisch erstellt, um das Problem zu verdeutlichen (siehe Anhang HIER REF EINRÜGEN). In Bild \ref{fig:zeroMarginArtificialMap} sind alle Knoten sichtbar und die Fläche der Knoten ist proportional zu den Werten der Knoten. In Bild \ref{fig:fiveMarginArtificialMap} sind immernoch alle Knoten sichtbar, aber die Fläche der Knoten ist nicht mehr proportional zu den Werten der Knoten. Zum Beispiel hat der Große Knoten mit Wert 3000 eine Fläche von ca. 2600, wärend der kleine Knoten oben links mit Wert 30 nur eine Fläche von ca. 5 hat. In Bild \ref{fig:tenMarginArtificialMap} mit Abstand 10 sind dann schon einige Knoten (zum beispiel der Eben genannte knoten oben links) nicht mehr sichtbar, da die breite der Knoten kleiner als der Abstand ist. 
+In den Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} sind verschiedene Treemap-Layouts zu sehen, die mithilfe des Squarify-Algorithmus (siehe Abschnitt \ref{sec:Squarify}) erzeugt wurden. Die zugrundeliegenden Strukturen und Metriken wurden dabei händisch erstellt, um typische Probleme bei der Flächenproportionalität und Sichtbarkeit in Treemaps zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}).
+
+In Abbildung \ref{fig:zeroMarginArtificialMap} sind alle Knoten sichtbar, und die Flächen allen Knoten sind proportional zu dem jeweiligen Wert. Dadurch ergibt sich eine exakte Flächenproportionalität zwischen Wert und Darstellung.
+
+In Abbildung \ref{fig:fiveMarginArtificialMap} ist zwar weiterhin jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten der Knoten. Beispielsweise besitzt der große Knoten 3 mit dem Wert 3000 nur noch eine Fläche von etwa 2600, was ein Flächen-Wert-Verhältnis von ungefähr 0,9 ergibt. Der kleine Knoten oben links (Knoten 5) mit dem Wert 30 weist hingegen nur noch eine Fläche von etwa 5 auf, entsprechend einem Verhältnis von ca. 0,2.  Knoten 2 hat eine Fläche von etwa 17, er erscheint also, obwohl er den selben Wert hat wie Knoten 5, deutlich größer. Dies verdeutlicht, dass die Abstände die Flächenproportionalität erheblich beeinträchtigen.
+
+In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem Abstand von 10, werden einige Knoten, zum Beispiel wie etwa der zuvor oben links gelegene Knoten 5 mit Wert 30, gar nicht mehr dargestellt, da ihre berechnete Breite kleiner als der vorgegebene Abstand ist. Damit sind relevante Informationen in der Visualisierung nicht länger sichtbar.
+
+Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf Proportionalität und Lesbarkeit von Treemaps.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/zeroMarginArtificialMap.png}
-    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 0} 
+    \caption{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 0).} 
     \label{fig:zeroMarginArtificialMap}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
-    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 5} 
+    \caption{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 5).}
     \label{fig:fiveMarginArtificialMap}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
-    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 10} 
+    \caption{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
     \label{fig:tenMarginArtificialMap}
 \end{figure}
 
-Es ist nicht trivial dieses Problem zu lösen, da es die grundlegende Annahme der Treemap Algorithmen verletzt, dass die Fläche aller Knoten bekannt ist, bevor die Knoten plaziert werden. 
-Bevor die Knoten plaziert werden, ist nicht klar, wie die Fläche der Knoten aussieht, das heißt, es ist auch nicht klar, wie viel Platz für die Abstände zwischen den Knoten benötigt wird. Dies wird klar wenn man sich die Abbildung \ref{fig:marginAreaDifference} anschaut. Dort sieht man, dass die Fläche, die für Knoten in ihren Eltern benötigt wird, größer ist als die Fläche, die für die Knoten selbst benötigt wird und diese benötigte Fläche stark vom Layout der Knoten selbst abhängt. Somit ist auch unklar, wie groß die Fläche aller elternknoten sind. 
+Das zentrale Dilemma entsteht dadurch, dass die Kernannahme der Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wieviel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive \textit{Belegungsfläche} hängt erheblich von der jeweiligen Anordnung der Knoten ab.
+
+Diese Problematik illustriert Abbildung \ref{fig:marginAreaDifference}. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit je einem Abstand von 1 eine unterschiedlich große Gesamtfläche, je nachdem, ob sie quadratisch (z.B. $4 \times 4$) oder länglich (z.B. $2 \times 8$) angeordnet sind; die zusätzliche Fläche für Abstände variiert also erheblich.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/marginArea.png}
-    \caption{Abbildung eines zweier Rechecke mit der Fläche 16 in dunkel grau und in hellgrau der Abstand von 1 um die Flächen herum. Das Linke Rechteck (4x4) mit Abstand nimmt eine Fläche von 25 (5x5) ein. Das rechte Rechteck (2x8) mit Abstand nimmt eine Fläche von 40 (4x10) ein.}
+    \caption{Zwei Rechtecke der Fläche $16$ (dunkelgrau) mit umgebendem Abstand $1$ (hellgrau): Links ($4 \times 4$) mit Gesamtfläche $25$ ($5 \times 5$), rechts ($2 \times 8$) mit $40$ ($4 \times 10$). Der jeweils notwendige Platz für Abstände hängt vom Seitenverhältnis ab.}
     \label{fig:marginAreaDifference}
 \end{figure}
 
-Das Problem ist jetzt aber, dass wenn die Fläche der Knoten nicht bekannt ist auch das Layout der Knoten nicht berechnet werden kann, da die Fläche der Knoten für das Layout benötigt wird. Hier ergibt sich also ein Zirkelschluss: Die Fläche ist nicht klar, ohne das Layout und das Layout kann nicht berechnet werden, ohne die Fläche zu kennen.
+Dadurch entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche (inklusive Abstände) bekannt ist. Diese Fläche hängt aber wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb in dieser Arbeit verschiedene Ansätze untersucht werden, um dieses Problem zu lösen (siehe Abschnitt \ref{sec:VerbesserungSquarify}).

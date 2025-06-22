@@ -304,3 +304,14 @@
 % my custom stuff
 \usepackage{algorithm} 
 \usepackage{algpseudocode}
+
+\usepackage{listingsutf8}
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily,
+    morestring=[b]",
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    stringstyle=\color{violet},
+    commentstyle=\color{green},
+    showstringspaces=false
+}

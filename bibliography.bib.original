@@ -1,18 +1,18 @@
 @misc{ennowulff_2021,
-    title   = {Re: I Have A Dream: Code Visualization},
-    author  = {EnnoWulff},
-    year    = 2021,
-    month   = {Feb},
-    journal = {SAP Community},
-    url     = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true},
+	title        = {Re: I Have A Dream: Code Visualization},
+	author       = {EnnoWulff},
+	year         = 2021,
+	month        = {Feb},
+	journal      = {SAP Community},
+	url          = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true}
 }
 
 @misc{systect_2015,
-    title   = {systect // SoWaCa},
-    author  = {systect},
-    year    = 2015,
-    journal = {Systect.de},
-    url     = {https://www.systect.de/sowaca.html},
+	title        = {systect // SoWaCa},
+	author       = {systect},
+	year         = 2015,
+	journal      = {Systect.de},
+	url          = {https://www.systect.de/sowaca.html}
 }
 
 ‌@article{MERINO2018165,
@@ -28,12 +28,12 @@
     keywords = {Software visualisation, Evaluation, Literature review},
 }
 @inproceedings{bruls2000squarified,
-    title        = {Squarified treemaps},
-    author       = {Bruls, Mark and Huizing, Kees and Van Wijk, Jarke J},
-    year         = 2000,
-    booktitle    = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
-    pages        = {33--42},
-    organization = {Springer},
+	title        = {Squarified treemaps},
+	author       = {Bruls, Mark and Huizing, Kees and Van Wijk, Jarke J},
+	year         = 2000,
+	booktitle    = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
+	pages        = {33--42},
+	organization = {Springer}
 }
 
 ‌@misc{d3_treemap_code,
@@ -43,13 +43,13 @@
     year    = {2025},
 }
 @misc{laubheimer_2019,
-    title   = {Treemaps: Data Visualization of Complex Hierarchies},
-    author  = {Laubheimer, Page},
-    year    = 2019,
-    month   = {Sep},
-    journal = {Nielsen Norman Group},
-    url     = {https://www.nngroup.com/articles/treemaps/},
-    note    = {[Online; accessed 19-May-2025]},
+	title        = {Treemaps: Data Visualization of Complex Hierarchies},
+	author       = {Laubheimer, Page},
+	year         = 2019,
+	month        = {Sep},
+	journal      = {Nielsen Norman Group},
+	url          = {https://www.nngroup.com/articles/treemaps/},
+	note         = {[Online; accessed 19-May-2025]}
 }
 
 ‌@techreport{johnson1991tree,
@@ -60,261 +60,259 @@
 }
 ‌
 @book{def_qual_metric,
-    title     = {IEEE Std 1061-1998: IEEE Standard for a Software Quality Metrics Methodology},
-    author    = {Institute of Electrical and Electronics Engineers (Hrsg.)},
-    year      = 1998,
-    publisher = {IEEE},
-    address   = {New York},
-    isbn      = {1-55937-529-9},
-    note      = {Kapitel 2. Definitions, S. 2},
+	title        = {IEEE Std 1061-1998: IEEE Standard for a Software Quality Metrics Methodology},
+	author       = {Institute of Electrical and Electronics Engineers (Hrsg.)},
+	year         = 1998,
+	publisher    = {IEEE},
+	address      = {New York},
+	isbn         = {1-55937-529-9},
+	note         = {Kapitel 2. Definitions, S. 2}
 }
 
 @article{first_3D_vis,
-    title   = {An Engine for the 3D Visualization of Program Information},
-    author  = {Steven P. Reiss},
-    year    = 1995,
-    journal = {Journal of Visual Languages \& Computing},
-    volume  = 6,
-    number  = 3,
-    pages   = {299--323},
-    doi     = {https://doi.org/10.1006/jvlc.1995.1017},
-    issn    = {1045-926X},
-    url     = {https://www.sciencedirect.com/science/article/pii/S1045926X85710178},
+	title        = {An Engine for the 3D Visualization of Program Information},
+	author       = {Steven P. Reiss},
+	year         = 1995,
+	journal      = {Journal of Visual Languages \& Computing},
+	volume       = 6,
+	number       = 3,
+	pages        = {299--323},
+	doi          = {https://doi.org/10.1006/jvlc.1995.1017},
+	issn         = {1045-926X},
+	url          = {https://www.sciencedirect.com/science/article/pii/S1045926X85710178}
 }
 
 @inproceedings{visSoftwareVR,
-    title     = {Visualising software in virtual reality},
-    author    = {Young, P. and Munro, M.},
-    year      = 1998,
-    booktitle = {Proceedings. 6th International Workshop on Program Comprehension. IWPC'98 (Cat. No.98TB100242)},
-    pages     = {19--26},
-    doi       = {10.1109/WPC.1998.693276},
-    keywords  = {Visualization;Virtual reality;Software maintenance;Software systems;Computer science;Postal services;Software prototyping;Prototypes;Databases;Information retrieval},
+	title        = {Visualising software in virtual reality},
+	author       = {Young, P. and Munro, M.},
+	year         = 1998,
+	booktitle    = {Proceedings. 6th International Workshop on Program Comprehension. IWPC'98 (Cat. No.98TB100242)},
+	pages        = {19--26},
+	doi          = {10.1109/WPC.1998.693276},
+	keywords     = {Visualization;Virtual reality;Software maintenance;Software systems;Computer science;Postal services;Software prototyping;Prototypes;Databases;Information retrieval}
 }
 
 @inproceedings{codeCity1,
-    title     = {Visualizing Software Systems as Cities},
-    author    = {Wettel, Richard and Lanza, Michele},
-    year      = 2007,
-    booktitle = {2007 4th IEEE International Workshop on Visualizing Software for Understanding and Analysis},
-    pages     = {92--99},
-    doi       = {10.1109/VISSOF.2007.4290706},
+	title        = {Visualizing Software Systems as Cities},
+	author       = {Wettel, Richard and Lanza, Michele},
+	year         = 2007,
+	booktitle    = {2007 4th IEEE International Workshop on Visualizing Software for Understanding and Analysis},
+	pages        = {92--99},
+	doi          = {10.1109/VISSOF.2007.4290706}
 }
 
 @inproceedings{virtualButVisibleMunro,
-    title     = {Virtual but visible software},
-    author    = {Knight, C. and Munro, M.},
-    year      = 2000,
-    booktitle = {2000 IEEE Conference on Information Visualization. An International Conference on Computer Visualization and Graphics},
-    pages     = {198--205},
-    doi       = {10.1109/IV.2000.859756},
-    keywords  = {Virtual reality;Data visualization;Software systems;Computer science;Java;Information filtering;Information filters;Usability;Navigation;Virtual environment},
+	title        = {Virtual but visible software},
+	author       = {Knight, C. and Munro, M.},
+	year         = 2000,
+	booktitle    = {2000 IEEE Conference on Information Visualization. An International Conference on Computer Visualization and Graphics},
+	pages        = {198--205},
+	doi          = {10.1109/IV.2000.859756},
+	keywords     = {Virtual reality;Data visualization;Software systems;Computer science;Java;Information filtering;Information filters;Usability;Navigation;Virtual environment}
 }
 
 @inproceedings{3dsoftwareMarcus,
-    title     = {3D representations for software visualization},
-    author    = {Marcus, Andrian and Feng, Louis and Maletic, Jonathan I.},
-    year      = 2003,
-    booktitle = {Proceedings of the 2003 ACM Symposium on Software Visualization},
-    location  = {San Diego, California},
-    publisher = {Association for Computing Machinery},
-    address   = {New York, NY, USA},
-    series    = {SoftVis '03},
-    pages     = {27–-ff},
-    doi       = {10.1145/774833.774837},
-    isbn      = 1581136420,
-    url       = {https://doi.org/10.1145/774833.774837},
-    keywords  = {3D visualization, SeeSoft, file maps, software visualization},
+	title        = {3D representations for software visualization},
+	author       = {Marcus, Andrian and Feng, Louis and Maletic, Jonathan I.},
+	year         = 2003,
+	booktitle    = {Proceedings of the 2003 ACM Symposium on Software Visualization},
+	location     = {San Diego, California},
+	publisher    = {Association for Computing Machinery},
+	address      = {New York, NY, USA},
+	series       = {SoftVis '03},
+	pages        = {27–-ff},
+	doi          = {10.1145/774833.774837},
+	isbn         = 1581136420,
+	url          = {https://doi.org/10.1145/774833.774837},
+	keywords     = {3D visualization, SeeSoft, file maps, software visualization}
 }
 
 @article{2010-perception-treemaps,
-    title   = {Perceptual Guidelines for Creating Rectangular Treemaps},
-    author  = {Nicholas Kong AND Jeffrey Heer AND Maneesh Agrawala},
-    year    = 2010,
-    journal = {IEEE Trans. Visualization \& Comp. Graphics (Proc. InfoVis)},
-    url     = {http://vis.stanford.edu/papers/perception-treemaps},
+	title        = {Perceptual Guidelines for Creating Rectangular Treemaps},
+	author       = {Nicholas Kong AND Jeffrey Heer AND Maneesh Agrawala},
+	year         = 2010,
+	journal      = {IEEE Trans. Visualization \& Comp. Graphics (Proc. InfoVis)},
+	url          = {http://vis.stanford.edu/papers/perception-treemaps}
 }
 
 @article{baudel2012capturing,
-    title     = {Capturing the design space of sequential space-filling layouts},
-    author    = {Baudel, Thomas and Broeksema, Bertjan},
-    year      = 2012,
-    journal   = {IEEE Transactions on Visualization and Computer Graphics},
-    publisher = {IEEE},
-    volume    = 18,
-    number    = 12,
-    pages     = {2593--2602},
+	title        = {Capturing the design space of sequential space-filling layouts},
+	author       = {Baudel, Thomas and Broeksema, Bertjan},
+	year         = 2012,
+	journal      = {IEEE Transactions on Visualization and Computer Graphics},
+	publisher    = {IEEE},
+	volume       = 18,
+	number       = 12,
+	pages        = {2593--2602}
 }
 
 @article{goldenRatio,
-    title     = {Golden Rectangle Treemap},
-    author    = {Lu, Liangfu and Fan, Shiliang and Huang, Maolin and Huang, Weidong and Yang, Ruolan},
-    year      = 2017,
-    month     = {jan},
-    journal   = {Journal of Physics: Conference Series},
-    publisher = {IOP Publishing},
-    volume    = 787,
-    number    = 1,
-    pages     = {012007},
-    doi       = {10.1088/1742-6596/787/1/012007},
-    url       = {https://dx.doi.org/10.1088/1742-6596/787/1/012007},
+	title        = {Golden Rectangle Treemap},
+	author       = {Lu, Liangfu and Fan, Shiliang and Huang, Maolin and Huang, Weidong and Yang, Ruolan},
+	year         = 2017,
+	month        = {jan},
+	journal      = {Journal of Physics: Conference Series},
+	publisher    = {IOP Publishing},
+	volume       = 787,
+	number       = 1,
+	pages        = {012007},
+	doi          = {10.1088/1742-6596/787/1/012007},
+	url          = {https://dx.doi.org/10.1088/1742-6596/787/1/012007}
 }
 
 @inbook{Witte2018,
-    author    = {Witte, Frank},
-    title     = {Metriken f{\"u}r die Softwarequalit{\"a}t},
-    booktitle = {Metriken f{\"u}r das Testreporting: Analyse und Reporting f{\"u}r wirkungsvolles Testmanagement},
-    year      = {2018},
-    publisher = {Springer Fachmedien Wiesbaden},
-    address   = {Wiesbaden},
-    pages     = {63--70},
-    abstract  = {Metriken f{\"u}r die Softwarequalit{\"a}t bewerten und gewichten unterschiedliche Kriterien. Dazu existieren mehrere wissenschaftliche Ans{\"a}tze und Parameter.},
-    isbn      = {978-3-658-19845-9},
-    doi       = {10.1007/978-3-658-19845-9_8},
-    url       = {https://doi.org/10.1007/978-3-658-19845-9_8},
+	title        = {Metriken f{\"u}r die Softwarequalit{\"a}t},
+	author       = {Witte, Frank},
+	year         = 2018,
+	booktitle    = {Metriken f{\"u}r das Testreporting: Analyse und Reporting f{\"u}r wirkungsvolles Testmanagement},
+	publisher    = {Springer Fachmedien Wiesbaden},
+	address      = {Wiesbaden},
+	pages        = {63--70},
+	doi          = {10.1007/978-3-658-19845-9_8},
+	isbn         = {978-3-658-19845-9},
+	url          = {https://doi.org/10.1007/978-3-658-19845-9\%5F8},
 }
 
 @misc{softwaremetriken_2019,
-    url     = {https://www.studysmarter.de/studium/informatik-studium/softwareentwicklung/softwaremetriken/},
-    journal = {StudySmarter},
-    year    = {2019},
-    note    = {[Online; accessed 17-June-2025]},
+	year         = 2019,
+	journal      = {StudySmarter},
+	url          = {https://www.studysmarter.de/studium/informatik-studium/softwareentwicklung/softwaremetriken/},
+	note         = {[Online; accessed 17-June-2025]}
 }
 
 @misc{wikipedia_softwaremetrik,
-    title     = {Beschreibung von Eigenschaften einer Software durch Zahlen},
-    url       = {https://de.wikipedia.org/wiki/Softwaremetrik},
-    journal   = {Wikipedia.org},
-    publisher = {Wikimedia Foundation, Inc.},
-    author    = {Autoren der Wikimedia-Projekte},
-    year      = {2004},
-    month     = {Feb},
-    note      = {[Online; accessed 17-June-2025]},
+	title        = {Beschreibung von Eigenschaften einer Software durch Zahlen},
+	author       = {Autoren der Wikimedia-Projekte},
+	year         = 2004,
+	month        = {Feb},
+	journal      = {Wikipedia.org},
+	publisher    = {Wikimedia Foundation, Inc.},
+	url          = {https://de.wikipedia.org/wiki/Softwaremetrik},
+	note         = {[Online; accessed 17-June-2025]}
 }
 
 @article{voas_kuhn_2017,
-    title   = {What Happened to Software Metrics?},
-    volume  = {50},
-    url     = {https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=922615},
-    doi     = {https://doi.org/10.1109/mc.2017.144},
-    number  = {5},
-    journal = {Computer},
-    author  = {Voas, Jeffrey and Kuhn, Rick},
-    year    = {2017},
-    month   = {May},
-    pages   = {88–98},
+	title        = {What Happened to Software Metrics?},
+	author       = {Voas, Jeffrey and Kuhn, Rick},
+	year         = 2017,
+	month        = {May},
+	journal      = {Computer},
+	volume       = 50,
+	number       = 5,
+	pages        = {88–98},
+	doi          = {https://doi.org/10.1109/mc.2017.144},
+	url          = {https://tsapps.nist.gov/publication/get\%5Fpdf.cfm?pub\%5Fid=922615}
 }
 
 ‌
-
 @misc{worst_gitclear_2025,
-    url     = {https://www.gitclear.com/four_worst_software_metrics_agitating_developers},
-    journal = {Gitclear.com},
-    year    = {2025},
-    note    = {[Online; accessed 17-June-2025]},
+	year         = 2025,
+	journal      = {Gitclear.com},
+	url          = {https://www.gitclear.com/four\%5Fworst\%5Fsoftware\%5Fmetrics\%5Fagitating\%5Fdevelopers},
+	note         = {[Online; accessed 17-June-2025]}
 }
 
 ‌
-
 @article{hall1994implementing,
-    title     = {Implementing software metrics—the critical success factors},
-    author    = {Hall, Tracy and Fenton, Norman},
-    journal   = {Software Quality Journal},
-    volume    = {3},
-    pages     = {195--208},
-    year      = {1994},
-    publisher = {Springer},
+	title        = {Implementing software metrics--the critical success factors},
+	author       = {Hall, Tracy and Fenton, Norman},
+	year         = 1994,
+	journal      = {Software Quality Journal},
+	publisher    = {Springer},
+	volume       = 3,
+	pages        = {195--208}
 }
 
 @book{ludewig,
-    title  = {Wie gut ist die Software?},
-    url    = {https://elib.uni-stuttgart.de/server/api/core/bitstreams/d40bec3f-ba78-495f-9c44-4e54db9daa30/content},
-    author = {Ludewig, Jochen},
+	title        = {Wie gut ist die Software?},
+	author       = {Ludewig, Jochen},
+	url          = {https://elib.uni-stuttgart.de/server/api/core/bitstreams/d40bec3f-ba78-495f-9c44-4e54db9daa30/content}
 }
+
 ‌
 @article{globke2005software,
-    title   = {Software-Metriken},
-    author  = {Globke, Wolfgang},
-    journal = {Moderne Softwareentwicklung, Universit{\"a}t Karlsruhe},
-    pages   = {8},
-    year    = {2005},
+	title        = {Software-Metriken},
+	author       = {Globke, Wolfgang},
+	year         = 2005,
+	journal      = {Moderne Softwareentwicklung, Universit{\"a}t Karlsruhe},
+	pages        = 8
 }
 
 @misc{schmitz_2019,
-    title     = {Wenn Software auf Qualität (s-Metriken) trifft -– Teil 2 - MEDtech Ingenieur GmbH},
-    url       = {https://medtech-ingenieur.de/wenn-software-auf-qualitaet-s-metriken-trifft-teil-2/},
-    journal   = {MEDtech Ingenieur GmbH},
-    publisher = {Medizintechnik Blog - MEDtech Ingenieur},
-    author    = {Schmitz, Gast Carina},
-    year      = {2019},
-    month     = {Jan},
-    note      = {[Online; accessed 17-June-2025]},
+	title        = {Wenn Software auf Qualit\"{a}t (s-Metriken) trifft -– Teil 2 - MEDtech Ingenieur GmbH},
+	author       = {Schmitz, Gast Carina},
+	year         = 2019,
+	month        = {Jan},
+	journal      = {MEDtech Ingenieur GmbH},
+	publisher    = {Medizintechnik Blog - MEDtech Ingenieur},
+	url          = {https://medtech-ingenieur.de/wenn-software-auf-qualitaet-s-metriken-trifft-teil-2/},
+	note         = {[Online; accessed 17-June-2025]}
 }
 
 @inproceedings{scheibel2020survey,
-    title     = {Survey of treemap layout algorithms},
-    author    = {Scheibel, Willy and Limberger, Daniel and D{\"o}llner, J{\"u}rgen},
-    year      = 2020,
-    booktitle = {Proceedings of the 13th international symposium on visual information communication and interaction},
-    pages     = {1--9},
+	title        = {Survey of treemap layout algorithms},
+	author       = {Scheibel, Willy and Limberger, Daniel and D{\"o}llner, J{\"u}rgen},
+	year         = 2020,
+	booktitle    = {Proceedings of the 13th international symposium on visual information communication and interaction},
+	pages        = {1--9}
 }
 
 @article{johnson1992improving,
-    title     = {Improving the visualization of hierarchies with treemaps: design issues and experimentation},
-    author    = {Johnson, Brian and Turo, David},
-    year      = 1992,
-    journal   = {Proc. IEEE Visualization 1992},
-    publisher = {Citeseer},
+	title        = {Improving the visualization of hierarchies with treemaps: design issues and experimentation},
+	author       = {Johnson, Brian and Turo, David},
+	year         = 1992,
+	journal      = {Proc. IEEE Visualization 1992},
+	publisher    = {Citeseer}
 }
 
 @article{demian2006finding,
-    title     = {Finding and understanding reusable designs from large hierarchical repositories},
-    author    = {Demian, Peter and Fruchter, Renate},
-    year      = 2006,
-    journal   = {Information Visualization},
-    publisher = {SAGE Publications Sage UK: London, England},
-    volume    = 5,
-    number    = 1,
-    pages     = {28--46},
+	title        = {Finding and understanding reusable designs from large hierarchical repositories},
+	author       = {Demian, Peter and Fruchter, Renate},
+	year         = 2006,
+	journal      = {Information Visualization},
+	publisher    = {SAGE Publications Sage UK: London, England},
+	volume       = 5,
+	number       = 1,
+	pages        = {28--46}
 }
 
 @inproceedings{cushionTreemaps,
-    title     = {Cushion treemaps: visualization of hierarchical information},
-    author    = {Van Wijk, J.J. and Van de Wetering, H.},
-    year      = 1999,
-    booktitle = {Proceedings 1999 IEEE Symposium on Information Visualization (InfoVis'99)},
-    pages     = {73--78},
-    doi       = {10.1109/INFVIS.1999.801860},
-    keywords  = {Visualization;Displays;Mathematics;Pervasive computing;File systems},
+	title        = {Cushion treemaps: visualization of hierarchical information},
+	author       = {Van Wijk, J.J. and Van de Wetering, H.},
+	year         = 1999,
+	booktitle    = {Proceedings 1999 IEEE Symposium on Information Visualization (InfoVis'99)},
+	pages        = {73--78},
+	doi          = {10.1109/INFVIS.1999.801860},
+	keywords     = {Visualization;Displays;Mathematics;Pervasive computing;File systems}
 }
 
 @inproceedings{lu2008cascaded,
-    title     = {Cascaded treemaps: examining the visibility and stability of structure in treemaps},
-    author    = {L{\"u}, Hao and Fogarty, James},
-    year      = 2008,
-    booktitle = {Proceedings of graphics interface 2008},
-    pages     = {259--266},
+	title        = {Cascaded treemaps: examining the visibility and stability of structure in treemaps},
+	author       = {L{\"u}, Hao and Fogarty, James},
+	year         = 2008,
+	booktitle    = {Proceedings of graphics interface 2008},
+	pages        = {259--266}
 }
 
 @misc{iso25010_2024,
-    year    = 2024,
-    journal = {Iso25000.com},
-    url     = {https://www.iso25000.com/index.php/en/iso-25000-standards/iso-25010},
+	year         = 2024,
+	journal      = {Iso25000.com},
+	url          = {https://www.iso25000.com/index.php/en/iso-25000-standards/iso-25010}
 }
 
 ‌
 @book{johnson1993treemapsPhd,
-    title     = {Treemaps: Visualizing hierarchical and categorical data},
-    author    = {Johnson, Brian Scott},
-    year      = 1993,
-    publisher = {University of Maryland, College Park},
+	title        = {Treemaps: Visualizing hierarchical and categorical data},
+	author       = {Johnson, Brian Scott},
+	year         = 1993,
+	publisher    = {University of Maryland, College Park}
 }
 
 @inproceedings{softwareForest,
-    title  = {Software Forest: A Visualization of Semantic Similarities in Source Code using a Tree Metaphor},
-    author = {Atzberger, Daniel and Cech, Tim and Haye, Merlin and S\"{o}chting, Maximilian and Scheibel, Willy and Limberger, Daniel and D\"{o}llner, J\"{u}rgen},
-    year   = 2021,
-    month  = {02},
-    pages  = {112--122},
-    doi    = {10.5220/0010267601120122},
+	title        = {Software Forest: A Visualization of Semantic Similarities in Source Code using a Tree Metaphor},
+	author       = {Atzberger, Daniel and Cech, Tim and Haye, Merlin and S\"{o}chting, Maximilian and Scheibel, Willy and Limberger, Daniel and D\"{o}llner, J\"{u}rgen},
+	year         = 2021,
+	month        = {02},
+	pages        = {112--122},
+	doi          = {10.5220/0010267601120122}
 }
