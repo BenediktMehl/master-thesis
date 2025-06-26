@@ -129,6 +129,9 @@ Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlic
 
 Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Diese jetzt hier sehr subjektive Einschätzung wird aber nochmal genauer beläuchtet in der evaluation und vergleich.
 
+\subsection{Reihenfolge der Knoten} \label{sec:ReihenfolgeKnoten}
+Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst.
+
 \subsection{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
 Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. Dies wird so lange wiederholt, bis sich die Fläche der Knoten nicht mehr ändert oder eine maximale Anzahl an Iterationen erreicht ist.
 
