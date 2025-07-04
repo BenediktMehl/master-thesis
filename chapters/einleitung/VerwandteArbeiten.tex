@@ -2,6 +2,8 @@
 In diesem Abschnitt werden verwandte Arbeiten vorgestellt, die auch das Layoutproblem betrachten.
 Außerdem will ich auch konkrete Tools anschauen, die Metriken visualisieren und deren Ansätze betrachten.
 
+
+
 \subsection{layouts}
 
 So etwas ähnliches auch sagen:
@@ -13,6 +15,9 @@ contributions that are sufficiently distinct from such work that we
 do not dwell on extensive comparisons. \cite{lu2008cascaded}
 
 \subsubsection{Treemap layouts}
+Wir suchen hierfür speziell nach layouts die abstände haben. die meisten treemap layouts haben keine abstände, wodurch bei der extrusion ins drei dimensionale und ohne farbgebung die Struktur der Hierarchie nicht mehr erkennbar ist. Deswegen wird speziell nach treemap layouts gesucht, die abstände haben und die Struktur der Hierarchie darstellen.
+
+
 Es gibt bisher noch zu wenige ARbeiten, die sich mit dieser Frage beschäftigen. (Oder eigentlich gibt es nur eine die wirklich in die richtung geht - mehr dann bei verwandte arbeiten)
 
 
@@ -28,8 +33,31 @@ the difficulty of discerning the structure of a hierarchy}\cite[1]{lu2008cascade
     \label{fig:cascaded}
 \end{figure}
 
-Sie stellen in ihrem Paper auch fest, dass manche Knoten verschwinden können, da der Platz der für Beschriftung und abstände benötigt wird, beim Layoutschritt nicht berücksichtigt werden kann. Sie stellen einen Zwei Schrittigen ansatz vor, der im ersten schritt mit den squarify algorithmus \cite{bruls2000squarified} das layout erstellt. Im zweiten Schritt wird dann die Größe, aber nicht die Platzierung der Knoten angepasst, indem der Abstand und platz für Beschriftung berücksichtigt wird. Das Problem von verschwindenden Knoten wird dadurch nicht komplett gelöst, aber Knoten verschwinden nur noch, wenn der Platz für die Beschriftung und den Abstand größer ist als der zur Verfügung stehende Platz. 
-In dem Paper wird leider nicht auf das Problem eingegangen, welches wir in Abschnitt \ref{sec:TreemapProblem} betrachtet haben, dass die Fläche, die durch Abstände eingenommen wird nicht exakt berechnet werden kann. Außerdem wird nicht beleuchtet, wie sehr sich die relation von Knotengröße und Knotenwert ändert. In diesem Paper werden wir auf beide Probleme in der tiefe eingehen und die Auswirkungen auf die darstellung untersuchen.
+Sie stellen in ihrem Paper auch fest, dass manche Knoten verschwinden können, da der Platz der für Beschriftung und abstände benötigt wird, beim Layoutschritt nicht berücksichtigt werden kann. Sie stellen einen Zwei Schrittigen ansatz vor, der im ersten schritt mit den squarify algorithmus \cite{bruls2000squarified} das layout erstellt. 
+Im zweiten Schritt wird dann die Größe, aber nicht die Platzierung der Knoten angepasst. 
+indem der Abstand und platz für Beschriftung berücksichtigt wird. Das Problem von verschwindenden Knoten wird dadurch nicht komplett gelöst, aber Knoten verschwinden nur noch, wenn der Platz für die Beschriftung und den Abstand größer ist als der zur Verfügung stehende Platz. Die Autoren geben leider keinen Pseudo-Code für die exakte implementierung an, weshalb es schwer ist die genaue berechnung nachzuvollziehen und Unterschiede und Vor- und Nachteile zu den Implementierungen in diser Arbeit aufzuzeigen.
+Sie beschreiben ihren Schritt wie folgt: 
+\begin{quote}
+    The function then computes how much vertical space is needed for offsets [...]. The remaining space is for the content of the treemap, and so the layout function gives each side of the split the space computed as necessary for [...] offsets as well as a portion of the remaining content space based on the relative weights of nodes on each side of the split. The layout procedure is then ready to recurse on both sides of the split, as it knows how much space will be used by [...] offsets and has ensured that the remaining space is appropriately divided by node weight. \cite[6]{lu2008cascaded}
+\end{quote} (FÜR MICH: das ist quasi simple-increase mit scaling)
+Sie berechnen also die Fläche, für jeden Knoten neu. An jeder Teilungs-Kante, die kante an der ein Knoten geteilt wurde (entweder horizontal oder vertikal) - im grunde werden sich immer die reihen angeschaut. Wird dann der Platz berechnet, der für die Abstände benötigt wird. Anschließend wird der Platz für die Knoten berechnet, indem der Platz für die Abstände von der Gesamtfläche abgezogen wird. Dadurch wird sichergestellt, dass jeder Knoten genug Platz für die Abstände hat. Dennoch kann es passieren, dass Knoten verschwinden, wenn der Platz für die Abstände größer ist als der Platz, der für die Knoten zur Verfügung steht.
+Obwohl der Code nicht verfügbar ist, wird doch allein bei der Beschreibung ein Nachteil deutlich: Es wird an jeder Reihen-Kante nur der Platz mit in die Berechnung einbezogen, der senkrecht zu der Kante steht. In Abbildung \ref{fig:cascadedBadExample} für deutlich, dass der Algorithmus für den Bereich über von der Kante benauso viel Platz für die Abstände berechnet, wie für den Bereicht unter der Kante, weil eben nur der Platz senkrecht zur Kante betrachtet wird. Und das obwohl offentlich die Roten Rechtecke zusammen viel Mehr platz für die Abstände benötigen würden, als das Gelbe Rechteck alleine. 
+Das Grundlegende Problem, welches wir zuvor beschrieben haben (siehe Abschnitt \ref{sec:TreemapProblem}), ist also nicht gelöst. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/cascadedBadExample.png}
+    \caption{Beispiel für eine für den Cascaded Treemap Algorithmus schlechte Rechteck-Konstelation}
+    \label{fig:cascadedBadExample}
+\end{figure}
+
+Interessant ist, dass die Autoren keine verbesserung in der Gewicht zu Größe relation feststellen konnten. (Ich vermute, dass das daran liegt, dass die Berechnung der neuen Größen für die Knoten nicht optimal ist) 
+Eine verbesserung konnten sie nur bei relativ kleinen Knoten feststellen, was auch klar ist, da bei den ansätzen zuvor die Abstände (da diese ja absolut sind und bei jedem knoten gleich) die Größe von kleinen Knoten viel stärker beeinflussen, als die Größe von großen. Sie vermuten auch, dass das an Ihrem Ansatz speziell liegen könnte und fordern noch weitere research in diesem Bereich.
+Sie vermuten außerdem, dass speziell bei Tiefen Hierarchien, die Abweichung von Größe zu Gewicht größer wird.  
+
+Eine ähnliche implementierungen untersuchen wir in Abschnitt HIER EINFÜGEN und zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw 
+Am ehesten ist dieser Ansatz wahrscheinlich mit dem Simple-Increase Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
+
 
 
 Die Autoren des ursprungs squarify Algorithmus \cite{bruls2000squarified} stellen in einem anderen Paper \cite{cushionTreemaps} eine Idee vor, um Struktur ohne Änderung des Layouts darzustellen undzwar mit Schatten (siehe Abbildung \ref{fig:cushion}). Dabei bekommt jeder Knoten, egal ob Eltern- oder Kindknoten, einen Innenrenschatten, wodurch die Struktur der Knoten sichbar wird.
@@ -63,3 +91,11 @@ Von den untersuchten 81 Algorithmen sind 54 rechteckige Layouts und 58 splitting
 \smallskip
 
 \subsection{Was suchen wir} 
+Wir suchen paper oder tools, die metriken oder andere werte/attribute darstellen.
+Diese Darstellungen sollten entweder space filling sein oder zumindest eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
+Die Darstellungen sollten ins drei dimensionale extrahierbar sein. 
+Die Darstellungen werden dann etweder in die kategorie "squarified treemap" oder "andere" eingeordnet.
+
+
+
+\subsection{Tools}

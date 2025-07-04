@@ -196,7 +196,7 @@ Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konk
 
 Da das Rechteck, in welches eingefügt wird, breiter als hoch ist, werden die zu platzierenden Rechtecke einer vertikalen Reihe platziert. Zunächst wird eine imaginäre vertikale Reihe gebildet, in welche die Rechtecke hintereinander einsortiert werden. Diese Reihe wird solange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) einen festgelegten Grenzwert überschreitet.
 
-Zunächst wird ein Rechteck mit einer Fläche von 6 Einheiten in die leere Reihe eingefügt. Das Seitenverhältnis dieses Rechtecks beträgt 8:3, das bedeutet, es ist 1,5 Einheiten breit und 4 Einheiten lang. Anschließend wird ein weiteres Rechteck der gleichen Fläche (6 Einheiten) neben das erste in dieselbe Reihe platziert, sodass die Gesamtreihe breiter wird. Das neue Rechteck weist ein Seitenverhältnis von 3:2 auf, ist also 3 Einheiten breit und 2 Einheiten lang.
+Zunächst wird ein Rechteck mit einer Fläche von 6 Einheiten in die leere Reihe eingefügt. Das Seitenverhältnis dieses Rechtecks beträgt 8:3, das bedeutet, es ist 1,5 Einheiten breit und 4 Einheiten lang. Anschließend wird ein weiteres Rechteck der gleichen Fläche (6 Einheiten) über das erste in dieselbe Reihe platziert, sodass die Gesamtreihe breiter wird. Das neue Rechteck weist ein Seitenverhältnis von 3:2 auf, ist also 3 Einheiten breit und 2 Einheiten lang.
 
 In einem weiteren Schritt soll ein Rechteck der Fläche 4 Einheiten eingefügt werden. Wenn dieses Rechteck eingefügt werden würde, besäße es ein stark asymmetrisches Seitenverhältnis von 4:1. Das Hinzufügen dieses langgestreckten Rechtecks würde dazu führen, dass das schlechteste Seitenverhältnis innerhalb dieser Reihe von zuvor 3:2 auf nun 4:1 ansteigt.
 
@@ -223,7 +223,8 @@ Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal 
 
 \smallskip
 
-Obwohl sich das ursprüngliche Paper von Bruls et al. \cite{bruls2000squarified} vor allem auf das Seitenverhältnis $1$ als Idealwert konzentriert, erlauben viele Implementierungen, wie auch die implementierungen von d3.js \cite{d3_treemap_code} auch die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt \cite{goldenRatio}.
+Obwohl sich das ursprüngliche Paper von Bruls et al. \cite{bruls2000squarified} vor allem auf das Seitenverhältnis $1$ als Idealwert konzentriert, erlauben viele Implementierungen, wie auch die implementierungen von d3.js \cite{d3_treemap_code} auch die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt \cite{goldenRatio}. 
+In Abbildung \ref{fig:squarifyRatio1} ist ein Beispiel für ein Layout zu sehen, dass durch den Squarify-Algorithmus generiert wurde, wobei die Rechtecke möglichst quadratisch werden sollen, so wie beim Original-Algorithmus von Bruls et al. \cite{bruls2000squarified}. In Abbildung \ref{fig:squarifyRatio5} sind die selben Werte zu sehen. Day layout wurde auch durch den Squarify-Algorithmus generiert, jedoch mit dem Ziel, dass die Rechtecke ein Seitenverhältnis von 5 anstreben. Es ist ein deutlicher Unterschied in den Darstellungen zu erkennen: Die Rechtecke sind deutlich langgestreckter, als im ersten Beispiel.
 
 \begin{figure}[h]
     \centering
@@ -238,4 +239,3 @@ Obwohl sich das ursprüngliche Paper von Bruls et al. \cite{bruls2000squarified}
     \caption{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
     \label{fig:squarifyRatio5}
 \end{figure}
-%was ist mit kd-bäumen
