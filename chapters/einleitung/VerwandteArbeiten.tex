@@ -3,6 +3,50 @@ In diesem Abschnitt werden verwandte Arbeiten vorgestellt, die auch das Layoutpr
 Außerdem will ich auch konkrete Tools anschauen, die Metriken visualisieren und deren Ansätze betrachten.
 
 
+Ziel der Suche:
+ich will 2d layouts finden, die geeignet sein könnten, um Software-Qualitätsmetriken zu visualisieren in 2.5D.
+
+Wie entscheide ich, ob ein layout geeignet ist:
+- Es sollte eine Art von Hierarchie darstellen können.
+- Es sollte eine Art von Metrik oder Wert darstellen können.
+- Es sollte eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
+- Es sollte ins drei dimensionale extrahierbar sein.
+- Es soll auch ohne spezielle Einfärbung im 2D funktionieren
+
+Wir wollen möglichst viele Layouts finden, auch welche, die nicht direkt für Software-Qualitätsmetriken gedacht sind oder die nicht direkt für das extrudieren ins drei dimensionale gedacht sind, aber die trotzdem geeignet sein könnten.
+Deswegen suchen wir auf folgenden Seiten, die 1. nicht wissenschaftlich sind, da wir nach tools suchen und 2. allgemein sind für visualisierungen:
+- Google
+- GitHub
+- StackOverflow
+- Reddit
+Für wissenschaftliche suche nutzen wir Google Scholar und IEEE Xplore
+
+Wir suchen mit folgenden Suchbegriffen:
+- hierarchy visualization
+- hierarchy visualization tool
+- hierarchy visualization layout
+
+\subsection{visualization Libraries} \ref{sec:VisualizationLibraries}
+Wir schauen uns verschiedene bekannte Open-source Visualisierungsbibliotheken. Oft haben diese eine gute Übersicht über verschiedene Visualisierungen. Der Vorteil ist natürlich dass man diese dann direkt auch verwenden kann, ohne selbst zu implementieren oder man kann den code nehmen und selbst anpassen.
+
+Man muss mit einer gewissen kreativität an die sache heran gehen, es werden alle Visualisierungen betrachtet, es kann natürlich sein ,dass jemand noch mehr finden würde, wir suchen aber hier die geeignetsten heraus
+
+Für die Github suche nutzen wir eine Offene List von visualierungstools \cite{awesome_2025}.
+
+wir schauen uns d3.js an, die bekannteste javascript Visualisierungsbibliothek:
+es gibt extra 
+
+
+Zuerst seaborn in der galery: \cite{seaborngalery}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/structureHeatmapSeaborn.png}
+    \caption{Beispiel für eine Heatmap aus der Seaborn Galery \cite{seaborngalery}.}
+    \label{fig:seabornHeatmap} 
+\end{figure}
+Seaborn bietet keine Visualierungen, die gut für unseren zweck geeignet sein könnten. Das was noch am nächsten kommt, wäre eine heatmap, wie in Abbildung \ref{fig:seabornHeatmap} zu sehen, die zusätlich über ein Baumdiagram informationen über die Struktur darstellt, wie in der Einleitung aber schon gesagt, ist das nicht wirklich geeignet, da es hierbei für große Daten probleme gibt mit baumdigrammen und diese unübersichtlich werden.
+außerdem sollen die diagramme auch möglichst einfach sein.
+
 
 \subsection{layouts}
 
