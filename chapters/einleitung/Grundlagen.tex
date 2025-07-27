@@ -216,6 +216,8 @@ Im nächsten Schritt soll ein Rechteck der Fläche 4 Einheiten eingefügt werden
 
 Nachdem nun die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe Abbildung \ref{fig:squarify_example_2}). Das durch die zuvor erstellte Reihe verbliebene, zu füllende Rechteck hat die Abmessungen $3 \times 4$ (3 Einheiten breit und 4 Einheiten lang). Da die Reihe länger als breit ist. Durch das Einfügen des Rechtecks entsteht ein schlechtestes Seitenverhältnis von $3 : 1,33 \approx 2,25$. Das Einfügen des nächsten Rechtecks mit der Fläche 3 Einheiten verbessert das schlechteste Seitenverhältnis auf $2,33 : 1,29 \approx 1,8$ und ist damit besser als das vorherige. Das Einfügen des nächsten Rechtecks mit der Fläche 2 verschlechtert das schlechteste Seitenverhältnis auf $3 : 0,67 \approx 4,5$, sodass die Reihe abgeschlossen wird (Schritt 8).
 
+Um den Ablauf besser zu verstehen ist in Abbildung \ref{fig:squarify_example_gif} ein Video eingebettet, das die ersten zwei Schritte des Algorithmus zeigt. Es ist zu erkennen, wie das einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, da es das schlechteste Seitenverhältnis verschlechtert.
+
 Dieser Prozess wird so lange fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (siehe Abbildung \ref{fig:squarify_examples}).
 
 \begin{figure}
@@ -266,7 +268,7 @@ Ebenso gilt analog $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Es genügt 
 
 Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal berechnet werden; $sV$ wird bei jedem neuen Rechteck in der Reihe aktualisiert.
 
-Um den Algotihmus noch besser zu verstehen, hängen wir folgend den code an, so wie wir in in dieser Arbeit als Grundlage für die Erweiterungen verwendet haben. Der Code ist in TypeScript geschrieben. Als Vorlage für diese Implementierung diente die JavaScript-Bibliothek d3.js \cite{d3_treemap_code}.
+Um den Algotihmus noch besser zu verstehen, hängen wir folgend den code an, so wie wir in in dieser Arbeit als Grundlage für die Erweiterungen verwendet haben. Der Code ist in TypeScript geschrieben. Als Vorlage für diese Implementierung diente die JavaScript-Bibliothek d3.js \cite{d3_treemap_github}.
 
 \input{chapters/einleitung/squarify_algorithm.tex}
 
