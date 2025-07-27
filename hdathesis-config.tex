@@ -44,3 +44,73 @@
 %\PassOptionsToPackage{spanish,es-lcroman}{babel}
 \usepackage{babel}
 \usepackage{subcaption}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{algorithm} 
+\usepackage{algpseudocode}
+
+\usepackage[dvipsnames]{xcolor} % Pro­vides easy driver-in­de­pen­dent ac­cess to sev­eral kinds of colors
+\definecolor{tsKeyword}{RGB}{0,0,255}
+\definecolor{tsString}{RGB}{163,21,21}
+\definecolor{tsComment}{RGB}{0,128,0}
+\definecolor{tsType}{RGB}{43,145,175}
+\definecolor{tsNumber}{RGB}{128,0,128}
+
+
+\usepackage{listingsutf8}
+\lstdefinelanguage{json}{
+    basicstyle=\ttfamily,
+    morestring=[b]",
+    morecomment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    stringstyle=\color{violet},
+    commentstyle=\color{green},
+    showstringspaces=false
+}
+
+\lstdefinelanguage{typescript}{
+    keywords={
+        break, case, catch, class, const, continue, debugger, default, delete, do, else,
+        enum, export, extends, false, finally, for, function, if, import, in, instanceof,
+        new, null, return, super, switch, this, throw, true, try, typeof, var, void, while, with, let, await, async, static, as
+    },
+    keywordstyle=\color{tsKeyword}\bfseries,
+    ndkeywords={
+        boolean, number, string, symbol, any, never, unknown, undefined, null, object,
+        interface, type, readonly, Record, Partial, Pick, Omit
+    },
+    ndkeywordstyle=\color{tsType}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{tsComment}\itshape,
+    stringstyle=\color{tsString},
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=10pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    breaklines=true,
+    breakatwhitespace=true,
+    basicstyle=\ttfamily\small,
+    captionpos=b
+}
+
+\lstset{
+  language=typescript,
+  inputencoding=utf8,
+  extendedchars=true,
+  literate={ä}{{\"a}}1 {ö}{{\"o}}1 {ü}{{\"u}}1 {ß}{{\ss}}1
+           {Ä}{{\"A}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1,
+  basicstyle=\ttfamily\small,
+  breaklines=true
+}
