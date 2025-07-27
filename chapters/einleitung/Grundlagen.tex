@@ -1,4 +1,4 @@
-\section{Grundlagen}[ht] \label{sec:Grundlagen}
+\section{Grundlagen} \label{sec:Grundlagen}
 In diesem Abschnitt werden die grundlegenden Konzepte und Begriffe erläutert, die für das Verständnis dieser Arbeit notwendig sind. Zunächst werden Software-Qualitätsmetriken vorgestellt, da sie die Basisdaten für alle in dieser Arbeit genutzten Visualisierungen liefern. Anschließend wird das Thema Software-Visualisierung behandelt, wobei insbesondere auf die dreidimensionale Software-Visualisierung mit Hilfe von Treemaps eingegangen wird.
 
 \subsection{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
@@ -220,23 +220,32 @@ Dieser Prozess wird so lange fortgesetzt, bis alle Rechtecke in Reihen einsortie
 
 \begin{figure}
     \centering
-    \begin{subfigure}{1\textwidth}
+    \begin{minipage}{1\textwidth}
+        \centering
         \includegraphics[width=\linewidth]{images/squarify_example_3.png}
-        \caption{Reihe 3}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{1\textwidth}
+        \caption*{Reihe 3}
+    \end{minipage}
+    
+    \vspace{1em}
+    
+    \begin{minipage}{1\textwidth}
+        \centering
         \includegraphics[width=\linewidth]{images/squarify_example_4.png}
-        \caption{Reihe 4}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.4\textwidth}
+        \caption*{Reihe 4}
+    \end{minipage}
+    
+    \vspace{1em}
+    
+    \begin{minipage}{0.4\textwidth}
+        \centering
         \includegraphics[width=0.7\linewidth]{images/squarify_example_5.png}
-        \caption{Reihe 5}
-    \end{subfigure}
+        \caption*{Reihe 5}
+    \end{minipage}
+    
     \caption{Beispiel für die letzen Reihen des Squarify-Algorithmus. Die Reihen sind im linken großen Rechteck in hellgrau dargestellt, die kann nach rechts in der Breite variieren. Rot sind die Rechtecke, die in ihrer Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke die teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_examples}
 \end{figure}
+
 
 \smallskip
 
