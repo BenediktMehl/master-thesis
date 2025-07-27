@@ -7,12 +7,55 @@
 	url          = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true}
 }
 
+@misc{seaborngalery,
+	year         = 2024,
+	journal      = {Pydata.org},
+	url          = {https://seaborn.pydata.org/examples/index.html},
+	note         = {[Online; accessed 07-July-2025]}
+}
+
 @misc{systect_2015,
 	title        = {systect // SoWaCa},
 	author       = {systect},
 	year         = 2015,
 	journal      = {Systect.de},
 	url          = {https://www.systect.de/sowaca.html}
+}
+
+@misc{evanli/github-ranking_2025,
+	year         = 2025,
+	journal      = {GitHub},
+	url          = {https://github.com/EvanLi/Github-Ranking?tab=readme-ov-file#most-stars},
+	note         = {[Online; accessed 23-June-2025]}
+}
+
+‌@misc{awesome_2025,
+    url     = {https://github.com/hal9ai/awesome-dataviz?tab=readme-ov-file#python-tools},
+    journal = {GitHub},
+    year    = {2025},
+    note    = {[Online; accessed 07-July-2025]},
+}
+
+‌
+@misc{software_state_2022,
+	year         = 2022,
+	journal      = {The State of the Octoverse},
+	url          = {https://octoverse.github.com/2022/state-of-open-source},
+	note         = {[Online; accessed 22-June-2025]}
+}
+
+‌
+@article{numDevs,
+	title        = {The effect of multiple developers on structural attributes: A Study based on java software},
+	author       = {Andrea Capiluppi and Nemitari Ajienka and Steve Counsell},
+	year         = 2020,
+	journal      = {Journal of Systems and Software},
+	volume       = 167,
+	pages        = 110593,
+	doi          = {https://doi.org/10.1016/j.jss.2020.110593},
+	issn         = {0164-1212},
+	url          = {https://www.sciencedirect.com/science/article/pii/S016412122030073X},
+	keywords     = {Object oriented, Metrics, Collaborative development, Open source, Software structure},
 }
 
 ‌@article{MERINO2018165,
@@ -58,6 +101,16 @@
     year        = {1991},
     institution = {UM Computer Science Department; CS-TR-2657},
 }
+@inproceedings{popAndQuality,
+	title        = {Is Popularity a Measure of Quality? An Analysis of Maven Components},
+	author       = {Sajnani, Hitesh and Saini, Vaibhav and Ossher, Joel and Lopes, Cristina V.},
+	year         = 2014,
+	booktitle    = {2014 IEEE International Conference on Software Maintenance and Evolution},
+	pages        = {231--240},
+	doi          = {10.1109/ICSME.2014.45},
+	keywords     = {Measurement;Java;Computer bugs;Couplings;Correlation;Software quality;Complexity theory}
+}
+
 ‌
 @book{def_qual_metric,
 	title        = {IEEE Std 1061-1998: IEEE Standard for a Software Quality Metrics Methodology},
@@ -170,7 +223,7 @@
 	pages        = {63--70},
 	doi          = {10.1007/978-3-658-19845-9_8},
 	isbn         = {978-3-658-19845-9},
-	url          = {https://doi.org/10.1007/978-3-658-19845-9\%5F8},
+	url          = {https://doi.org/10.1007/978-3-658-19845-9\%5F8}
 }
 
 @misc{softwaremetriken_2019,

@@ -143,3 +143,26 @@ In bild updateValues.png ist zu erkennen, dass kp. margin 10 noP 3
 Immernoch straight forward, es gibt aber noch Probleme 
 
 Warum besonders den squarify algorithmus betrachtet und nicht zum beipsiel pivot oder circle?? -> weil diese Andere Ziele haben -> noch mehr begründen anhand der definierten Ziele
+
+
+%weitere idee wie bei casced nach jedem layoutschritt im zweiten durchgang den benötigten platz neu berechnen
+
+
+
+%schreibe warum die berechnung mit shrinkyfiy und nicht direct mit den margins plazieren
+%ist mein shrinkify gleich zu setzen mit leafs nicht ändern und direkt mit margin platzieren?
+%wenn alles genauso wie berechnet, dann egal, weil ich füge genauso viel platz hinzu, wie ich dann bei shrinkify abziehe
+%wenn nicht alles genauso, dann für ich evtl. weniger platz hinzu als ich danach abziehe, weil sich die form der node ändert
+%macht es am ende dann einen unterschied? weil ich würde dann die node ja trozdem scalen
+
+%das scalen wird auch viel schwerer - weil, ja am anfang dann gar nicht klar ist wie viel platz benötigt wird für die abstände -> wäre das überhaupt möglich? 
+%nein wäre es nicht, es müsste dann jede Row für sich gescaled werden -> interessanter ansatz, aber 
+
+
+%Ideen: im shrink step, auf original größe shrinken -> wenn die zu größ ist, dann zumindest so dass margin hält
+%Idee: einen dritten allgemeinen schritt für die siblingmargins einführen
+%Idee: für sehr kleine nodes heuristisch, absolute werte hinzufügen -> oder dafür auch einen dritten schritt einfüren
+
+
+
+%erkläre, warum wir immer ein seitenverhältnis von 1 anstreben. -> weil dadurch sogar näher am goldenen schnitt als mit phi, dadurch, dass nicht optimial, wird man immer "schlechter" sein, als der angestrebte ratio. vllt sogar grafisch zeigen, dass mit 1 besser ist. In d3.js zum beispiel wird phi verwendet, wir als autoren halte das für eine schlechte idee, aus den genannten gründen

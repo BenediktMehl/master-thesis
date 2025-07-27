@@ -38,7 +38,7 @@ Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das
 Die Visualisierung richtet sich primär an Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse. Trotzdem kann die Visualierung aber auch Entwicklerinnen und Entwicklern helfen, die sich neu in ein Projekt einarbeiten oder Teams, die systematisch die Softwarequalität verbessern wollen, in der Kommunikation unterstützen.
 
 \subsubsection*{3. Was ist die Datenquelle?}
-Grundlage sind hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Source Code extrahiert werden. Jeder Knoten der Hierarchie (Node) besitzt dabei einen Namen und entweder eine Liste von Kindknoten (children) oder einen Wert (value), der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}). 
+Grundlage sind hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Source Code extrahiert werden. Wobei die Metriken auf File-Basis erstellt werden. Dieser vorschlag stammt ursprünglich von Code City. Er bietet eine gute granularität, um die Struktur un die qualität von software zu beurteilen \cite{codeCity1}. Jeder Knoten der Hierarchie (Node) besitzt dabei einen Namen und entweder eine Liste von Kindknoten (children) oder einen Wert (value), der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}). 
 Diese Struktur ermöglicht es, komplexe Softwareprojekte in übersichtliche Hierarchien zu zerlegen, die dann visualisiert werden können.
 
 \begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeSchema}]
@@ -47,6 +47,8 @@ Diese Struktur ermöglicht es, komplexe Softwareprojekte in übersichtliche Hier
         "children": List[Node] | "value": number
     }
 \end{lstlisting}
+
+Genauer werden wir in Abschnitt \ref{sec:datenAnalyse} auf die Eingabedaten eingehen.
 
 \subsubsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp wird eine Umsetzung im Webbrowser mittels TypeScript und Three.js realisiert. Die Übertragung der Methoden auf andere Programmierumgebungen ist möglich.
@@ -123,3 +125,7 @@ Dadurch entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet w
 %stelle nochmal klar, dass fehlende Knoten nicht nur zu klein sind, um gesehen zu werden, sondern dass sie wirklich durch das Fehlen von genügend Platz verschwinden.
 
 %Der anspruch ist unmöglich zu erfüllen: beispiel: die fäche von zwei geschwistern - eins ist blat eins nicht, hat aber kind mit exakt der selben größe. dann müsste die fläche der ordners und des kindes gleich groß sein, um anforderung zu erfüllen, dann aber kein Abstand mehr möglich.
+
+
+%nicht interaktiv, weil nicht überfordern und super simple - es soll keine interaktion nötig sein
+%farben nur für die ordner strukturen - also nicht komplett ohne farben

@@ -1,5 +1,7 @@
 \section{Datenanalyse} \label{sec:datenAnalyse}
 
+Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wwurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
+
 Im Grundlagen Kapitel wurde bereits erwähnt, dass die Metrik-Daten, die wir durch die Analyse von Code erhalten, spezielle Eigenschaften aufweist (siehe Abschnitt \ref{sec:SoftwareQualitaetsmetriken}). Diese Eigenschaften sind wichtig, um die Visualierung zu optimieren und zu wissen in welchem Rahmen sich die zu visualisierenden Daten bewegen. 
 In diesem Abschnitt werden wir verschiedene Open-Source-Projekte analysieren und die Metrik-Daten untersuchen, um ein besseres Verständnis für die Struktur von Softwareprojekten zu gewinnen. 
 Wir sind uns bewusst, dass ein gewisser bias bestehen könnte, da open source projekte eventuell nicht die gleiche Struktur wie kommerzielle Softwareprojekte aufweisen. Dennoch glauben wir, dass ein allgemeiner Trend erkennbar sein wird, der uns bei der Visualisierung helfen kann. QUELLE für diese Annahme?
@@ -7,12 +9,13 @@ Wir sind uns bewusst, dass ein gewisser bias bestehen könnte, da open source pr
 Als Quelle werden wir GitHub verwenden, da es eine große Anzahl an Open-Source-Projekten bietet und die Daten leicht zugänglich sind.
 Wir probieren möglich breit gefächert Projekte zu betrachten, um ein möglichst breites Spektrum an Softwareprojekten abzudecken. 
 Das Ziel bei der Auswahl der Projekte ist es, eine möglichst diverse Auswahl an Projekten zu haben, um später eine Aussage über die Struktur von Softwareprojekten im Allgemeinen treffen zu können und nicht nur über die Stuktur der meisten Softwareprojekte. Wir könnten einfach zufällige Projekte von Github auswählen, aber das würde wahrscheinlich zu einer Verzerrung führen und eher kleinere und unbekannte Projekte auswählen.
-Deshalb setzen wir fünf Kriterien für die Auswahl der Projekte fest, die wir im Folgenden näher erläutern werden.
+Deshalb suchen wir nach Kriterien, die einen Einfluss auf die Struktur von Softwareprojekten haben können. 
 
 \begin{itemize}
-    \item \textbf{Popularität:} Wir wollen Projekte mit einer verschieden großen Popularität betrachten, zwar deutet eine Studie an, dass Popularität nicht in Korrelation mit Software Qualität steht \cite{popAndQuality}. Außerdem sind die meisten Projekte die auf GitHub viele Sterne haben eher Sammlungen von Bücher, Kursen oder anderen Ressourcen und nicht wirklich Softwareprojekte \cite{evanli/github-ranking_2025}.
+    \item \textbf{Popularität:} Wir wollen Projekte mit einer verschieden großen Popularität betrachten, zwar deutet eine Studie an, dass Popularität nicht in Korrelation mit Software Qualität steht \cite{popAndQuality}. Außerdem sind die meisten Projekte die auf GitHub viele Sterne haben eher Sammlungen von Bücher, Kursen oder anderen Ressourcen und nicht wirklich Softwareprojekte \cite{evanli_github-ranking_2025}.
     trotzdem haben Populärere Projekte oft eine größere Anzahl an Mitwirkenden, mehr Änderungen und generell mehr aufmerksamkeit. 
     unterschiedlichen Anzahlen an Mitwirkenden hat einen Einfluss auf die Struktur und Qualität des Codes haben kann \cite{numDevs}. Wir werden also die Popularität nicht anhand der Anzahl der Sterne messen, sondern anhand der Anzahl der Mitwirkenden. Wir werden nur Projekte bereits ab einer Anzahl von 2 Mitwirkenden betrachten, da Projekte mit nur einem Mitwirkenden oft nicht wirklich repräsentativ für die Struktur von Softwareprojekten sind. Außerdem hat unsere analyse von 1200 Github Projekten gezeigt, dass keine (ohne nur eine sehr schwache positive) Korrelation zwischen der Anzahl der Sterne und der Anzahl der Mitwirkenden besteht (Wert von 0.15). Über die github api konnte man beides auslesen. dann haben wir einfach die korellation berechnet. wir haben auch geplottet sie bild
+    \item \textbf{Alter:}
     \item \textbf{Programmiersprache:} Wir werden Projekte in verschiedenen Programmiersprachen betrachten, da die Struktur von Softwareprojekten in verschiedenen Programmiersprachen stark unterschiedlich sein kann - hier fehlt noch ein beweis - ist da überhaupt so? wenn nicht kann man das auch weglassen. Wir wählen die Programmiersprachen nach ihrer Popularität und Paradigma aus. 
     \begin{itemize}
         \item \textbf{Python:} Die zweit populärste Sprache \cite{software_state_2022} mit dynamischer Typisierung, sowohl imperativem als auch objektorientiertem Paradigma. 
@@ -25,4 +28,7 @@ Deshalb setzen wir fünf Kriterien für die Auswahl der Projekte fest, die wir i
 \end{itemize}
     
 
+
+
+\subsection{Anmekrung}
 
