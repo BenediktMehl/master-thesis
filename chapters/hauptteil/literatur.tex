@@ -1,0 +1,226 @@
+\section{Literaturrecherche} \label{sec:LiteraturRecherche}
+Das Ziel dieses Abschnitts ist es 2D-Layouts zu finden, die geeignet sind, um extrudiert zu werden und Software-Qualitätsmetriken in Form der in Abschnit \ref{sec:Problemstellung} definierten Form in 2.5D zu visualisieren. Alternativ können auch direkt 2.5D Visualisierungen gefunden werden, die geeignet sind, um Software-Qualitätsmetriken wie in der definitern Form zu visualisieren. 
+In diesem Abschnitt stellen wir zunächst die Methodik vor, die wir bei der Recherche verwendet haben. Anschließend stellen wir die Ergebnisse der Recherche vor. 
+
+\subsection{Methodik} \label{sec:Methodik}
+Die hier verwendete Methodik orientiert sich an der Methodik der systematischen Literaturrecherche, wie sie in \textit{Procedures for performing systematic reviews}\cite{kitchenham2004procedures} beschrieben wird, ist aber leicht angepasst, da es vorallem um das finden und einordnen von Layouts geht und nicht direkt um das Bewerten und vergleichen von verschiedenen Arbeiten.
+
+\subsubsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
+Die Problemstellung dieser Arbeit an der hier gearbeitet wird ist bereits definiert:
+\begin{quote}
+    Lassen sich durch Analyse verwandter Arbeiten und bestehender Tools (zum Treemap Layout) alternative Layouts identifizieren, die eine bessere Grundlage für die Visualisierung von Code-Qualitätsmetriken bieten? (siehe Abschnitt \ref{sec:Problemstellung})
+\end{quote}
+
+Die Konkrete Forschungsfrage bzw. das Ziel dieser Rechere leitet sich aus dieser Problemstellung ab:
+Unsere Recherche hat das Ziel, Layouts zu finden, die geeignet sind, um Software-Qualitätsmetriken in 2.5D zu visualisieren. Wir wollen dabei nicht nur spezifisch nach 2.5D visualierungen suchen, sondern auch nach 2D-Layouts, die geeignet sind, um in 2.5D extrudiert zu werden.
+
+\subsubsection*{2. Suchstrategie} \label{sec:Suchstrategie}
+Wir wollen sowohl wissenschaftliche Arbeiten als auch bestehende Tools und Ansätze finden, die sich mit der Visualisierung von Software-Qualitätsmetriken beschäftigen und analysieren, ob diese Ansätze geeignet sind, um auf unser spezifische Problemstellung übertragen zu werden.
+
+Für die Suche nutzen wir zunächst Google Scholar wir wollen folgende Suche nutzen:
+
+Wir wollen paper suchen, die sich mit der Visualisierung von Software-Qualitätsmetriken beschäftigen.
+Wir teilen unsere Suche in zwei Teile auf:
+Der fordere Teil beziet sich auf die Visualierung.
+Und 
+Der Hintere teil soll sicher gehen, dass es sich um Software-Qualitätsmetriken handelt, dafür muss auf jeden fall das wort software vorkommen und dann entweder "quality" oder "metrics". 
+Beides muss im Paper vorkommen, um in unserer suche aufzutauchen.
+Daraus ergibt sich folgende Suchanfrage:
+("3D" OR "2.5D" OR "visualization" OR "treemap") AND ("software" AND ("quality" OR "metrics"))
+
+Zur suche nutzen wir die erweiterte Suche von Google Scholar, um möglichst viele relevante Ergebnisse von verschiedenen Journalen und Anbietern zu finden.
+Das Problem bei der erweiterten suche von Google scholar ist, dass sie sehr limitert ist und keine verschachtelten Suchanfragen unterstützt \cite{scholar_queries_2023}.
+Deshalb teilen wir die Suche in zwei Teile auf: 
+"3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics AND "software"
+und 
+"treemap" OR "quality" OR "metrics AND "software"
+
+Um trotzdem die gewünsche Suchanfrage nutzen zu können, um potentiell noch spezifischere und relevantere Ergebnisse zu erhalten, nutzen wir zusätzlich die \textit{Command Search} von IEEE Xplore, die auch verschachtelte boolsche Suchanfragen unterstützt \cite{ieee_xplore_boolean_2025}.
+
+Wir schauen uns jeweils die ersten 20 Ergenisse an, da dies ein guter Kompromiss zwischen Relevanz und Anzahl der Ergebnisse ist.
+
+Wir suchen nicht nur im Titel, sondern auch im Text, da es nicht immer alles expliziet im Title steht. 
+Als Ziel des Papers, das ist zb. wichtig für die wörter quality oder metrics. Auch wenn viele das nicht explizit im Titel oder im abstract haben, wird trotzdem gibt es Paper diese daten als grundlage für die visualisierung verwendet, ohne dies wirklich explizit zu unterscheiden zwischen qualität und software selbst. ZB: Visualization of the Static Aspects of Software: A Survey
+
+Außerdem suchen mit der normalen Google Suche nach existierenden Tools oder anderen Seiten, Ideen die genutzt werden können, um Software-Qualitätsmetriken zu visualisieren. Nutzen wir verschiedenste suchanfragen.
+
+\subsubsection*{3. Inklusion und Exklusion Kriterien} \label{sec:InklusionExklusionKriterien}
+Auf die Suchergebnisse wenden wir noch folgende Filter an, um unrelevante oder nicht zugängliche Ergebnisse zu exkludieren:
+
+1. Wie bereits gesagt für google scholar: software ist ein muss, der rest ist optional in google scholar, auch wenn wir eigentlich gerne hätten, dass zumindest eines der wörter "quality" oder "metrics" vorkommt, um sicher zu gehen, dass es sich um Software-Qualitätsmetriken handelt und nicht um software-Visualisierung im allgemeinen (die wichtigkeit der unterscheidung wurde im Grundlagen Abschnitt \ref{sec:SoftwareVisualisierung} erleutert) deswegen filtern wir die suchergebnisse auch manuell, um sicher zu gehen, dass es sich um relevante Ergebnisse handelt: zB: Software Architecture Visualization: An Evaluation Framework and Its Application
+
+2. in englisch oder deutsch - aber alles war sowieso auf englisch, aufgrund der Suchbegriffe, außer ein spanisches paper: Software visualization tools and techniques: A systematic review of the literature
+
+3. Frei zugänglich über alle herkömmlichen anbieter: IEEE, sprignerlink, acm digital library, researchgate,... Das sind die meisten außer zb. Understanding software evolution using a combination of software visualization and software metrics
+
+4. Außerdem generell innhalblich auch passen. zb. Open source software for visualization and quality control of continuous hydrologic and water quality sensor data 
+
+5. wird wirklich eine visualisierung vorgestellt: Existing model metrics and relations to model quality
+
+Für die normale Google suche, verwenden wir verschiedenste heuristische Filter um werbung, Dienstleistungsanbieter und andere irrelevante Ergebnisse zu filtern.
+
+\subsubsection*{4. Paper auswahl} \label{sec:PaperAuswahl}
+Wenn in dem paper entweder, mindestens eine 2D layout vorgestellt wird, dass geeignet ist in 2.5D extrudiert zu werden 
+oder wenn mindestens eine 2.5D Visualisierung vorgestellt wird
+
+\subsubsection*{5. auswertung der paper und extraktion der layouts} \label{sec:AuswertungPaper}
+Wie entscheide ich, ob ein layout geeignet ist:
+- Es sollte eine Art von Metrik oder Wert darstellen können.
+- Es sollte eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
+- Es sollte ins drei dimensionale extrahierbar sein.
+- Es soll auch ohne spezielle Einfärbung im 2D funktionieren - eventuell nur die ordner einfärben
+
+\subsubsection*{6. qualitäts analyse: (Analyse der Layouts und entscheidung welche layouts in dieser arbeit behandelt werden)} \label{sec:QualitaetsAnalyse}
+
+\subsection{Durchführung der Suche}
+Hier stellen wir zunächst die Ergebnisse der Suche vor nachdem bereits die Filter angewendet wurden.
+
+Erste Google Scholar Suche:
+1. Voronoi treemaps for the visualization of software metrics
+2. Visualization-based analysis of quality for large-scale software systems
+3. Visualization of the static aspects of software: A survey
+4. Visual realism for the visualization of software metrics
+5. An overview of 3D software visualization
+6. CityVR: Gameful software visualization
+7. A solar system metaphor for 3D visualisation of object oriented software metrics
+8. EvoSpaces: 3D Visualization of Software Architecture.
+9. 3D representations for software visualization
+10. Software cartography: Thematic software visualization with consistent layout
+
+
+zweite Google scholar suche:
+Doppelte Treffer: 4 zB.: Visualization-based analysis of quality for large-scale software systems
+1. Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs
+2. Visualizing Software Metrics in a Software System Hierarchy -> Sammlung aus vielen Papern, wir wenden filter an, einziges was relevant ist: Progressive Presentation of Large Hierarchies Using Treemaps
+3. A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization
+4. Visualizing Program Quality – A Topological Taxonomy of Features 
+5. Stable and predictable Voronoi treemaps for software quality monitoring
+6. Visualization and evolution of software architectures
+7. Multiple linked perspectives on hierarchical data
+8. A visualization technique for metrics-based hierarchical quality models
+
+IEEE Suche:
+Doppelt: 2 zB. Visualization of the Static Aspects of Software: A Survey
+1. Metrics-based 3D visualization of large object-oriented programs
+2. Visualizing Metric Trends for Software Portfolio Quality Management
+3. E-Quality: A graph based object oriented software quality visualization tool
+4. Visualization of Software Quality Expert Assessment
+5. QScored: An Open Platform for Code Quality Ranking and Visualization
+6. Using the City Metaphor for Visualizing Test-Related Metrics
+7. Visual Analytics of Software Structure and Metrics
+
+
+Google Tool suche:
+Gefilter werden paper, wenn sie kommen. Nur webseiten werden geöffnet
+Software Quality Visualizer
+
+
+Software Metric Visualizer/software quality analysis/ software visualisation tool/ 
+dabei auch die filter: 1. software quality vis 2. existing tool 3. keine paper, 
+viele dienstleister raus filtern wie zb. https://bitsea.de/dienstleistungen/software-qualitaetsanalyse/ -> nur dienstleistungen anbieten
+dabei gestoßen auf: https://home.uni-leipzig.de/svis/publications.html und https://hpi.de/doellner/publications.html
+
+
+grafana.com -> aussortiert, weil generelle library für visualisierungen und dashboards
+
+
+https://github.com/MaibornWolff/codecharta
+
+www.jarchitect.com und sonarqube
+https://www.cs.rug.nl/svcg/SoftVis/ArchiVis
+%https://softvis.wordpress.com/tag/software-metrics/page/2/ -> https://erik.doernenburg.com/archive/Doernenburg_SoftwareQuality_ver2a.pdf
+GETAVIZ gefunden
+sereen gefunden
+%https://softvis3d.com/
+
+code-is-beautiful: letzter commit vor 7 jahren
+https://github.com/quantifiedcode/code-is-beautiful
+bietet: code city, 
+Sunburst (2d): im grunde ein kreis diagram, welches von  innen nach außen die ordner strukturen zeigt. die es können die größe (wie viel des kreises nimmt etwas ein) und die farbe als metric gewählt werden
+Stack (2d): im grund wie das kreis diagram nur von oben nach unten
+
+
+Code Radar:
+https://github.com/pschild/CodeRadarVisualization
+Wie code city speziell auf vergleich von versionen ausgelegt, indem man zwei karten direkt nebeneinander sehen kann
+letzter commit vor 7 jahren
+
+
+softvis:
+vor 2 jahren
+%https://softvis3d.com/#/
+wie code city
+
+
+Ndepend:
+https://www.ndepend.com/docs/treemap-visualization-of-code-metrics?cx=015095677987321916295%3Ar_17mxn8qfg&cof=FORID%3A11&q=Visualize&sa=Search#
+2D
+Aber interessant: hier werden die kanten dunkel eingefärbt, um die einzelnen elemente visuell zu unterscheiden
+
+
+https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true:
+hat die idee dass gebäude wirklich echt sein könnten
+ein gebäude an dem gebaut wird, wurde kürzlich geändert
+alte gebäude wurden lange nicht mehr verändert
+oft geänderte objekte sind nah an einem hafen oder so
+
+ein kommentar auf deren seite:
+"Playing around with these metrics seems like an easy way to identify those objects where a refactoring promises to be most beneficial, because large and complex objects that are changed often tend to introduce bugs and slow down the development process.
+
+It also seems that this visual approach helps to promote topics like clean code within an organisation as the negative impact of such skyscraper classes becomes clearer when you look at these graphics.
+
+I think I will take a Code City Snapshot from time to time to track how the red skyscrapers steadily turn into beautiful, clean and green suburbs.
+
+Even without medieval buildings that can be accessed using VR, this might help a lot to navigate towards a clean code base."
+
+
+https://home.uni-leipzig.de/svis/getaviz/index.php?setup=web/City%20bricks%20freemind&model=City%20bricks%20freemind&aframe=false:
+auch sehr sehr nice
+mit bausteinen verschiedene sachen visualisieren
+
+
+https://codescene.com/product:
+2d kreis diagramme
+
+https://github.com/adamtornhill/code-maat
+bietet auch einiges in 2d
+
+Wie ist der Stand der Forschung?
+overview of 3d software visualisierung: https://ieeexplore.ieee.org/document/4564449
+
+interessant: https://opus-htw-aalen.bsz-bw.de/frontdoor/deliver/index/docId/658/file/ICCSE16-SEE.pdf
+
+\cite{MERINO2018165}:
+A systematic literature review of software visualization evaluation:
+Wie kann man visualisierungen bewerten?
+Hier geht es vor allem darum: "help analysts make sense of multivariate data
+(Merino et al., 2015), to support programmers in comprehending the
+architecture of systems (Panas et al., 2016), to help researchers analyze
+version control repositories (Greene et al., 2017), and to aid developers
+of software product lines"
+
+
+Quality models are usually defined based on concrete measurements of software metrics (N. Fenton and J. Bieman, Software metrics: a rigorous and practical approach. CRC Press, 2014)
+
+%https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7332436:
+4 metriken werden visualisiert: farbe, position, höhe, breite
+
+%https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6462737:
+sehr interessant.
+1. Idee unterschiedliche metriken zu stacken
+2. gibt einen generelen qualitäts wert am ende heraus, erstellt aber eine grafik, die die einflüsse verschiedener klassen auf die verschiedenen metriken zeigt und die generelle bedeutung für die allgemein metrik am ende.
+
+Moose - ich würde das eher bewreten für entwickler. Es werden hier verbindungen von klassen dargestellt - abhängigkeiten undco.
+
+
+
+
+
+VON cascaded: hier könnte man auch nochmal suchen, muss aber auch nicht.
+So etwas ähnliches auch sagen:
+A number of other hierarchy visualization techniques have been
+developed [18, 23, 29, 32], including space-filling visualizations
+like step trees [6], Voronoi treemaps [2] and generalized treemaps
+[34]. Although relevant to hierarchy visualization, we pursue
+contributions that are sufficiently distinct from such work that we
+do not dwell on extensive comparisons. \cite{lu2008cascaded}

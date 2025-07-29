@@ -138,6 +138,56 @@ Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechne
 \subsection{Anpassung der Knoten}
 In bild updateValues.png ist zu erkennen, dass kp. margin 10 noP 3
 
+\subsubsection{Optimierung Ordner mit nur einem Kind}
+Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Diese Struktur wird zum Beispiel für Module in Java/Kotlin verwendet.
+Zum Beispiel im OpenSource Projekt CodeCharta 
+codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
+Ab dem Ordern \textit{main} bis zum Ordner \textit{analyserinterface} geht die Kette von Ordnern.
+Durch diese tiefe Verschachtelung wird viel Platz für die Abstände zwischen den Ordnern verbraucht, obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
+Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
+Es ergeben sich folgende Auswirkungen auf die Ziele der Visualisierung:
+\begin{itemize}
+\item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verbessert, da weniger Platz für Abstände zwischen den Ordnern benötigt wird und weniger Knoten im Layout sind. 
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Wird verbessert, da weniger Knoten im Layout sind und tiefe Verschachtelungen vermieden werden.
+    \item \textbf{Skalierbarkeit:} Wird verbessert, da weniger Knoten im Layout sind und die Berechnung des Layouts beschleunigt wird.
+    \item \textbf{Korrelation mit dem Code:} wird verschlechtert, da die Ordnerstruktur nicht mehr 1:1 mit der Code-Struktur übereinstimmt. die \textit{wahre} Tiefe der Ordnerstruktur nicht mehr ersichtlich ist. Allerdings ist die Tiefe der Ordnerstruktur selbst in eigentlich gar nicht so relevant, die Tiefe wird eher als Mittel benutzt um die Ordner Struktur darzustellen. Ob eine Datei jetzt 5 oder 10 tief liegt, macht für die WAhrnehmung der Struktur keinen großen Unterschied.
+    \item \textbf{Stabilität gegenüber Änderungen:} Wird verbessert, da durch weniger Abstände die differenz zwischen Knoten Fläche und Knoten Wert geringer werden, wodurch weniger umstrukturierung bei der Platzierung der Knoten nötig ist. Außerdem wirken sich trivialerweise Änderungen an Order-Ketten nicht mehr auf die gesamte Struktur aus und verändern somit auch die Visualierung nicht, was positiv für die stabilität ist (aber wie gesagt negativ für die Korrelation mit dem Code).
+\end{itemize}
+Wir würden sagen, dass die Vorteile dieser Änderung die Nachteile stark überwiegen.
+
+\subsubsection{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
+Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie es dem Nutzer ermöglicht, die Knoten zu identifizieren und zu verstehen, welche Informationen sie repräsentieren. Es gibt verschiedene Ansätze, um die Beschriftung der Knoten zu gestalten. Jeder Ansatz hat seine Vor- und Nachteile. Ein häufig verwendeter Ansatz ist wie zum Beispiel auch beim in Abschmijt VerwandteArbeiten \ref{sec:VerwandteArbeiten} vorgestellten Cascaded Treemap Ansatz \cite{lu2008cascaded}.
+Ordner erhalten eine Zusätzliche horizontale Fläche, entweder unten oder oben, die den Namen des Ordners enthält. 
+Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für den Algorithmus, wie die abstände zwischen den Knoten. Außerdem kann es passieren, dass die Beschriftung zu lang für die breite der Knotens ist, wodurch die Beschriftung entweder abgeschnitten wird oder über den Knoten hinauswächst.
+Hao Lü and James Fogarty schlagen vor dynamisch zu entscheiden, ob die Beschriftung der Knoten angezeigt werden soll oder nicht \cite{lu2008cascaded}. Wenn das Hinzufügen der Beschriftung den Knoten dazu führen würde, dass gar kein Platz mehr für den Knoten selbst übrig bleibt, wird die Beschriftung nicht angezeigt. Der Vorteil dieses Ansatzes ist, dass sicher gegangen wird, dass durch die Beschriftung kein Knoten verschwindet. Der Nachteil ist, dass selbst wenn die Änderung der Knotenfläche zum Knotenwert durch das hinzufügen der Beschriftung riesig wird (wenn die Fläche also super klein wird), die Beschriftung trotzdem hinzugefügt wird. 
+
+Wir schlagen einen statischen ansatz vor, bei dem nur die Beschriftungen der Top N order angezeigt werden. 
+Die Wahl von N ist nun die Stellschraube für die nicht für jede Codebasis gleich ist. Es ist Stellschraube um zwischen Informationsgehalt und visuelle Komplexität zu balancieren.
+\begin{itemize}
+    \item Je höher N ist, desto mehr Informationen (also Ordnernamen) werden angezeigt, was den Informationsgehalt erhöht.
+\item Je niedriger N ist, desto weniger Informationen werden angezeigt, was die visuelle Komplexität reduziert, viele Beschriftungen können schnell ablenken und die Visualisierung unübersichtlich machen.
+\item Außerdem wird die Korrelation mit dem Code verbessert, da ein übertragen von Vsiaulisierung zur codebasis einfacher wird mit höherem N.
+%Beweis, dass große Codebasen auch Tiefer sind als kleine und nicht zwingen mehr kinder haben.
+\item Skalierbarkeit hängt nicht ab von N, da N ja nicht mitwächst, sondern statisch ist, ob noch mehr order und noch mehr tiefe hinzu kommt, macht keinen wirklichen unterschied.
+\item STabi gegen änderungen wenn überhaupt sinkt es, weil änderung vom namen zb. auf einmal sichtbar wird (das ist natürlich gewollt, trotzdem in unserer messung hier erstmal negativ- wenn auch vernachlässigbar) - eventuell werden dadurch in zwei versionen die selben Knoten, die jetzt anders heißen, nicht mehr so einfach als gleich identifiziert, obwohl diese die selbe form haben und ohne die beschriftung vielleicht anhand der form als gleich identifiziert werden würden - zugegeben sehr theoretisch und wahrscheinlich nicht relevant aber trotzdem erwähnenswert.
+\end{itemize}
+Mit diesem Ansatz hat man natülich immernoch die gleichen Probleme wie eingangs beschrieben, allerdings sind diese abhängig von dem wert N und außerdem werden diese minimiert, da wirklich nur die Top Knoten beschriftetet werden, wodurch die Fläche der unteren Knoten trotzdem besser vorhergesagt werden kann und sich dieser fehler nicht nach oben propagiert.
+
+%wie genau wirkt sich die wahl von N aus?
+
+\subsubsection{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
+Abstände zwischen Geschwister Knoten sind eine wichtige Entscheidung. Im Ursprünglichen Squarify Algorithmus Paper \cite{bruls2000squarified} wird der Nested Ansatz mit Abständen vorgestellt, jedoch ohne Abstände zwischen Geschwistern. Viele Tools, verwenden jedoch Abstände auch zwischen Geschwisterknoten \cite{codeCity1, code_charta_webdemo, sereene_website}.
+Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
+\begin{itemize}
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verschlechtert, da jeder Knoten mit geschwistern mehr Platz benötigt. 
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Wird verbessert, da die Knoten besser voneinander getrennt werden und somit die Struktur besser erkennbar ist. Allerdings muss das nicht der Fall sein, man könnte zum Beispiel die Kanten der Knoten mit einer anderen Farbe einfärben, um die Knoten besser voneinander zu trennen.
+    \item \textbf{Skalierbarkeit:} Eigentlich wenig auswirkung auf skalierbarkeit, weder die laufzeit ändert sich signifikant (in unsrem algorithmus werden die abstände erzeugt, indem am ende alle knoten um den abstand verkleinert werden - also im grunde kommt laufzeit von N hinzu, wo N die Anzahl der Knoten ist, das ist aber nicht ausschlaggebend). Also wenn wird die Skalierbarkeit minimal schlechter.
+    \item \textbf{Korrelation mit dem Code:} Keine auswirkung
+    \item \textbf{Stabilität gegenüber Änderungen:} Auch nicht wirklich
+\end{itemize}
+
+Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von der gewählten Farbgebung (auch Schattierung, Struktur oder Transparenz). Wie in der Problemstellung definiert (siehe Abschnitt \ref{sec:Problemstellung}) sollte das Layout so gestaltet sein, dass es möglich ist, weitere Metriken durch Farbgebung zu visualisieren. Die Kanten widersprechen dieser Einschränkung nur in Aussahme fällen. Die meisten Visualisierungen in der Praxis verwenden einfache Einfärbungen \cite{codeCity1, code_charta_webdemo, sereene_website}, was bedeutet, dass man einfach Schwarz oder eine Komplementärfarbe als Kantenfarbe nutzen kann, ohne dass es zu Konflikten mit der Farbgebung kommt. Die einzige Ausnahme, die mir bekannt ist, ist wäre die Nutzung von Linien, Schachbrettmuster oder ähnlichen Strukturen, durch die eine Kante nicht mehr als solche erkennbar wäre. Dies könnte zum Beispiel bei dem Ansatz aus dem paper \textit{E-Quality} von Ural Erdemir et al. \cite{equality_ugly} der Fall sein, da hier zum Beispiel ein Gittermuster verwendet wird, um einen Mangel an Kohäsion zu visualisieren, eine Kante, selbst in anderer Farbe, würde hier eher stören oder in dem Muster untergehen. 
+
 
 \subsection{Fazit}
 Immernoch straight forward, es gibt aber noch Probleme 
