@@ -26,14 +26,14 @@ Und
 Der Hintere teil soll sicher gehen, dass es sich um Software-Qualitätsmetriken handelt, dafür muss auf jeden fall das wort software vorkommen und dann entweder "quality" oder "metrics". 
 Beides muss im Paper vorkommen, um in unserer suche aufzutauchen.
 Daraus ergibt sich folgende Suchanfrage:
-("3D" OR "2.5D" OR "visualization" OR "treemap") AND ("software" AND ("quality" OR "metrics"))
+("3D" OR "2.5D" OR "visualization" OR "treemap" OR "hierarchical data") AND ("software" AND ("quality" OR "metrics"))
 
 Zur suche nutzen wir die erweiterte Suche von Google Scholar, um möglichst viele relevante Ergebnisse von verschiedenen Journalen und Anbietern zu finden.
 Das Problem bei der erweiterten suche von Google scholar ist, dass sie sehr limitert ist und keine verschachtelten Suchanfragen unterstützt \cite{scholar_queries_2023}.
 Deshalb teilen wir die Suche in zwei Teile auf: 
 "3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics AND "software"
 und 
-"treemap" OR "quality" OR "metrics AND "software"
+"treemap" OR "hierarchical data" OR "quality" OR "metrics AND "software"
 
 Um trotzdem die gewünsche Suchanfrage nutzen zu können, um potentiell noch spezifischere und relevantere Ergebnisse zu erhalten, nutzen wir zusätzlich die \textit{Command Search} von IEEE Xplore, die auch verschachtelte boolsche Suchanfragen unterstützt \cite{ieee_xplore_boolean_2025}.
 
@@ -44,70 +44,66 @@ Als Ziel des Papers, das ist zb. wichtig für die wörter quality oder metrics. 
 
 Außerdem suchen mit der normalen Google Suche nach existierenden Tools oder anderen Seiten, Ideen die genutzt werden können, um Software-Qualitätsmetriken zu visualisieren. Nutzen wir verschiedenste suchanfragen.
 
-\subsubsection*{3. Inklusion und Exklusion Kriterien} \label{sec:InklusionExklusionKriterien}
+\subsubsection*{3. Inklusion und Exklusion Kriterien/Paper auswahl} \label{sec:InklusionExklusionKriterien}
 Auf die Suchergebnisse wenden wir noch folgende Filter an, um unrelevante oder nicht zugängliche Ergebnisse zu exkludieren:
 
-1. Wie bereits gesagt für google scholar: software ist ein muss, der rest ist optional in google scholar, auch wenn wir eigentlich gerne hätten, dass zumindest eines der wörter "quality" oder "metrics" vorkommt, um sicher zu gehen, dass es sich um Software-Qualitätsmetriken handelt und nicht um software-Visualisierung im allgemeinen (die wichtigkeit der unterscheidung wurde im Grundlagen Abschnitt \ref{sec:SoftwareVisualisierung} erleutert) deswegen filtern wir die suchergebnisse auch manuell, um sicher zu gehen, dass es sich um relevante Ergebnisse handelt: zB: Software Architecture Visualization: An Evaluation Framework and Its Application
+1. Wie bereits gesagt für google scholar: software ist ein muss, der rest ist optional in google scholar, auch wenn wir eigentlich gerne hätten, dass zumindest eines der wörter "quality" oder "metrics" vorkommt, um sicher zu gehen, dass es sich um Software-Qualitätsmetriken handelt und nicht um software-Visualisierung im allgemeinen (die wichtigkeit der unterscheidung wurde im Grundlagen Abschnitt \ref{sec:SoftwareVisualisierung} erleutert) deswegen filtern wir die suchergebnisse auch manuell, um sicher zu gehen, dass es sich um relevante Ergebnisse handelt: zB: Software Architecture Visualization: An Evaluation Framework and Its Application \cite{gallagher2008software}
 
-2. in englisch oder deutsch - aber alles war sowieso auf englisch, aufgrund der Suchbegriffe, außer ein spanisches paper: Software visualization tools and techniques: A systematic review of the literature
+2. in englisch oder deutsch - aber alles war sowieso auf englisch, aufgrund der Suchbegriffe, außer ein spanisches paper: Software visualization tools and techniques: A systematic review of the literature\cite{cruz2016software}
 
-3. Frei zugänglich über alle herkömmlichen anbieter: IEEE, sprignerlink, acm digital library, researchgate,... Das sind die meisten außer zb. Understanding software evolution using a combination of software visualization and software metrics
+3. Frei zugänglich über alle herkömmlichen anbieter: IEEE, sprignerlink, acm digital library, researchgate,... Das sind die meisten außer zb. Understanding software evolution using a combination of software visualization and software metrics \cite{lanza2002understanding}
 
-4. Außerdem generell innhalblich auch passen. zb. Open source software for visualization and quality control of continuous hydrologic and water quality sensor data 
+4. Außerdem generell innhalblich auch passen. zb. Open source software for visualization and quality control of continuous hydrologic and water quality sensor data \cite{horsburgh2015open}
 
-5. wird wirklich eine visualisierung vorgestellt: Existing model metrics and relations to model quality
+5. wird wirklich eine visualisierung vorgestellt? Wenn in dem paper entweder, mindestens eine 2D layout vorgestellt wird oder wenn mindestens eine 2.5D Visualisierung vorgestellt wird. zb.: Existing model metrics and relations to model quality \cite{mohagheghi2009existing}
 
 Für die normale Google suche, verwenden wir verschiedenste heuristische Filter um werbung, Dienstleistungsanbieter und andere irrelevante Ergebnisse zu filtern.
 
-\subsubsection*{4. Paper auswahl} \label{sec:PaperAuswahl}
-Wenn in dem paper entweder, mindestens eine 2D layout vorgestellt wird, dass geeignet ist in 2.5D extrudiert zu werden 
-oder wenn mindestens eine 2.5D Visualisierung vorgestellt wird
-
-\subsubsection*{5. auswertung der paper und extraktion der layouts} \label{sec:AuswertungPaper}
+\subsubsection*{4. auswertung der paper und extraktion der layouts} \label{sec:AuswertungPaper}
 Wie entscheide ich, ob ein layout geeignet ist:
 - Es sollte eine Art von Metrik oder Wert darstellen können.
 - Es sollte eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
 - Es sollte ins drei dimensionale extrahierbar sein.
 - Es soll auch ohne spezielle Einfärbung im 2D funktionieren - eventuell nur die ordner einfärben
 
-\subsubsection*{6. qualitäts analyse: (Analyse der Layouts und entscheidung welche layouts in dieser arbeit behandelt werden)} \label{sec:QualitaetsAnalyse}
+\subsubsection*{5. qualitäts analyse: (Analyse der Layouts und entscheidung welche layouts in dieser arbeit behandelt werden)} \label{sec:QualitaetsAnalyse}
 
 \subsection{Durchführung der Suche}
 Hier stellen wir zunächst die Ergebnisse der Suche vor nachdem bereits die Filter angewendet wurden.
 
 Erste Google Scholar Suche:
-1. Voronoi treemaps for the visualization of software metrics
-2. Visualization-based analysis of quality for large-scale software systems
-3. Visualization of the static aspects of software: A survey
-4. Visual realism for the visualization of software metrics
-5. An overview of 3D software visualization
-6. CityVR: Gameful software visualization
-7. A solar system metaphor for 3D visualisation of object oriented software metrics
-8. EvoSpaces: 3D Visualization of Software Architecture.
-9. 3D representations for software visualization
-10. Software cartography: Thematic software visualization with consistent layout
+1. Voronoi treemaps for the visualization of software metrics \cite{voronoiTree}
+2. Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
+3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
+4. Visual realism for the visualization of software metrics \cite{visRealism}
+5. An overview of 3D software visualization \cite{overview3D}
+6. CityVR: Gameful software visualization \cite{cityVR}
+7. A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}
+8. EvoSpaces: 3D Visualization of Software Architecture. \cite{EvoSpaces}
+9. 3D representations for software visualization \cite{3dsoftwareMarcus}
+10. Software cartography: Thematic software visualization with consistent layout \cite{softwareCartography}
 
 
 zweite Google scholar suche:
-Doppelte Treffer: 4 zB.: Visualization-based analysis of quality for large-scale software systems
-1. Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs
-2. Visualizing Software Metrics in a Software System Hierarchy -> Sammlung aus vielen Papern, wir wenden filter an, einziges was relevant ist: Progressive Presentation of Large Hierarchies Using Treemaps
-3. A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization
-4. Visualizing Program Quality – A Topological Taxonomy of Features 
-5. Stable and predictable Voronoi treemaps for software quality monitoring
-6. Visualization and evolution of software architectures
-7. Multiple linked perspectives on hierarchical data
-8. A visualization technique for metrics-based hierarchical quality models
+Doppelte Treffer: 4 zB.: Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
+1. Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs \cite{exploringRelations}
+2. Visualizing Software Metrics in a Software System Hierarchy \cite{visSoftwareMetricsBook}
+3. A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization \cite{stableGreedyInsertion}
+4. Visualizing Program Quality – A Topological Taxonomy of Features  \cite{visualizingProgramQuality}
+5. Stable and predictable Voronoi treemaps for software quality monitoring \cite{stablePredictableVoronoi}
+6. Visualization and evolution of software architectures \cite{visualizationEvolution}
+7. Multiple linked perspectives on hierarchical data \cite{multipleLinkedPerspectives}
+8. A visualization technique for metrics-based hierarchical quality models \cite{visualizationTechnique}
 
 IEEE Suche:
-Doppelt: 2 zB. Visualization of the Static Aspects of Software: A Survey
-1. Metrics-based 3D visualization of large object-oriented programs
-2. Visualizing Metric Trends for Software Portfolio Quality Management
-3. E-Quality: A graph based object oriented software quality visualization tool
-4. Visualization of Software Quality Expert Assessment
-5. QScored: An Open Platform for Code Quality Ranking and Visualization
-6. Using the City Metaphor for Visualizing Test-Related Metrics
-7. Visual Analytics of Software Structure and Metrics
+Doppelt: 3 zB. Visualization of the Static Aspects of Software: A Survey \cite{staticSurvey}
+1. Metrics-based 3D visualization of large object-oriented programs \cite{metricsBased3DVisualization}
+2. Visualizing Metric Trends for Software Portfolio Quality Management \cite{visualizingMetricTrends}
+3. E-Quality: A graph based object oriented software quality visualization tool \cite{eQuality}
+4. Visualization of Software Quality Expert Assessment \cite{visSoftQualExpert}
+5. QScored: An Open Platform for Code Quality Ranking and Visualization \cite{QScored}
+6. Using the City Metaphor for Visualizing Test-Related Metrics \cite{citMetaphorTestMetrics}
+7. Visual Analytics of Software Structure and Metrics \cite{visAnaSoftStructure}
 
 
 Google Tool suche:
