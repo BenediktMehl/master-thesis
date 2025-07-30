@@ -73,9 +73,51 @@ Hier stellen wir zunächst die Ergebnisse der Suche vor nachdem bereits die Filt
 
 Erste Google Scholar Suche:
 1. Voronoi treemaps for the visualization of software metrics \cite{voronoiTree}
+- Voronoi Treemap Layout
+- sie sagen dass problem ist dass geschwister nicht einfach von anderen benachbarten knoten unterschieden werden können, wir versuchen dass mit den margins zu lösen
+- als erste probieren sie nicht rechtecke sondern polygone
+\begin{quote}
+    The problem is provoked by the square-like shape of the rectangles, and because the edges are only horizontally and vertically aligned, whereby the edges of the different objects appear to run into each other. [...] A solution for this problem is the layout of Treemaps based on non-rectangular objects.\cite[3]{voronoiTree}
+\end{quote}
+\begin{quote}
+    these polygons are clearly distinguishable because of their irregular shapes, and their aspect ratio converges to one \cite[6]{voronoiTree}
+\end{quote}
+Aber selbst sie fügen kanten hinzu - und größere he höher
+außerdem nutzen sie Sättigung um noch mehr die Tiefe und die Hierarchie darzustellen
+- Kritik: sie wollen treemap geschwisterproblem lösen, schaffen dies aber durch ihren ansatz nicht wirklich und fügen dann doch wieder kanten und farbe hinzu um das zu unterstützen
+
 2. Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
+- Zeichnen auch Quader. diese Quader haben immer die selbe grundfläche
+- metriken werden dargestellt durch 1. die höhe des Quaders, 2. die farbe des Quaders, 3. die rotation (zwischen 0 und 90 Grad) 
+- deren problem ist also nur die platzierung der Quader
+- KRitik: gefällt mir nicht so gut, vorallem die Roation, außerdem viel platz verschwendet. Sie sagen, dass gedreht schlecht ist. aber 90 Grad sieht nicht so schlimm aus wie 45 grad. dumm
+-Struktur auf klassen und paket ebene -> das macht es natürlich einfacher, da es generell wenier packete als ordner gibt (packete können auch nochmal in ordner unterteilt sein)
+- Am ende nutzen sie für die platzierung treemap und Sunburst
+- Da die fläche fix und diskret ist, erweitern sie sowohl den treemap als auch den sunburst algorithmus
+- Treemap: beim slicen, wenn der platz zu schmal wird, wird der platz einfach erweitert, für alle knoten, in eine richtung -> sehr viel leerer platz, auch wenn sie versuchen das so gering wie möglich zu halten
+\enquote{burst can still result in the insertion of holes in the representations. In simple illustrations such as in Figure 4, this looks like a serious problem. However, our framework is designed to study systems made of hundreds and thousands of elements. In fact, in the average cases (real softwares) that we tested, it did not prove a problem at all in our visualization.}
+Zeigt, wie wichtig unsere datenanalyse ist, da es wichtig ist die visualisierung für reale daten zu machen und nicht nur simple beispiele
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/visbasedlarge.png}
+    \caption{(Oben) Modifizierte Treemap-Technik und (unten) modifizierte Sunburst-Technik. Beide repräsentieren PCGEN, ein Tool zur Charaktererstellung in RPG (1129 Klassen). \cite[5]{visbasedlarge}.}
+    \label{fig:visbasedlarge}
+\end{figure}
+vielleicht etwas zu simple gedacht??
+
+
+\enquote{there is still room for improvements, mainly to better exploit the entire display space}\cite[8]{visbasedlarge}
+
 3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
+%das vllt eher bei related work machen?
+
+
+
 4. Visual realism for the visualization of software metrics \cite{visRealism}
+Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte dar zu stellen
+nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level
+
 5. An overview of 3D software visualization \cite{overview3D}
 6. CityVR: Gameful software visualization \cite{cityVR}
 7. A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}

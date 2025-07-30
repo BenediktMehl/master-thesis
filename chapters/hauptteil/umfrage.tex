@@ -1,0 +1,49 @@
+Interessante Ideen von anderen papern zur umfragen gestaltung:
+
+Anti patterns finden
+Anti-patterns are known to be bad
+coding practices that may cause problems in subsequent development phases. An example of anti-pattern detectable by
+our framework is the Blob [3].
+\cite{visbasedlarge}
+In this experiment we use three layout techniques: Treemap,
+Sunburst, and for comparison purposes, a na¨ıve layout technique called Treeline.
+Treeline represents classes of the architecture hierarchy
+with a depth-first algorithm. Each time we meet a node in
+the architecture tree, we place it on the current row, distributing the elements from left to right. Levels and packages are determined with separators, with a given separator color for each level of the hierarchy. So when the color
+switches, the following classes are in a different level. When
+the separator color remains the same, the next package is a
+sibling. This algorithm has an optimal use of the space and
+is easy to implement/execute. An example of this layout
+technique is presented in Figure 12.
+The experiments are run in the form of an electronic questionnaire with 20 analysis tasks. Two types of knowledge are
+needed to perform the tasks: class characteristics and program architecture. 5 tasks involve exclusively the first type
+of knowledge, 5 tasks involve the second type, and 10 tasks
+involve both types. Task definition is inspired by the types
+we described in Section 5. For example, one task is to identify large packages that contain almost exclusively highly
+cohesive classes. Each task had to be performed on a different program, taken from different application domains, and
+with sizes ranging from 72 to 1662 classes. For instance, the
+Figure 12: Example of the Treeline algorithm. It
+represents EMMA, a tool for measuring coverage of
+Java software (286 classes).
+task given as training used the associated program JDK 1.1
+(1662 classes).
+The time taken by a subject to correctly perform the task
+is automatically recorded. In addition to the 20 tasks, subjects were asked questions about their subjective rating of
+the layout techniques. We used 15 subjects (graduate students) divided into 3 groups of 5 subjects. For each analysis
+task, subjects of each group are asked to perform the task
+using one of the three layout techniques (Treemap for group
+A, Sunburst for group B, and Treeline for group C). To avoid
+fatigue and learning effect biases, the assignation of a layout
+technique to a group is random and changed with the tasks.
+The order of tasks for subjects from the same group is also
+random. For each pair (task:layout), we computed the average time of the 5 subjects. We used the computed value
+to rank the techniques for each task. Then, for each layout
+technique, we calculated the average and the median for all
+tasks.
+Subjects are volunteers. Their motivation should not be
+biased by any form of evaluation. Most of them are software
+engineering researchers. To avoid significant differences between them, they received a quick training on the environment before the experiment. They learned how classes and
+221
+packages are represented within each layout technique, how
+to navigate in this 3D space, and finally how to perform the
+tasks and record time.
