@@ -1,842 +1,282 @@
 [
     {
-        "name":"thefuck",
-        "stars":93138,
-        "created":1428451200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":4043,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/nvbn\/thefuck",
-        "description":"Magnificent app which corrects your previous console command.",
-        "size_diff":null
-    },
-    {
-        "name":"scikit-learn",
-        "stars":62843,
-        "created":1282003200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":174213,
-        "number_of_contributors":3400,
-        "link":"https:\/\/github.com\/scikit-learn\/scikit-learn",
-        "description":"scikit-learn: machine learning in Python",
-        "size_diff":null
-    },
-    {
-        "name":"ansible",
-        "stars":65775,
-        "created":1330992000000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":260452,
-        "number_of_contributors":7000,
-        "link":"https:\/\/github.com\/ansible\/ansible",
-        "description":"Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems. https:\/\/docs.ansible.com.",
-        "size_diff":null
-    },
-    {
-        "name":"Real-Time-Voice-Cloning",
-        "stars":54786,
-        "created":1558828800000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":369678,
-        "number_of_contributors":18,
-        "link":"https:\/\/github.com\/CorentinJ\/Real-Time-Voice-Cloning",
-        "description":"Clone a voice in 5 seconds to generate arbitrary speech in real-time",
-        "size_diff":null
-    },
-    {
-        "name":"airflow",
-        "stars":41314,
-        "created":1428883200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":422272,
-        "number_of_contributors":3900,
-        "link":"https:\/\/github.com\/apache\/airflow",
-        "description":"Apache Airflow - A platform to programmatically author, schedule, and monitor workflows",
-        "size_diff":null
-    },
-    {
-        "name":"MoneyPrinterTurbo",
-        "stars":38535,
-        "created":1710115200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":531961,
-        "number_of_contributors":30,
-        "link":"https:\/\/github.com\/harry0703\/MoneyPrinterTurbo",
-        "description":"\u5229\u7528AI\u5927\u6a21\u578b\uff0c\u4e00\u952e\u751f\u6210\u9ad8\u6e05\u77ed\u89c6\u9891 Generate short videos with one click using AI LLM.",
-        "size_diff":null
-    },
-    {
-        "name":"freqtrade",
-        "stars":40948,
-        "created":1494979200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":618323,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/freqtrade\/freqtrade",
-        "description":"Free, open source crypto trading bot",
-        "size_diff":null
-    },
-    {
-        "name":"streamlit",
-        "stars":40682,
-        "created":1566604800000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":723299,
-        "number_of_contributors":300,
-        "link":"https:\/\/github.com\/streamlit\/streamlit",
-        "description":"Streamlit \u2014 A faster way to build and share data apps.",
-        "size_diff":null
-    },
-    {
-        "name":"mlflow",
-        "stars":21405,
-        "created":1528156800000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":850104,
-        "number_of_contributors":900,
-        "link":"https:\/\/github.com\/mlflow\/mlflow",
-        "description":"The open source developer platform to build AI\/LLM applications and models with confidence. Enhance your AI applications with end-to-end tracking, observability, and evaluations, all in one integrated platform.",
-        "size_diff":null
-    },
-    {
-        "name":"openpilot",
-        "stars":55616,
-        "created":1479945600000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":1008901,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/commaai\/openpilot",
-        "description":"openpilot is an operating system for robotics. Currently, it upgrades the driver assistance system on 300+ supported cars.",
-        "size_diff":57179
-    },
-    {
-        "name":"pytorch",
-        "stars":91916,
-        "created":1471046400000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":1085565,
-        "number_of_contributors":5800,
-        "link":"https:\/\/github.com\/pytorch\/pytorch",
-        "description":"Tensors and Dynamic neural networks in Python with strong GPU acceleration",
-        "size_diff":null
-    },
-    {
-        "name":"vision",
-        "stars":17045,
-        "created":1478649600000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":1255602,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/pytorch\/vision",
-        "description":"Datasets, Transforms and Models specific to Computer Vision",
-        "size_diff":103880
-    },
-    {
-        "name":"erpnext",
-        "stars":27403,
-        "created":1307491200000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":1425583,
-        "number_of_contributors":800,
-        "link":"https:\/\/github.com\/frappe\/erpnext",
-        "description":"Free and Open Source Enterprise Resource Planning (ERP)",
-        "size_diff":173861
-    },
-    {
-        "name":"hosts",
-        "stars":28572,
-        "created":1334188800000,
-        "pushed":1753920000000,
-        "main_language":"Python",
-        "github_size_KB":1481579,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/StevenBlack\/hosts",
-        "description":"\ud83d\udd12 Consolidating and extending hosts files from several well-curated sources. Optionally pick extensions for porn, social media, and other categories.",
-        "size_diff":129857
-    },
-    {
-        "name":"mall",
-        "stars":81165,
-        "created":1522800000000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":58701,
-        "number_of_contributors":2,
-        "link":"https:\/\/github.com\/macrozheng\/mall",
-        "description":"mall\u9879\u76ee\u662f\u4e00\u5957\u7535\u5546\u7cfb\u7edf\uff0c\u5305\u62ec\u524d\u53f0\u5546\u57ce\u7cfb\u7edf\u53ca\u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\uff0c\u57fa\u4e8eSpring Boot+MyBatis\u5b9e\u73b0\uff0c\u91c7\u7528Docker\u5bb9\u5668\u5316\u90e8\u7f72\u3002 \u524d\u53f0\u5546\u57ce\u7cfb\u7edf\u5305\u542b\u9996\u9875\u95e8\u6237\u3001\u5546\u54c1\u63a8\u8350\u3001\u5546\u54c1\u641c\u7d22\u3001\u5546\u54c1\u5c55\u793a\u3001\u8d2d\u7269\u8f66\u3001\u8ba2\u5355\u6d41\u7a0b\u3001\u4f1a\u5458\u4e2d\u5fc3\u3001\u5ba2\u6237\u670d\u52a1\u3001\u5e2e\u52a9\u4e2d\u5fc3\u7b49\u6a21\u5757\u3002 \u540e\u53f0\u7ba1\u7406\u7cfb\u7edf\u5305\u542b\u5546\u54c1\u7ba1\u7406\u3001\u8ba2\u5355\u7ba1\u7406\u3001\u4f1a\u5458\u7ba1\u7406\u3001\u4fc3\u9500\u7ba1\u7406\u3001\u8fd0\u8425\u7ba1\u7406\u3001\u5185\u5bb9\u7ba1\u7406\u3001\u7edf\u8ba1\u62a5\u8868\u3001\u8d22\u52a1\u7ba1\u7406\u3001\u6743\u9650\u7ba1\u7406\u3001\u8bbe\u7f6e\u7b49\u6a21\u5757\u3002",
-        "size_diff":null
-    },
-    {
-        "name":"zxing",
-        "stars":33475,
-        "created":1318377600000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":242776,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/zxing\/zxing",
-        "description":"ZXing (\"Zebra Crossing\") barcode scanning library for Java, Android",
-        "size_diff":null
-    },
-    {
-        "name":"SmartRefreshLayout",
-        "stars":25119,
-        "created":1496361600000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":274026,
-        "number_of_contributors":13,
-        "link":"https:\/\/github.com\/scwang90\/SmartRefreshLayout",
-        "description":"\ud83d\udd25\u4e0b\u62c9\u5237\u65b0\u3001\u4e0a\u62c9\u52a0\u8f7d\u3001\u4e8c\u7ea7\u5237\u65b0\u3001\u6dd8\u5b9d\u4e8c\u697c\u3001RefreshLayout\u3001OverScroll\uff0cAndroid\u667a\u80fd\u4e0b\u62c9\u5237\u65b0\u6846\u67b6\uff0c\u652f\u6301\u8d8a\u754c\u56de\u5f39\u3001\u8d8a\u754c\u62d6\u52a8\uff0c\u5177\u6709\u6781\u5f3a\u7684\u6269\u5c55\u6027\uff0c\u96c6\u6210\u4e86\u51e0\u5341\u79cd\u70ab\u9177\u7684Header\u548c Footer\u3002",
-        "size_diff":null
-    },
-    {
-        "name":"graal",
-        "stars":21003,
-        "created":1452729600000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":450101,
-        "number_of_contributors":500,
-        "link":"https:\/\/github.com\/oracle\/graal",
-        "description":"GraalVM compiles Java applications into native executables that start instantly, scale fast, and use fewer compute resources \ud83d\ude80",
-        "size_diff":null
-    },
-    {
-        "name":"keycloak",
-        "stars":28760,
-        "created":1372723200000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":549201,
-        "number_of_contributors":1700,
-        "link":"https:\/\/github.com\/keycloak\/keycloak",
-        "description":"Open Source Identity and Access Management For Modern Applications and Services",
-        "size_diff":null
-    },
-    {
-        "name":"leetcode",
-        "stars":34452,
-        "created":1537056000000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":645932,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/doocs\/leetcode",
-        "description":"\ud83d\udd25LeetCode solutions in any programming language | \u591a\u79cd\u7f16\u7a0b\u8bed\u8a00\u5b9e\u73b0 LeetCode\u3001\u300a\u5251\u6307 Offer\uff08\u7b2c 2 \u7248\uff09\u300b\u3001\u300a\u7a0b\u5e8f\u5458\u9762\u8bd5\u91d1\u5178\uff08\u7b2c 6 \u7248\uff09\u300b\u9898\u89e3",
-        "size_diff":null
-    },
-    {
-        "name":"neo4j",
-        "stars":14777,
-        "created":1352678400000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":675466,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/neo4j\/neo4j",
-        "description":"Graphs for Everyone",
-        "size_diff":null
-    },
-    {
-        "name":"deeplearning4j",
-        "stars":14059,
-        "created":1385510400000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":763970,
-        "number_of_contributors":78,
-        "link":"https:\/\/github.com\/deeplearning4j\/deeplearning4j",
-        "description":"Suite of tools for deploying and training deep learning models using the JVM. Highlights include model import for keras, tensorflow, and onnx\/pytorch, a modular and tiny c++ library for running math code and a java based math library on top of the core c++ library. Also includes samediff: a pytorch\/tensorflow like library for running deep learn...",
-        "size_diff":null
-    },
-    {
-        "name":"openapi-generator",
-        "stars":24405,
-        "created":1526083200000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":924171,
-        "number_of_contributors":3600,
-        "link":"https:\/\/github.com\/OpenAPITools\/openapi-generator",
-        "description":"OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)",
-        "size_diff":null
-    },
-    {
-        "name":"sonarqube",
-        "stars":9764,
-        "created":1294185600000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":960384,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/SonarSource\/sonarqube",
-        "description":"Continuous Inspection",
-        "size_diff":null
-    },
-    {
-        "name":"libgdx",
-        "stars":24229,
-        "created":1344556800000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":1106170,
-        "number_of_contributors":800,
-        "link":"https:\/\/github.com\/libgdx\/libgdx",
-        "description":"Desktop\/Android\/HTML5\/iOS Java game development framework",
-        "size_diff":null
-    },
-    {
-        "name":"flyway",
-        "stars":8970,
-        "created":1355443200000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":1202218,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/flyway\/flyway",
-        "description":"Flyway by Redgate \u2022 Database Migrations Made Easy.",
-        "size_diff":null
-    },
-    {
-        "name":"jdk",
-        "stars":21441,
-        "created":1537142400000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":1348882,
-        "number_of_contributors":2100,
-        "link":"https:\/\/github.com\/openjdk\/jdk",
-        "description":"JDK main-line development https:\/\/openjdk.org\/projects\/jdk",
-        "size_diff":null
-    },
-    {
-        "name":"Arduino",
-        "stars":14387,
-        "created":1284681600000,
-        "pushed":1753920000000,
-        "main_language":"Java",
-        "github_size_KB":1390211,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/arduino\/Arduino",
-        "description":"Arduino IDE 1.x",
-        "size_diff":null
-    },
-    {
-        "name":"svelte",
-        "stars":83594,
-        "created":1479600000000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":115883,
-        "number_of_contributors":900,
-        "link":"https:\/\/github.com\/sveltejs\/svelte",
-        "description":"web development for the rest of us",
-        "size_diff":null
-    },
-    {
-        "name":"Fabric",
-        "stars":32850,
-        "created":1704240000000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":213375,
-        "number_of_contributors":300,
-        "link":"https:\/\/github.com\/danielmiessler\/Fabric",
-        "description":"Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere.",
-        "size_diff":null
-    },
-    {
-        "name":"open-webui",
-        "stars":104673,
-        "created":1696550400000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":249826,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/open-webui\/open-webui",
-        "description":"User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
-        "size_diff":null
-    },
-    {
-        "name":"atom",
-        "stars":60565,
-        "created":1327017600000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":330585,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/atom\/atom",
-        "description":":atom: The hackable text editor",
-        "size_diff":null
-    },
-    {
-        "name":"phaser",
-        "stars":38238,
-        "created":1365724800000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":459330,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/phaserjs\/phaser",
-        "description":"Phaser is a fun, free and fast 2D game framework for making HTML5 games for desktop and mobile web browsers, supporting Canvas and WebGL rendering.",
-        "size_diff":null
-    },
-    {
-        "name":"swagger-ui",
-        "stars":27970,
-        "created":1310688000000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":622993,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/swagger-api\/swagger-ui",
-        "description":"Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
-        "size_diff":52283
-    },
-    {
-        "name":"handsontable",
-        "stars":21248,
-        "created":1306108800000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":826930,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/handsontable\/handsontable",
-        "description":"JavaScript Data Grid \/ Data Table with a Spreadsheet Look & Feel. Works with React, Angular, and Vue. Supported by the Handsontable team \u26a1",
-        "size_diff":156220
-    },
-    {
-        "name":"ChromeAppHeroes",
-        "stars":22449,
-        "created":1549497600000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":861436,
-        "number_of_contributors":5,
-        "link":"https:\/\/github.com\/zhaoolee\/ChromeAppHeroes",
-        "description":"\ud83c\udf08\u8c37\u7c92-Chrome\u63d2\u4ef6\u82f1\u96c4\u699c, \u4e3a\u4f18\u79c0\u7684Chrome\u63d2\u4ef6\u5199\u4e00\u672c\u4e2d\u6587\u8bf4\u660e\u4e66, \u8ba9Chrome\u63d2\u4ef6\u82f1\u96c4\u4eec\u9020\u798f\u4eba\u7c7b~  ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ \u516c\u4f17\u53f7\u300c0\u52a01\u300d\u540c\u6b65\u66f4\u65b0",
-        "size_diff":90726
-    },
-    {
-        "name":"aframe",
-        "stars":17280,
-        "created":1442275200000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":906139,
-        "number_of_contributors":500,
-        "link":"https:\/\/github.com\/aframevr\/aframe",
-        "description":":a: Web framework for building virtual reality experiences.",
-        "size_diff":null
-    },
-    {
-        "name":"GDevelop",
-        "stars":15640,
-        "created":1404000000000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":1013500,
-        "number_of_contributors":100,
-        "link":"https:\/\/github.com\/4ian\/GDevelop",
-        "description":"\ud83c\udfae Open-source, cross-platform 2D\/3D\/multiplayer game engine designed for everyone.",
-        "size_diff":null
-    },
-    {
-        "name":"react",
-        "stars":237749,
-        "created":1369353600000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":1071517,
-        "number_of_contributors":2000,
-        "link":"https:\/\/github.com\/facebook\/react",
-        "description":"The library for web and native user interfaces.",
-        "size_diff":null
-    },
-    {
-        "name":"gatsby",
-        "stars":55912,
-        "created":1432166400000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":1144996,
-        "number_of_contributors":4400,
-        "link":"https:\/\/github.com\/gatsbyjs\/gatsby",
-        "description":"The best React-based framework with performance, scalability and security built in.",
-        "size_diff":null
-    },
-    {
-        "name":"node",
-        "stars":112448,
-        "created":1416960000000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":1322871,
-        "number_of_contributors":4200,
-        "link":"https:\/\/github.com\/nodejs\/node",
-        "description":"Node.js JavaScript runtime \u2728\ud83d\udc22\ud83d\ude80\u2728",
-        "size_diff":52161
-    },
-    {
-        "name":"ToolJet",
-        "stars":36229,
-        "created":1617062400000,
-        "pushed":1753920000000,
-        "main_language":"JavaScript",
-        "github_size_KB":1423175,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/ToolJet\/ToolJet",
-        "description":"Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript\/TypeScript. \ud83d\ude80",
-        "size_diff":52465
-    },
-    {
-        "name":"powerlevel10k",
-        "stars":50315,
-        "created":1550966400000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":71964,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/romkatv\/powerlevel10k",
-        "description":"A Zsh theme",
-        "size_diff":null
-    },
-    {
-        "name":"testssl.sh",
-        "stars":8497,
-        "created":1404172800000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":115959,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/testssl\/testssl.sh",
-        "description":"Testing TLS\/SSL encryption anywhere on any port ",
-        "size_diff":null
-    },
-    {
-        "name":"linux-surface",
-        "stars":6082,
-        "created":1540598400000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":237930,
-        "number_of_contributors":43,
-        "link":"https:\/\/github.com\/linux-surface\/linux-surface",
-        "description":"Linux Kernel for Surface Devices",
-        "size_diff":null
-    },
-    {
-        "name":"DocumentServer",
-        "stars":5674,
-        "created":1404518400000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":328745,
-        "number_of_contributors":20,
-        "link":"https:\/\/github.com\/ONLYOFFICE\/DocumentServer",
-        "description":"ONLYOFFICE Docs is a free collaborative online office suite comprising viewers and editors for texts, spreadsheets and presentations, forms and PDF, fully compatible with Office Open XML formats: .docx, .xlsx, .pptx and enabling collaborative editing in real time.",
-        "size_diff":null
-    },
-    {
-        "name":"caffe2",
-        "stars":8421,
-        "created":1435190400000,
-        "pushed":1753747200000,
-        "main_language":"Shell",
-        "github_size_KB":402293,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/facebookarchive\/caffe2",
-        "description":"Caffe2 is a lightweight, modular, and scalable deep learning framework.",
-        "size_diff":null
-    },
-    {
-        "name":"nginx-ultimate-bad-bot-blocker",
-        "stars":4458,
-        "created":1469232000000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":577058,
-        "number_of_contributors":31,
-        "link":"https:\/\/github.com\/mitchellkrogza\/nginx-ultimate-bad-bot-blocker",
-        "description":"Nginx Block Bad Bots, Spam Referrer Blocker, Vulnerability Scanners, User-Agents, Malware, Adware, Ransomware, Malicious Sites, with anti-DDOS, Wordpress Theme Detector Blocking and Fail2Ban Jail for Repeat Offenders",
-        "size_diff":null
-    },
-    {
-        "name":"raspotify",
-        "stars":4908,
-        "created":1495497600000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":634352,
-        "number_of_contributors":27,
-        "link":"https:\/\/github.com\/dtcooper\/raspotify",
-        "description":"A Spotify Connect client that mostly Just Works\u2122",
-        "size_diff":null
-    },
-    {
-        "name":"build",
-        "stars":4763,
-        "created":1412640000000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":621130,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/armbian\/build",
-        "description":"Armbian Linux build framework generates custom Debian or Ubuntu image for x86, aarch64, riscv64 & armhf",
-        "size_diff":129452
-    },
-    {
-        "name":"iOSDeviceSupport",
-        "stars":7044,
-        "created":1476748800000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":920207,
-        "number_of_contributors":17,
-        "link":"https:\/\/github.com\/filsv\/iOSDeviceSupport",
-        "description":"Xcode iPhoneOS (iOS) DeviceSupport files (6.0 - 17.0)",
-        "size_diff":69681
-    },
-    {
-        "name":"hyprdots",
-        "stars":8645,
-        "created":1680480000000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":974045,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/prasanthrangan\/hyprdots",
-        "description":"\/\/ Aesthetic, dynamic and minimal dots for Arch hyprland",
-        "size_diff":null
-    },
-    {
-        "name":"TOTK-Mods-collection",
-        "stars":3123,
-        "created":1683936000000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":1029337,
-        "number_of_contributors":14,
-        "link":"https:\/\/github.com\/hoverbike1\/TOTK-Mods-collection",
-        "description":"Mod repo for Tears of The Kingdom (TOTK) for Switch and Switch Emulation",
-        "size_diff":null
-    },
-    {
-        "name":"HyDE",
-        "stars":5178,
-        "created":1729900800000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":1006612,
-        "number_of_contributors":200,
-        "link":"https:\/\/github.com\/HyDE-Project\/HyDE",
-        "description":"HyDE, your Development Environment \ud83d\udda5\ufe0f\ud83d\udcbb",
-        "size_diff":143747
-    },
-    {
-        "name":"x-ui-yg",
-        "stars":2963,
-        "created":1676246400000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":1301449,
-        "number_of_contributors":1,
-        "link":"https:\/\/github.com\/yonggekkk\/x-ui-yg",
-        "description":"x-ui\u7cbe\u7b80\u4fee\u6539\u7248\u811a\u672c\uff0c\u652f\u6301\u6700\u65b0\u7684Xhttp\u4f20\u8f93\u534f\u8bae\uff0c\u96c6\u6210argo\u56fa\u5b9a\u4e34\u65f6\u53cc\u96a7\u9053\uff08\u53ef\u5171\u5b58\uff09\u3001Psiphon\u8d5b\u98ceVPN\uff0830\u4e2a\u56fd\u5bb6\uff09\u5206\u6d41\u529f\u80fd\uff0c\u652f\u6301\u90e8\u5206\u8282\u70b9\u805a\u5408\u8ba2\u9605\u3001sing-box\u8ba2\u9605\u3001clash-meta\u8ba2\u9605\u7684\u914d\u7f6e\u8f93\u51fa",
-        "size_diff":51146
-    },
-    {
-        "name":"CodeGuide",
-        "stars":11618,
-        "created":1586822400000,
-        "pushed":1753920000000,
-        "main_language":"Shell",
-        "github_size_KB":1303562,
-        "number_of_contributors":66,
-        "link":"https:\/\/github.com\/fuzhengwei\/CodeGuide",
-        "description":":books: \u672c\u4ee3\u7801\u5e93\u662f\u4f5c\u8005\u5c0f\u5085\u54e5\u591a\u5e74\u4ece\u4e8b\u4e00\u7ebf\u4e92\u8054\u7f51 Java \u5f00\u53d1\u7684\u5b66\u4e60\u5386\u7a0b\u6280\u672f\u6c47\u603b\uff0c\u65e8\u5728\u4e3a\u5927\u5bb6\u63d0\u4f9b\u4e00\u4e2a\u6e05\u6670\u8be6\u7ec6\u7684\u5b66\u4e60\u6559\u7a0b\uff0c\u4fa7\u91cd\u70b9\u66f4\u503e\u5411\u7f16\u5199Java\u6838\u5fc3\u5185\u5bb9\u3002\u5982\u679c\u672c\u4ed3\u5e93\u80fd\u4e3a\u60a8\u63d0\u4f9b\u5e2e\u52a9\uff0c\u8bf7\u7ed9\u4e88\u652f\u6301(\u5173\u6ce8\u3001\u70b9\u8d5e\u3001\u5206\u4eab)\uff01",
-        "size_diff":null
-    },
-    {
-        "name":"rufus",
-        "stars":32172,
-        "created":1321660800000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":42695,
-        "number_of_contributors":300,
-        "link":"https:\/\/github.com\/pbatard\/rufus",
-        "description":"The Reliable USB Formatting Utility",
-        "size_diff":null
-    },
-    {
-        "name":"mpv",
-        "stars":31432,
-        "created":1350086400000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":110234,
-        "number_of_contributors":800,
-        "link":"https:\/\/github.com\/mpv-player\/mpv",
-        "description":"\ud83c\udfa5 Command line media player",
-        "size_diff":null
-    },
-    {
-        "name":"cosmopolitan",
-        "stars":19597,
-        "created":1592179200000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":306105,
-        "number_of_contributors":91,
-        "link":"https:\/\/github.com\/jart\/cosmopolitan",
-        "description":"build-once run-anywhere c library",
-        "size_diff":null
-    },
-    {
-        "name":"lede",
-        "stars":30875,
-        "created":1504656000000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":319515,
-        "number_of_contributors":600,
-        "link":"https:\/\/github.com\/coolsnowwolf\/lede",
-        "description":"Lean's LEDE source",
-        "size_diff":null
-    },
-    {
-        "name":"wazuh",
-        "stars":13027,
-        "created":1439251200000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":462795,
-        "number_of_contributors":500,
-        "link":"https:\/\/github.com\/wazuh\/wazuh",
-        "description":"Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads.",
-        "size_diff":null
-    },
-    {
-        "name":"vlc",
-        "stars":16010,
-        "created":1327795200000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":595611,
-        "number_of_contributors":1100,
-        "link":"https:\/\/github.com\/videolan\/vlc",
-        "description":"VLC media player - All pull requests are ignored, please use MRs on https:\/\/code.videolan.org\/videolan\/vlc",
-        "size_diff":null
-    },
-    {
-        "name":"reactos",
-        "stars":16068,
-        "created":1506988800000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":627803,
-        "number_of_contributors":400,
-        "link":"https:\/\/github.com\/reactos\/reactos",
-        "description":"A free Windows-compatible Operating System",
-        "size_diff":null
-    },
-    {
-        "name":"Telegram-iOS",
-        "stars":6923,
-        "created":1542153600000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":799537,
-        "number_of_contributors":500,
-        "link":"https:\/\/github.com\/TelegramMessenger\/Telegram-iOS",
-        "description":"Telegram-iOS",
-        "size_diff":null
-    },
-    {
-        "name":"yugabyte-db",
-        "stars":9659,
-        "created":1507161600000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":869035,
-        "number_of_contributors":1000,
-        "link":"https:\/\/github.com\/yugabyte\/yugabyte-db",
-        "description":"YugabyteDB - the cloud native distributed SQL database for mission-critical applications.",
-        "size_diff":null
-    },
-    {
-        "name":"Onion",
-        "stars":3874,
-        "created":1655683200000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":987825,
-        "number_of_contributors":91,
-        "link":"https:\/\/github.com\/OnionUI\/Onion",
-        "description":"OS overhaul for Miyoo Mini and Mini+",
-        "size_diff":null
-    },
-    {
-        "name":"wine",
-        "stars":3548,
-        "created":1407369600000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":1103175,
-        "number_of_contributors":2400,
-        "link":"https:\/\/github.com\/wine-mirror\/wine",
-        "description":null,
-        "size_diff":null
-    },
-    {
-        "name":"wireshark",
-        "stars":8281,
-        "created":1404000000000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":1206897,
-        "number_of_contributors":1700,
-        "link":"https:\/\/github.com\/wireshark\/wireshark",
-        "description":"Read-only mirror of Wireshark's Git repository at https:\/\/gitlab.com\/wireshark\/wireshark. \u26a0\ufe0f GitHub won't let us disable pull requests. \u26a0\ufe0f THEY WILL BE IGNORED HERE \u26a0\ufe0f Upload them at GitLab instead.",
-        "size_diff":null
-    },
-    {
-        "name":"darktable",
-        "stars":11166,
-        "created":1332288000000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":1315740,
-        "number_of_contributors":700,
-        "link":"https:\/\/github.com\/darktable-org\/darktable",
-        "description":"darktable is an open source photography workflow application and raw developer",
-        "size_diff":58177
-    },
-    {
-        "name":"rt-n56u",
-        "stars":3334,
-        "created":1509062400000,
-        "pushed":1753920000000,
-        "main_language":"C",
-        "github_size_KB":1152084,
-        "number_of_contributors":300,
-        "link":"https:\/\/github.com\/hanwckf\/rt-n56u",
-        "description":"Padavan",
-        "size_diff":205479
+        "link":"https://github.com/nvbn/thefuck",
+        "description":"Magnificent app which corrects your previous console command."
+    },
+    {
+        "link":"https://github.com/scikit-learn/scikit-learn",
+        "description":"scikit-learn: machine learning in Python"
+    },
+    {
+        "link":"https://github.com/ansible/ansible",
+        "description":"Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy and maintain. Automate everything from code deployment to network configuration to cloud management, in a language that approaches plain English, using SSH, with no agents to install on remote systems. https://docs.ansible.com."
+    },
+    {
+        "link":"https://github.com/CorentinJ/Real-Time-Voice-Cloning",
+        "description":"Clone a voice in 5 seconds to generate arbitrary speech in real-time"
+    },
+    {
+        "link":"https://github.com/apache/airflow",
+        "description":"Apache Airflow - A platform to programmatically author, schedule, and monitor workflows"
+    },
+    {
+        "link":"https://github.com/harry0703/MoneyPrinterTurbo",
+        "description":"Generate short videos with one click using AI LLM."
+    },
+    {
+        "link":"https://github.com/freqtrade/freqtrade",
+        "description":"Free, open source crypto trading bot"
+    },
+    {
+        "link":"https://github.com/streamlit/streamlit",
+        "description":"Streamlit A faster way to build and share data apps."
+    },
+    {
+        "link":"https://github.com/mlflow/mlflow",
+        "description":"The open source developer platform to build AI/LLM applications and models with confidence. Enhance your AI applications with end-to-end tracking, observability, and evaluations, all in one integrated platform."
+    },
+    {
+        "link":"https://github.com/commaai/openpilot",
+        "description":"openpilot is an operating system for robotics. Currently, it upgrades the driver assistance system on 300+ supported cars."
+    },
+    {
+        "link":"https://github.com/pytorch/pytorch",
+        "description":"Tensors and Dynamic neural networks in Python with strong GPU acceleration"
+    },
+    {
+        "link":"https://github.com/pytorch/vision",
+        "description":"Datasets, Transforms and Models specific to Computer Vision"
+    },
+    {
+        "link":"https://github.com/frappe/erpnext",
+        "description":"Free and Open Source Enterprise Resource Planning (ERP)"
+    },
+    {
+        "link":"https://github.com/StevenBlack/hosts",
+        "description":"Consolidating and extending hosts files from several well-curated sources. Optionally pick extensions for porn, social media, and other categories."
+    },
+    {
+        "link":"https://github.com/macrozheng/mall",
+        "description":"mallBoot+MyBatis"
+    },
+    {
+        "link":"https://github.com/zxing/zxing",
+        "description":"ZXing (Crossingbarcode scanning library for Java, Android"
+    },
+    {
+        "link":"https://github.com/scwang90/SmartRefreshLayout",
+        "description":"Footer"
+    },
+    {
+        "link":"https://github.com/oracle/graal",
+        "description":"GraalVM compiles Java applications into native executables that start instantly, scale fast, and use fewer compute resources "
+    },
+    {
+        "link":"https://github.com/keycloak/keycloak",
+        "description":"Open Source Identity and Access Management For Modern Applications and Services"
+    },
+    {
+        "link":"https://github.com/doocs/leetcode",
+        "description":"solutions in any programming language | LeetCodeOffer2 6 "
+    },
+    {
+        "link":"https://github.com/neo4j/neo4j",
+        "description":"Graphs for Everyone"
+    },
+    {
+        "link":"https://github.com/deeplearning4j/deeplearning4j",
+        "description":"Suite of tools for deploying and training deep learning models using the JVM. Highlights include model import for keras, tensorflow, and onnx/pytorch, a modular and tiny c++ library for running math code and a java based math library on top of the core c++ library. Also includes samediff: a pytorch/tensorflow like library for running deep learn..."
+    },
+    {
+        "link":"https://github.com/OpenAPITools/openapi-generator",
+        "description":"OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3)"
+    },
+    {
+        "link":"https://github.com/SonarSource/sonarqube",
+        "description":"Continuous Inspection"
+    },
+    {
+        "link":"https://github.com/libgdx/libgdx",
+        "description":"Desktop/Android/HTML5/iOS Java game development framework"
+    },
+    {
+        "link":"https://github.com/flyway/flyway",
+        "description":"Flyway by Redgate Database Migrations Made Easy."
+    },
+    {
+        "link":"https://github.com/openjdk/jdk",
+        "description":"JDK main-line development https://openjdk.org/projects/jdk"
+    },
+    {
+        "link":"https://github.com/arduino/Arduino",
+        "description":"Arduino IDE 1.x"
+    },
+    {
+        "link":"https://github.com/sveltejs/svelte",
+        "description":"web development for the rest of us"
+    },
+    {
+        "link":"https://github.com/danielmiessler/Fabric",
+        "description":"Fabric is an open-source framework for augmenting humans using AI. It provides a modular system for solving specific problems using a crowdsourced set of AI prompts that can be used anywhere."
+    },
+    {
+        "link":"https://github.com/open-webui/open-webui",
+        "description":"User-friendly AI Interface (Supports Ollama, OpenAI API, ...)"
+    },
+    {
+        "link":"https://github.com/atom/atom",
+        "description":":atom: The hackable text editor"
+    },
+    {
+        "link":"https://github.com/phaserjs/phaser",
+        "description":"Phaser is a fun, free and fast 2D game framework for making HTML5 games for desktop and mobile web browsers, supporting Canvas and WebGL rendering."
+    },
+    {
+        "link":"https://github.com/swagger-api/swagger-ui",
+        "description":"Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API."
+    },
+    {
+        "link":"https://github.com/handsontable/handsontable",
+        "description":"JavaScript Data Grid / Data Table with a Spreadsheet Look & Feel. Works with React, Angular, and Vue. Supported by the Handsontable team "
+    },
+    {
+        "link":"https://github.com/zhaoolee/ChromeAppHeroes",
+        "description":" ChromePluginHeroes, Write a Chinese manual for the excellent Chrome plugin, let the Chrome plugin heroes benefit the human~ 01"
+    },
+    {
+        "link":"https://github.com/aframevr/aframe",
+        "description":":a: Web framework for building virtual reality experiences."
+    },
+    {
+        "link":"https://github.com/4ian/GDevelop",
+        "description":"Open-source, cross-platform 2D/3D/multiplayer game engine designed for everyone."
+    },
+    {
+        "link":"https://github.com/facebook/react",
+        "description":"The library for web and native user interfaces."
+    },
+    {
+        "link":"https://github.com/gatsbyjs/gatsby",
+        "description":"The best React-based framework with performance, scalability and security built in."
+    },
+    {
+        "link":"https://github.com/nodejs/node",
+        "description":"Node.js JavaScript runtime "
+    },
+    {
+        "link":"https://github.com/ToolJet/ToolJet",
+        "description":"Low-code platform for building business applications. Connect to databases, cloud storages, GraphQL, API endpoints, Airtable, Google sheets, OpenAI, etc and build apps using drag and drop application builder. Built using JavaScript/TypeScript. "
+    },
+    {
+        "link":"https://github.com/romkatv/powerlevel10k",
+        "description":"A Zsh theme"
+    },
+    {
+        "link":"https://github.com/testssl/testssl.sh",
+        "description":"Testing TLS/SSL encryption anywhere on any port "
+    },
+    {
+        "link":"https://github.com/linux-surface/linux-surface",
+        "description":"Linux Kernel for Surface Devices"
+    },
+    {
+        "link":"https://github.com/ONLYOFFICE/DocumentServer",
+        "description":"ONLYOFFICE Docs is a free collaborative online office suite comprising viewers and editors for texts, spreadsheets and presentations, forms and PDF, fully compatible with Office Open XML formats: .docx, .xlsx, .pptx and enabling collaborative editing in real time."
+    },
+    {
+        "link":"https://github.com/facebookarchive/caffe2",
+        "description":"Caffe2 is a lightweight, modular, and scalable deep learning framework."
+    },
+    {
+        "link":"https://github.com/mitchellkrogza/ nginx-ultimate-bad-bot-blocker",
+        "description":"Nginx Block Bad Bots, Spam Referrer Blocker, Vulnerability Scanners, User-Agents, Malware, Adware, Ransomware, Malicious Sites, with anti-DDOS, Wordpress Theme Detector Blocking and Fail2Ban Jail for Repeat Offenders"
+    },
+    {
+        "link":"https://github.com/dtcooper/raspotify",
+        "description":"A Spotify Connect client that mostly Just Works"
+    },
+    {
+        "link":"https://github.com/armbian/build",
+        "description":"Armbian Linux build framework generates custom Debian or Ubuntu image for x86, aarch64, riscv64 & armhf"
+    },
+    {
+        "link":"https://github.com/filsv/iOSDeviceSupport",
+        "description":"Xcode iPhoneOS (iOS) DeviceSupport files (6.0 - 17.0)"
+    },
+    {
+        "link":"https://github.com/prasanthrangan/hyprdots",
+        "description":"// Aesthetic, dynamic and minimal dots for Arch hyprland"
+    },
+    {
+        "link":"https://github.com/hoverbike1/TOTK-Mods-collection",
+        "description":"Mod repo for Tears of The Kingdom (TOTK) for Switch and Switch Emulation"
+    },
+    {
+        "link":"https://github.com/HyDE-Project/HyDE",
+        "description":"HyDE, your Development Environment "
+    },
+    {
+        "link":"https://github.com/yonggekkk/x-ui-yg",
+        "description":"x-uiXhttpargoPsiphonVPN30sing-boxclash-meta"
+    },
+    {
+        "link":"https://github.com/fuzhengwei/CodeGuide",
+        "description":":books: Java Java()"
+    },
+    {
+        "link":"https://github.com/pbatard/rufus",
+        "description":"The Reliable USB Formatting Utility"
+    },
+    {
+        "link":"https://github.com/mpv-player/mpv",
+        "description":"Command line media player"
+    },
+    {
+        "link":"https://github.com/jart/cosmopolitan",
+        "description":"build-once run-anywhere c library"
+    },
+    {
+        "link":"https://github.com/coolsnowwolf/lede",
+        "description":"Lean's LEDE source"
+    },
+    {
+        "link":"https://github.com/wazuh/wazuh",
+        "description":"Wazuh - The Open Source Security Platform. Unified XDR and SIEM protection for endpoints and cloud workloads."
+    },
+    {
+        "link":"https://github.com/videolan/vlc",
+        "description":"VLC media player - All pull requests are ignored, please use MRs on https://code.videolan.org/videolan/vlc"
+    },
+    {
+        "link":"https://github.com/reactos/reactos",
+        "description":"A free Windows-compatible Operating System"
+    },
+    {
+        "link":"https://github.com/TelegramMessenger/Telegram-iOS",
+        "description":"Telegram-iOS"
+    },
+    {
+        "link":"https://github.com/yugabyte/yugabyte-db",
+        "description":"YugabyteDB - the cloud native distributed SQL database for mission-critical applications."
+    },
+    {
+        "link":"https://github.com/OnionUI/Onion",
+        "description":"OS overhaul for Miyoo Mini and Mini+"
+    },
+    {
+        "link":"https://github.com/wine-mirror/wine",
+        "description":null
+    },
+    {
+        "link":"https://github.com/wireshark/wireshark",
+        "description":"Read-only mirror of Wireshark's Git repository at https://gitlab.com/wireshark/wireshark. GitHub won't let us disable pull requests. THEY WILL BE IGNORED HERE Upload them at GitLab instead."
+    },
+    {
+        "link":"https://github.com/darktable-org/darktable",
+        "description":"darktable is an open source photography workflow application and raw developer"
+    },
+    {
+        "link":"https://github.com/hanwckf/rt-n56u",
+        "description":"Padavan"
     }
 ]
