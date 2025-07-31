@@ -9,6 +9,9 @@ Dafür brauche ich erstmal einen guten Algorithmus der das Layout gut macht, dan
 Problem man kann sich sehr gut beispiele konstuieren, bei denen das nicth funktionieren wird. Man kann das natürlich mit skalierung wieder lösen, aber das ist natürlich nicht optimal.
 
 \subsection{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
+
+%HIER noch definieren die namen der schritte für bessere Lesbarkeit in den kapiteln danach z.b. layout schritt update schritt,...
+
 Die Grundlegende Idee dieser Erweiterung ist es, dass sich die Fläche der Knoten mit Abstand durch das Layout und die Fläche der Knoten ohne Abstand approximieren lässt. Die Idee ist es also einen ersten Durchlauf zu machen, bei dem das Layout ohne Abstand berechnet wird. Dann werden die Größen der Knoten entsprechend dem Layout angepasst, sodass die Größe der Knoten nun auch den Abstand berücksichtigt. Anschließend wird ein zweiter Durchlauf mit diesen angepassten Größen durchgeführt, um das finale Layout zu berechnen.
 
 Bevor wir uns die Details und Ergebnisse dieser Erweiterung anschauen, wollen wir vorweg nehmen, dass diese Erweitung natürlich nicht optimal funktionieren kann und das auch klar ist, da sich die die Änderung der Größe der Knoten natürlich auch das Layout im Zeweiten Durchlauf ändern wird, wodurch die Größen der Knoten wieder nicht korrekt sind. Was ja überhaupt erst das Grundlegende Problem ist (siehe Abshnictt \ref{sec:Problemstellung}). Allerdings ist es ein erster Schritt sich dem Problem zu nähern und zu schauen, ob es sich lohnt in diese Richtung weiter zu forschen.
@@ -151,10 +154,23 @@ Es ist wie gesagt nicht ganz klar, was genau die auswirkungen sind. deswegen nur
 %sind das überhaupt relevante Fragen? - oder ist nur wichtig das Seitenverhältnis und Wert-Fläche-Relationen gut sind?
 
 \subsection{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
-Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. Dies wird so lange wiederholt, bis sich die Fläche der Knoten nicht mehr ändert oder eine maximale Anzahl an Iterationen erreicht ist.
+Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
+Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layout-Schritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. 
+
+Grund dafür:
+Grund dagegen: 
 
 \subsubsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
 In bild updateValues.png ist zu erkennen, dass kp. margin 10 noP 3
+
+Die Grundlegende Idee dieser Erweiterung ist es, das wenn das Layout mehrfach berechnet wird, es besser ist, den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, anstatt ihn von Anfang an auf den finalen Wert fest zu setzen. 
+Warum gehen wir von dieser Annahme aus? 
+Wenn man im ersten Schritt den Abstand auf den finalen Wert setzt, dann werden die Vorhersagen für die neue Fläche der Knoten im zweiten Schritt nicht exakt sein, das ist ja klar. Umso kleiner die Abstände sind, umso kleiner sind auch die Abweichungen dieser Vorhersagen. Dadurch sollten die Wer-Fläche-Relationen im zweiten Schritt besser sein. 
+%zeige das anhand von daten
+Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert vergrößert, dann sind in jedem Schritt die Vorhersagen für die Fläche der Knoten genauer, wodurch die Wert-Fläche-Relationen besser werden. Als Gegenargument könnte man bringen, dass dadurch, dass jedes mal die Abstände größer werden auch jedes mal das Optimale Layout (man kann das optimale layout nicht berechnen, aber wir gehen mal von einem theoreitschen optimalen Layout aus) auch in jedem layout schritt anders sein wird. Dadurch wird erst im letzen Layoutschritt das "wahre" optimale Layout angestrebt, wodurch die vorherigen schritte unnötig waren.
+
+Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
+hier ist es auch interessant den effekt in kombination mit der Reihenfolge der Knoten zu testen, weil %warum eigentlich?
 
 \subsection{Änderungen im Layout} \label{sec:LayoutÄnderungen}
 Folgend werden Änderungen beschrieben, die sich sichtbar auf die Visualierung auswirken und nicht nur auf Platzierung, Größe, Form,... etc der Knoten. Diese Änderungen zielen trotzdem vorallem darauf ab, das Treemap-Layout-Problem zu lösen bzw. abzuschwächen, machen dies aber vorallem durch visuelle Anpassungen und nicht durch komplexe algorithmische Anpassungen.
