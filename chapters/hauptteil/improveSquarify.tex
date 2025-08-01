@@ -175,7 +175,7 @@ hier ist es auch interessant den effekt in kombination mit der Reihenfolge der K
 \subsection{Änderungen im Layout} \label{sec:LayoutÄnderungen}
 Folgend werden Änderungen beschrieben, die sich sichtbar auf die Visualierung auswirken und nicht nur auf Platzierung, Größe, Form,... etc der Knoten. Diese Änderungen zielen trotzdem vorallem darauf ab, das Treemap-Layout-Problem zu lösen bzw. abzuschwächen, machen dies aber vorallem durch visuelle Anpassungen und nicht durch komplexe algorithmische Anpassungen.
 
-\subsubsection{Optimierung Ordner mit nur einem Kind}
+\subsubsection{Optimierung von Ordnerketten} \label{sec:OrderKetten}
 Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Diese Struktur wird zum Beispiel für Module in Java/Kotlin verwendet.
 Zum Beispiel im OpenSource Projekt CodeCharta 
 codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
@@ -191,6 +191,47 @@ Es ergeben sich folgende Auswirkungen auf die Ziele der Visualisierung:
     \item \textbf{Stabilität gegenüber Änderungen:} Wird verbessert, da durch weniger Abstände die differenz zwischen Knoten Fläche und Knoten Wert geringer werden, wodurch weniger umstrukturierung bei der Platzierung der Knoten nötig ist. Außerdem wirken sich trivialerweise Änderungen an Order-Ketten nicht mehr auf die gesamte Struktur aus und verändern somit auch die Visualierung nicht, was positiv für die stabilität ist (aber wie gesagt negativ für die Korrelation mit dem Code).
 \end{itemize}
 Wir würden sagen, dass die Vorteile dieser Änderung die Nachteile stark überwiegen.
+
+Im Schnitt werden ca. 175 Ordner pro Codebasis gefaltet (12 Median). bei ca. 958 Knoten (Median 242) sind das ca. 18\% (bzw. 5\% Median) der Knoten die durch die Faltung verschwinden. Also schon einige. 
+
+Folgend kommen die DAten:
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattknotenOhneFlaeche.png}
+    \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die das verschwinden von Knoten reduziert.}
+    \label{fig:FaltungKnotenOhneFlaeche}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungWertFlaecheVerhältnis.png}
+    \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten das Wert-Fläche-Verhältnis der Knoten verbessert.}
+    \label{fig:FaltungWertFlaecheVerhältnis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungSeitenverhältnis.png}
+    \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten das Seitenverhältnis der Knoten verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Es zeigt sich ein leicht positiver Effekt besonders bei kleinen und großen Abständen.} 
+    \label{fig:FaltungSeitenverhältnis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattFlaeche.png}
+    \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
+    \label{fig:FaltungBlattFlaeche}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungZeit.png}
+    \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten die Rechenzeit verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven Effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Die Schwankungen sind zwischen ungefähr 1 und 2 millisekunden, was nicht wikrlich ausschlaggebend ist. Trotzdem ist ein leichter perfomance gewinn zu erkennen beim falten, was wahrscheinlich einfach daran liegt, dass es weniger Knoten gibt.}
+    \label{fig:FaltungZeit}
+\end{figure}
+
+die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordnerketten. Wir sprechen uns also dafür aus, dass Ordnerketten immer gefaltet werden sollten, von den messbaren Kriterien her sehen wir keine Gründe, warum das nicht gemacht werden sollte. das einzige Ziel was dagegen spricht ist die Korrelation mit dem Code, die dadurch verschlechtert wird. Alles in allem sprechen wir uns also dafür aus und werden dies fix für unseren Algorithmus implementieren.
 
 \subsubsection{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
 Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie es dem Nutzer ermöglicht, die Knoten zu identifizieren und zu verstehen, welche Informationen sie repräsentieren. Es gibt verschiedene Ansätze, um die Beschriftung der Knoten zu gestalten. Jeder Ansatz hat seine Vor- und Nachteile. Ein häufig verwendeter Ansatz ist wie zum Beispiel auch beim in Abschmijt VerwandteArbeiten \ref{sec:VerwandteArbeiten} vorgestellten Cascaded Treemap Ansatz \cite{lu2008cascaded}.
@@ -232,9 +273,14 @@ Immernoch straight forward, es gibt aber noch Probleme
 Warum besonders den squarify algorithmus betrachtet und nicht zum beipsiel pivot oder circle?? -> weil diese Andere Ziele haben -> noch mehr begründen anhand der definierten Ziele
 
 
+%erkläre warum genau diese abstände gewählt wurden mit beispielen
+
+%erkläre warum bei den daten immer realisierter Abstand etc gemessen wird
+%erkläre warum bei den Seitenverhältnissen ein low in der mitte
+
 %weitere idee wie bei casced nach jedem layoutschritt im zweiten durchgang den benötigten platz neu berechnen
 
-
+%sagen dass alle berechnungen auf meinem laptop durchgeführt wurden, das ist auch praxis nah
 
 %schreibe warum die berechnung mit shrinkyfiy und nicht direct mit den margins plazieren
 %ist mein shrinkify gleich zu setzen mit leafs nicht ändern und direkt mit margin platzieren?

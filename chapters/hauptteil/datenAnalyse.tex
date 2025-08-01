@@ -38,9 +38,11 @@ Wir wählen initial 50 repositories aus. diese repositories wählen wir aus anha
         \item \textbf{C:} Eine der ältesten Programmiersprachen, die immer noch weit verbreitet ist (Platz 9 \cite{software_state_2022}). C-Projekte sind oft sehr nah an der Hardware und haben eine andere Struktur als Projekte in höheren Programmiersprachen.
         \item \textbf{Shell:} Eine Skriptsprache (Platz 8 \cite{software_state_2022}), die oft für Automatisierung und Systemadministration verwendet wird.
     \end{itemize}
+   kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
 
-\subsubsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Große Projekte haben tiefere Hierarchien und generell mehr Dateien. Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. Wir messen die Projekt größe als die Summe der Dateigröße aller dateien in dem REpo. Wir haben uns dazu entschieden nur Projekte mit einer mindest Größe von 100 KB zu betrachten, da kleinere Projekte oft einfach keinen Sinn machen zu visualisieren, da sie auch so schon gut zu überschauen sind. Außerdem wollen wir ja auch die anzahld er order + dateien was leider die korelation zwischen größe und anzahl der knoten schlechter macht. 
-%wir teilen das in 5 bins ein 
+
+\subsubsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Wir gehen davon aus, dass Große Projekte auch dann größere Strukturen (also mehr knoten) haben (stimmt nicht zwingen - wie im folgenden ABschnit \ref{sec:auswahlDerProjekteImDetail} gezeigt wird) Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. 
+kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
 
 \subsubsection*{Ungenutzte Kategorien}
 Man könnte denken, dass auch andere Kategorien wie die Anzahl der Sterne oder die Anzahl der Mitwirkenden eines Projekts einen Einfluss auf die Struktur eines Projekts haben. Wir hatten auch diese vermutung und haben dies nachgeprüft. Um fragen zu vermeiden zeigen wir hier auch die ergebnisse, die gezeigt haben dass diese Kategorien keinen Einfluss haben und wir sie deshalb verworfen haben.
@@ -50,7 +52,20 @@ Man könnte denken, dass auch andere Kategorien wie die Anzahl der Sterne oder d
 2. Eine größere Anzahl an Mitwirkenden, mehr Änderungen und generell mehr aufmerksamkeit. 
 Es gibt paper, die sagen, dass unterschiedlichen Anzahlen an Mitwirkenden hat einen Einfluss auf die Struktur und Qualität des Codes haben kann \cite{numDevs}. Wir werden nur Projekte bereits ab einer Anzahl von 2 Mitwirkenden betrachten, da Projekte mit nur einem Mitwirkenden oft nicht wirklich repräsentativ für die Struktur von Softwareprojekten sind. 
 Wir überprufen, ob die Anzahl der Mitwirkenden einen Einfluss auf die Struktur - konkret die Hierarchie-Tiefe und die Anzahl der Kinder-Knoten - hat.
-%ok hat sie nicht, den beweise bringen wir gleich
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/mitwirkendeVsKindknoten.png}
+    \caption{Die Anzahl der Mitwirkenden auf der x-Achse hat keinen erkennbaren Einfluss auf die Anzahl der Kinder-Knoten eines Knotens.}
+    \label{fig:mitwirkendeVsKindknoten}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/mitwirkendeVsTiefe.png}
+    \caption{Die Anzahl der Mitwirkenden auf der x-Achse hat keinen erkennbaren Einfluss auf die Hierarchie-Tiefe eines Knotens.}
+    \label{fig:mitwirkendeVsTiefe}
+\end{figure}
 
 \subsubsection{Die Auswahl der Projekte im Detail} \label{sec:auswahlDerProjekteImDetail}
 So wir wissen jetzt, dass wir nur auf sprache und größe achten wollen. wir haben 5 verschiedene bekannte sprachen und verschiedene größen. Wir nehmen eine gute anzahl an Projekten, so dass jede kombi repräsentiert ist, aber trotzdem nur so viele wie wir rechnerisch handlen können. 
@@ -77,6 +92,15 @@ In Abbildung \ref{fig:repoGroesseVerteilung} ist zu erkennen, dass wir relativ g
     \label{fig:repoGroesseVerteilung}
 \end{figure}
 
+Da die größe nicht 1 zu 1 mit der Anzahl an nodes korreliert. ein order zum beispiel nimmt fast keine größe ein. außerdem sind bei jeder sparche die dateien verschieden groß es gibt unterschiedliche anzahl an dateien die nicht betrachtet werden wie png, mp4 etc die zur größe aber nicth zur anzahl an nodes beitragen. Es ist zu erkennen, dass dadurch doch wieder mehr kleinenere Repos gibt, aber das akzeptieren wir einfach. \ref{fig:repoAnzahlNodesVerteilung} Besonders bei Shell ist zu erkennen, dass die Anzahl an Knoten nicht wirklich linear verteilt ist. Zeigt wie unterschiedlich die repos der verschiedenen Sprachen sind, trotzdem aktzeptieren wir das, am ende bildet es die Realität ab.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/repoAnzahlNodesVerteilung.png}
+    \caption{Die Verteilung der Anzahl an Knoten der ausgewählten Repositories je Sprache.}
+    \label{fig:repoAnzahlNodesVerteilung}
+\end{figure}
+
 \subsubsection{Analyse der ausgewählten Repositories} \label{sec:analyseDerAusgewähltenRepositories}
 Wie berechnen wir die Struktur der Repositories und wie bekommen wir metrik daten für diese REpos?
 Wir clonen jedes repo und analysieren die Struktur der Repositories mit dem CodeCharta Analysis CLI Tools \cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
@@ -91,3 +115,6 @@ Warum wollen wir das tun? Weil wir uns erhoffen, erkenntnisse über die Datei-St
 
 Im Grundlagen Kapitel wurde bereits erwähnt, dass die Metrik-Daten, die wir durch die Analyse von Code erhalten, spezielle Eigenschaften aufweist (siehe Abschnitt \ref{sec:SoftwareQualitaetsmetriken}). Diese Eigenschaften sind wichtig, um die Visualierung zu optimieren und zu wissen in welchem Rahmen sich die zu visualisierenden Daten bewegen. 
 
+numberOfFiles: 3262.34 (avr), 708.50 (median), 7391.42 (std)
+numberOfFolders: 958.76 (avr), 242.00 (median), 2089.59 (std)
+numberOfNodes: 4221.10 (avr), 1108.50 (median), 9308.05 (std)
