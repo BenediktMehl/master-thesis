@@ -1,14 +1,29 @@
-\section{Erweiterung des Squarify Algorithmus} \label{sec:VerbesserungSquarify}
+\chapter{Erweiterung des Squarify Algorithmus} \label{sec:VerbesserungSquarify}
 In diesem Abschnitt wird der Squarify Algorithmus \cite{bruls2000squarified}, wie er in Abschnitt \ref{sec:Squarify} beschrieben wurde, auf verschiedene Weisen erweitert und angepasst, um das Layoutproblem, wie es in Abschnitt \ref{sec:TreemapProblem} beschrieben wurde, anzugehen. 
 
-\subsection{Approximative Fläche} \label{sec:ApproxFläche}
-Die Grundlegende Idee dieser Erweiterung ist es, die Fläche der Knoten plus die Benötigte Fläche für die Abstände vor berechnung des Layouts zu approximieren.
+\section{Kriterien für Treemap Layouts} \label{sec:CodeCityLayouts}
+Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D layout, die diese Aspekte messbar machen. Diese Kriterien sollen helfen, die Qualität der Visualisierung zu bewerten und zu vergleichen. Die Kriterien sind:
 
-Dafür brauche ich erstmal einen guten Algorithmus der das Layout gut macht, dann kann ich mit KI die Fläche lernen. Ist die frage ob das wirklich so gut funktionieren kann.
+\begin{itemize}
+    \item \textbf{Abstände:} Abstände zwischen den Knoten verbessern die Übersichtlichkeit und die visuelle Komplexität.
+    \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:Treemap} beschriebene Problem ab.
+    \item \textbf{Flächengröße:} Um die Korrelation mit dem Code zu gewährleisten, sollte die Fläche der Knoten proportional zum Metrikwert sein. (Hier ist noch unklar, ob das nur für Blätter gilt oder für alle Knoten)
+    \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen.
+    \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht.
+    \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies verbessert die Skalierbarkeit und generelle Nutzbarkeit der Visualisierung.
+    \item \textbf{Stabilität:} Die Knoten sollten bei Änderungen die Position und Größe beibehalten, um eine stabile Visualisierung zu gewährleisten. 
+\end{itemize}
 
-Problem man kann sich sehr gut beispiele konstuieren, bei denen das nicth funktionieren wird. Man kann das natürlich mit skalierung wieder lösen, aber das ist natürlich nicht optimal.
+In dieser Arbeit sollen space filling approaches anaylsiert werden und speziell darauf untersucht werden, wie sie sich eignenen für die definierten anforderungen. Wie gut wird was erfüllt? Wann sollte man was anwenden? Kann eine gute kombination aus verschiedenen Ansätzen gefunden werden?
+Bisher wurden im Grundlagenteil vorallem die splitting algorhtmen vorgestellt, aber es gibt natürlich auch andere Ansätze, die verfolgt werden können, um Treemap Layouts zu generieren. Zum beispiel gibt es bin packing oder optimierungs algorithmen. In dieser Arbeit sollen auch diese Ansätze betrachtet werden, um zu sehen, ob sie für die Visualisierung von Codequalitätsmetriken in einer space filling layout approach geeignet sind.
 
-\subsection{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
+\enquote{Especially for the node weights, we assess if the algorithms use the weight values to scale the sizes of leaf nodes. Typically, the size of parent nodes is adjusted to the spatial consumption of the child nodes.}\cite[3]{scheibel2020survey} - Scheibel et al. sagen also, für sie ist es nicht so wichtig, dass die Größe der Elternknoten proportional zu den Metrikwerten der Knoten ist.
+
+Dies soll getestet werden auf basis von verschiedenen öffentlichen Repositories, die von kleinen bis großen Codebasen reichen. Als Metrik für die Fläche soll der Einfachehit halber die Anzahl der Zeilen verwendet werden.
+
+auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
+
+\section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
 
 %HIER noch definieren die namen der schritte für bessere Lesbarkeit in den kapiteln danach z.b. layout schritt update schritt,...
 
@@ -24,11 +39,11 @@ Die Algorithmen funktionieren allerdings alle nach ähnlichem Prinzip: Es wird z
 
 Nach dem zweiten Durchlauf wird nun die Fläche der Knoten so reduziert, dass sowohl der Abstand zwischen Geschwistern als auch der Abstand zu den Elternknoten den gewünschten Wert hat. Dies ist straight forward und wird hier nicht weiter erläutert. Anzumerken ist aber das dieser Schritt speziell abhängt von der Art der Größenanpassung, die im ersten Schritt durchgeführt wurde.
 
-\subsubsection{Einfache Größenanpassung}
+\subsection{Größenanpassung}
 Dies ist die einfachste naive Version der Größenanpassung, der Algorithmus zeigt aber gut die zuvor beschriebenen Probleme auf. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. 
 
 \begin{algorithm}[H]
-\caption{Einfache Größenanpassung}
+\caption{Größenanpassung}
 \label{alg:EinfacheGrößenanpassung}
 \begin{algorithmic}[1]
 \Function{increaseValuesSimple}{node: SquarifyNode, margin: number}
@@ -66,8 +81,8 @@ Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmal
 
 Dieser Effekt kann einfach behoben werden, wie wir in Abschnitt \ref{sec:ScalingKnoten} sehen werden.
 
-\subsubsection{Relative Größenanpassung}
 Bei der berechnung zuvor wurde einfach der margin fläche eines Elternknotens berechnet, auf basis der alten Fläche, ohne die Flächenädnerung durch die Kinderknoten zu berücksichtigen. dadurch wird die resultierende Fläche der Elternknoten zu klein sein, da die Fläche der Kinderknoten nicht berücksichtigt wird.
+Wir stellen folgend eine zweite Version der Größenanpassung vor, die versucht die Fläche der Elternknoten durch die Fläche der Kinderknoten zu approximieren. Wir werden dann beide Versionen vergleichen und schauen, welche besser funktioniert.
 Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dafür muss die relative Flächenänderung durch die Kindknoten berechnet werden. und damit dann die Seitenlängen anpassen und dann die margins hinzufügen, um die neue Fläche zu erhalten.
 Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:ZweifachBerechnung}). 
 
@@ -76,10 +91,19 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
 \label{alg:ZweifachBerechnung}
 \begin{algorithmic}[1]
 \Function{increaseValues}{node: SquarifyNode, margin: number}
+    \State width $\gets$ node.x1 - node.x0
+    \State length $\gets$ node.y1 - node.y0
+
+    \If{node.isLeaf}
+        \State valueIncrease $\gets$ width * margin + length * margin + margin * margin * 2
+        \State node.value += valueIncrease
+        \State \Return valueIncrease
+    \EndIf
+
     \State childrenValueIncrease $\gets$ 0
     \If{node.children}
         \For{child in node.children}
-            \State childrenValueIncrease += increaseValues(child, margin)
+            \State childrenValueIncrease += increaseValuesRelative2(child, margin)
         \EndFor
     \EndIf
 
@@ -88,7 +112,7 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
     \State valueIncrease $\gets$ 
         Math.sqrt(ratioChildrenValueIncrease) * width * margin * 2 +
         Math.sqrt(ratioChildrenValueIncrease) * length * margin * 2 +
-        margin * margin * 4 +
+    margin * margin * 4 +
         childrenValueIncrease
 
     \State node.value += valueIncrease
@@ -108,7 +132,24 @@ es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel 
     \label{fig:relativeIncreaseMarginOne}
 \end{figure}
 
-\subsection{Scaling der Knoten} \label{sec:ScalingKnoten}
+Evaluation:
+mit diesen Werten:
+% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+% const numberOfPassesValues = [2]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [true, false]
+% const sortingOptionValues = [SortingOption.DESCENDING]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true]
+% const collapseFoldersValues = [false]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [1]
+% const labelLengthValues = [0]
+
+
+
+\section{Scaling der Knoten} \label{sec:ScalingKnoten}
 Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
@@ -132,11 +173,11 @@ Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlic
 
 Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Diese jetzt hier sehr subjektive Einschätzung wird aber nochmal genauer beläuchtet in der evaluation und vergleich.
 
-\subsection{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
+\section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
 Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst.
 %was machen wir damit?
 
-\subsubsection{Reihenfolge der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+\subsection{Reihenfolge der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
 Durch die updates der Größen der Knoten nach dem ersten Layoutschritt, kann es passieren, dass die Größenreihenfolge der Knoten sich ändert. Das als zum Beispiel Knoten A im ersten Layoutschritt größer ist als Knoten B, aber nach dem Update der Größen von Knoten A kleiner ist als Knoten B. Das kann dazu führen, dass im folgenden Layoutschritt, die Knoten in einer anderen Reihenfolge platziert werden als im ersten Layoutschritt. 
 Das ist erstmal gut für die Seitenverhältnisse der Knoten (wenn wir davon ausgehen, dass die Reihenfolge nach größe sortiert optimla ist), allerdings kann es dazu führen, dass Knoten an ganz anderen Positionen platziert werden, als im ersten layoutschritt. Das  kann dazu führen, dass sich die Form ändert und das kann dazu führen, dass die Kinder anders platziert werden etc. wodurch sich die benötigten Abstände ändern, wodurch die vorausberechnete Fläche der Knoten nicht mehr passt und Knoten entweder verschwinden oder die Wert Fläche relation schlechter wird.
 Das kann natürlich genauso passieren, wenn die Knoten in der selben Reihenfolge platziert werden, wie im ersten Layoutschritt. Es ist nicht klar erstichtlich, was hier am Ende des Tagen am besten ist. Deswegen implementieren wir 3 verschiedene Ansätze:
@@ -148,19 +189,17 @@ Das kann natürlich genauso passieren, wenn die Knoten in der selben Reihenfolge
 \end{itemize} 
 Es ist wie gesagt nicht ganz klar, was genau die auswirkungen sind. deswegen nur vermutungen, die wir jetzt testen werden.
 
-%wie häufig passiert das?
-%wie sehr ändert sich die reiehenfolge der Knoten?
-%Wie sehr ändert sich die position der Knoten?
-%sind das überhaupt relevante Fragen? - oder ist nur wichtig das Seitenverhältnis und Wert-Fläche-Relationen gut sind?
 
-\subsection{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
+
+
+\section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
 Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
 Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layout-Schritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. 
 
 Grund dafür:
 Grund dagegen: 
 
-\subsubsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
+\subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
 In bild updateValues.png ist zu erkennen, dass kp. margin 10 noP 3
 
 Die Grundlegende Idee dieser Erweiterung ist es, das wenn das Layout mehrfach berechnet wird, es besser ist, den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, anstatt ihn von Anfang an auf den finalen Wert fest zu setzen. 
@@ -172,10 +211,10 @@ Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert
 Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
 hier ist es auch interessant den effekt in kombination mit der Reihenfolge der Knoten zu testen, weil %warum eigentlich?
 
-\subsection{Änderungen im Layout} \label{sec:LayoutÄnderungen}
+\section{Änderungen im Layout} \label{sec:LayoutÄnderungen}
 Folgend werden Änderungen beschrieben, die sich sichtbar auf die Visualierung auswirken und nicht nur auf Platzierung, Größe, Form,... etc der Knoten. Diese Änderungen zielen trotzdem vorallem darauf ab, das Treemap-Layout-Problem zu lösen bzw. abzuschwächen, machen dies aber vorallem durch visuelle Anpassungen und nicht durch komplexe algorithmische Anpassungen.
 
-\subsubsection{Optimierung von Ordnerketten} \label{sec:OrderKetten}
+\subsection{Optimierung von Ordnerketten} \label{sec:OrderKetten}
 Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Diese Struktur wird zum Beispiel für Module in Java/Kotlin verwendet.
 Zum Beispiel im OpenSource Projekt CodeCharta 
 codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
@@ -198,16 +237,17 @@ Folgend kommen die DAten:
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattknotenOhneFlaeche.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattknotenOhneFläche.png}
     \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die das verschwinden von Knoten reduziert.}
-    \label{fig:FaltungKnotenOhneFlaeche}
+    \label{fig:FaltungKnotenOhneFläche}
 \end{figure}
+%sage dass bewusst blattknoten genommen wurden als metrik hier
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungWertFlaecheVerhältnis.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungWertFlächeVerhältnis.png}
     \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten das Wert-Fläche-Verhältnis der Knoten verbessert.}
-    \label{fig:FaltungWertFlaecheVerhältnis}
+    \label{fig:FaltungWertFlächeVerhältnis}
 \end{figure}
 
 \begin{figure}
@@ -219,9 +259,9 @@ Folgend kommen die DAten:
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattFlaeche.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattFläche.png}
     \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
-    \label{fig:FaltungBlattFlaeche}
+    \label{fig:FaltungBlattFläche}
 \end{figure}
 
 \begin{figure}
@@ -233,7 +273,22 @@ Folgend kommen die DAten:
 
 die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordnerketten. Wir sprechen uns also dafür aus, dass Ordnerketten immer gefaltet werden sollten, von den messbaren Kriterien her sehen wir keine Gründe, warum das nicht gemacht werden sollte. das einzige Ziel was dagegen spricht ist die Korrelation mit dem Code, die dadurch verschlechtert wird. Alles in allem sprechen wir uns also dafür aus und werden dies fix für unseren Algorithmus implementieren.
 
-\subsubsection{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
+% Analyse wurde mit folgender Konfig durchgeführt:
+% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+% const numberOfPassesValues = [2]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [false]
+% const sortingOptionValues = [SortingOption.DESCENDING]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true]
+% const collapseFoldersValues = [true, false]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [1]
+% const labelLengthValues = [0]
+
+
+\subsection{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
 Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie es dem Nutzer ermöglicht, die Knoten zu identifizieren und zu verstehen, welche Informationen sie repräsentieren. Es gibt verschiedene Ansätze, um die Beschriftung der Knoten zu gestalten. Jeder Ansatz hat seine Vor- und Nachteile. Ein häufig verwendeter Ansatz ist wie zum Beispiel auch beim in Abschmijt VerwandteArbeiten \ref{sec:VerwandteArbeiten} vorgestellten Cascaded Treemap Ansatz \cite{lu2008cascaded}.
 Ordner erhalten eine Zusätzliche horizontale Fläche, entweder unten oder oben, die den Namen des Ordners enthält. 
 Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für den Algorithmus, wie die abstände zwischen den Knoten. Außerdem kann es passieren, dass die Beschriftung zu lang für die breite der Knotens ist, wodurch die Beschriftung entweder abgeschnitten wird oder über den Knoten hinauswächst.
@@ -253,7 +308,7 @@ Mit diesem Ansatz hat man natülich immernoch die gleichen Probleme wie eingangs
 
 %wie genau wirkt sich die wahl von N aus?
 
-\subsubsection{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
+\subsection{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
 Abstände zwischen Geschwister Knoten sind eine wichtige Entscheidung. Im Ursprünglichen Squarify Algorithmus Paper \cite{bruls2000squarified} wird der Nested Ansatz mit Abständen vorgestellt, jedoch ohne Abstände zwischen Geschwistern. Viele Tools, verwenden jedoch Abstände auch zwischen Geschwisterknoten \cite{codeCity1, code_charta_webdemo, sereene_website}.
 Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
 \begin{itemize}
@@ -266,8 +321,57 @@ Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
 
 Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von der gewählten Farbgebung (auch Schattierung, Struktur oder Transparenz). Wie in der Problemstellung definiert (siehe Abschnitt \ref{sec:Problemstellung}) sollte das Layout so gestaltet sein, dass es möglich ist, weitere Metriken durch Farbgebung zu visualisieren. Die Kanten widersprechen dieser Einschränkung nur in Aussahme fällen. Die meisten Visualisierungen in der Praxis verwenden einfache Einfärbungen \cite{codeCity1, code_charta_webdemo, sereene_website}, was bedeutet, dass man einfach Schwarz oder eine Komplementärfarbe als Kantenfarbe nutzen kann, ohne dass es zu Konflikten mit der Farbgebung kommt. Die einzige Ausnahme, die mir bekannt ist, ist wäre die Nutzung von Linien, Schachbrettmuster oder ähnlichen Strukturen, durch die eine Kante nicht mehr als solche erkennbar wäre. Dies könnte zum Beispiel bei dem Ansatz aus dem paper \textit{E-Quality} von Ural Erdemir et al. \cite{eQuality} der Fall sein, da hier zum Beispiel ein Gittermuster verwendet wird, um einen Mangel an Kohäsion zu visualisieren, eine Kante, selbst in anderer Farbe, würde hier eher stören oder in dem Muster untergehen. 
 
+% Mit folgenden Daten:
+% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+% const numberOfPassesValues = [2]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [false]
+% const sortingOptionValues = [SortingOption.DESCENDING]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true, false]
+% const collapseFoldersValues = [true]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [1]
+% const labelLengthValues = [0]
 
-\subsection{Fazit}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterKnotenOhneFläche.png}
+    \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes.}
+    \label{fig:GeschwisterKnotenOhneFläche}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterWertFlächeVerhältnis.png}
+    \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Wert-Fläche-Verhältnis der Knoten verbessert.}
+    \label{fig:GeschwisterKnotenWertFlächeVerhältnis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterSeitenverhältnis.png}
+    \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Seitenverhältnis der Knoten verbessert.}
+    \label{fig:GeschwisterKnotenSeitenverhältnis}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterBlattFläche.png}
+    \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
+    \label{fig:GeschwisterKnotenBlattFläche}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterZeit.png}
+    \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Rechenzeit nicht signifikant beeinflussen.}
+    \label{fig:GeschwisterKnotenZeit}
+\end{figure}
+
+
+\section{Fazit}
 Immernoch straight forward, es gibt aber noch Probleme 
 
 Warum besonders den squarify algorithmus betrachtet und nicht zum beipsiel pivot oder circle?? -> weil diese Andere Ziele haben -> noch mehr begründen anhand der definierten Ziele

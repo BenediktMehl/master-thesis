@@ -1,4 +1,4 @@
-\section{Problemstellung} \label{sec:Problemstellung}
+\chapter{Problemstellung} \label{sec:Problemstellung}
 
 Die zentrale Herausforderung bei der Entwicklung von Stadtmetaphern zur Softwarevisualisierung besteht in der Festlegung eines geeigneten Layouts für die Visualisierung. Im Abschnitt \ref{sec:CodeCity} wurde das ursprüngliche Layout-Konzept der CodeCity-Analogie vorgestellt. Ein gemeinsames Grundprinzip dieser und verwandter Arbeiten ist, dass zunächst ein 2D-Layout erzeugt wird, das anschließend durch eine zusätzliche Metrik in die dritte Dimension extrudiert und schließlich durch weitere Metriken (z.B. Farbe, Transparenz) angereichert wird.
 In dieser Arbeit werden wir uns genau auf dieses Grundprinzip konzentrieren und untersuchen, wie sich verschiedene Layout-Algorithmen auf die Visualisierung von Code-Qualitätsmetriken auswirken.
@@ -18,7 +18,7 @@ Daraus ergeben sich für diese Arbeit folgende konkrete Forschungsfragen:
     \end{enumerate}
 \end{enumerate}
 
-\subsection{Evaluationsrahmen} \label{sec:Evaluationsrahmen}
+\section{Evaluationsrahmen} \label{sec:Evaluationsrahmen}
 
 Um die angestrebten Visualisierungen eindeutiger zu evaluieren und in ihrem Ziel klarer zu definieren, orientieren wir uns an den fünf Dimensionen der Softwarevisualisierung nach Marcus Adrian et al. \cite[2]{3dsoftwareMarcus}:
 \begin{quote}
@@ -31,13 +31,13 @@ Um die angestrebten Visualisierungen eindeutiger zu evaluieren und in ihrem Ziel
     \end{itemize}
 \end{quote}
 
-\subsubsection*{1. Warum ist die Visualisierung von Code-Qualitätsmetriken wichtig?}
+\subsection*{1. Warum ist die Visualisierung von Code-Qualitätsmetriken wichtig?}
 Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das bessere Verständnis der Softwarequalität. Sie dient dazu, einen schnellen Überblick über komplexe Codebasen zu erhalten, Hotspots zu identifizieren und vertiefende Analysen effizient einzuleiten. Besonders wichtig ist es dabei, Zusammenhänge zwischen verschiedenen Metriken auf einen Blick erfassbar zu machen, was in rein tabellarischer oder isolierter Darstellung kaum möglich ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität \textit{greifbar} und anschaulich zu machen.
 
-\subsubsection*{2. Wer ist die Zielgruppe der Visualisierung?}
+\subsection*{2. Wer ist die Zielgruppe der Visualisierung?}
 Die Visualisierung richtet sich primär an Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse. Trotzdem kann die Visualierung aber auch Entwicklerinnen und Entwicklern helfen, die sich neu in ein Projekt einarbeiten oder Teams, die systematisch die Softwarequalität verbessern wollen, in der Kommunikation unterstützen.
 
-\subsubsection*{3. Was ist die Datenquelle?}
+\subsection*{3. Was ist die Datenquelle?}
 Grundlage sind hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Source Code extrahiert werden. Wobei die Metriken auf File-Basis erstellt werden. Dieser vorschlag stammt ursprünglich von Code City. Er bietet eine gute granularität, um die Struktur un die qualität von software zu beurteilen \cite{codeCity1}. Jeder Knoten der Hierarchie (Node) besitzt dabei einen Namen und entweder eine Liste von Kindknoten (children) oder einen Wert (value), der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}). 
 Diese Struktur ermöglicht es, komplexe Softwareprojekte in übersichtliche Hierarchien zu zerlegen, die dann visualisiert werden können.
 
@@ -50,10 +50,10 @@ Diese Struktur ermöglicht es, komplexe Softwareprojekte in übersichtliche Hier
 
 Genauer werden wir in Abschnitt \ref{sec:datenAnalyse} auf die Eingabedaten eingehen.
 
-\subsubsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
+\subsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp wird eine Umsetzung im Webbrowser mittels TypeScript und Three.js realisiert. Die Übertragung der Methoden auf andere Programmierumgebungen ist möglich.
 
-\subsubsection*{5. Wie erfolgt die Darstellung?}
+\subsection*{5. Wie erfolgt die Darstellung?}
 Das Visualisierungskonzept lehnt sich an den in den Grundlagen erläuterten Stadtmetapher-Ansatz an (Abschnitt \ref{sec:CodeCity}). Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch eingeschränkt, dadurch, dass Fläche, Höhe und Farbgebung (auch Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von verschiedenen Ordnern oder Modulen, zur besseren visuellen Unterscheidung fallen für die Visualisierung in dieser Arbeit weg. Stattdessen wird der Fokus auf die geschickte Platzierung, Wahl von Abständen und Beschriftung gelegt. 
 
 \smallskip
@@ -68,7 +68,7 @@ Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen Grundleg
     \item \textbf{Stabilität gegenüber Änderungen:} Nachrangig, aber erwünscht ist, dass die Visualisierung auf Änderungen im Code robust reagiert, um zeitliche Vergleiche zu ermöglichen, ohne dass der Betrachter sich neu orientieren muss.
 \end{itemize}
 
-\subsection{Das Treemap-Problem} \label{sec:TreemapProblem}
+\section{Das Treemap-Problem} \label{sec:TreemapProblem}
 
 Durch die nähere Erlärung des Treemap-Algorithmus (siehe Abschnitt \ref{sec:Treemap}) wurde gezeigt, dass klassische Treemap-Algorithmen grundlegende Schwächen auf weisen, insbesondere wenn Abstände (\textit{Margins}) zwischen den Knoten dargestellt werden sollen. Das Grundproblem, das von Johnson und Shneiderman \cite{johnson1991tree} adressiert wurde, ist bereits ohne Abstände NP-Hard \cite[3]{bruls2000squarified}, und zusätzliche Abstände verkomplizieren die Problematik noch weiter.
 

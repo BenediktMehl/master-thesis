@@ -1,7 +1,7 @@
-\section{Grundlagen} \label{sec:Grundlagen}
+\chapter{Grundlagen} \label{sec:Grundlagen}
 In diesem Abschnitt werden die grundlegenden Konzepte und Begriffe erläutert, die für das Verständnis dieser Arbeit notwendig sind. Zunächst werden Software-Qualitätsmetriken vorgestellt, da sie die Basisdaten für alle in dieser Arbeit genutzten Visualisierungen liefern. Anschließend wird das Thema Software-Visualisierung behandelt, wobei insbesondere auf die dreidimensionale Software-Visualisierung mit Hilfe von Treemaps eingegangen wird.
 
-\subsection{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
+\section{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
 
 Software-Qualitätsmetriken sind zentrale Werkzeuge zur Messung und Bewertung der Qualität von Software. Sie ermöglichen es, verschiedene Eigenschaften der Software objektiv anhand von Kennzahlen zu analysieren. Eine \textit{Softwaremetrik} ist dabei meist als mathematische Funktion zu verstehen, die eine spezifische Eigenschaft einer Software in einen Zahlenwert abbildet:
 
@@ -65,7 +65,7 @@ Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrik
 %Bringe noch mehr aus: Quality Models Inside Out: Interactive Visualization of Software Metrics by Means of Joint Probabilities
 
 
-\subsection{Software-Visualisierung} 
+\section{Software-Visualisierung} 
 \label{sec:SoftwareVisualisierung} 
 
 Die Darstellung von Softwarestrukturen zählt zu den entscheidenden Schritten, um komplexe Softwaresysteme für Menschen verständlich zu machen. Während numerische Metriken oder tabellarische Darstellungen für Fachleute in der Softwareentwicklung oft ausreichend sind, können diese Darstellungsformen für Personen ohne technischen Hintergrund abstrakt und schwer zugänglich bleiben. Es besteht daher das Ziel, Softwarequalität auch für nicht-technische Stakeholder intuitiv und erlebbar zu machen.
@@ -104,7 +104,7 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
     \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte vollständig automatisierbar sein, sodass keine manuelle Nachbearbeitung notwendig ist.
 \end{itemize}
 
-\subsubsection{CodeCity: Grundstein für 3D-Visualisierung}
+\section{CodeCity: Grundstein für 3D-Visualisierung}
 \label{sec:CodeCity}
 
 Eine prägende Arbeit für die 3D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 3D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
@@ -122,7 +122,7 @@ Der Grundriss (folgend auch Layout) der Städte beruht auf einer Variante der Tr
 
 Das Originalverfahren des CodeCity-Algorithmus ist nicht öffentlich verfügbar. In dieser Arbeit wird daher für vergleichende Analysen eine eigene Implementierung verwendet, so dass Abweichungen zur Originalvisualisierung möglich sind (außer wenn anders gekennzeichnet).
 
-\subsection{Treemap-Layouts} \label{sec:Treemap}
+\section{Treemap-Layouts} \label{sec:Treemap}
 
 Hierarchische Daten werden häufig als Bäume dargestellt, jedoch zeigen sich klassische Darstellungen wie Baumdiagramme oder Venn-Diagramme insbesondere bei großen Datenmengen als ineffizient hinsichtlich der Flächennutzung und generell unübersichtlich \cite{johnson1991tree}. Besonders für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an ihre Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können.
 
@@ -180,7 +180,7 @@ Ein weiteres ästhetisches Manko liegt darin, dass die rekursive Unterteilung l�
 In der Literatur besteht häufig Unklarheit über die Definition von 3D-Treemaps. Streng genommen bedeutet 3D-Treemap die rekursive Unterteilung eines Würfels (oder Quaders) in kleinere Volumina, wobei zum Wertvergleich das Volumen und nicht mehr die Fläche herangezogen wird. Gegenstand der vorliegenden Arbeit sind jedoch sogenannte \textit{2.5D-Treemaps}, bei denen ein klassisches 2D-Treemap-Layout um eine zusätzliche dritte Dimension (zum Beispiel durch Extrusion nach oben) erweitert wird. Im Kontext dieser Arbeit ist mit einer \enquote{3D-Darstellung} stets dieses 2.5D-Modell gemeint.
 
 
-\subsubsection{Squarify-Algorithmus} \label{sec:Squarify}
+\subsection{Squarify-Algorithmus} \label{sec:Squarify}
 
 Der Squarify-Algorithmus ist ein Verfahren zur Anordnung von Rechtecken in Treemaps, bei dem die Seitenverhältnisse der Rechtecke möglichst ausgeglichen gestaltet werden sollen. Ziel ist es, annähernd quadratische Rechtecke zu erzeugen, um die Nachteile herkömmlicher Treemap-Layouts zu überwinden, bei denen oft sehr schmale und langgezogene Rechtecke entstehen. Bruls et al. betonen dazu: 
 \enquote{another problem of standard treemaps [is] the emergence of thin, elongated rectangles}\cite[1]{bruls2000squarified}. Rechtecke mit möglichst ähnlichen Seitenlängen sind einerseits leichter wahrzunehmen, zu vergleichen sowie in ihrer Größe intuitiv abschätzbar.

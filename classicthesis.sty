@@ -391,7 +391,7 @@
 
 
 % ********************************************************************
-% layout of the chapter-, section-, subsection-, subsubsection-,
+% layout of the chapter-, section-, section-, subsection-,
 % paragraph and description-headings
 % ********************************************************************
 \RequirePackage[newparttoc]{titlesec} % newparttoc to write \part to .toc with \numberline
@@ -424,12 +424,12 @@
 % sections \FloatBarrier
 \titleformat{\section}
     {\relax}{\textsc{\MakeTextLowercase{\thesection}}}{1em}{\spacedlowsmallcaps}
+% sections
+\titleformat{\section}
+    {\relax}{\textsc{\MakeTextLowercase{\thesection}}}{1em}{\normalsize\itshape}
 % subsections
 \titleformat{\subsection}
     {\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
-% subsubsections
-\titleformat{\subsubsection}
-    {\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}
 % paragraphs
 \titleformat{\paragraph}[runin]
     {\normalfont\normalsize}{\theparagraph}{0pt}{\spacedlowsmallcaps}
@@ -440,7 +440,7 @@
     {\relax}%
     {\titlespacing*{\chapter}{0pt}{1\baselineskip}{1.2\baselineskip}}
 \titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip}
-\titlespacing*{\subsection}{0pt}{1.25\baselineskip}{1\baselineskip}
+\titlespacing*{\section}{0pt}{1.25\baselineskip}{1\baselineskip}
 \titlespacing*{\paragraph}{0pt}{1\baselineskip}{1\baselineskip}
 
 % ********************************************************************
@@ -522,7 +522,7 @@
         \renewcommand{\cftsecafterpnum}{\cftparfillskip}%
     }
     \ifthenelse{\boolean{ct@tocaligned}}{\renewcommand{\cftsecindent}{0em}}{\relax}
-% subsections
+% sections
 \renewcommand{\cftsubsecpresnum}{\scshape\MakeTextLowercase}%
 \renewcommand{\cftsubsecfont}{\normalfont}%
 \ifthenelse{\boolean{ct@dottedtoc}}{\relax}%
@@ -531,7 +531,7 @@
     \renewcommand{\cftsubsecafterpnum}{\cftparfillskip}%
 }
 \ifthenelse{\boolean{ct@tocaligned}}{\renewcommand{\cftsubsecindent}{0em}}{\relax}
-% subsubsections
+% subsections
 \renewcommand{\cftsubsubsecpresnum}{\scshape\MakeTextLowercase}%
 \renewcommand{\cftsubsubsecfont}{\normalfont}%
 \ifthenelse{\boolean{ct@dottedtoc}}{\relax}%

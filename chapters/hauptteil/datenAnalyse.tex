@@ -1,4 +1,4 @@
-\section{Datenanalyse} \label{sec:datenAnalyse}
+\chapter{Datenanalyse} \label{sec:datenAnalyse}
 Dieser abschnitt hat 2 ziele 1. eine gute auswahl an code basen finden, die wir sowohl für unsere algorithmus anpassungen als auch für die evaluation am ende verwenden können.
 2. wollen wir die Struktur von Softwareprojekten näher untersuchen, um zu verstehen, wie sie aufgebaut sind und welche Eigenschaften sie haben.
 
@@ -18,7 +18,7 @@ knoten sind dateien plus ordner. es kommt uns also gar nicht nur auf die order a
 
 
 
-\subsection{Auswahl der Projekte} \label{sec:auswahlDerProjekte}
+\section{Auswahl der Projekte} \label{sec:auswahlDerProjekte}
 Als Quelle werden wir GitHub verwenden, da es eine große Anzahl an Open-Source-Projekten bietet und die Daten leicht zugänglich sind.
 Wir gehen nicht davon aus, dass es einen signifikanten Unterschied zwischen Open-Source und Closed-Source Projekten gibt \cite{closedVsOpenSource, closedVsOpenSource2}, weshalb wir nur auf open source zugreifen 
 Wir probieren möglich breit gefächert Projekte zu betrachten, um ein möglichst breites Spektrum an Softwareprojekten abzudecken. 
@@ -30,7 +30,7 @@ Zur identifikation von relevanten Kriterien richten wir uns nach den information
 
 Wir wählen initial 50 repositories aus. diese repositories wählen wir aus anhand der folgenden Kriterien. Dann überprüfen wir, ob die Kriterien tatsächlich einen Einfluss auf die Struktur der Projekte haben.
 
-\subsubsection*{Programmiersprache} Wir werden Projekte in verschiedenen Programmiersprachen betrachten, da die Struktur von Softwareprojekten in verschiedenen Programmiersprachen stark unterschiedlich sein kann - hier fehlt noch ein beweis - ist da überhaupt so? wenn nicht kann man das auch weglassen. Wir wählen die Programmiersprachen nach ihrer Popularität und Paradigma aus. 
+\subsection*{Programmiersprache} Wir werden Projekte in verschiedenen Programmiersprachen betrachten, da die Struktur von Softwareprojekten in verschiedenen Programmiersprachen stark unterschiedlich sein kann - hier fehlt noch ein beweis - ist da überhaupt so? wenn nicht kann man das auch weglassen. Wir wählen die Programmiersprachen nach ihrer Popularität und Paradigma aus. 
     \begin{itemize}
         \item \textbf{Python:} Die zweit populärste Sprache \cite{software_state_2022} mit dynamischer Typisierung, sowohl imperativem als auch objektorientiertem Paradigma. 
         \item \textbf{JavaScript:} die populärste Sprache \cite{software_state_2022} mit dynamischer Typisierung. Die Struktur von JavaScript-Projekten ist besonders geprägt durch Frameworks.
@@ -41,10 +41,10 @@ Wir wählen initial 50 repositories aus. diese repositories wählen wir aus anha
    kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
 
 
-\subsubsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Wir gehen davon aus, dass Große Projekte auch dann größere Strukturen (also mehr knoten) haben (stimmt nicht zwingen - wie im folgenden ABschnit \ref{sec:auswahlDerProjekteImDetail} gezeigt wird) Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. 
+\subsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Wir gehen davon aus, dass Große Projekte auch dann größere Strukturen (also mehr knoten) haben (stimmt nicht zwingen - wie im folgenden ABschnit \ref{sec:auswahlDerProjekteImDetail} gezeigt wird) Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. 
 kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
 
-\subsubsection*{Ungenutzte Kategorien}
+\subsection*{Ungenutzte Kategorien}
 Man könnte denken, dass auch andere Kategorien wie die Anzahl der Sterne oder die Anzahl der Mitwirkenden eines Projekts einen Einfluss auf die Struktur eines Projekts haben. Wir hatten auch diese vermutung und haben dies nachgeprüft. Um fragen zu vermeiden zeigen wir hier auch die ergebnisse, die gezeigt haben dass diese Kategorien keinen Einfluss haben und wir sie deshalb verworfen haben.
 
 1. Wir gingen davon aus, dass die Popularität eines Projekts einen Einfluss auf die Qualität eines Projekts hat. Je Popularitärer ein Projekt ist, desto "besser" muss es sein, desto besser muss ja auch die Qualität sein. Und wir gehen davon aus, dass die Qualität eines Projekts einen Einfluss auf die Struktur des Projekts hat. Allerdings deutet eine Studie an, dass Popularität nicht in Korrelation mit Software Qualität steht \cite{popAndQuality}. Außerdem sind die meisten Projekte die auf GitHub viele Sterne haben eher Sammlungen von Bücher, Kursen oder anderen Ressourcen und nicht wirklich Softwareprojekte \cite{evanli_github-ranking_2025}, weshalb wir uns entschieden haben, die Popularität nicht als Kriterium zu verwenden, auch wenn es auf den ersten Blick sinnvoll erscheinen mag.
@@ -67,7 +67,7 @@ Wir überprufen, ob die Anzahl der Mitwirkenden einen Einfluss auf die Struktur 
     \label{fig:mitwirkendeVsTiefe}
 \end{figure}
 
-\subsubsection{Die Auswahl der Projekte im Detail} \label{sec:auswahlDerProjekteImDetail}
+\subsection{Die Auswahl der Projekte im Detail} \label{sec:auswahlDerProjekteImDetail}
 So wir wissen jetzt, dass wir nur auf sprache und größe achten wollen. wir haben 5 verschiedene bekannte sprachen und verschiedene größen. Wir nehmen eine gute anzahl an Projekten, so dass jede kombi repräsentiert ist, aber trotzdem nur so viele wie wir rechnerisch handlen können. 
 In Abbildung \ref{fig:repoGroesseVerteilungUnfiltered} haben wir die Verteilung der Projektgrößen von 2500 zufällig ausgewählten GitHub-Repositories dargestellt. Es ist zu erkennen, dass es deutlich mehr kleinere Projekte gibt. (Zur Größen einordung: das REact repository, was als ein sehr großes Projekt gilt, hat eine Größe von ca.  einem Gigabyte)
 Wir wollen die Größe von 98 Prozent aller Repositories abdekcen. Wir haben uns für diesen Wert entschieden, da wir eine sehr gute Abdeckung auch großer Projekte haben wollen, aber trotzdem auch nicht zu viele Projekte generell haben wollen. Außerdem ab dieser Größe wird es wahrscheinlich generell sehr schwer sinnvoll zu visualisieren bereits das React Repo kann mit 1GB teilweise unübersichlich werden, nicht weil der algorithmus oder die visualisierung schlcht ist sondern weil es einfach zu viele Dateien werden irgendwann. %beispiel für react visualisierung
@@ -101,13 +101,13 @@ Da die größe nicht 1 zu 1 mit der Anzahl an nodes korreliert. ein order zum be
     \label{fig:repoAnzahlNodesVerteilung}
 \end{figure}
 
-\subsubsection{Analyse der ausgewählten Repositories} \label{sec:analyseDerAusgewähltenRepositories}
+\subsection{Analyse der ausgewählten Repositories} \label{sec:analyseDerAusgewähltenRepositories}
 Wie berechnen wir die Struktur der Repositories und wie bekommen wir metrik daten für diese REpos?
 Wir clonen jedes repo und analysieren die Struktur der Repositories mit dem CodeCharta Analysis CLI Tools \cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
 %ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc "--verbose=false" "--exclude=" "--file-extensions="
 Als ergebnis bekommen wir eine JSON-Datei, mit der in Abschnit \ref{sec:Problemstellung} definierten Struktur. Ein Beispiel ist auch im anhang (Listing \ref{lst:artificial.cc.json}) zu finden.
 
-\subsection{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}    
+\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}    
 
 Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wwurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
 

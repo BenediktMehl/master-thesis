@@ -85,7 +85,7 @@ ngermane,american,
 %----------------------------------------------------------------------------------------
 
 \renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}} % The header for all pages (oneside) or for even pages (twoside)
-%\renewcommand{\subsectionmark}[1]{\markright{\thesubsection~#1}} % Uncomment when using the twoside option - this modifies the header on odd pages
+%\renewcommand{\sectionmark}[1]{\markright{\thesection~#1}} % Uncomment when using the twoside option - this modifies the header on odd pages
 \lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} % The header style
 
 \pagestyle{scrheadings} % Enable the headers specified in this block
@@ -101,7 +101,7 @@ ngermane,american,
 
 \maketitle % Print the title/author/date block
 
-\setcounter{tocdepth}{2} % Set the depth of the table of contents to show sections and subsections only
+\setcounter{tocdepth}{2} % Set the depth of the table of contents to show sections and sections only
 
 \tableofcontents % Print the table of contents
 
