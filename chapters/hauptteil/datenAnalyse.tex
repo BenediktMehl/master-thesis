@@ -122,7 +122,9 @@ Da die größe nicht 1 zu 1 mit der Anzahl an nodes korreliert. ein order zum be
 
 Wie berechnen wir die Struktur der Repositories und wie bekommen wir metrik daten für diese REpos?
 Wir clonen jedes repo und analysieren die Struktur der Repositories mit dem CodeCharta Analysis CLI Tools \cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
-%ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc "--verbose=false" "--exclude=" "--file-extensions="
+\begin{verbatim}
+    ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc "--verbose=false" "--exclude=" "--file-extensions="
+\end{verbatim}
 Als ergebnis bekommen wir eine JSON-Datei, mit der in Abschnit \ref{sec:Problemstellung} definierten Struktur. Ein Beispiel ist auch im anhang (Listing \ref{lst:artificial.cc.json}) zu finden.
 
 Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
