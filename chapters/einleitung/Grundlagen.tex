@@ -66,9 +66,9 @@ Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrik
 
 Die Darstellung von Softwarestrukturen zählt zu den entscheidenden Schritten, um komplexe Softwaresysteme für Menschen verständlich zu machen. Während numerische Metriken oder tabellarische Darstellungen für Fachleute in der Softwareentwicklung oft ausreichend sind, können diese Darstellungsformen für Personen ohne technischen Hintergrund abstrakt und schwer zugänglich bleiben. Es besteht daher das Ziel, Softwarequalität auch für nicht-technische Stakeholder intuitiv und erlebbar zu machen.
 
-HIER NOCH QUELLEN UND BISSCHEN WAS ZU DER HISTORIE UND WARUM WIESO PIPAPO
+Softwarevisualisierung verfolgt das Ziel, komplexe Strukturen und Beziehungen in Softwaresystemen so darzustellen, dass sie schneller erfasst und verstanden werden können \cite{diehl2007software}. Visuelle Repräsentationen unterstützen nicht nur Entwickler bei der Analyse und Fehlersuche, sondern fördern auch die Kommunikation zwischen technischen und nicht-technischen Stakeholdern \cite{baltes2017sketches}.
 
-\subsection{3D-Software-Visualisierung} \label{sec:3DSoftwareVisualisierung}
+\subsection{2.5D- und 3D-Software-Visualisierung} \label{sec:3DSoftwareVisualisierung}
 
 Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. Diese Formen liefern zwar einen guten Überblick, vermitteln jedoch wenig \textit{Greifbarkeit} des Softwaresystems. 3D-Visualisierungen bieten dagegen das Potenzial, immersive und erfahrbare Eindrücke zu schaffen, sodass Nutzer \textit{in die Software eintauchen} können:
 \begin{quote}
@@ -85,7 +85,7 @@ Die Idee, Softwarestrukturen dreidimensional darzustellen, ist nicht neu. Bereit
     \label{fig:3DVis}
 \end{figure}
 
-Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Literatur Kriterien für eine gelungene 3D-Darstellung ableiten \cite{visSoftwareVR}:
+Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Literatur Kriterien für eine gelungene Darstellung ableiten \cite{visSoftwareVR}:
 \begin{itemize}
     \item \textbf{Darstellung der Struktur:} Die Visualisierung soll Architektur und Aufbau der Software möglichst anschaulich und nachvollziehbar zeigen. Wichtige Aspekte dabei sind:
     \begin{itemize}
@@ -104,7 +104,7 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
 \section{CodeCity: Grundstein für 2.5D-Visualisierung}
 \label{sec:CodeCity}
 
-Eine prägende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 3D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
+Eine prägende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 2.5D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
 
 \begin{figure}
     \centering
