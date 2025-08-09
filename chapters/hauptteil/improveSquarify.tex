@@ -48,6 +48,10 @@ Und das dann aus dem grundlagen teil raus nehmen
 \subsection{Größenanpassung}
 Dies ist die einfachste naive Version der Größenanpassung, der Algorithmus zeigt aber gut die zuvor beschriebenen Probleme auf. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. 
 
+dies ist ähnoich zu dem cascaded ansatz. wir zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw 
+Am ehesten ist dieser Ansatz wahrscheinlich mit dem Absulten-Update Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
+
+
 \begin{algorithm}[H]
 \caption{Größenanpassung}
 \label{alg:EinfacheGrößenanpassung}
@@ -157,7 +161,6 @@ mit diesen Werten:
 
 \section{Scaling der Knoten} \label{sec:ScalingKnoten}
 %wird auchin \cite[52]{johnson1993treemapsPhd} erwähnt
-}
 
 Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.

@@ -1,92 +1,100 @@
 \chapter{Verwandte Arbeiten} \label{sec:VerwandteArbeiten}
-In diesem Abschnitt werden verwandte Arbeiten vorgestellt.
-Im gegensatz zu dem literatur abschnitt werden wir hier nur Arbeiten vorstellen, die eine ähnliche Problemstellung haben, wie die in dieser Arbeit vorgestellte.
-1. also vergleich von verschiedenen 2.5D visualierungen zur Software qualitäts visualisierung
-2. verbesserung des Treemap Problems durch margins
-
-
-
-\section{Vergleich von 2.5D Visualisierungen}
-
-
-
-Das Paper vergleicht fünf dynamische Visualisierungstools hinsichtlich ihrer Unterstützung für Softwareverständnis und Reverse Engineering. Ziel ist es zu untersuchen, warum solche Tools kaum außerhalb der Forschung eingesetzt werden, obwohl sie grundsätzlich große Potenziale für das Verständnis und die Analyse von Softwaresystemen bieten. \textit{A comparative evaluation of dynamic visualisation tools} \cite{pacione2003comparative} 
-altes paper 2003 
-ziel ist für entwickler, anders als dieses paper
-Ergebnisse Kein einziges tool reicht komplett aus
-Tools sollten stärker Design Patterns sowie Hotspots - ziel dieser arbeit
-
-
-5. An overview of 3D software visualization \cite{overview3D}
-Der Artikel bietet einen umfassenden Überblick über den Stand der Forschung im Bereich 3D-Softwarevisualisierung. Ziel ist es, Methoden, Visualisierungsansätze, Interaktion, Tools und Evaluationsmethoden vorzustellen
-Sie stellen viele verschiedene Ansätze vor und kategorisieren diese: Graphen: 3D-Knoten/Kantennetze z.B. zur Darstellung von Klassenbeziehungen, oft mit ausgefeilten Layout-Algorithmen (z.B. Kräfte-basiert, hyperbolische Layouts).
-Bäume: 3D-Kegel-Bäume („Cone Trees“), Informationen als verschachtelte Container (z.B. „Information Cubes“).
-Geometrische Primitive: Polyeder, Lego-Steine, Geons (primitive 3D-Formen), Metaballs u.a. als Darstellung von Softwarestrukturen.
-Reale Welt-Metaphern:
-Beispiele: „CodeCity“ (Software als 3D-Stadt), orbitale/solare Modelle, Landschaften, Molekül- oder Netzstrukturen, Game-Engines zur Darstellung von Code.
-Interesant von 22 tools nur 4 für managers oder stakeholders bestimmt und davon nur 1 die auch die software visualiert, die anderen 3 geht es um requirements visualisierung. -> wenig ausgeprägt 
-Sie stellen fest: Es gibt noch relativ wenige empirische Nutzungsstudien zu 3D-Visualisierung.
+Im Folgenden werden Forschungsarbeiten vorgestellt, die sich mit Fragestellung beschäftigen, die den beiden zuvor vorgestellten Problemstellungen (siehe Abschnitt \ref{sec:Problemstellung}) ähnlich sind. Zunächst wird ein Überblick über Arbeiten gegeben, die sich mit dem Vergleich oder Vorstellung mehrerer Visualisierungstechniken beschäftigen. Anschließend werden Arbeiten vorgestellt, die sich speziell mit dem Treemap-Problem beschäftigen, also dem Problem von verschwindenden Knoten.
 
 
 
 
-3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
-Ähnlich wie paper zuvor überblick geben
-Quellcode-Ebene: Zeilenweise Ansichten wie SeeSoft oder sv3D
-Klassen/Mittel-Ebene: Visualisierung der Inneren Struktur und Beziehungen einer oder mehrerer Klassen (z.B. Class Blueprint)
-Architektur-Ebene: Überblick über die globale Organisation, Beziehungen (z.B. Erbe, Aufrufe), und Qualitätsmetriken der gesamten Software
-für diese ebene stellen sie diese visualisierunge vor:
-Tree/Node-Link Diagramme: Für kleine Hierarchien geeignet, werden bei großen Systemen aber schnell unübersichtlich.
-Treemap, Circular Treemap, Sunburst, Voronoi Treemap: Platzsparende, hierarchische Darstellungen (Rechtecke, Kreise, Voronoi-Flächen), sowohl in 2D als auch 3D.
-In dieser arbeit hier wird eher auf architektur ebene geschaut. da für kunden details nicht so wichtig sind, es geht um den überblick
-Herausforderungen und offene Probleme:
-Usability, Kognitive Überlastung, Disorientierung in 3D, Informationsüberladung
-Geringe Verbreitung leistungsfähiger Tools in der Praxis (viele Forschungsprototypen)
+\subsection{Vergleich von Visualisierungstechniken} \label{sec:VergleichVisualisierungstechniken}
+
+Die Arbeit von Pacione et al. (\textit{A comparative evaluation of dynamic visualisation tools} \cite{pacione2003comparative}) vergleicht fünf dynamische Visualisierungstools bezüglich ihrer Eignung für das Softwareverständnis und das Reverse Engineering. Die Autoren verfolgen das Ziel, Gründe dafür zu identifizieren, weshalb der Einsatz dieser Werkzeuge außerhalb der Forschung bislang nur begrenzt erfolgt, obwohl sie großes Potenzial für die Analyse komplexer Softwaresysteme bieten. Die Studie macht deutlich, dass keines der untersuchten Tools alle Anforderungen an Softwareverständnis vollständig abdeckt. Insbesondere wird auf Defizite in der Abbildung von Design-Patterns und Hotspot-Analysen hingewiesen, was unter Anderem im Kontext der Evaluation in dieser Arbeit untersucht werden soll.
+
+Einen Überblick im Bereich der dreidimensionalen Softwarevisualisierung gibt die Arbeit von Teyseyre et al. (\textit{An overview of 3D software visualization} \cite{overview3D}). Die Autoren präsentieren verschiedene Visualisierungsansätze und Werkzeuge. Dabei werden folgende Kategorien differenziert:
+\begin{itemize}
+\item \textbf{Graphbasierte Ansätze:} 3D-Knoten-Kanten-Diagramme mit Fokus auf die Darstellung von Klassenbeziehungen
+\item \textbf{Baumstrukturen:} Dreidimensionale Variationen wie \textit{Cone Trees}, \textit{Information Cubes} (im Grund 3D Treemaps) oder \textit{hierarchical nets} (siehe Abbildung \ref{fig:hierarchicalNet3D}) zur hierarchischen Darstellung von Softwareelementen
+\item \textbf{Abstrakte Geometrische Darstellungen:} Nutzung von verschiedenen Formen zur Darstellung von verschiedenen Metriken und Strukturen. (Beispiel in Abbildung \ref{fig:geometrischeFiguren})
+\end{itemize}
+Sie zeigen auch auf, dass einige Ansätze Metaphern wie Städte oder Landschaften aus der echten Welt nutzen.
+Interessant ist, dass von den 22 analysierten Tools nur vier für das Management oder Stakeholder ohne spezielle Entwicklungskompetenzen geeignet sind. Von diesen vier visualisiert zudem lediglich eines dieser Werkzeuge tatsächlich den Quellcode. Die anderen drei Tools konzentrieren sich auf die Visualisierung von Anforderungen. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich konstatiert, was den Status und die Praxistauglichkeit der Ansätze weiter einschränkt. \cite{overview3D} In dieser Arbeit wird daher untersucht, ob die in dieser Arbeit vorgestellten Ansätze auch für Nutzer ohne tiefere technische Kenntnisse geeignet sind.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/verwandte/hierarchicalNet3D.png}
+    \caption{Beispiel für ein hierarchisches Netz in 3D. Die hierarchische Struktur wird durch Kreise, Halbkugeln und deren Verbindungen dargestellt. \cite[6]{overview3D}}
+    \label{fig:hierarchicalNet3D}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/verwandte/geometrischeFiguren.png}
+    \caption{Beispiel für eine abstrakte geometrische Darstellung von Software. \cite[7]{overview3D}}
+    \label{fig:geometrischeFiguren}
+\end{figure}
+
+Auch die Arbeit von Caserta und Zendra (\textit{Visualization of the static aspects of software: A survey} \cite{staticSurvey}) gibt einen Überblick über etablierte und aktuelle Visualisierungstechniken und ordnet diese unterschiedlichen Analyseebenen zu:
+\begin{itemize}
+\item \textbf{Quellcode-Ebene:} Zeilenorientierte Visualisierungen von einzelnen Dateien oder Klassen
+\item \textbf{Klassen-/Mittel-Ebene:} Darstellungen der Strukturen oder Relationen von Dateien oder Klassen
+\item \textbf{Architekturebene:} Globale Übersichten über Organisation und Qualitätsattribute, etwa durch Darstellung von Vererbungen und Aufrufstrukturen
+\end{itemize}
+Für die Architekturebene, die im Fokus dieser Arbeit steht, werden insbesondere folgende Visualisierungstypen diskutiert: Tree/Node-Link-Diagramme (wie Bereits in der Grundlagen gezeigt: bei großen Systemen schnell unübersichtlich), Treemaps und deren Varianten (Circular, Sunburst, Voronoi), die hierarchische Strukturen platzsparend repräsentieren und in 2D sowie 3D verfügbar sind. Sie stellen unter anderem folgende Probleme dieser Visualisierungen fest: Schlechte Nutzbarkeit, kognitive Überlastung, Desorientierung in dreidimensionalen Darstellungen sowie eine geringe Verbreitung praxistauglicher Tools, da viele existierende Lösungen im Prototypstatus sind.
+
+Die Übersicht von Khan et al. (\textit{Visualization and evolution of software architectures} \cite{visualizationEvolution}) stellt ebenfalls verschiedene Visualisierungstechniken vor.
+Sie unterscheiden zwischen hierarchischen und beziehungsorientierten Visualisationstechniken. Bei den hierarchischen Ansetzen werden platzfüllende Treemaps vorgestellt, die aufgrund ihrer Eigenschaften vor allem für große Hierarchien geeignet sind, wobei Sie hervorheben, dass Einschränkungen hinsichtlich der Visualisierung multipler Metriken und der Anschaulichkeit interner Strukturen bestehen, was in dieser Arbeit angegangen wird. Ergänzend nennen die Autoren auch Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume (siehe Abbildung \ref{fig:dreiVis}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/verwandte/dreiVis.png}
+    \caption{Beispiele für \textit{Icicle Plots} (links), \textit{Sunburst-Diagramme} (mitte) und \textit{hyperbolische Treelayouts} (rechts). \cite[4]{visualizationEvolution}}
+    \label{fig:dreiVis}
+\end{figure}
+
+In \textit{Software visualization tools: survey and analysis} \cite{bassil2001software} von Bassil und Keller führen eine Umfrage durch, in der sie untersuchen, was Nutzern bei Softwarevisualisierungstools wichtig ist. Es zeigte sich, dass insbesondere hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen von den Nutzern als entscheidend bewertet werden. Auch hier ist auffällig, dass speziell Experten befragt werden und sich auch die meisten untersuchten Werkzeuge primär an Experten und weniger an Endanwender wie Softwarekunden oder Management richten.
+
+Eine detaillierte Übersicht verschiedener Treemap-Layout-Algorithmen geben Scheibel et al. in ihrer Arbeit \textit{Survey of treemap layout algorithms} \cite{scheibel2020survey}. Die Autoren unterscheiden Treemap-Algorithmen anhand der Art der Aufteilung (packing vs. splitting). Splitting ist die klassische Treemap-Variante, bei der die Fläche geteilt wird. Packing-Ansätze hingegen platzieren die Rechtecke so, dass sie möglichst wenig Platz verschwenden. Beide Ansätze erzeugen leicht Verschiedene Layouts (siehe Abbildung \ref{fig:packingVsSplitting}).  
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/verwandte/packingVsSplitting.png}
+    \caption{Beispiel für Layouts die durch Splitting (links) und Packing (rechts) Algorithmen erzeugt wurden. Es ist zu erkennen, dass bei Packing-Algorithmen mehr Platz zwischen den Knoten entsteht. \cite[3]{scheibel2020survey}}
+    \label{fig:packingVsSplitting}
+\end{figure}
+
+Zudem unterscheiden sie verschiedene layouts anhand der Layout-Form (z.,B. rechteckig, kreisförmig, konvex, nicht-konvex) sowie der Referenzraum-Dimension (2D vs. 3D). Für die in dieser Arbeit betrachteten Anwendungsfälle stehen rechteckige 2D-Splitting-Layouts im Vordergrund (siehe Abschnitt\ref{sec:Problemstellung} und \ref{sec:Treemap}) Wir stellen fest, dass von 81 analysierten Ansätzen sind 54 rechteckige und 58 splitting-basiert sind, was zeigt, dass dies das präferierte Treemap verfahren ist. 
+Neben klassischen Verfahren (Slice-and-Dice, Squarified, Strip) werden auch Polygon-, Voronoi- und Circular-Treemaps sowie spezialisierte Layouts beschrieben, etwa für Aspektverhältnis-Optimierung oder Ordnungserhaltung. Die große Vielfalt verdeutlicht die Notwendigkeit einer gezielten anwendungsspezifischen Auswahl des Algorithmus.
+
+\smallskip
+
+Die analysierten Arbeiten verdeutlichen eine große Vielfalt an Visualisierungsansätzen für Softwaresysteme. Diese Vielfalt unterstreicht die Notwendigkeit eines vergleichenden Ansatzes, um die Stärken und Schwächen unterschiedlicher Techniken systematisch herauszuarbeiten. Zugleich wird in der Literatur fortwährend eine Diskrepanz zwischen den in der Forschung entwickelten Konzepten und deren tatsächlichem Einsatz in der Praxis festgestellt, da viele der vorgestellten Ansätze prototypischer Natur oder stark theoretisch ausgerichtet sind\cite{overview3D, staticSurvey}.
+
+Darüber hinaus mangelt es an umfassenden empirischen Studien zur Evaluation dieser Ansätze. In einigen Arbeiten werden neue Visualisierungsmethoden beschrieben, ohne deren Wirksamkeit im Vergleich zu etablierten Methoden systematisch zu untersuchen \cite{overview3D, scheibel2020survey, visualizationEvolution}. Um die Praxisrelevanz zu erhöhen, berücksichtigt die vorliegende Arbeit auch existierende, in realen Kontexten eingesetzte Werkzeuge und legt einen besonderen Fokus auf die Bedürfnisse von Endnutzern und Stakeholdern, die in bisherigen Arbeiten häufig nur unzureichend adressiert wurden\cite{bassil2001software, pacione2003comparative}.
 
 
-6. Visualization and evolution of software architectures \cite{visualizationEvolution}
-auch ähnlich wie paper zuvor überblick geben
-Unterscheiden auch in hierarchische und beziehungsbasierte Visualisierungen. unss interessiert hier vorallem die hierarchischen Visualisierungen, da diese auch in dieser Arbeit verwendet werden:
-Viele Softwarearchitekturen sind hierarchisch organisiert (Packages → Klassen → Methoden).
-Klassische Node-Link-Diagramme (Knoten-Kanten-Diagramme) werden schnell unübersichtlich bei großen Systemen.
-Treemaps: Platzfüllende, verschachtelte Rechtecke stellen Hierarchien kompakt dar, jedoch meist nur für Blätter geeignet; oft nur eine Metrik kann visualisiert werden.
-Icicle Plots und Sunburst-Diagramme: Zeigen Hierarchien linear (Icicle) oder radial (Sunburst) an, erlauben Darstellung von zwei Metriken.
-Hyperbolische Bäume: Nutzen eine verzerrte Geometrie, um mehr Informationen zentral sichtbar zu machen.
+\section{Treemap Problem}
+Zunächst ist zu erwähnen, dass es Arbeiten gibt, die sich mit dem Ziel befassen die hierarchische Struktur von Treemaps besser abzubilden:
 
+Die Autoren des ursprungs squarify Algorithmus \cite{bruls2000squarified} stellen in einem anderen Paper \cite{cushionTreemaps} eine Idee vor, um Struktur ohne Änderung des Layouts darzustellen undzwar mit Schatten (siehe Abbildung \ref{fig:cushion}). Dabei bekommt jeder Knoten, egal ob Eltern- oder Kindknoten, einen Innenrenschatten, wodurch die Struktur der Knoten sichbar wird.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/cushionTreemap.png}
+    \caption{Beispiel für eine Cushion Treemap \cite[4]{cushionTreemaps}}
+    \label{fig:cushion}
+\end{figure}
 
+Peter Demian und Renate Fruchter stellen die Idee vor dass dickere outlines he höher der Knoten ist auch die Struktur verdeutlichen können. 
+Nicholas Kong et al schlagen vor verschiedene Umriss dicken zu nutzen um die Struktur der Knoten darzustellen.\cite{2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}).
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/lineThickness.png}
+    \caption{Beispiel für eine Treemap mit dicken outlines, die die Struktur der Knoten verdeutlichen sollen. \cite{2010-perception-treemaps}}
+    \label{fig:thickOutline}
+\end{figure}
 
-\cite{bassil2001software}
-systematisch herauszufinden, welche funktionalen, praktischen und kognitiven Aspekte Nutzer an diesen Tools besonders schätzen, welche Probleme auftreten und welche Verbesserungswünsche bestehen.
-Ergebnis: wichtig: Hierarchische Repräsentationen, Benutzerfreundlichkeit/Usability, Effizienz bei großen Systemen, Qualität der Benutzeroberfläche, .... noch mehr
-wenige tools können: Berechnung von Metriken
-aber auch für experten eher ausgerichtet
+Beide Ideen sind interessant, aber für das Problem dieser Arbeit nicht relevant, da sich diese Lösungen nicht in 2.5D umsetzen lassen, da durch die Extrusion in 3D Outlines und Schatten nicht mehr Datei übergreigfend darstellt werden können.
+Deshalb suchen wir hier speziell nach layouts die abstände haben. die meisten treemap layouts haben keine abstände, wodurch bei der extrusion ins drei dimensionale und ohne farbgebung die Struktur der Hierarchie nicht mehr erkennbar ist. Deswegen wird speziell nach treemap layouts gesucht, die abstände haben und die Struktur der Hierarchie darstellen.
 
-
-Erste Suche: allintitle: "3D Software Quality Visualization"
-gibt nur ein relevantes Ergebnis:
-The Visualization of Software Quality Metrics-A Systematic Literature Review
-- bachelor thesis und nicht so viel zitiert
-- aber gute grundlage trotzdem 
-- nochmal lesen
-
-
-durch literatur recherche gefunden: VON https://hpi.de/doellner/publications.html :
-Scheibel et al. stellen in ihrem Paper \textit{Survey of treemap layout algorithms}\cite{scheibel2020survey} eine Übersicht über die verschiedenen Treemap Layout Algorithmen vor. Sie unterscheiden zwischen den verschiedenen Ansätzen. 
-
-Sie kategorieren die verschiedenen Ansätze in 4 Kategorien: Art der Aufteilung, zusätzliche Attribute, Layout Form und Referenzraum Dimension. 
-Uns interresiert hier besonders das zusätzliche Attribut der "Werte" und die Dimension 2D (wie in Abschnitt \ref{sec:Problemstellung} beschrieben).
-Arten der Aufteilung sind: Packing und splitting. Packing ist dabei die Idee, die Knoten so zu packen, dass sie möglichst wenig Platz verbrauchen und splitting ist die Idee Knoten in kleinere Knoten zu unterteilen. Alle in den Grundlagen (Abschnit \ref{sec:Treemap}) vorgestellten Algorithmen sind also splitting Algorithmen.
-Sie stellen vier Layout Formen vor: Kreisförmig, rechteckig, konvex und nicht konvex. Alle in den Grundlagen vorgestellten Algorithmen sind rechteckige Layouts.
-Von den untersuchten 81 Algorithmen sind 54 rechteckige Layouts und 58 splitting Algorithmen. Der in dieser ARbeit speziell untersuchte Treemap Algorithmus passt also genau in die Kategorie der meist verwendeten Ansätze.
-
-
-\section{Treemap Problem verwandte Arbeiten}
-Wir suchen hierfür speziell nach layouts die abstände haben. die meisten treemap layouts haben keine abstände, wodurch bei der extrusion ins drei dimensionale und ohne farbgebung die Struktur der Hierarchie nicht mehr erkennbar ist. Deswegen wird speziell nach treemap layouts gesucht, die abstände haben und die Struktur der Hierarchie darstellen.
-
-
-Aktuell gibt es nur eine arbeit die dieses Problem explizit anspricht und zwar \cite{lu2008cascaded}.
-
+Aktuell gibt es nur eine arbeit die dieses Problem explizit anspricht und zwar \cite{lu2008cascaded}. wir stellen diese arbeit im detail vor, da sie einige interessante Ideen hat und auch in gewisser weise einen ausgangspunkt für die in dieser Arbeit vorgestellten anpassungen an den Squarify Algorithmus darstellt.
 
 \cite{lu2008cascaded}:
 Hao Lü and James Fogarty stellten in ihrem Paper \textit{Cascaded Treemaps:
@@ -122,29 +130,7 @@ Interessant ist, dass die Autoren keine verbesserung in der Gewicht zu Größe r
 Eine verbesserung konnten sie nur bei relativ kleinen Knoten feststellen, was auch klar ist, da bei den ansätzen zuvor die Abstände (da diese ja absolut sind und bei jedem knoten gleich) die Größe von kleinen Knoten viel stärker beeinflussen, als die Größe von großen. Sie vermuten auch, dass das an Ihrem Ansatz speziell liegen könnte und fordern noch weitere research in diesem Bereich.
 Sie vermuten außerdem, dass speziell bei Tiefen Hierarchien, die Abweichung von Größe zu Gewicht größer wird.  
 
-Eine ähnliche implementierungen untersuchen wir in Abschnitt HIER EINFÜGEN und zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw 
-Am ehesten ist dieser Ansatz wahrscheinlich mit dem Simple-Increase Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
 
 
 
 
-
-Die Autoren des ursprungs squarify Algorithmus \cite{bruls2000squarified} stellen in einem anderen Paper \cite{cushionTreemaps} eine Idee vor, um Struktur ohne Änderung des Layouts darzustellen undzwar mit Schatten (siehe Abbildung \ref{fig:cushion}). Dabei bekommt jeder Knoten, egal ob Eltern- oder Kindknoten, einen Innenrenschatten, wodurch die Struktur der Knoten sichbar wird.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/cushionTreemap.png}
-    \caption{Beispiel für eine Cushion Treemap \cite[4]{cushionTreemaps}}
-    \label{fig:cushion}
-\end{figure}
-
-Peter Demian und Renate Fruchter stellen die Idee vor dass dickere outlines he höher der Knoten ist auch die Struktur verdeutlichen können. 
-
-Nicholas Kong et al schlagen vor verschiedene Umriss dicken zu nutzen um die Struktur der Knoten darzustellen.\cite{2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}).
-
-% \begin{figure}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/thickOutline.png}
-%     \caption{Beispiel für eine Treemap mit verschieden dicken outlines, die die Struktur verdeutlichen sollen. Abbildung aus \cite[1]{2010-perception-treemaps}}
-%     \label{fig:thickOutline}
-% \end{figure}
