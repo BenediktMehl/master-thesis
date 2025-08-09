@@ -51,10 +51,22 @@ Genauer werden wir in Abschnitt \ref{sec:datenAnalyse} auf die Eingabedaten eing
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp wird eine Umsetzung im Webbrowser mittels TypeScript und Three.js realisiert. Die Übertragung der Methoden auf andere Programmierumgebungen ist möglich.
 
 \subsection*{5. Wie erfolgt die Darstellung?}
-Das Visualisierungskonzept lehnt sich an den in den Grundlagen erläuterten Stadtmetapher-Ansatz an (Abschnitt \ref{sec:CodeCity}). Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch eingeschränkt, dadurch, dass Fläche, Höhe und Farbgebung (auch Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von verschiedenen Ordnern oder Modulen, zur besseren visuellen Unterscheidung fallen für die Visualisierung in dieser Arbeit weg. Stattdessen wird der Fokus auf die geschickte Platzierung, Wahl von Abständen und Beschriftung gelegt. 
+Die Darstellungen in der es in dieser Arbeit geht ist eine 2.5D-Darstellung, die als Grundlage ein 2D-Layout hat. Dieses 2D-Layout kann beliebig aussehen, mit formen, plazierungen, abständen, etc. Dabei haben alle Layouts ein gemeinsamen Schema (siehe Listing \ref{lst:nodeLayoutSchema}). 
 
-%außerdem erkläre den intermediate step, der zum filtern benutzt werden wird
-%erkläre genau nochmal 2.5D Layout und was dafür geeignet ist und was nicht
+\begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
+    "node": {
+        "name": string,
+        "x": number,
+        "y": number,
+        "width": number,
+        "length": number,
+        "children": List[Node] | "value": number
+    }
+\end{lstlisting}
+
+Dieses Schema ermöglicht es, die Position und Größe jedes Knotens im 2D-Raum zu definieren. Die dritte Dimension wird durch eine zusätzliche Metrik extrudiert. Dabei muss diese Extrusion nicht zwingend linear sein. Zum Beispiel muss ein Kreis nicht zwingend zu einem Zylinder extrudiert werden, sondern kann auch zu einem Kegel oder einer Kugel extrudiert werden. Dadurch erhalten wir eine eindeutige Definition und Anforderung an 2D-Layouts und sind gleichzeitig flexibel in der Darstellung der dritten Dimension.
+
+Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch eingeschränkt, dadurch, dass Fläche, Höhe und Farbgebung (auch Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von verschiedenen Ordnern oder Modulen, zur besseren visuellen Unterscheidung fallen für die Visualisierung in dieser Arbeit weg (bis auf wenige Ausnahmen - siehe Abschnitt \ref{sec:AbständeGeschwister}). Stattdessen wird der Fokus auf die geschickte Platzierung, Wahl von Abständen und Beschriftung gelegt. 
 
 \smallskip
 
