@@ -1,15 +1,15 @@
 \chapter{Grundlagen} \label{sec:Grundlagen}
-In diesem Abschnitt werden die grundlegenden Konzepte und Begriffe erläutert, die für das Verständnis dieser Arbeit notwendig sind. Zunächst werden Software-Qualitätsmetriken vorgestellt, da sie die Basisdaten für alle in dieser Arbeit genutzten Visualisierungen liefern. Anschließend wird das Thema Software-Visualisierung behandelt, wobei insbesondere auf die dreidimensionale Software-Visualisierung mit Hilfe von Treemaps eingegangen wird.
+In diesem Abschnitt werden die grundlegenden Konzepte und Begriffe erläutert, die für das Verständnis dieser Arbeit notwendig sind. Zunächst werden Software-Qualitätsmetriken vorgestellt, da sie die Basisdaten allen Visualisierungen in dieser Arbeit liefern. Anschließend wird das Thema Software-Visualisierung behandelt, wobei insbesondere auf die dreidimensionale Software-Visualisierung mit Hilfe von Treemaps eingegangen wird.
 
 \section{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
 
-Software-Qualitätsmetriken sind zentrale Werkzeuge zur Messung und Bewertung der Qualität von Software. Sie ermöglichen es, verschiedene Eigenschaften der Software objektiv anhand von Kennzahlen zu analysieren. Eine \textit{Softwaremetrik} ist dabei meist als mathematische Funktion zu verstehen, die eine spezifische Eigenschaft einer Software in einen Zahlenwert abbildet:
+Software-Qualitätsmetriken sind zentrale Werkzeuge zur Messung und Bewertung der Qualität von Software. Sie ermöglichen es, verschiedene Eigenschaften objektiv anhand von Kennzahlen zu analysieren. Eine \textit{Softwaremetrik} ist meist als mathematische Funktion zu verstehen, die eine bestimmte Eigenschaft von Software in einen Zahlenwert (Maßzahl) überführt:
 
 \begin{quote}
     Eine Softwaremetrik, oder kurz Metrik, ist eine (meist mathematische) Funktion, die eine Eigenschaft von Software in einen Zahlenwert, auch Maßzahl genannt, abbildet. Hierdurch werden formale Vergleichs- und Bewertungsmöglichkeiten geschaffen.\cite{wikipedia_softwaremetrik}
 \end{quote}
 
-Auch in anderen Definitionen wird die grundsätzliche Funktion von Metriken hervorgehoben:
+Auch andere Definitionen unterstreichen die zentrale Rolle von Metriken:
 
 \begin{quote}
     Softwaremetrik ist ein quantitatives Maß, das verwendet wird, um die Eigenschaften eines Softwareproduktes oder des Softwareentwicklungsprozesses zu bewerten.\cite{softwaremetriken_2019}
@@ -19,44 +19,29 @@ Auch in anderen Definitionen wird die grundsätzliche Funktion von Metriken herv
     Eine Softwarequalitätsmetrik ist eine Funktion, die eine Software-Einheit in einen Zahlenwert abbildet, welcher als Erfüllungsgrad einer Qualitätseigenschaft der Software-Einheit interpretierbar ist.\cite{def_qual_metric}
 \end{quote}
 
-Allen Definitionen ist gemeinsam, dass eine Metrik stets nur einen bestimmten Aspekt der Software abbildet. Genau darin liegt eine der wichtigsten Erkenntnisse und gleichzeitig eine zentrale Kritik: Einzelne Metriken geben ausschließlich Auskunft über spezifische Eigenschaften und erlauben keine umfassende Bewertung der gesamten Softwarequalität.
-
-Zusammenfassend kann festgestellt werden, dass Software-Qualitätsmetriken als quantitative Indikatoren zur Kontrolle und Verbesserung der Software dienen. Sie sind jedoch stets darauf beschränkt, nur bestimmte Aspekte zu messen. Die Aussagekraft jeder einzelnen Metrik ist daher begrenzt:
+Metriken bilden stets nur einzelne Aspekte der Software ab. Daher erlauben sie keine umfassende Qualitätsbewertung, sondern liefern Indikatoren für jeweils spezifische Eigenschaften. Um die Aussagekraft zu erhöhen, empfiehlt es sich, verschiedene Metriken gemeinsam zu interpretieren:
 
 \begin{quote}
     Eine Metrik alleine kann nie eine vollständige Aussage über die Qualität der Software treffen. Metriken sollten immer in Kombination bewertet werden. Die Güte und Reife von Software kann nur in Kombination mit statischer Code Analyse, Code Reviews und funktionalen Tests final beurteilt werden.\cite{schmitz_2019}
 \end{quote}
 
-Es existiert also keine universelle Metrik, die vollumfänglich Auskunft über die Qualität einer Software geben kann. Dies allein schon, da der Begriff \textit{gute Software} situationsabhängig definiert werden muss. Selbst wenn fehlerfreie Ausführung als Ziel gilt, ist unklar, wie diese Eigenschaft in eine einzelne Metrik gefasst werden könnte.
+Da Qualitätsziele situationsabhängig sind, gibt es keine universelle Metrik, die Softwarequalität vollumfänglich beschreibt. Stattdessen sollten Metriken so gewählt werden, dass sie die Qualität einer Software bzgl. der jeweiligen Ziele abbilden \cite{hall1994implementing}. Auch ist zu beachten, dass die Nutzung und Auswertung von Metriken zusätzlichen Aufwand bedeutet.
 
-Um ein möglichst vollständiges Qualitätsbild zu erhalten, ist es daher essenziell, verschiedene Metriken miteinander zu kombinieren. Die parallele Interpretation mehrerer Indikatoren erhöht die Aussagekraft und reduziert das Risiko von Fehleinschätzungen.
+Einige Kritikpunkte an Softwaremetriken sind: Viele Metriken sind nicht ausreichend wissenschaftlich fundiert und ihr tatsächlicher Nutzen ist nicht immer klar belegt \cite{voas_kuhn_2017}. Ebenso besteht die Gefahr, dass bei unpassenden Kennzahlen bloß die Metrikwerte optimiert werden, ohne dass sich die Gesamtqualität tatsächlich verbessert. Entwickler könnten ihr Handeln stärker am Erreichen guter Metrikwerte als an den eigentlichen Zielen der Software ausrichten \cite{worst_gitclear_2025}. Zudem sind viele Metriken kontextabhängig: Sie ersetzen keine Code Reviews oder softwarepraktischen Tests und geben immer nur Hinweise, die vor dem jeweiligen Hintergrund zu interpretieren sind. Klassische Beispiele wie \enquote{Lines of Code} oder die Anzahl der Commits werden häufig fehlinterpretiert und bilden etwa Komplexität oder den tatsächlichen Arbeitsaufwand nicht ab \cite{worst_gitclear_2025}.
 
-\smallskip
-
-
-Die Aussagekraft von Softwaremetriken hängt maßgeblich davon ab, dass die Ziele der Software klar definiert sind \cite{hall1994implementing}. Metriken müssen stets so gewählt werden, dass sie die Qualität einer Software bezüglich dieser Ziele abbilden. Beispielsweise ist eine Komplexitätsmetrik irrelevant, wenn primär die Ausführungsgeschwindigkeit optimiert werden soll. Auch kann die Erhebung und Auswertung von Metriken selbst mit Aufwand verbunden sein.
-
-Ein weiterer Kritikpunkt ist, dass viele Metriken nicht ausreichend wissenschaftlich fundiert sind und der tatsächliche Nutzen nicht immer klar belegt werden kann \cite{voas_kuhn_2017}. Die Orientierung an Metriken sollte daher immer kritisch erfolgen und nicht zum Selbstzweck werden.
-
-Zudem besteht die Gefahr, dass bei unpassend gewählten Metriken lediglich diese Werte optimiert werden, ohne dass sich dadurch die Gesamtqualität der Software verbessert. Entwickler könnten dazu verleitet werden, ihr Handeln auf das Erreichen guter Metrikwerte anstatt auf das eigentliche Ziel der Software auszurichten \cite{worst_gitclear_2025}.
-
-Nicht zuletzt sind Metriken kontextabhängig. Sie liefern Indizien, können aber Prozesse wie Code Reviews oder Tests keinesfalls ersetzen. Die Interpretation muss mit Blick auf den jeweiligen Kontext erfolgen. Bekannte Beispiele wie Lines-of-Code oder Anzahl von Commits werden oft falsch als Qualitätsindikatoren genutzt, obwohl sie weder die Komplexität noch die tatsächliche Arbeitsleistung adäquat abbilden \cite{worst_gitclear_2025}.
-
-Einfache Metriken können zudem keine komplexen Qualitätsprobleme identifizieren \cite{voas_kuhn_2017} und sind häufig stark abhängig von Programmiersprache und individuellem Programmierstil.
+Einfache Metriken können zudem keine komplexen Qualitätsprobleme identifizieren \cite{voas_kuhn_2017} und sind abhängig von Programmiersprache und individuellem Stil.
 
 \smallskip
 
-
-Die Norm ISO/IEC 25010 \cite{iso25010_2024} beschreibt einen Rahmen, in dem die Qualität von Software anhand von acht Qualitätsmerkmalen, wie z.B. funktionaler Eignung, Zuverlässigkeit oder Benutzerfreundlichkeit, strukturiert wird. Diese Merkmale beziehen sich auf die Sicht von außen, also wie der Benutzer die Software erlebt:
+Die Norm ISO/IEC 25010 \cite{iso25010_2024} strukturiert Softwarequalität anhand von acht Merkmalen (u.~a. funktionale Eignung, Zuverlässigkeit, Benutzerfreundlichkeit) und legt dabei die Sicht der Benutzer zugrunde:
 
 \begin{quote}
     Qualität wird als Abwesenheit von Fehlern im Systemverhalten verstanden, die Software verhält sich demnach so, wie der Benutzer es erwartet.\cite[1]{Witte2018}
 \end{quote}
 
-Für die Ursachen bestimmter Qualitätsprobleme reicht die Betrachtung aus Nutzersicht allerdings oft nicht aus. Seit den 1970er Jahren entstand daher ein Fokus auf die Messung der \textit{internen Qualität} beziehungsweise der \textit{Code-Qualität}, etwa mittels Metriken wie der McCabe-Komplexität \cite{ludewig}. Diese ist insbesondere für Entwickler sowie Auftraggeber relevant und unterstützt die Sicherstellung von Wartbarkeit und Erweiterbarkeit der Software. Im Rahmen dieser Arbeit wird, soweit von Metriken die Rede ist, explizit auf Code-Qualitätsmetriken Bezug genommen.
+Zur Klärung der Ursachen von Qualitätsproblemen ist die Betrachtung allein aus Nutzersicht oft nicht ausreichend. Seit den 1970er Jahren entstand daher ein Fokus auf die Messung der \textit{internen Qualität} bzw. \textit{Code-Qualität}, etwa mit Metriken wie der McCabe-Komplexität \cite{ludewig}. Solche Metriken sind vor allem für Entwickler und Auftraggeber relevant und unterstützen Wartbarkeit sowie Erweiterbarkeit der Software. In dieser Arbeit beziehen sich Erwähnungen von Metriken explizit auf Code-Qualitätsmetriken.
 
 \smallskip
-
 
 Software-Qualitätsmetriken beziehen sich in der Regel auf spezifische Softwareeinheiten, beispielsweise Dateien, Module oder Klassen. Diese Einheiten sind meistens hierarchisch, etwa entlang von Datei- und Ordnerstrukturen, organisiert. Die Messwerte werden häufig auf der Ebene einzelner Dateien gesammelt und dann auf höhere Ebenen, zum Beispiel Ordner oder Module, aggregiert, sodass eine baumartige Hierarchie entsteht.
 
@@ -64,19 +49,21 @@ Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrik
 
 \section{Software-Visualisierung} \label{sec:SoftwareVisualisierung} 
 
-Die Darstellung von Softwarestrukturen zählt zu den entscheidenden Schritten, um komplexe Softwaresysteme für Menschen verständlich zu machen. Während numerische Metriken oder tabellarische Darstellungen für Fachleute in der Softwareentwicklung oft ausreichend sind, können diese Darstellungsformen für Personen ohne technischen Hintergrund abstrakt und schwer zugänglich bleiben. Es besteht daher das Ziel, Softwarequalität auch für nicht-technische Stakeholder intuitiv und erlebbar zu machen.
+Die Darstellung von Softwarestrukturen ist zentral, um komplexe Softwaresysteme verständlich zu machen. Während numerische Metriken oder tabellarische Darstellungen für Entwickler ausreichen, bleiben solche Darstellungsformen für fachfremde Personen oft abstrakt und schwer zugänglich. Ziel ist es deshalb, Softwarequalität auch für nicht-technische Stakeholder anschaulich und erlebbar zu vermitteln.
 
-Softwarevisualisierung verfolgt das Ziel, komplexe Strukturen und Beziehungen in Softwaresystemen so darzustellen, dass sie schneller erfasst und verstanden werden können \cite{diehl2007software}. Visuelle Repräsentationen unterstützen nicht nur Entwickler bei der Analyse und Fehlersuche, sondern fördern auch die Kommunikation zwischen technischen und nicht-technischen Stakeholdern \cite{baltes2017sketches}.
+Softwarevisualisierung kann Strukturen und Beziehungen so darstellen, dass sie schneller und intuitiver erfasst werden \cite{diehl2007software}. Visuelle Repräsentationen unterstützen Entwickler bei Analyse und Fehlersuche und fördern die Kommunikation zwischen technischen und fachfremden Beteiligten \cite{baltes2017sketches}.
 
 \subsection{2.5D- und 3D-Software-Visualisierung} \label{sec:3DSoftwareVisualisierung}
 
-Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. Diese Formen liefern zwar einen guten Überblick, vermitteln jedoch wenig \textit{Greifbarkeit} des Softwaresystems. 3D-Visualisierungen bieten dagegen das Potenzial, immersive und erfahrbare Eindrücke zu schaffen, sodass Nutzer \textit{in die Software eintauchen} können:
+Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. 3D-Visualisierungen bieten zusätzlich die Möglichkeit, immersive Einblicke zu schaffen und die Software \enquote{greifbar} zu machen:
+
 \begin{quote}
 Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from 'outside'. 3D visualizations on the other hand provide the potential to create such an immersive experience \cite[1]{codeCity1}
 \end{quote}
-Anzumerken ist, dass die Autoren von CodeCity über 3D-Visualisierungen sprechen, jedoch in Wirklichkeit eine 2.5D-Visualisierung beschrieben wird. \cite{johnson1993treemapsPhd} 2.5D ist Laut Wikipedia \cite{wikipedia2.5D} eine Darstellung, die zwar drei Dimensionen nutzt, aber die dritte Dimension \enquote{deutliche Einschränkungen} aufweist, was bei CodeCity der Fall ist, da die Darstellung drei Dimensionen nutzt, aber die dritte Dimension \textit{nur} für die Extrusion der Gebäude genutzt wird und nicht zum beispiel für die Platzierung der Gebäude, was eine deutliche Einschränkung in der dritten Dimension darstellt.
 
-Die Idee, Softwarestrukturen dreidimensional darzustellen, ist nicht neu. Bereits 1995 stellte Steven P. Reiss einen ersten Ansatz zur 3D-Visualisierung von Software vor \cite{first_3D_vis}. Ursprünglich zielten diese Ansätze darauf ab, Entwicklern einen schnellen Überblick über Struktur und Aufbau umfangreicher Systeme, insbesondere beim Einarbeiten in unbekannte Software, zu verschaffen \cite{visSoftwareVR}. Die frühen Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger jedoch die Visualisierung von Softwarequalitätsmetriken (siehe Abbildung \ref{fig:3DVis}).
+Die Autoren von CodeCity sprechen von 3D-Visualisierung, tatsächlich handelt es sich aber um sogenannte 2.5D-Visualisierungen \cite{johnson1993treemapsPhd}. Laut Wikipedia \cite{wikipedia2.5D} nutzen solche Darstellungen zwar drei Dimensionen, die dritte ist aber nur eingeschränkt belegt. Bei CodeCity zum Beispiel wird die dritte Dimension für die Extrusion der Rechtecke zu Quadern genutzt, jedoch nicht zum Beispiel für die Position der Quader im 3D-Raum, was eine deutliche Einschränkung der dritten Dimension darstellt. Deshalb wird diese Art der Visualisierung in dieser Arbeit als 2.5D-Visualisierung bezeichnet.
+
+Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu geben \cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung \ref{fig:3DVis}).
 
 \begin{figure}[h]
     \centering
@@ -87,18 +74,18 @@ Die Idee, Softwarestrukturen dreidimensional darzustellen, ist nicht neu. Bereit
 
 Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Literatur Kriterien für eine gelungene Darstellung ableiten \cite{visSoftwareVR}:
 \begin{itemize}
-    \item \textbf{Darstellung der Struktur:} Die Visualisierung soll Architektur und Aufbau der Software möglichst anschaulich und nachvollziehbar zeigen. Wichtige Aspekte dabei sind:
+    \item \textbf{Darstellung der Struktur:} Architektur und Aufbau der Software sollen anschaulich und nachvollziehbar gezeigt werden. Wichtige Aspekte dabei sind:
     \begin{itemize}
-        \item \emph{Informationsgehalt:} Die Darstellung soll möglichst viele relevante Informationen kompakt vermitteln.
-        \item \emph{Visuelle Komplexität:} Trotz hoher Informationsdichte soll die Visualisierung übersichtlich und nicht überfordernd wirken. Dies ist als Gegenspieler zum Informationsgehalt zu verstehen.
-        \item \emph{Skalierbarkeit:} Auch große Softwaresysteme müssen klar und verständlich dargestellt werden können. Die Autoren von \textit{Visualising Software in virtual reality} \cite{visSoftwareVR} sagen sogar, dass Mechanismen notwendig wären, um Komplexität und Informationsgehalt bei zunehmender Größe manuelll zu steuern und je nach Software-System anpassen zu können.
-        \item \emph{Stabilität gegenüber Änderungen:} Die Visualisierung soll bei Software-Änderungen konsistent bleiben, um Vergleichbarkeit über Versionen hinweg zu gewährleisten.
-        \item \emph{Visuelle Metaphern:} Der Einsatz eingängiger Metaphern erleichtert das Verständnis komplexer Softwarestrukturen.
+        \item \emph{Informationsgehalt:} Möglichst viele relevante Informationen sollen kompakt vermittelt werden.
+        \item \emph{Visuelle Komplexität:} Darstellung muss trotz hoher Informationsdichte übersichtlich bleiben. Dies ist als Gegenspieler zum Informationsgehalt zu verstehen.
+        \item \emph{Skalierbarkeit:} Auch große Systeme müssen verständlich dargestellt werden. Die Autoren von \textit{Visualising Software in virtual reality} \cite{visSoftwareVR} stellen fest, dass Mechanismen notwendig wären, um Komplexität und Informationsgehalt bei zunehmender Größe manuelll zu steuern und je nach Software-System anpassen zu können.
+        \item \emph{Stabilität gegenüber Änderungen:} Visualisierung sollte unter Veränderungen des Systems konsistent bleiben, um Vergleichbarkeit zwischen verschiedenen Versionen zu ermöglichen.
+        \item \emph{Visuelle Metaphern:} Einprägsame Metaphern erleichtern das Verständnis komplexer Strukturen.
     \end{itemize}
-    \item \textbf{Abstraktion:} Unwesentliche Details sollten ausgeblendet werden, um ein verständliches, abstrahiertes Modell zu erzeugen.
-    \item \textbf{Navigation:} Die Orientierung innerhalb der Visualisierung muss auch bei sehr großen Systemen einfach und intuitiv möglich sein.
-    \item \textbf{Korrelation mit dem Code:} Es sollte eine klare Zuordnung zwischen Visualisierungselementen und Quellcodebestandteilen existieren.
-    \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte vollständig automatisierbar sein, sodass keine manuelle Nachbearbeitung notwendig ist.
+    \item \textbf{Abstraktion:} Unwesentliche Details sollten ausgeblendet werden.
+    \item \textbf{Navigation:} Auch bei großen Systemen sollte die Orientierung einfach und intuitiv möglich sein.
+    \item \textbf{Korrelation mit dem Code:} Klare Zuordnung zwischen Visualisierung und Quellcodebestandteilen.
+    \item \textbf{Automatisierung:} Generierung sollte möglichst vollständig automatisiert werden können.
 \end{itemize}
 
 \section{CodeCity: Grundstein für 2.5D-Visualisierung}
@@ -152,13 +139,13 @@ Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung \ref{fig:baumd
 
 Um die genannten Schwierigkeiten zu lösen, formulieren Shneiderman und Johnson vier grundlegende Eigenschaften für Treemap-Layouts:
 \begin{itemize}
-    \item Ist Knoten 1 ein Vorfahre von Knoten 2, so ist der Bereich von Knoten 2 vollständig innerhalb des Bereichs von Knoten 1 enthalten.
-    \item Die Bereiche von Knoten schneiden sich, wenn einer ein Vorfahre des anderen ist.
-    \item Jeder Knoten erhält eine Fläche, die streng proportional zu seinem Gewicht ist.
-    \item Das Gewicht eines Knotens ist (mindestens) so groß wie die Summe der Gewichte seiner Kinder.
+    \item Ist Knoten 1 Vorfahre von Knoten 2, liegt die Fläche von Knoten 2 vollständig in der von Knoten 1.
+    \item Flächen schneiden sich genau dann, wenn eine Vorfahr-Nachfahr-Relation vorliegt.
+    \item Jede Fläche ist strikt proportional zum Gewicht.
+    \item Das Gewicht eines Knotens ist so groß wie die Summe der Kinder. Beziehungsweise ist das Gewicht eines Knotens \textit{mindestens} so groß wie die Summe der Kinder, wie in Abschnitt \ref{sec:Problemstellung} gezeigt wird.
 \end{itemize}
 
-Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung erfolgt von der Wurzel bis zu den Blättern und ist mit einer Laufzeit von $O(n)$ effizient. Ein Beispiel für eine Treemap, die mit diesem Algorithmus erstellt wurde, ist in Abbildung \ref{fig:nestedTreemap} zu sehen.
+Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung erfolgt von der Wurzel bis zu den Blättern und hat eine Laufzeit von $O(n)$. Ein Beispiel für eine Treemap, die mit diesem Algorithmus erstellt wurde, ist in Abbildung \ref{fig:nestedTreemap} zu sehen.
 
 \begin{figure}[ht]
     \centering
@@ -167,9 +154,7 @@ Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen
     \label{fig:nestedTreemap}
 \end{figure}
 
-Trotz der weiten Verbreitung des Ansatzes weisen Shneiderman und Johnson auf ein zentrales Problem nicht explizit hin: Der notwendige Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche oftmals nicht mehr proportional zu den zugehörigen Werten. Insbesondere sehr kleine oder langgestreckte Rechtecken können im Extremfall sogar komplett verschwinden. Dies verletzt die dritte Eigenschaft (strikte Proportionalität). In praktischen Anwendungsfällen, zum Beispiel wenn die Rechtecksfläche eine Kennzahl wie \enquote{Lines of Code} darstellen soll, können kleine Dateien oder Knoten durch die Ränder also komplett verloren gehen. Problematisch ist dies insbesondere, wenn eine weitere Dimension (wie beispielsweise die Testabdeckung) diese Elemente eigentlich hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
-
-Ein weiteres ästhetisches Manko liegt darin, dass die rekursive Unterteilung längliche oder stark verzerrte Rechtecksformen erzeugen kann. Dies widerspricht ebenfalls dem Anspruch übersichtlicher und ansprechender Visualisierung. Verschiedene Verbesserungsansätze wie etwa \textit{Squarified Treemaps} begegnen diesem Problem und werden im Folgenden diskutiert (siehe Abschnitt \ref{sec:Squarify}).
+Ein ästhetisches Manko liegt darin, dass die rekursive Unterteilung längliche oder stark verzerrte Rechtecksformen erzeugen kann. Dies widerspricht ebenfalls dem Anspruch übersichtlicher und ansprechender Visualisierung. Verschiedene Verbesserungsansätze wie etwa \textit{Squarified Treemaps} begegnen diesem Problem und werden im Folgenden diskutiert (siehe Abschnitt \ref{sec:Squarify}).
 
 \smallskip
 
@@ -191,7 +176,7 @@ In dieser Arbeit wird (abweichend von einigen Publikationen) die X-Koordinate al
 
 \smallskip
 
-Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konkreten Beispiels erläutert. Es sollen Rechtecke mit den Größen $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ einsortiert werden. 
+Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konkreten Beispiels erläutert. Es sollen Rechtecke mit den Werten $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ eingefügt werden. 
 
 Da das Rechteck, in welches eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke einer vertikalen Reihe platziert. Diese vertikale Reihe, hat immer die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung \ref{fig:squarify_example_1}). Diese Reihe wird solange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist, als das schlechteste Seitenverhältnis im zuvorigen Schritt.
 
