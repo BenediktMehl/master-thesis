@@ -68,7 +68,7 @@ Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualis
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/visVRExample.png}
-    \caption{Beispiel für eine 3D-Visualisierung von Young und Munro~\cite[6]{visSoftwareVR}}
+    \caption[3D-Visualisierung von Young und Munro]{Beispiel für eine 3D-Visualisierung von Young und Munro~\cite[6]{visSoftwareVR}}
     \label{fig:3DVis}
 \end{figure}
 
@@ -96,7 +96,7 @@ Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und
 \begin{figure}
     \centering
     \includegraphics[width=0.5\textwidth]{images/codeCityExample.png}
-    \caption{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
+    \caption[Originale CodeCity-Visualisierung]{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
     \label{fig:codeCity}
 \end{figure}
 
@@ -124,14 +124,14 @@ Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung~\ref{fig:baumd
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/treediagram.png}
-    \caption{Beispiel für ein Baumdiagramm}
+    \caption[Baumdiagramm]{Beispiel für ein Baumdiagramm \cite{johnson1991tree}}
     \label{fig:baumdiagramm}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/verdiagram.png}
-    \caption{Beispiel für ein Venn-Diagramm}
+    \caption[Venn-Diagramm]{Beispiel für ein Venn-Diagramm \cite{johnson1991tree}}
     \label{fig:venndiagram}
 \end{figure}
 
@@ -148,7 +148,7 @@ Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.5\textwidth]{images/nestedTreemapDiagramm.png}
-    \caption{Beispiel für eine Treemap}
+    \caption[Treemap]{Beispiel für eine Treemap \cite{johnson1991tree}}
     \label{fig:nestedTreemap}
 \end{figure}
 
@@ -179,7 +179,7 @@ Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4
 \begin{figure}
     \centering
     \includegraphics[width=1\textwidth]{images/squarify_example_1.png}
-    \caption{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Die erste Reihe des Squarify-Algorithmus]{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_example_1}
 \end{figure}
 
@@ -188,7 +188,7 @@ Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten
 \begin{figure}
     \centering
     \includegraphics[width=0.7\textwidth]{images/squarify_example_2.png}
-    \caption{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Die zweite Reihe des Squarify-Algorithmus]{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_example_2}
 \end{figure}
 
@@ -222,7 +222,7 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (
         \caption*{Reihe 5}
     \end{minipage}
     
-    \caption{Beispiel für die letzten Reihen des Squarify-Algorithmus. Die Reihen sind im linken großen Rechteck in hellgrau dargestellt, sie können nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Die letzten Reihen des Squarify-Algorithmus]{Beispiel für die letzten Reihen des Squarify-Algorithmus. Die Reihen sind im linken großen Rechteck in hellgrau dargestellt, sie können nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_examples}
 \end{figure}
 
@@ -230,16 +230,18 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (
 
 Das jeweils schlechteste Seitenverhältnis in einer Reihe kann rechnerisch effizient bestimmt werden. Für ein Rechteck mit Fläche $w_i$ in einer Reihe mit konstanter Länge $l$ und Breite $w$ sowie Gesamtfläche $sV$ innerhalb der Reihe lässt sich das maximale Seitenverhältnis durch folgende Umformungen berechnen:
 
-\begin{align}
-    \frac{w_i}{l_i} 
+\begin{equation}\label{eq:aspect_ratio}
+    \begin{aligned}
+    \frac{w_i}{l_i}
     &= \frac{w_i \cdot l_i \cdot w^2}{l_i \cdot l_i \cdot w^2} \\
     &= \frac{w_i \cdot l_i \cdot w^2}{l_i^2 \cdot \left(\sum_{j=0}^{n} w_j\right)^2} \\
     &= \frac{w_i \cdot l_i \cdot w^2}{\left(l_i \cdot \sum_{j=0}^{n} w_j\right)^2} \\
     &= \frac{w_i \cdot l_i \cdot w^2}{\left(\sum_{j=0}^{n} l_i \cdot w_j\right)^2} \\
     &= \frac{w_i \cdot l_i \cdot w^2}{\left(\sum_{j=0}^{n} l_j \cdot w_j\right)^2}
-    \quad\text{da } \forall i, j \in \{0, \dots, n\}, l_i = l_j \\
-    &= \frac{V_i \cdot w^2}{sV^2}
-\end{align}
+        \quad\text{da } \forall i,j:\; l_i = l_j \\
+    &= \frac{V_i \cdot w^2}{sV^2},
+    \end{aligned}
+\end{equation}
 
 Analog gilt $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Es genügt daher, für das jeweils größte und kleinste Rechteck in der Reihe den Wert zu berechnen und daraus das schlechteste Seitenverhältnis zu bestimmen.
 
@@ -257,13 +259,13 @@ In Abbildung~\ref{fig:squarifyRatio1} ist ein Beispiel für ein Layout zu sehen,
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/oneSquarify.png}
-    \caption{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
+    \caption[Squarify-Layout mit quadratischen Rechtecken]{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
     \label{fig:squarifyRatio1}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/fiveSquarify.png}
-    \caption{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
+    \caption[Squarify-Layout mit länglichen Rechtecken]{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
     \label{fig:squarifyRatio5}
 \end{figure}
