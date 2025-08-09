@@ -1,5 +1,4 @@
 \chapter{Problemstellung} \label{sec:Problemstellung}
-
 Die zentrale Herausforderung bei der Entwicklung von Stadtmetaphern zur Softwarevisualisierung besteht in der Festlegung eines geeigneten Layouts für die Visualisierung. Im Abschnitt \ref{sec:CodeCity} wurde das ursprüngliche Layout-Konzept der CodeCity-Analogie vorgestellt. Ein gemeinsames Grundprinzip dieser und verwandter Arbeiten ist, dass zunächst ein 2D-Layout erzeugt wird, das anschließend durch eine zusätzliche Metrik in die dritte Dimension extrudiert und schließlich durch weitere Metriken (z.B. Farbe, Transparenz) angereichert wird.
 In dieser Arbeit werden wir uns genau auf dieses Grundprinzip konzentrieren und untersuchen, wie sich verschiedene Layout-Algorithmen auf die Visualisierung von Code-Qualitätsmetriken auswirken.
 Die daraus entstehende Leitfrage lautet:
@@ -17,8 +16,6 @@ Daraus ergeben sich für diese Arbeit folgende konkrete Forschungsfragen:
         \item Beispielhaft: Bietet das Stack-Layout Vorteile gegenüber klassischen Treemap-Layouts für diesen Anwendungszweck?
     \end{enumerate}
 \end{enumerate}
-
-\section{Evaluationsrahmen} \label{sec:Evaluationsrahmen}
 
 Um die angestrebten Visualisierungen eindeutiger zu evaluieren und in ihrem Ziel klarer zu definieren, orientieren wir uns an den fünf Dimensionen der Softwarevisualisierung nach Marcus Adrian et al. \cite[2]{3dsoftwareMarcus}:
 \begin{quote}
@@ -56,6 +53,9 @@ Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschi
 \subsection*{5. Wie erfolgt die Darstellung?}
 Das Visualisierungskonzept lehnt sich an den in den Grundlagen erläuterten Stadtmetapher-Ansatz an (Abschnitt \ref{sec:CodeCity}). Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch eingeschränkt, dadurch, dass Fläche, Höhe und Farbgebung (auch Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von verschiedenen Ordnern oder Modulen, zur besseren visuellen Unterscheidung fallen für die Visualisierung in dieser Arbeit weg. Stattdessen wird der Fokus auf die geschickte Platzierung, Wahl von Abständen und Beschriftung gelegt. 
 
+%außerdem erkläre den intermediate step, der zum filtern benutzt werden wird
+%erkläre genau nochmal 2.5D Layout und was dafür geeignet ist und was nicht
+
 \smallskip
 
 Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen Grundlegenden Anforderungen (Abschnitt \ref{sec:3DSoftwareVisualisierung}) leiten sich für die, im Rahmen dieser Arbeit entwickelte, Visualisierung folgende Anforderungen ab:
@@ -68,14 +68,16 @@ Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen Grundleg
     \item \textbf{Stabilität gegenüber Änderungen:} Nachrangig, aber erwünscht ist, dass die Visualisierung auf Änderungen im Code robust reagiert, um zeitliche Vergleiche zu ermöglichen, ohne dass der Betrachter sich neu orientieren muss.
 \end{itemize}
 
+Wir gehen hier bewusst nicht auf die Interaktions möglichkeiten des Nutzers mit dem Layout ein, da dies den rahmen dieser Arbeit sprengen würde und die Vergleichbarkeit der Layouts erschwert, da die Interaktion stark vom Layout selbst abhängt. wir wollen hier zunächst nur die Layouts vergleichen und nicht die Interaktion mit den Layouts.
+
 \section{Das Treemap-Problem} \label{sec:TreemapProblem}
 
 Durch die nähere Erlärung des Treemap-Algorithmus (siehe Abschnitt \ref{sec:Treemap}) wurde gezeigt, dass klassische Treemap-Algorithmen grundlegende Schwächen auf weisen, insbesondere wenn Abstände (\textit{Margins}) zwischen den Knoten dargestellt werden sollen. Das Grundproblem, das von Johnson und Shneiderman \cite{johnson1991tree} adressiert wurde, ist bereits ohne Abstände NP-Hard \cite[3]{bruls2000squarified}, und zusätzliche Abstände verkomplizieren die Problematik noch weiter.
 
 Wesentliche Schwierigkeiten bei der Integration von Abständen in das Layout ergeben sich durch:
 \begin{itemize}
-    \item Die abgezogenen Flächen für Abstände führen dazu, dass die verbleibende Knotenfläche nicht mehr proportional zum Wert des Knotens ist.
-    \item Bei kleinen Knoten können durch Abzüge von Minimalabständen einzelne Knoten ganz verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand wird.
+    \item Die abgezogenen Flächen für Abstände führen dazu, dass die verbleibende Knotenfläche nicht mehr proportional zum Wert des Knotens ist. Dies ist nicht nur eine Schwierigkeit, sondern tatsächich unmöglich zu erfüllen. Ein Ordner, der genau ein Kindknoten hat, kann nicht gleichzeitig eine Fläche proportional zu seinem Wert haben, während sein Kindknoten eine Fläche proportional zu seinem Wert hat, da der Ordner durch die Abstände zwingend eine Größe Fläche als sein Kindknoten haben muss, während er aber eigentlich den selben Wert hat.
+    \item Bei kleinen Knoten können durch Abzüge von Minimalabständen einzelne Knoten ganz verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand wird. Knoten sind also nicht \textit{zu klein} um gesehen zu werden, sondern sie verschwinden wirklich komplett.
 \end{itemize}
 
 In den Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} sind verschiedene Treemap-Layouts zu sehen, die mithilfe des Squarify-Algorithmus (siehe Abschnitt \ref{sec:Squarify}) erzeugt wurden. Die zugrundeliegenden Strukturen und Metriken wurden dabei händisch erstellt, um typische Probleme bei der Flächenproportionalität und Sichtbarkeit in Treemaps zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}).
@@ -122,16 +124,6 @@ Diese Problematik illustriert Abbildung \ref{fig:marginAreaDifference}. Zwei Rec
 
 Dadurch entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche (inklusive Abstände) bekannt ist. Diese Fläche hängt aber wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb in dieser Arbeit verschiedene Ansätze untersucht werden, um dieses Problem zu lösen (siehe Abschnitt \ref{sec:VerbesserungSquarify}).
 
-%stelle nochmal klar, dass fehlende Knoten nicht nur zu klein sind, um gesehen zu werden, sondern dass sie wirklich durch das Fehlen von genügend Platz verschwinden.
-
-%Der anspruch ist unmöglich zu erfüllen: beispiel: die fäche von zwei geschwistern - eins ist blat eins nicht, hat aber kind mit exakt der selben größe. dann müsste die fläche der ordners und des kindes gleich groß sein, um anforderung zu erfüllen, dann aber kein Abstand mehr möglich.
 
 
-%nicht interaktiv, weil nicht überfordern und super simple - es soll keine interaktion nötig sein
-%farben nur für die ordner strukturen - also nicht komplett ohne farben
 
-%2.5D muss nochmal klarer definiert werden
-%außerdem erkläre den intermediate step, der zum filtern benutzt werden wird
-
-
-%johnson1993treemapsPhd seite 32: Although no single tool will be appropriate for every data set and every task, treemaps are a powerful tool to add to the existing collection the hierarchical data analysis tools.

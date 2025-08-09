@@ -78,6 +78,7 @@ Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form 
 \begin{quote}
 Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from 'outside'. 3D visualizations on the other hand provide the potential to create such an immersive experience \cite[1]{codeCity1}
 \end{quote}
+Anzumerken ist, dass die Autoren von CodeCity über 3D-Visualisierungen sprechen, jedoch in Wirklichkeit eine 2.5D-Visualisierung beschrieben wird. \cite{johnson1993treemapsPhd} 2.5D ist Laut Wikipedia \cite{wikipedia2.5D} eine Darstellung, die zwar drei Dimensionen nutzt, aber die dritte Dimension \enquote{deutliche Einschränkungen} aufweist, was bei CodeCity der Fall ist, da die Darstellung drei Dimensionen nutzt, aber die dritte Dimension \textit{nur} für die Extrusion der Gebäude genutzt wird und nicht zum beispiel für die Platzierung der Gebäude, was eine deutliche Einschränkung in der dritten Dimension darstellt.
 
 Die Idee, Softwarestrukturen dreidimensional darzustellen, ist nicht neu. Bereits 1995 stellte Steven P. Reiss einen ersten Ansatz zur 3D-Visualisierung von Software vor \cite{first_3D_vis}. Ursprünglich zielten diese Ansätze darauf ab, Entwicklern einen schnellen Überblick über Struktur und Aufbau umfangreicher Systeme, insbesondere beim Einarbeiten in unbekannte Software, zu verschaffen \cite{visSoftwareVR}. Die frühen Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger jedoch die Visualisierung von Softwarequalitätsmetriken (siehe Abbildung \ref{fig:3DVis}).
 
@@ -104,10 +105,10 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
     \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte vollständig automatisierbar sein, sodass keine manuelle Nachbearbeitung notwendig ist.
 \end{itemize}
 
-\section{CodeCity: Grundstein für 3D-Visualisierung}
+\section{CodeCity: Grundstein für 2.5D-Visualisierung}
 \label{sec:CodeCity}
 
-Eine prägende Arbeit für die 3D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 3D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
+Eine prägende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken ist das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza \cite{codeCity1}. Sie stellten erstmals einen Ansatz vor, der Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 3D-Visualisierung zu schaffen. Dabei werden Softwareeinheiten als als Quader dargestellt. Wie von Young und Munro \cite{visSoftwareVR} gefordert, nutzen sie eine gute visuelle Metapher, um die Software darzustellen: die Stadtmetapher. Sie ist zentrales Gestaltungsmittel von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung \ref{fig:codeCity}).
 
 \begin{figure}
     \centering
@@ -176,8 +177,7 @@ Ein weiteres ästhetisches Manko liegt darin, dass die rekursive Unterteilung l�
 
 \smallskip
 
-%was meint häufig, hier noch so eine Quelle einfügen
-In der Literatur besteht häufig Unklarheit über die Definition von 3D-Treemaps. Streng genommen bedeutet 3D-Treemap die rekursive Unterteilung eines Würfels (oder Quaders) in kleinere Volumina, wobei zum Wertvergleich das Volumen und nicht mehr die Fläche herangezogen wird. Gegenstand der vorliegenden Arbeit sind jedoch sogenannte \textit{2.5D-Treemaps}, bei denen ein klassisches 2D-Treemap-Layout um eine zusätzliche dritte Dimension (zum Beispiel durch Extrusion nach oben) erweitert wird. Im Kontext dieser Arbeit ist mit einer \enquote{3D-Darstellung} stets dieses 2.5D-Modell gemeint.
+Eine 3D-Treemap ist die rekursive Unterteilung eines Würfels (oder Quaders) in kleinere Volumina, wobei zum Wertvergleich das Volumen und nicht mehr die Fläche herangezogen wird. \cite{johnson1993treemapsPhd} Gegenstand der vorliegenden Arbeit sind jedoch sogenannte \textit{2.5D-Treemaps}, bei denen ein klassisches 2D-Treemap-Layout um eine zusätzliche dritte Dimension (zum Beispiel durch Extrusion nach oben) erweitert wird.
 
 
 \subsection{Squarify-Algorithmus} \label{sec:Squarify}
