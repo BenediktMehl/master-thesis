@@ -1,4 +1,4 @@
-\chapter{Literaturrecherche} \label{sec:LiteraturRecherche}
+\chapter{Layout Suche} \label{sec:LiteraturRecherche}
 Das Ziel dieses Abschnitts ist es 2D-Layouts zu finden, die geeignet sind, um extrudiert zu werden und Software-Qualitätsmetriken in Form der in Abschnit \ref{sec:Problemstellung} definierten Form in 2.5D zu visualisieren. Alternativ können auch direkt 2.5D Visualisierungen gefunden werden, die geeignet sind, um Software-Qualitätsmetriken wie in der definitern Form zu visualisieren. 
 In diesem Abschnitt stellen wir zunächst die Methodik vor, die wir bei der Recherche verwendet haben. Anschließend stellen wir die Ergebnisse der Recherche vor. 
 
@@ -60,6 +60,12 @@ Auf die Suchergebnisse wenden wir noch folgende Filter an, um unrelevante oder n
 Für die normale Google suche, verwenden wir verschiedenste heuristische Filter um werbung, Dienstleistungsanbieter und andere irrelevante Ergebnisse zu filtern.
 
 \subsection*{4. auswertung der paper und extraktion der layouts} \label{sec:AuswertungPaper}
+Filtern der Layouts, könnten diese für 2.5D geeignet sein?
+Sammeln und gruppieren der geeigneten verschiedener Layouts
+Entscheiden für layouts
+
+
+
 Wie entscheide ich, ob ein layout geeignet ist:
 - Es sollte eine Art von Metrik oder Wert darstellen können.
 - Es sollte eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
@@ -110,8 +116,20 @@ vielleicht etwas zu simple gedacht??
 \enquote{there is still room for improvements, mainly to better exploit the entire display space}\cite[8]{visbasedlarge}
 
 3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
-%das vllt eher bei related work machen?
+In diesem Paper werden verschiedene Visualisierungen vorgestellt. dieses paper auch schon in verwandten arbeiten erwähnt.
+Es werden 6 verschiedene Visualisierungen vorgestellt, die auch auf unseren usecase passen. 
 
+Sehr gute arbeit, da sie einige visualiasierungen vorstellen.
+2D: Treemap, Sunburst, Circle Packing, voronoi
+
+Verschiedene Stadtmethaphern
+Eine stadt und insel methapher,
+solar system methapher, welche gleich auch noch genauer beschrieben wird
+hierarchical net
+
+Zeigen auch, dass das was am meisten verwendet ist stadt methapher und generell treemaps
+
+Ansonsten auch viele andere visualisierungen, die nicht so gut passen, weil es speziell um architektur, evolution oder verbindungen geht.
 
 
 4. Visual realism for the visualization of software metrics \cite{visRealism}
@@ -119,33 +137,213 @@ Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte da
 nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level
 
 5. An overview of 3D software visualization \cite{overview3D}
-6. CityVR: Gameful software visualization \cite{cityVR}
-7. A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}
-8. EvoSpaces: 3D Visualization of Software Architecture. \cite{EvoSpaces}
-9. 3D representations for software visualization \cite{3dsoftwareMarcus}
-10. Software cartography: Thematic software visualization with consistent layout \cite{softwareCartography}
+Zeigen alles von 2D, 2.5D und 3D
 
+
+
+6. CityVR: Gameful software visualization \cite{cityVR}
+- Stellen stadt methapher in 3D vor
+- fokus auf gamification
+- layout ist ähnlich wie bei codecity
+
+7. A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}
+Schauen diese metriken an:
+Lines of Code(LOC) NCSS
+Number of Children(NOC) DF
+Weighted Methods (WMC) NCSS
+Coupling Between Objects(CBO) DF
+Depth of Inheritance Tree (DIT) DF
+ganz neue methapher: solar system
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphor.png}
+    \caption{Solar System Metapher für 3D Visualisierung von objektorientierten Softwaremetriken. Die farben des bildes sind invertiert, um die lesbarkeit im ausdruck zu verbessern. \cite[4]{solarSystem}}
+\end{figure}
+Man erkennt, dass es wirklich 3D ist und nicht 2.5D
+Sie kritisieren, dass die Stadt-Metapher nicht so gut ist, da sie nicht wirklich 3D ist. Und keine Komplexen Zusammenhänge dargestellt werden können. Überdeckung.
+
+Sonnen sind pakete. Planeten sind Klassen, wobei die farbe den typ der klasse angibt. 
+Umlaufbahnen stellen die Vererbungsebenen innerhalb des Pakets dar. Planeten in derselben Umlaufbahn gehören zur gleichen Vererbungshierarchie
+Die Größe der Planeten ist eine Metrik (die anzahl der zeilen code)
+Verbindungen zeigen kopplung zwischen Klassen an.
+
+Es werden aber nur relativ kleine Pakete visualisiert, mit nur so ca. 30-40 klassen.
+
+es können nur 2 metriken dargestellt werden, eine auf klassenebene, eine auf verbindungsebene.
+Man könnte noch die Farbe als metrik nutzen und man könnte nicht auf klassen sondern auf file ebene betrachten (geht ja eigentlich immer)
+Es wird gefühlt sehr viel leerer platz verschwendet
+Es gibt doch auch einige überdeckungen, da die umlaufbahnen, teilweise hinter anderen planeten hergehen.
+Man könnte das ganze als 2D Layout verwenden und dann kugelförmig extrudieren, das 
+ich stelle es mir unvorteilhaft vor
+
+8. EvoSpaces: 3D Visualization of Software Architecture. \cite{EvoSpaces}
+Sie untersuchen verschiedene darstellungen 
+simple darstellungen wie einfache quader oder auch wirkliche häuser
+metriken werden transparenz, höhe, größe, textur,...
+dabei können mehrere metriken verwendet werden
+gebäude sind klassen oder dateien. verbindungen sind röhren bzw. strahle die oben aus einem gebäude herauskommen un dann im bogen in ein anderes gebäude von oben hineingehen
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaces.png}
+    \caption{Ein Beispiel für eine EvoSpaces Visualisierung. Die Gebäude repräsentieren Klassen, je nach Metrik-WErt werden diese in unterschiedliche Kategorien eingeteilt (z.B. bis zu 50 LOC - Wohnhaus, 51-200 LOC - Apartmentblock,...) \cite[3]{EvoSpaces}.}
+    \label{fig:evoSpaces}
+\end{figure}
+
+sie stellen aber nur zwei layouts vor, die nicht die struktur zeigen, sondern auch wieder eine Metrik darstellen. zb. im kreis und älteste datei am weitesten innen.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaceLayout.png}
+    \caption{Die zwei Layouts, die EvoSpaces verwendet. Links: Konzentrisch und Rechts Schachbrettartig. \cite[3]{EvoSpaces}.}
+    \label{fig:evoSpaceLayout}
+\end{figure}
+
+
+9. 3D representations for software visualization \cite{3dsoftwareMarcus}
+weiterentwicklung von 2d pixel bars ins 3D, weil mehr metriken und besser die verbindungen darstellbar
+softvis3d
+läuft auch auf basis von metriken auf datei ebene
+sehr detailiert, viel kleineteiligere darstellung, da einzelene code zeilen dargestellt werden
+vorallem für die entwicklung gedacht
+überdeckung wollen sie mit transparenz lösen
+layout angeordnet nach zeile für zeile
+keine hierarchie
+
+
+10. Software cartography: Thematic software visualization with consistent layout \cite{softwareCartography}
+Es wird eine topographische Kartenmetapher verwendet
+Dateien sind Hügel, die Höhe ist eine Metrik (zB. LOC)
+Das layout wird mit hilfe eines speziellen Multidimensionale Skalierungsalgorithmus (Hit-MDS) erstellt
+als stress wert der funktion wird die Lexikalische Distanz zwischen den Dateinamen verwendet (ist vielleicht gut wenn man schnell bestimmte dateien finden will, aber nicht so gut für die hierarchie und auch weit weg von der software selbst)
+sie zeigen noch eine erweiterung mit icons auf den bergspriten, die auch noch eine metrik darstellen können
+wurde besonders entwickelt mit dem Ziel von software evolution
+
+ich sage, das ist eine interessante grundidee und anders
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartography.png}
+    \caption{Software Cartography: Topographische Kartenmetapher für Software Visualisierung. Die Hügel repräsentieren Dateien, die Höhe ist eine Metrik (z.B. LOC). \cite{softwareCartography}.}
+    \label{fig:softwareCartography}
+\end{figure}
 
 zweite Google scholar suche:
 Doppelte Treffer: 4 zB.: Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
 1. Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs \cite{exploringRelations}
+auf oberer Ebene wird energy model of Noack and Lewerentz genutzt um einen graphen zu malen. 
+dieser graph kann auch mehrere hierarchie ebenen visualisieren, dabei wird farbe als unterstüzendes mittel genutzt, um die verschiedenen pakete oder order zu unterscheiden.
+Jeder knoten hat dann nochmal intern eine Treemap, die die Struktur des knotens zeigt
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/expoloringRelations.png}
+    \caption{Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs. Die obere Ebene ist ein Graph, der die Beziehungen zwischen den Paketen zeigt. Die untere Ebene (in den einzelenen kreisen nur klein zu sehen) ist eine Treemap, die die Struktur des Pakets zeigt. \cite[5]{exploringRelations}.}
+    \label{fig:exploringRelations}
+\end{figure}
+
+interaktion mit zoomen ist von nöten. 
+Alles bisher noch in 2D
+
 2. Visualizing Software Metrics in a Software System Hierarchy \cite{visSoftwareMetricsBook}
+im grunde eine link treediagram, 
+Metrik stripes - metrische streifen, zeigen über breite und farbe verschiedene metriken an
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/vishierarchy.png}
+    \caption{Im grunde ein link-treediagram, das mit \textit{Metric Stripes} verschiedene metriken darstellt. \cite[740]{visSoftwareMetricsBook}.}
+    \label{fig:visHierarchy}
+\end{figure}
+
+layout wird wie in groundlagen gesagt, sehr schnell unübersichtlich.
+
 3. A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization \cite{stableGreedyInsertion}
+stellen nur neuen treemap algorithmus vor, der fokus auf stabilität hat
+diese wruden erstmals hier vorgestellt \cite{Goertler2017BubbleTreemapsUncertainty}
+
 4. Visualizing Program Quality – A Topological Taxonomy of Features  \cite{visualizingProgramQuality}
+eigentlich gar nicht für software qualität, aber schlagen die bubble treemap vor
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/bubbleTreemap.png}
+    \caption{Beispiel für eine Bubble Treemap \cite[7]{Goertler2017BubbleTreemapsUncertainty}}
+    \label{fig:bubbleTreemap}
+\end{figure}
+
 5. Stable and predictable Voronoi treemaps for software quality monitoring \cite{stablePredictableVoronoi}
+erweitern voronoi
+3 metriken: 1. farbe 2. größe 3. reihenfolge der anordnung/bzw positionierung
+idee ist als 3. metrk den fully qualified name zu nutzen um so die topologie der hierarchie darzustellen
+-> Ziel vergleich zwischen verschiedenen versionen
+
+
 6. Visualization and evolution of software architectures \cite{visualizationEvolution}
-7. Multiple linked perspectives on hierarchical data \cite{multipleLinkedPerspectives}
-8. A visualization technique for metrics-based hierarchical quality models \cite{visualizationTechnique}
+%auch related work?
 
 IEEE Suche:
 Doppelt: 3 zB. Visualization of the Static Aspects of Software: A Survey \cite{staticSurvey}
 1. Metrics-based 3D visualization of large object-oriented programs \cite{metricsBased3DVisualization}
+auch größe und farbe als metrik
+
+Einzelne Kugeln, Würfel,... im 3d raum, die mit linien verbunden sind, je nach verbindung
+das layout ist nach einem gleichheitswert der klassen angeordnet, dieser wert kann alles sein, entweder metrik oder platz etc.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/metricsBased3DVisualization.png}
+    \caption{Die vorgestellte visualierungen zeigt, wie klassen in 3D gemappt werden anahdn von similarity score  \cite[5]{metricsBased3DVisualization}.}
+    \label{fig:metricsBased3DVisualization}
+\end{figure}
+
+
+
 2. Visualizing Metric Trends for Software Portfolio Quality Management \cite{visualizingMetricTrends}
+Stellen einfach eine Plattform vor, die verschiedene Metriken über zeit visualisiert
+mit linien plots und balken diagrammen für komplette software - nicht wirklich relevant für uns
+
+
 3. E-Quality: A graph based object oriented software quality visualization tool \cite{eQuality}
+
+\begin{quote}
+    First, we examine a small-sized project to be able to easily illustrate the features of E-Quality. \cite[5]{eQuality}
+\end{quote}
+nur vergleich mit folder based navigations methode
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/equality.png}
+    \caption{E-Quality: Ein graph basiertes objektorientiertes Software-Qualitätsvisualisierungstool. \cite[5]{eQuality}.}
+    \label{fig:eQuality}
+\end{figure}
+
+packete werden kreisförmig angeordnet
+Metriken haben auswirkung auf, muster, größe, farbe, form
+
+
 4. Visualization of Software Quality Expert Assessment \cite{visSoftQualExpert}
+auf projekt ebene
+
+
+
 5. QScored: An Open Platform for Code Quality Ranking and Visualization \cite{QScored}
+stellen eigentlich nur plattform vor
+visualisieren mit treemaps und sunburst und dependecy graph
+
+
 6. Using the City Metaphor for Visualizing Test-Related Metrics \cite{citMetaphorTestMetrics}
+Stadt methapher in minecraft
+Gebäude sind sehr detailiert und bilden methoden, attribute, metriken, interfaces, ... alles mögliche ab
+eher eine spielerei, aber im grunde layout wie code city
+
 7. Visual Analytics of Software Structure and Metrics \cite{visAnaSoftStructure}
+Nutzen den city view: von ecity \cite{ecity}
+eCITY: A Tool to Track Software Structural Changes Using an Evolving City
+
+
+
 
 
 Google Tool suche:
@@ -262,3 +460,13 @@ like step trees [6], Voronoi treemaps [2] and generalized treemaps
 [34]. Although relevant to hierarchy visualization, we pursue
 contributions that are sufficiently distinct from such work that we
 do not dwell on extensive comparisons. \cite{lu2008cascaded}
+
+
+\section{Dokumentation der Ergebnisse und Vorstellung der Layout-Umsetzung} \label{sec:DokumentationLayoutUmsetzung}
+In diesem Abschnitt stellen wir die Ergebnisse der Recherche vor und dokumentieren die Layouts, die wir in dieser Arbeit umsetzen wollen. 
+
+\subsection{Sunburst Layout}
+
+\subsection{Circle Packing Layout}
+
+\subsection{Noch eins mehr?}

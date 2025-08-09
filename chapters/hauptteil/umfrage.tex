@@ -47,3 +47,117 @@ engineering researchers. To avoid significant differences between them, they rec
 packages are represented within each layout technique, how
 to navigate in this 3D space, and finally how to perform the
 tasks and record time.
+
+%-------
+Interessant ist vllt auch die lokation von files. wie gut kann ein nutzer erkennen, wo sich eine Datei befindet. - 
+Ist datei X im selben ordern wie datei Y oder Z? 
+
+
+%-------
+\cite{visAnaSoftStructure}
+
+Using the statements and expressions found, calculate the cyclic complexity of the method. List the top-three methods (methodIds)
+with the highest cyclic complexity (CC)
+
+%---------
+\cite{metricsBased3DVisualization}
+To validate the results any quality impression and restructuring recommendation was assessed by two software
+engineers familiar with the system. Their feedback was
+captured by a questionnaire to rank every statement on a
+five-point scale ranging from completely wrong to completely right. The results of their feedback are shown in
+the figure 6.
+The results are very promising: About 91% of the
+quality impressions that were identified just by exploring
+the virtual information space were judged as completely
+or mostly correct. The lower agreement rate for the restructuring recommendations (61%) was not so surprising,
+because we didn’t know enough about the system details,
+the used coding and design strategies
+
+
+
+\cite{eQuality}
+umfrage bei experten, die die qualität von software bewerten sollen
+schauen, dann ob experten die fehler quellen identifizieren konnten, fehler quellen werden verifiziert, indem die quellen verglichen werden mit wie oft wurde dieser part der software verändert
+
+
+
+%------
+\cite{pacione2003comparative}
+2. Konkret gestellte Fragen
+Es wurden zwei Fragekataloge verwendet:
+
+A) Großskalige (Large-Scale) Fragen (L1–L9)
+Typische Verständnisfragen zum Gesamtsystem und Architektur:
+
+L1: Wie ist die statische Struktur des Systems?
+L2: Welche Interaktionen finden zur Laufzeit zwischen Objekten statt?
+L3: Wie sieht die high-level Architektur aus?
+L4: Wie interagieren hochrangige Komponenten?
+L5: Welche wiederkehrenden Verhaltensmuster gibt es im Laufzeitverhalten?
+L6: Welche Last haben die Komponenten zur Laufzeit?
+L7: Welche Design Patterns sind implementiert?
+L8: Wo sind die Hotspots für Erweiterungen im System?
+L9: Welche Auswirkungen hat eine Änderung im System auf andere Teile (Change Impact)?
+B) Kleinskalige (Small-Scale) / Reverse-Engineering-Fragen (S1–S6, für JHotDraw als J1–J6 konkretisiert)
+S1 (J1): Welche Kollaborationen bestehen zwischen Objekten in einer Interaktion?
+S2 (J2): Wie ist die Kontrollstruktur einer Interaktion?
+S3 (J3): Wie kann eine Änderung auf vorhandene Funktionalitäten abgebildet werden?
+S4 (J4): Wo befindet sich die benötigte Funktionalität für eine Lösung?
+S5 (J5): Welche alternativen Funktionalitäten gibt es für eine Aufgabe (und welche Nebenwirkungen haben diese)?
+S6 (J6): Wie ändert sich der internen Zustand eines Objekts während einer Interaktion?
+3. Auswertung/Analyse
+Fragezuordnung:
+
+Für jedes Tool wurde analysiert, welche der formulierten Fragen es beantworten konnte (Kreuztabelle: Tool × Frage).
+
+Für jede Frage wurde dokumentiert, ob das Tool ausreichend funktional ist, um sie zu beantworten.
+Dazu wurden die jeweiligen Analyse-, Extraktions- und Präsentationseigenschaften der Tools betrachtet.
+Performancemetrik:
+
+Absolute Anzahl der beantwortbaren Fragen pro Tool (z. B. 8 von 15)
+Prozentualer Anteil pro Fragekatalog oder insgesamt
+Explizit protokolliert in einer Ergebnistabelle/Matrix (siehe im Paper „Table 1“)
+Zusätzliche Bewertung:
+
+Die Ergebnisse wurden qualitativ mit Stärken/Schwächen-Analyse pro Tool ergänzt:
+
+Was sind die Gründe, warum ein Tool eine Frage nicht beantwortet (z. B. fehlende Abstraktionsebene, kein Zugriff auf Laufzeitdaten, keine State-Inspection usw.)?
+Welchen Einfluss hat die gewählte Abstraktionsebene darauf, ob ein Tool für kleine oder große Aufgaben nützlich ist?
+
+
+%-----
+\cite{slrSoftwareVisualization}
+Explizietes Ziel muss definiert sein: Zielgruppe, Nutzen, Szenario
+
+Realistische, aufgabenbasierte Fragestellungen:
+Comprehension/Verständnis:
+„Wie viele Methoden hat die größte Klasse im System?“
+„Wie viele Packages enthält die Codebasis?“
+Outlier-Findung:
+„Finden Sie die drei Klassen mit dem höchsten Fan-In?“
+„Wer sind die aktivsten Code-Contributor?“
+Feature Location:
+„In welcher Methode wird das Feature X (z.B. 'Speed erhöhen') implementiert?“
+Change Impact Analysis:
+„Welche Klassen werden direkt von Änderung Y beeinflusst?“
+Debugging:
+„Wo im Code befindet sich der Fehler, der zu diesem Verhalten führt?“
+Struktur- und Mustererkennung:
+„Finden Sie das größte symmetrische Subtree/Pattern/God Class im System.“
+
+
+
+Kombination aus Performance- und Erlebnismetriken
+Gute Fragen sollten nicht nur auf "richtig oder falsch" abzielen, sondern auch auf:
+
+Korrektheit („Wurde die Information zuverlässig gefunden?“)
+Bearbeitungszeit („Wie schnell?“)
+Erinnerungsleistung (z.B. mit Reproduction/Recall-Tasks: „Zeichnen Sie nach, was Sie gesehen haben.“)
+Usability („Wie intuitiv war die Interaktion?“)
+Engagement, Emotion, Zufriedenheit (z.B. „Fühlten sich die Nutzer mit der Visualisierung sicher/unterstützt?“)
+
+
+
+
+%-----
+nutze das frame work: \cite{frameworkSVEval}

@@ -1,21 +1,7 @@
 \chapter{Datenanalyse} \label{sec:datenAnalyse}
 Dieser abschnitt hat 2 ziele 1. eine gute auswahl an code basen finden, die wir sowohl für unsere algorithmus anpassungen als auch für die evaluation am ende verwenden können.
 2. wollen wir die Struktur von Softwareprojekten näher untersuchen, um zu verstehen, wie sie aufgebaut sind und welche Eigenschaften sie haben.
-
-wie gesagt wir wollen die Struktur näher bestimmen. Wie definiert ist die struktur immer eine baumstruktur. 
-Wir interessieren uns dabei für zwei spezielle Aspekte. 
-1. Die Hierarchie-Tiefe, also wie tief die Verschachtelung der Knoten ist. 
-%warum wollen wir baum tiefe?
-Zeigt uns worauf wir uns bei der Visualierung fokussieren müssen, entwerder darauf die order schachtelung zu optimieren oder darauf die geschwister zu optimieren.
-%wie messen wir dann?
-
-2. Die Anzahl der Kinder-Knoten eines Knotens, also wie viele geschwister knoten ein Knoten hat. Dieser Wert ist wichtig, da beim squarify algirhtmus, so wie wir in implementieren und anpassen, die laufzeit in jedem schritt von der Anzahl der Kinder-Knoten abhängt.
-Interessant ist das, weil wir in jedem neuen squarify schritt des algotihmus zb. eine sortierung der Kinder anlegen. Außerdem ist es interessant, weil wir in jedem algotihmus schritt immer nur alle geschister betrachten
-
-3. Die Anzahl der Knoten insgesamt, also wie viele DAteien in dem Projekt enthalten sind. Dieser Wert ist wichtig, da die Laufzeit des Algorithmus von der Anzahl der Knoten abhängt.
-Tivial. Das ist wichtig, weil das die laufzeit des algorithmus beeinflusst und natürlich auch die Visualisierung selbst.
-knoten sind dateien plus ordner. es kommt uns also gar nicht nur auf die order an.
-
+wie gesagt wir wollen die Struktur näher bestimmen. Wie definiert ist die struktur immer eine baumstruktur. genauso wie in der problemstellung (abschnit \ref{sec:Problemstellung}) definiert.
 
 
 \section{Auswahl der Projekte} \label{sec:auswahlDerProjekte}
@@ -28,7 +14,7 @@ Deshalb suchen wir nach Kriterien, die einen Einfluss auf die Struktur von Softw
 da es keine quellen gibt, die eine solche Auswahl an Kriterien vorgeben, können wir nur vermutungen anstellen und diese im nachhinein anhand der Daten überprüfen, können aber nicht sicher garantieren, dass wir wirklich alle relevanten Kriterien berücksichtigt haben. aber das ist ja auch keine arbeit über die selektion von Projekten, deshalb geben wir uns damit zufrieden.
 Zur identifikation von relevanten Kriterien richten wir uns nach den informationen, die die GitHub API uns zur verfügung stellt. Es gibt eine Vielzahl an Metainformationen. 
 
-Wir wählen initial 50 repositories aus. diese repositories wählen wir aus anhand der folgenden Kriterien. Dann überprüfen wir, ob die Kriterien tatsächlich einen Einfluss auf die Struktur der Projekte haben.
+Folgend checken wir erstmal die Kriterien, ob diese überhaupt relevant sind und ob sie einen Einfluss auf die Struktur von Softwareprojekten haben.
 
 \subsection*{Programmiersprache} Wir werden Projekte in verschiedenen Programmiersprachen betrachten, da die Struktur von Softwareprojekten in verschiedenen Programmiersprachen stark unterschiedlich sein kann - hier fehlt noch ein beweis - ist da überhaupt so? wenn nicht kann man das auch weglassen. Wir wählen die Programmiersprachen nach ihrer Popularität und Paradigma aus. 
     \begin{itemize}
@@ -38,11 +24,42 @@ Wir wählen initial 50 repositories aus. diese repositories wählen wir aus anha
         \item \textbf{C:} Eine der ältesten Programmiersprachen, die immer noch weit verbreitet ist (Platz 9 \cite{software_state_2022}). C-Projekte sind oft sehr nah an der Hardware und haben eine andere Struktur als Projekte in höheren Programmiersprachen.
         \item \textbf{Shell:} Eine Skriptsprache (Platz 8 \cite{software_state_2022}), die oft für Automatisierung und Systemadministration verwendet wird.
     \end{itemize}
-   kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
 
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsTiefe.png}
+        \caption{Die Tiefe variert stark nach Sprache. Zum Beispiel sind die meisten Knoten (95\%) in java deutlich tiefer (tiefe 7) gelgen als die meisten Knoten (75\%) in shell (tiefe 4)}
+        \label{fig:spracheVsTiefe}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsBreite.png}
+        \caption{Die Varieiert zwar im Durchschnitt teilweise zb zwsichen sheell und C aber im großen und ganzen sind die Intervalle der Quantile schon überlappend}
+        \label{fig:spracheVsBreite}
+    \end{figure}
+
+    
+Man sieht aber in beiden GRafiekn, dass die Sprache einen Einfluss auf die Struktur hat, was alles war was wir hiermit zeigen wollten.
 
 \subsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Wir gehen davon aus, dass Große Projekte auch dann größere Strukturen (also mehr knoten) haben (stimmt nicht zwingen - wie im folgenden ABschnit \ref{sec:auswahlDerProjekteImDetail} gezeigt wird) Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. 
-kleiner spoiler: Wir werden sehen, dass die Programmiersprache tatsächlich einen Einfluss auf die Struktur von Softwareprojekten hat.
+
+Wir beweisen kurz, dass die Größe einen Einfluss auf die Struktur hat, indem die Hierarchie-Tiefe in Abhängigkeit von der Größe untersuchen.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/githubGrößeVsTiefe.png}
+    \caption{Die Hierarchie-Tiefe korreliert positiv mit der Größe des Repositories, was zeigt, dass größere Repositories tendenziell eine tiefere Hierarchie haben. Pearson Korrelation von 0.37, zeigt dass die korrelation schon schwach ist, bzw es viele ausreißen oder andere faktoren gibt (wie zum beispiel die sprache)}
+    \label{fig:repoSizeVsTiefe}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/githubGrößeVsBreite.png}
+    \caption{Die Durchschnittliche Anzahl an Kinder-Knoten allerdings nur leicht positiv mit der Größe des Repositories korreliert, was zeigt, dass größere Repositories tendenziell eine größere Anzahl an Kinder-Knoten haben, aber nicht wikrlich ausschlaggebend. (Pearson Korrelation: 0.09)}
+    \label{fig:repoSizeVsBreite}
+\end{figure}
+
+Man sieht aber in beiden GRafiekn, dass die größe einen Einfluss auf die Struktur hat, was alles war was wir hiermit zeigen wollten.
 
 \subsection*{Ungenutzte Kategorien}
 Man könnte denken, dass auch andere Kategorien wie die Anzahl der Sterne oder die Anzahl der Mitwirkenden eines Projekts einen Einfluss auf die Struktur eines Projekts haben. Wir hatten auch diese vermutung und haben dies nachgeprüft. Um fragen zu vermeiden zeigen wir hier auch die ergebnisse, die gezeigt haben dass diese Kategorien keinen Einfluss haben und wir sie deshalb verworfen haben.
@@ -101,15 +118,14 @@ Da die größe nicht 1 zu 1 mit der Anzahl an nodes korreliert. ein order zum be
     \label{fig:repoAnzahlNodesVerteilung}
 \end{figure}
 
-\subsection{Analyse der ausgewählten Repositories} \label{sec:analyseDerAusgewähltenRepositories}
+\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}    
+
 Wie berechnen wir die Struktur der Repositories und wie bekommen wir metrik daten für diese REpos?
 Wir clonen jedes repo und analysieren die Struktur der Repositories mit dem CodeCharta Analysis CLI Tools \cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
 %ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc "--verbose=false" "--exclude=" "--file-extensions="
 Als ergebnis bekommen wir eine JSON-Datei, mit der in Abschnit \ref{sec:Problemstellung} definierten Struktur. Ein Beispiel ist auch im anhang (Listing \ref{lst:artificial.cc.json}) zu finden.
 
-\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}    
-
-Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wwurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
+Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
 
 Warum wollen wir das tun? Weil wir uns erhoffen, erkenntnisse über die Datei-Struktur von Software-Projekten zu gewinnen, die uns helfen, die algorithmen genau für diese Strukturen zu optimieren und außerdem die Laufzeiten der algorithmen eine bessere einschätzung zu geben.
 
@@ -118,3 +134,39 @@ Im Grundlagen Kapitel wurde bereits erwähnt, dass die Metrik-Daten, die wir dur
 numberOfFiles: 3262.34 (avr), 708.50 (median), 7391.42 (std)
 numberOfFolders: 958.76 (avr), 242.00 (median), 2089.59 (std)
 numberOfNodes: 4221.10 (avr), 1108.50 (median), 9308.05 (std)
+
+sehr hohe varianz zwischen den einzelen repos. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/anzahlKindZuOrdner.png}
+    \caption{Die Anzahl der Kind-Knoten pro Ordner. Mehr als 50\% der Ordner haben nur ein Kind. Das 95 Prozent Quantil liegt bei 18.}
+    \label{fig:anzahlKindZuOrdner} 
+\end{figure}
+
+in abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben (was auffällig ist, sie Ordnerketten im folgenden). Das quantil 95 liegt bei 18, was interessant wird im Abschnitt 
+
+\subsection{Orderketten} \label{sec:OrderKetten}
+Wir vermuten, dass die hohe Tiefe bei java daher kommt, dass es in Java üblich ist, die Struktur des Codes in Paketen zu organisieren, die häufig in mehreren Ebenen verschachtelt sind. Zb: 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsKettentiefe.png}
+    \caption{Die Kettentiefe ist besonders bei Java auffällig variant und auch der Mittelwert ist höher als der bei allen anderen Sprachen.}
+\end{figure}
+Zum Beispiel im OpenSource Projekt CodeCharta \cite{code_charta_github}
+codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
+Ab dem Ordern \textit{main} bis zum Ordner \textit{analyserinterface} geht die Kette von Ordnern.
+Da wir uns aber für die generelle vertelung interessieren hier die grafik:
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/kettentiefe.png}
+    \caption{Die meisten Ketten sind nur 1 Ordner tief (Ordner + Ordner + Datei/Mehrer Dateien/Mehrere Ordner). Auffällig ist, dass es wieder mehr ketten von länge 4 gibt.}
+    \label{fig:kettentiefe}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsOrderInKetten.png}
+    \caption{Die Anzahl der Ordner, die Teil einer Kette sind, ist besonder hoch bei Java. Der Durchschnittswert über alle Sprachen liegt bei ca. 33\% und der von Java bei ca. 50\%.}
+    \label{fig:spracheVsOrderInKetten}
+\end{figure}
+Die beiden grafiken zeigen uns, dass es viele Ketten gibt (speziell in Java) und dass viele Ordner in diesen Ketten sind. Außerdem können ketten nicht nur ein order tief sein sondern häufig auch 4 ordner tief. Diese erkenntniss wird in Abschnitt \ref{sec:OrderKettenOptimierung} eine Rolle spielen.

@@ -1,6 +1,8 @@
 \chapter{Erweiterung des Squarify Algorithmus} \label{sec:VerbesserungSquarify}
 In diesem Abschnitt wird der Squarify Algorithmus \cite{bruls2000squarified}, wie er in Abschnitt \ref{sec:Squarify} beschrieben wurde, auf verschiedene Weisen erweitert und angepasst, um das Layoutproblem, wie es in Abschnitt \ref{sec:TreemapProblem} beschrieben wurde, anzugehen. 
 
+%Nesting offsets give users control over the allocation of display space between internal and leaf nodes. Larger offsets put greater emphasis on internal nodes and hence the structure of the hierarchy; smaller offsets emphasize leaf nodes. \cite[48]{johnson1993treemapsPhd}
+
 \section{Kriterien für Treemap Layouts} \label{sec:CodeCityLayouts}
 Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D layout, die diese Aspekte messbar machen. Diese Kriterien sollen helfen, die Qualität der Visualisierung zu bewerten und zu vergleichen. Die Kriterien sind:
 
@@ -38,6 +40,10 @@ Wir stellen verschiedene Ansätze vor, was sowohl die Größenanpassung als auch
 Die Algorithmen funktionieren allerdings alle nach ähnlichem Prinzip: Es wird zunächst für jeden Knoten die Fläche die der Abstand in diesem Layout benötigen würde addiert, indem die Fläche aus der neuen Länge (alte Länge + 2 mal den Abstand) und der neuen Breite (alte Breite + 2 mal den Abstand) berechnet wird. Zusätzlich wird für Elternknoten die Flächenvergrößerung aller Kindernkoten addiert. An dieser Stelle ist allerdings nicht klar, wie sich die Flächenvergrößerung der Kinderknoten auf die Fläche der Elternknoten auswirkt, da diese Änderung selbst von der Anordnung der Kinderknoten abhängt. Wir testen verschiedene Ansätze, um die Flächenänderung der Elternknoten in Abhängikeit zu der Flächenänderung der Kinderknoten zu approximieren.
 
 Nach dem zweiten Durchlauf wird nun die Fläche der Knoten so reduziert, dass sowohl der Abstand zwischen Geschwistern als auch der Abstand zu den Elternknoten den gewünschten Wert hat. Dies ist straight forward und wird hier nicht weiter erläutert. Anzumerken ist aber das dieser Schritt speziell abhängt von der Art der Größenanpassung, die im ersten Schritt durchgeführt wurde.
+
+\subsection{annäherungs wert} 
+Hier beschreiben, welche phi wert genutzt wurde und warum.
+Und das dann aus dem grundlagen teil raus nehmen
 
 \subsection{Größenanpassung}
 Dies ist die einfachste naive Version der Größenanpassung, der Algorithmus zeigt aber gut die zuvor beschriebenen Probleme auf. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. 
@@ -150,6 +156,9 @@ mit diesen Werten:
 
 
 \section{Scaling der Knoten} \label{sec:ScalingKnoten}
+%wird auchin \cite[52]{johnson1993treemapsPhd} erwähnt
+}
+
 Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
@@ -175,7 +184,55 @@ Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der
 
 \section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
 Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst.
-%was machen wir damit?
+Außerdem haben wir in Abschnitt \ref{sec:strukturVonSoftwareprojekten} gezeigt, dass 95\% der Ordner maximal 18 Kindknoten haben. Das sortieren aller Knoten in einem Ordner nach Größe ist also gar nicht mal so Zeitaufwendig, wie man denken könnte, wenn man tausende von knoten hat, weil immer nur ein kleines set von knoten sortiert werden muss. Kleines Beispiel:
+%O(n mal log(n))
+Wenn wir von einem typischen sortier algorithmus mit einer Laufzeit von $\mathcal{O}(n\log n)$ (zB. quicksort), einer anzahl von 4221 Knoten (Durchschnittwert der Anzahl der Knoten siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}) und 18 Knoten pro Ordner. 
+Wenn wir alle Knoten auf einmal sortieren wollen: 
+
+\[
+T_1 = n \cdot \log_2(n) = 4221 \cdot \log_2(4221)
+\]
+
+\[
+\log_2(4221) \approx 12.04
+\]
+
+\[
+T_1 \approx 4221 \cdot 12.04 \approx 50821
+\]
+
+Wenn wir die Knoten in 18er bundleln sortieren wollen: 
+
+\[
+T_2 = m \cdot \left(k \cdot \log_2(k)\right) = 235 \cdot \left(18 \cdot \log_2(18)\right)
+\]
+
+\[
+\log_2(18) \approx 4.17
+\]
+
+\[
+T_2 \approx 235 \cdot (18 \cdot 4.17) = 235 \cdot 75.06 \approx 17639
+\]
+
+%Zeige zusätzlich anhand von DAten, dass das sortieren eigentlich keinen unterschied macht in der rechendauer
+% generiert mit:
+% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
+% const numberOfPassesValues = [2]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [true, false]
+% const sortingOptionValues = [SortingOption.DESCENDING, SortingOption.NONE]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true]
+% const collapseFoldersValues = [false]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [1]
+% const labelLengthValues = [0]
+
+Der algorithmus mit sortierung braucht im Schnitt ca. 5.5ms und mit sortierung ca. 6.5ms. also ca 1ms mehr (Median 0.4ms). 
+
+%gehe noch darauf ein, dass man mit der reihenfolge theorteisch auch bestimmten kann, wo hohe knoten platziert werden, um Potentielle überdeckung zu vermeiden.
 
 \subsection{Reihenfolge der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
 Durch die updates der Größen der Knoten nach dem ersten Layoutschritt, kann es passieren, dass die Größenreihenfolge der Knoten sich ändert. Das als zum Beispiel Knoten A im ersten Layoutschritt größer ist als Knoten B, aber nach dem Update der Größen von Knoten A kleiner ist als Knoten B. Das kann dazu führen, dass im folgenden Layoutschritt, die Knoten in einer anderen Reihenfolge platziert werden als im ersten Layoutschritt. 
@@ -214,12 +271,9 @@ hier ist es auch interessant den effekt in kombination mit der Reihenfolge der K
 \section{Änderungen im Layout} \label{sec:LayoutÄnderungen}
 Folgend werden Änderungen beschrieben, die sich sichtbar auf die Visualierung auswirken und nicht nur auf Platzierung, Größe, Form,... etc der Knoten. Diese Änderungen zielen trotzdem vorallem darauf ab, das Treemap-Layout-Problem zu lösen bzw. abzuschwächen, machen dies aber vorallem durch visuelle Anpassungen und nicht durch komplexe algorithmische Anpassungen.
 
-\subsection{Optimierung von Ordnerketten} \label{sec:OrderKetten}
-Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Diese Struktur wird zum Beispiel für Module in Java/Kotlin verwendet.
-Zum Beispiel im OpenSource Projekt CodeCharta 
-codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
-Ab dem Ordern \textit{main} bis zum Ordner \textit{analyserinterface} geht die Kette von Ordnern.
-Durch diese tiefe Verschachtelung wird viel Platz für die Abstände zwischen den Ordnern verbraucht, obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
+\subsection{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
+Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
+obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
 Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
 Es ergeben sich folgende Auswirkungen auf die Ziele der Visualisierung:
 \begin{itemize}
@@ -293,6 +347,15 @@ Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie 
 Ordner erhalten eine Zusätzliche horizontale Fläche, entweder unten oder oben, die den Namen des Ordners enthält. 
 Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für den Algorithmus, wie die abstände zwischen den Knoten. Außerdem kann es passieren, dass die Beschriftung zu lang für die breite der Knotens ist, wodurch die Beschriftung entweder abgeschnitten wird oder über den Knoten hinauswächst.
 Hao Lü and James Fogarty schlagen vor dynamisch zu entscheiden, ob die Beschriftung der Knoten angezeigt werden soll oder nicht \cite{lu2008cascaded}. Wenn das Hinzufügen der Beschriftung den Knoten dazu führen würde, dass gar kein Platz mehr für den Knoten selbst übrig bleibt, wird die Beschriftung nicht angezeigt. Der Vorteil dieses Ansatzes ist, dass sicher gegangen wird, dass durch die Beschriftung kein Knoten verschwindet. Der Nachteil ist, dass selbst wenn die Änderung der Knotenfläche zum Knotenwert durch das hinzufügen der Beschriftung riesig wird (wenn die Fläche also super klein wird), die Beschriftung trotzdem hinzugefügt wird. 
+
+%\cite{largeHierarchicalRepositories}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{images/improve/beschriftungAuf.png}
+%     \caption{Beispiel Platzierung der Beschriftung auf der Treemap \cite{largeHierarchicalRepositories}.}
+%     \label{fig:beschriftungAuf}
+% \end{figure}
+
 
 Wir schlagen einen statischen ansatz vor, bei dem nur die Beschriftungen der Top N order angezeigt werden. 
 Die Wahl von N ist nun die Stellschraube für die nicht für jede Codebasis gleich ist. Es ist Stellschraube um zwischen Informationsgehalt und visuelle Komplexität zu balancieren.
@@ -403,3 +466,6 @@ Warum besonders den squarify algorithmus betrachtet und nicht zum beipsiel pivot
 
 
 %erkläre, warum wir immer ein seitenverhältnis von 1 anstreben. -> weil dadurch sogar näher am goldenen schnitt als mit phi, dadurch, dass nicht optimial, wird man immer "schlechter" sein, als der angestrebte ratio. vllt sogar grafisch zeigen, dass mit 1 besser ist. In d3.js zum beispiel wird phi verwendet, wir als autoren halte das für eine schlechte idee, aus den genannten gründen
+
+
+%noch ein punkt der nicht beachtet wurde ist die Höhe, 

@@ -5,9 +5,63 @@ Im gegensatz zu dem literatur abschnitt werden wir hier nur Arbeiten vorstellen,
 2. verbesserung des Treemap Problems durch margins
 
 
-%Nochmal mehr nach schlagworten schauen bei cascaded, was für schlagwörter - in welchem kontext wurde es veröffentlicht
 
 \section{Vergleich von 2.5D Visualisierungen}
+
+
+
+Das Paper vergleicht fünf dynamische Visualisierungstools hinsichtlich ihrer Unterstützung für Softwareverständnis und Reverse Engineering. Ziel ist es zu untersuchen, warum solche Tools kaum außerhalb der Forschung eingesetzt werden, obwohl sie grundsätzlich große Potenziale für das Verständnis und die Analyse von Softwaresystemen bieten. \textit{A comparative evaluation of dynamic visualisation tools} \cite{pacione2003comparative} 
+altes paper 2003 
+ziel ist für entwickler, anders als dieses paper
+Ergebnisse Kein einziges tool reicht komplett aus
+Tools sollten stärker Design Patterns sowie Hotspots - ziel dieser arbeit
+
+
+5. An overview of 3D software visualization \cite{overview3D}
+Der Artikel bietet einen umfassenden Überblick über den Stand der Forschung im Bereich 3D-Softwarevisualisierung. Ziel ist es, Methoden, Visualisierungsansätze, Interaktion, Tools und Evaluationsmethoden vorzustellen
+Sie stellen viele verschiedene Ansätze vor und kategorisieren diese: Graphen: 3D-Knoten/Kantennetze z.B. zur Darstellung von Klassenbeziehungen, oft mit ausgefeilten Layout-Algorithmen (z.B. Kräfte-basiert, hyperbolische Layouts).
+Bäume: 3D-Kegel-Bäume („Cone Trees“), Informationen als verschachtelte Container (z.B. „Information Cubes“).
+Geometrische Primitive: Polyeder, Lego-Steine, Geons (primitive 3D-Formen), Metaballs u.a. als Darstellung von Softwarestrukturen.
+Reale Welt-Metaphern:
+Beispiele: „CodeCity“ (Software als 3D-Stadt), orbitale/solare Modelle, Landschaften, Molekül- oder Netzstrukturen, Game-Engines zur Darstellung von Code.
+Interesant von 22 tools nur 4 für managers oder stakeholders bestimmt und davon nur 1 die auch die software visualiert, die anderen 3 geht es um requirements visualisierung. -> wenig ausgeprägt 
+Sie stellen fest: Es gibt noch relativ wenige empirische Nutzungsstudien zu 3D-Visualisierung.
+
+
+
+
+3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
+Ähnlich wie paper zuvor überblick geben
+Quellcode-Ebene: Zeilenweise Ansichten wie SeeSoft oder sv3D
+Klassen/Mittel-Ebene: Visualisierung der Inneren Struktur und Beziehungen einer oder mehrerer Klassen (z.B. Class Blueprint)
+Architektur-Ebene: Überblick über die globale Organisation, Beziehungen (z.B. Erbe, Aufrufe), und Qualitätsmetriken der gesamten Software
+für diese ebene stellen sie diese visualisierunge vor:
+Tree/Node-Link Diagramme: Für kleine Hierarchien geeignet, werden bei großen Systemen aber schnell unübersichtlich.
+Treemap, Circular Treemap, Sunburst, Voronoi Treemap: Platzsparende, hierarchische Darstellungen (Rechtecke, Kreise, Voronoi-Flächen), sowohl in 2D als auch 3D.
+In dieser arbeit hier wird eher auf architektur ebene geschaut. da für kunden details nicht so wichtig sind, es geht um den überblick
+Herausforderungen und offene Probleme:
+Usability, Kognitive Überlastung, Disorientierung in 3D, Informationsüberladung
+Geringe Verbreitung leistungsfähiger Tools in der Praxis (viele Forschungsprototypen)
+
+
+6. Visualization and evolution of software architectures \cite{visualizationEvolution}
+auch ähnlich wie paper zuvor überblick geben
+Unterscheiden auch in hierarchische und beziehungsbasierte Visualisierungen. unss interessiert hier vorallem die hierarchischen Visualisierungen, da diese auch in dieser Arbeit verwendet werden:
+Viele Softwarearchitekturen sind hierarchisch organisiert (Packages → Klassen → Methoden).
+Klassische Node-Link-Diagramme (Knoten-Kanten-Diagramme) werden schnell unübersichtlich bei großen Systemen.
+Treemaps: Platzfüllende, verschachtelte Rechtecke stellen Hierarchien kompakt dar, jedoch meist nur für Blätter geeignet; oft nur eine Metrik kann visualisiert werden.
+Icicle Plots und Sunburst-Diagramme: Zeigen Hierarchien linear (Icicle) oder radial (Sunburst) an, erlauben Darstellung von zwei Metriken.
+Hyperbolische Bäume: Nutzen eine verzerrte Geometrie, um mehr Informationen zentral sichtbar zu machen.
+
+
+
+
+\cite{bassil2001software}
+systematisch herauszufinden, welche funktionalen, praktischen und kognitiven Aspekte Nutzer an diesen Tools besonders schätzen, welche Probleme auftreten und welche Verbesserungswünsche bestehen.
+Ergebnis: wichtig: Hierarchische Repräsentationen, Benutzerfreundlichkeit/Usability, Effizienz bei großen Systemen, Qualität der Benutzeroberfläche, .... noch mehr
+wenige tools können: Berechnung von Metriken
+aber auch für experten eher ausgerichtet
+
 
 Erste Suche: allintitle: "3D Software Quality Visualization"
 gibt nur ein relevantes Ergebnis:
@@ -31,7 +85,7 @@ Von den untersuchten 81 Algorithmen sind 54 rechteckige Layouts und 58 splitting
 Wir suchen hierfür speziell nach layouts die abstände haben. die meisten treemap layouts haben keine abstände, wodurch bei der extrusion ins drei dimensionale und ohne farbgebung die Struktur der Hierarchie nicht mehr erkennbar ist. Deswegen wird speziell nach treemap layouts gesucht, die abstände haben und die Struktur der Hierarchie darstellen.
 
 
-Es gibt bisher noch zu wenige ARbeiten, die sich mit dieser Frage beschäftigen. (Oder eigentlich gibt es nur eine die wirklich in die richtung geht - mehr dann bei verwandte arbeiten)
+Aktuell gibt es nur eine arbeit die dieses Problem explizit anspricht und zwar \cite{lu2008cascaded}.
 
 
 \cite{lu2008cascaded}:
