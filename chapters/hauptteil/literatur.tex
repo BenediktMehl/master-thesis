@@ -1,9 +1,10 @@
-\chapter{Layout Suche} \label{sec:LiteraturRecherche}
-Das Ziel dieses Abschnitts ist es 2D-Layouts zu finden, die geeignet sind, um extrudiert zu werden und Software-Qualitätsmetriken in Form der in Abschnit \ref{sec:Problemstellung} definierten Form in 2.5D zu visualisieren. Alternativ können auch direkt 2.5D Visualisierungen gefunden werden, die geeignet sind, um Software-Qualitätsmetriken wie in der definitern Form zu visualisieren. 
-In diesem Abschnitt stellen wir zunächst die Methodik vor, die wir bei der Recherche verwendet haben. Anschließend stellen wir die Ergebnisse der Recherche vor. 
+\chapter{Layout Auswahl} \label{sec:LiteraturRecherche}
+Das Ziel dieses Abschnitts ist es 2D-Layouts zu finden, die geeignet sind, um extrudiert zu werden und Software-Qualitätsmetriken in Form der in Abschnit \ref{sec:Problemstellung} definierten Form in 2.5D zu visualisieren.
+Es ist anzumerken, dass es wirklich unzählige verschiede Softwarevisualierungen gibt und niemals alle betrachtet und analysiert werden können. Deshalb konzentrieren wir uns auf die, die am relevantesten für unsere Problemstellung sind und die am relevantesten für die Forchung sind.
+Im ersten Abschnitt stellen wir zunächst die Methodik vor, die wir bei der Recherche verwendet haben. Anschließend stellen wir die Ergebnisse der Recherche vor. Danach stellen wir die Layouts vor, für die sich entschieden wurde.
 
 \section{Methodik} \label{sec:Methodik}
-Die hier verwendete Methodik orientiert sich an der Methodik der systematischen Literaturrecherche, wie sie in \textit{Procedures for performing systematic reviews}\cite{kitchenham2004procedures} beschrieben wird, ist aber leicht angepasst, da es vorallem um das finden und einordnen von Layouts geht und nicht direkt um das Bewerten und vergleichen von verschiedenen Arbeiten.
+Die ersten Schritte der hier verwendete Methodik orientiert sich an der Methodik der systematischen Literaturrecherche, wie sie in \textit{Procedures for performing systematic reviews}\cite{kitchenham2004procedures} beschrieben wird, ist aber leicht angepasst, da es vorallem um das finden und einordnen von Layouts geht und nicht direkt um das Bewerten und vergleichen von verschiedenen Arbeiten.
 
 \subsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
 Die Problemstellung dieser Arbeit an der hier gearbeitet wird ist bereits definiert:
@@ -61,18 +62,18 @@ Für die normale Google suche, verwenden wir verschiedenste heuristische Filter 
 
 \subsection*{4. auswertung der paper und extraktion der layouts} \label{sec:AuswertungPaper}
 Filtern der Layouts, könnten diese für 2.5D geeignet sein?
+Die anforderung die wir an das layout haben:
+1. die input daten für das layout müssen die zuvor definierte form haben \ref{lst:nodeSchema}
+sie müssen zunächst in einem layout schritt in die zuvor definierte form gebracht werden: \ref{lst:nodeLayoutSchema}
+Dann müssen sie in einem extrusionsschritt sinnvoll in 2.5D form gebracht werden könnenf
+
+
 Sammeln und gruppieren der geeigneten verschiedener Layouts
-Entscheiden für layouts
+wir gruppieren die layouts 
+Wir unterscheiden bewusst zwischen Treemap und CodeCity, da CodeCity zwar ein Treemap Layout nutzt, dieses aber sehr untypisch für eigentliche Treemaps ist, da viele freie flächen gibt und nicht kante an kante liegt.
 
 
 
-Wie entscheide ich, ob ein layout geeignet ist:
-- Es sollte eine Art von Metrik oder Wert darstellen können.
-- Es sollte eine Art von Layout haben, dass die Struktur der Hierarchie darstellt.
-- Es sollte ins drei dimensionale extrahierbar sein.
-- Es soll auch ohne spezielle Einfärbung im 2D funktionieren - eventuell nur die ordner einfärben
-
-\subsection*{5. qualitäts analyse: (Analyse der Layouts und entscheidung welche layouts in dieser arbeit behandelt werden)} \label{sec:QualitaetsAnalyse}
 
 \section{Durchführung der Suche}
 Hier stellen wir zunächst die Ergebnisse der Suche vor nachdem bereits die Filter angewendet wurden.
@@ -91,6 +92,7 @@ Erste Google Scholar Suche:
 Aber selbst sie fügen kanten hinzu - und größere he höher
 außerdem nutzen sie Sättigung um noch mehr die Tiefe und die Hierarchie darzustellen
 - Kritik: sie wollen treemap geschwisterproblem lösen, schaffen dies aber durch ihren ansatz nicht wirklich und fügen dann doch wieder kanten und farbe hinzu um das zu unterstützen
+Fazit: Ja, voronoi würde zu unseren anforderungen passen, aber man hätte genau wie bei treemaps das struktur und abstandsproblem
 
 2. Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
 - Zeichnen auch Quader. diese Quader haben immer die selbe grundfläche
@@ -100,7 +102,7 @@ außerdem nutzen sie Sättigung um noch mehr die Tiefe und die Hierarchie darzus
 -Struktur auf klassen und paket ebene -> das macht es natürlich einfacher, da es generell wenier packete als ordner gibt (packete können auch nochmal in ordner unterteilt sein)
 - Am ende nutzen sie für die platzierung treemap und Sunburst
 - Da die fläche fix und diskret ist, erweitern sie sowohl den treemap als auch den sunburst algorithmus
-- Treemap: beim slicen, wenn der platz zu schmal wird, wird der platz einfach erweitert, für alle knoten, in eine richtung -> sehr viel leerer platz, auch wenn sie versuchen das so gering wie möglich zu halten
+- Treemap: beim slicen, wenn der platz zu schmal wird, wird der platz einfach erweitert, für alle knoten, in eine richtung -> sehr viel leerer platz, auch wenn sie versuchen das so gering wie möglich zu halten, werden wir nicht umsetzen
 \enquote{burst can still result in the insertion of holes in the representations. In simple illustrations such as in Figure 4, this looks like a serious problem. However, our framework is designed to study systems made of hundreds and thousands of elements. In fact, in the average cases (real softwares) that we tested, it did not prove a problem at all in our visualization.}
 Zeigt, wie wichtig unsere datenanalyse ist, da es wichtig ist die visualisierung für reale daten zu machen und nicht nur simple beispiele
 
@@ -115,44 +117,11 @@ vielleicht etwas zu simple gedacht??
 
 \enquote{there is still room for improvements, mainly to better exploit the entire display space}\cite[8]{visbasedlarge}
 
-3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
-In diesem Paper werden verschiedene Visualisierungen vorgestellt. dieses paper auch schon in verwandten arbeiten erwähnt.
-Es werden 6 verschiedene Visualisierungen vorgestellt, die auch auf unseren usecase passen. 
+Fazit: Ja, geeignet, Nutzen im grunde sehr simple treemap oder sunburst
 
-Sehr gute arbeit, da sie einige visualiasierungen vorstellen.
-2D: Treemap, Sunburst, Circle Packing, voronoi
-
-Verschiedene Stadtmethaphern
-Eine stadt und insel methapher,
-solar system methapher, welche gleich auch noch genauer beschrieben wird
-hierarchical net
-
-Zeigen auch, dass das was am meisten verwendet ist stadt methapher und generell treemaps
-
-Ansonsten auch viele andere visualisierungen, die nicht so gut passen, weil es speziell um architektur, evolution oder verbindungen geht.
-
-
-4. Visual realism for the visualization of software metrics \cite{visRealism}
-Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte dar zu stellen
-nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level
-
-5. An overview of 3D software visualization \cite{overview3D}
-Zeigen alles von 2D, 2.5D und 3D
-
-
-
-6. CityVR: Gameful software visualization \cite{cityVR}
-- Stellen stadt methapher in 3D vor
-- fokus auf gamification
-- layout ist ähnlich wie bei codecity
 
 7. A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}
 Schauen diese metriken an:
-Lines of Code(LOC) NCSS
-Number of Children(NOC) DF
-Weighted Methods (WMC) NCSS
-Coupling Between Objects(CBO) DF
-Depth of Inheritance Tree (DIT) DF
 ganz neue methapher: solar system
 
 \begin{figure}
@@ -177,6 +146,43 @@ Es gibt doch auch einige überdeckungen, da die umlaufbahnen, teilweise hinter a
 Man könnte das ganze als 2D Layout verwenden und dann kugelförmig extrudieren, das 
 ich stelle es mir unvorteilhaft vor
 
+Fazit: Nicht geeignet, es ist wirklich 3D und nicht 2.5D. Zudem viele Nachteile
+
+
+3. Visualization of the static aspects of software: A survey \cite{staticSurvey}
+In diesem Paper werden verschiedene Visualisierungen vorgestellt. dieses paper auch schon in verwandten arbeiten erwähnt.
+Es werden 6 verschiedene Visualisierungen vorgestellt, die auch auf unseren usecase passen. 
+
+Sehr gute arbeit, da sie einige visualiasierungen vorstellen.
+2D: Treemap, Sunburst, Circle Packing, voronoi
+
+Verschiedene Stadtmethaphern
+Eine stadt und insel methapher,
+wieder solar system methapher
+-> im grunde circle packing, aber in 3D
+hierarchical net -> circle packing in 2.5D -> mit extrusion zu halbkugel
+
+Zeigen auch, dass das was am meisten verwendet ist stadt methapher und generell treemaps
+
+Ansonsten auch viele andere visualisierungen, die nicht so gut passen, weil es speziell um architektur, evolution oder verbindungen geht.
+
+Fazit: Geeignet: in 2D: Treemap, Sunburst, Circle Packing, voronoi
+in 2.5D: hierarchical net, was in 2D quasi Circle Packing ist
+
+4. Visual realism for the visualization of software metrics \cite{visRealism}
+Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte dar zu stellen
+nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level
+Fazit: Ja, geeignet, aber nur als einfache treemap, weil cushion, wie in abschnit Problemstellung nicht geeignet
+
+
+6. CityVR: Gameful software visualization \cite{cityVR}
+- Stellen stadt methapher in 3D vor
+- fokus auf gamification
+- layout ist ähnlich wie bei codecity
+Fazit: codecity layout geeignet
+
+
+
 8. EvoSpaces: 3D Visualization of Software Architecture. \cite{EvoSpaces}
 Sie untersuchen verschiedene darstellungen 
 simple darstellungen wie einfache quader oder auch wirkliche häuser
@@ -200,16 +206,27 @@ sie stellen aber nur zwei layouts vor, die nicht die struktur zeigen, sondern au
     \label{fig:evoSpaceLayout}
 \end{figure}
 
+Fazit: Layouts sehr simple, wert wird auf Darstellung der GEbäude gelegt
+Theoretisch geeignet, aber hier nicht, weil zu simple und wir denken dass die anderen Darstellungen überlegen sind, weil einfacher und mehr metriken darstellbar
+
 
 9. 3D representations for software visualization \cite{3dsoftwareMarcus}
 weiterentwicklung von 2d pixel bars ins 3D, weil mehr metriken und besser die verbindungen darstellbar
-softvis3d
-läuft auch auf basis von metriken auf datei ebene
+läuft auch auf basis von metriken auf zeilen ebene
 sehr detailiert, viel kleineteiligere darstellung, da einzelene code zeilen dargestellt werden
 vorallem für die entwicklung gedacht
 überdeckung wollen sie mit transparenz lösen
 layout angeordnet nach zeile für zeile
 keine hierarchie
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/marcus.png}
+    \caption{3D Pixel Bars: Für jede Datei gibt es eine eigene Visualisierung auf Zeilenebene \cite[7]{3dsoftwareMarcus}.}
+    \label{fig:3dsoftwareMarcus}
+\end{figure}
+
+Fazit: ist 2.5D aber zu detailiert. Die input daten passen nicht zu unseren Anforderungen
 
 
 10. Software cartography: Thematic software visualization with consistent layout \cite{softwareCartography}
@@ -220,14 +237,14 @@ als stress wert der funktion wird die Lexikalische Distanz zwischen den Dateinam
 sie zeigen noch eine erweiterung mit icons auf den bergspriten, die auch noch eine metrik darstellen können
 wurde besonders entwickelt mit dem Ziel von software evolution
 
-ich sage, das ist eine interessante grundidee und anders
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartography.png}
     \caption{Software Cartography: Topographische Kartenmetapher für Software Visualisierung. Die Hügel repräsentieren Dateien, die Höhe ist eine Metrik (z.B. LOC). \cite{softwareCartography}.}
     \label{fig:softwareCartography}
 \end{figure}
+
+Fazit: Ja, ist 2.5D und geeignet
 
 zweite Google scholar suche:
 Doppelte Treffer: 4 zB.: Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
@@ -244,7 +261,8 @@ Jeder knoten hat dann nochmal intern eine Treemap, die die Struktur des knotens 
 \end{figure}
 
 interaktion mit zoomen ist von nöten. 
-Alles bisher noch in 2D
+
+FAzit: Nein, ist 3D
 
 2. Visualizing Software Metrics in a Software System Hierarchy \cite{visSoftwareMetricsBook}
 im grunde eine link treediagram, 
@@ -259,12 +277,15 @@ Metrik stripes - metrische streifen, zeigen über breite und farbe verschiedene 
 
 layout wird wie in groundlagen gesagt, sehr schnell unübersichtlich.
 
+Fazit: Ja, ist 2D und könnte 3D werden, aber wir haben bereits in den grundlagen festgestellt, dass link treediagramme nicht gut geeignet sind, deshalb hier nicht weiter verfolgt
+
 3. A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization \cite{stableGreedyInsertion}
 stellen nur neuen treemap algorithmus vor, der fokus auf stabilität hat
-diese wruden erstmals hier vorgestellt \cite{Goertler2017BubbleTreemapsUncertainty}
+Fazit: ja, treemap
 
 4. Visualizing Program Quality – A Topological Taxonomy of Features  \cite{visualizingProgramQuality}
 eigentlich gar nicht für software qualität, aber schlagen die bubble treemap vor
+diese wruden erstmals hier vorgestellt \cite{Goertler2017BubbleTreemapsUncertainty}
 
 \begin{figure}
     \centering
@@ -273,18 +294,36 @@ eigentlich gar nicht für software qualität, aber schlagen die bubble treemap v
     \label{fig:bubbleTreemap}
 \end{figure}
 
+FAzit: ja, ist 2D und lässt sich gut in 2.5D extrudieren
+
 5. Stable and predictable Voronoi treemaps for software quality monitoring \cite{stablePredictableVoronoi}
 erweitern voronoi
 3 metriken: 1. farbe 2. größe 3. reihenfolge der anordnung/bzw positionierung
 idee ist als 3. metrk den fully qualified name zu nutzen um so die topologie der hierarchie darzustellen
 -> Ziel vergleich zwischen verschiedenen versionen
 
+Fazit: Ja, voronoi treemap
 
 6. Visualization and evolution of software architectures \cite{visualizationEvolution}
-%auch related work?
+Bereits in verwandten arbeiten erwähnt
+Sie stellen verschiedene visualisierungen vor
+unter anderem:
+- 2D: Treemap, Sunburst, Voronoi, circle treemap, icicle plot, hyperbolic tree, streetmap 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/streetmap.png}
+    \caption{Die Streetmap Visualisierung \cite{visualizationEvolution}.}
+    \label{fig:streetmap}
+\end{figure}
+
+Fazit: noch nicht erwähnt: icicle Plot: ja, ist 2D und lässt sich in 2.5D extrudieren, wir zweifeln an dass es gut ist
+hyperbolic tree: ja, ist 2D, aber ähnliche kritik, wie bei link treediagrammen, deshalb nicht weiter verfolgt 
+streetmap: Ja, ist 2D und lässt sich in 2.5D extrudieren
 
 IEEE Suche:
 Doppelt: 3 zB. Visualization of the Static Aspects of Software: A Survey \cite{staticSurvey}
+
 1. Metrics-based 3D visualization of large object-oriented programs \cite{metricsBased3DVisualization}
 auch größe und farbe als metrik
 
@@ -298,12 +337,14 @@ das layout ist nach einem gleichheitswert der klassen angeordnet, dieser wert ka
     \label{fig:metricsBased3DVisualization}
 \end{figure}
 
+Fazit: Nein, ist 3D 
 
 
 2. Visualizing Metric Trends for Software Portfolio Quality Management \cite{visualizingMetricTrends}
 Stellen einfach eine Plattform vor, die verschiedene Metriken über zeit visualisiert
 mit linien plots und balken diagrammen für komplette software - nicht wirklich relevant für uns
 
+Fazit: Ist zwar 2D, aber nicht sinnvoll in 2.5D extrudierbar, deshalb nicht weiter verfolgt
 
 3. E-Quality: A graph based object oriented software quality visualization tool \cite{eQuality}
 
@@ -322,9 +363,11 @@ nur vergleich mit folder based navigations methode
 packete werden kreisförmig angeordnet
 Metriken haben auswirkung auf, muster, größe, farbe, form
 
+Fazit: Ja, ist 2D und lässt sich in 2.5D extrudieren
 
 4. Visualization of Software Quality Expert Assessment \cite{visSoftQualExpert}
-auf projekt ebene
+Einzelne qulitätswerte auf projekt ebene
+Fazit: Nein, input daten passen nicht
 
 
 
@@ -332,141 +375,136 @@ auf projekt ebene
 stellen eigentlich nur plattform vor
 visualisieren mit treemaps und sunburst und dependecy graph
 
+Fazit: treemap und sunbusrt, klar
+dependecy graph: Nein, input ist nicht hierarchisch
 
 6. Using the City Metaphor for Visualizing Test-Related Metrics \cite{citMetaphorTestMetrics}
 Stadt methapher in minecraft
 Gebäude sind sehr detailiert und bilden methoden, attribute, metriken, interfaces, ... alles mögliche ab
 eher eine spielerei, aber im grunde layout wie code city
 
+Fazit: Schwer zu sagen, layout nicht wirklich beurteilbar
+
 7. Visual Analytics of Software Structure and Metrics \cite{visAnaSoftStructure}
 Nutzen den city view: von ecity \cite{ecity}
 eCITY: A Tool to Track Software Structural Changes Using an Evolving City
 
+Fazit: Ja, streetmap
+
+
+\subsection{Google Suche} \label{sec:GoogleSuche}
 
 
 
 
-Google Tool suche:
-Gefilter werden paper, wenn sie kommen. Nur webseiten werden geöffnet
-Software Quality Visualizer
 
 
-Software Metric Visualizer/software quality analysis/ software visualisation tool/ 
-dabei auch die filter: 1. software quality vis 2. existing tool 3. keine paper, 
-viele dienstleister raus filtern wie zb. https://bitsea.de/dienstleistungen/software-qualitaetsanalyse/ -> nur dienstleistungen anbieten
-dabei gestoßen auf: https://home.uni-leipzig.de/svis/publications.html und https://hpi.de/doellner/publications.html
+Auch Hasso-Plattner-Institut \cite{hassoPlattner} gefunden. Viele Arbeiten zu software visualisierung. die meisten Nutzen eine stadt methapher als Visualisierung (siehe Abbildung \ref{fig:sereene}). Aber auch andere interessante visualisierungen, wie die Software Forest \cite{softwareForest} (siehe Abbildung \ref{fig:softwareForest}). Diese Ist ähnihc zur software kartographie.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/sereene.png}
+    \caption{Stadtmetapher wie sie in vielen Arbeiten des Hasso-Plattner-Instituts verwendet wird \cite{scheibel2020survey}.}
+    \label{fig:sereene}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/softwareForest.png}
+    \caption{Software Forest \cite[3]{softwareForest}.}
+    \label{fig:softwareForest}
+\end{figure}
+
+Fazit: 1. Treemap mit stadt methapher und 2. nennt sich zwar software aber ist ähnlich zu kartographie
+also geht beides
+
+ein projekt, welcher sehr interessant ist, weil es auch open source ist ist CodeCharta \cite{code_charta_github}. Man kann einfach sehen, welche algorithmen verwendet werden. Sie nutzen den d3.js treemap algorithmus (siehe Abbildung \ref{fig:codeChartaTreemap}). Außerdem nutzen sie einen eigenen algorithmus, um Streemap layout zu generieren \ref{fig:codeChartaStreetMap}. Dies wird auch in der Literatur erwähnt, vorallem wenn es darum geht Evolution von software zu visualisieren, die dieses Layout sehr stabil ist \cite{overview3D}.
 
 
-grafana.com -> aussortiert, weil generelle library für visualisierungen und dashboards
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/codeChartaTreemap.png}
+    \caption{CodeCharta Treemap Layout. \cite{code_charta_webdemo}.}
+    \label{fig:codeChartaTreemap}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/codeChartaStreetMap.png}
+    \caption{CodeCharta Street Map Layout. \cite{code_charta_webdemo}.}
+    \label{fig:codeChartaStreetMap}
+\end{figure}
+FAzit: Treemap und Streetmap
 
 
-https://github.com/MaibornWolff/codecharta
+Ein tool genannt jArchitect \cite{jarchitect_2024} nutzt zum beipiel cushion treemaps.
+genauso wie ndepend \cite{ndepend}
+FAzit: zweimal treemap
 
-www.jarchitect.com und sonarqube
-https://www.cs.rug.nl/svcg/SoftVis/ArchiVis
-%https://softvis.wordpress.com/tag/software-metrics/page/2/ -> https://erik.doernenburg.com/archive/Doernenburg_SoftwareQuality_ver2a.pdf
-GETAVIZ gefunden
-sereen gefunden
-%https://softvis3d.com/
+
+University of groningen: Scientific Visualization and Computer Graphics
+nutzen im grunde UML als Layout und setzen dann auf die einzelnen UML Elemente verschiedene Metriken. in 3D drauf siehe abbildung \ref{fig:umlMetrics}.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/umlMetrics.png}
+    \caption{Verbindung aus UML Visualisierung und 3D Metriken \cite{and_2025}.}
+    \label{fig:umlMetrics}
+\end{figure}
+
+Fazit: ja, ist 2.5D
+
+
 
 code-is-beautiful: letzter commit vor 7 jahren
-https://github.com/quantifiedcode/code-is-beautiful
-bietet: code city, 
+\cite{codeIsBeautiful}
+bietet: 
+code city, 
 Sunburst (2d): im grunde ein kreis diagram, welches von  innen nach außen die ordner strukturen zeigt. die es können die größe (wie viel des kreises nimmt etwas ein) und die farbe als metric gewählt werden
 Stack (2d): im grund wie das kreis diagram nur von oben nach unten
+nutzen für ihre visualierungen auch d3.js
 
+Fazit: treemap, sunburst
+stack ist neu: ist 2D und extrudierbar, wir zählen das zusammen mit icicle plot, da sehr ähnoich
 
 Code Radar:
 https://github.com/pschild/CodeRadarVisualization
 Wie code city speziell auf vergleich von versionen ausgelegt, indem man zwei karten direkt nebeneinander sehen kann
 letzter commit vor 7 jahren
+Fazit: code city
 
 
-softvis:
-vor 2 jahren
-%https://softvis3d.com/#/
-wie code city
-
-
-Ndepend:
-https://www.ndepend.com/docs/treemap-visualization-of-code-metrics?cx=015095677987321916295%3Ar_17mxn8qfg&cof=FORID%3A11&q=Visualize&sa=Search#
-2D
-Aber interessant: hier werden die kanten dunkel eingefärbt, um die einzelnen elemente visuell zu unterscheiden
-
-
-https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true:
-hat die idee dass gebäude wirklich echt sein könnten
-ein gebäude an dem gebaut wird, wurde kürzlich geändert
-alte gebäude wurden lange nicht mehr verändert
-oft geänderte objekte sind nah an einem hafen oder so
-
-ein kommentar auf deren seite:
-"Playing around with these metrics seems like an easy way to identify those objects where a refactoring promises to be most beneficial, because large and complex objects that are changed often tend to introduce bugs and slow down the development process.
-
-It also seems that this visual approach helps to promote topics like clean code within an organisation as the negative impact of such skyscraper classes becomes clearer when you look at these graphics.
-
-I think I will take a Code City Snapshot from time to time to track how the red skyscrapers steadily turn into beautiful, clean and green suburbs.
-
-Even without medieval buildings that can be accessed using VR, this might help a lot to navigate towards a clean code base."
-
-
-https://home.uni-leipzig.de/svis/getaviz/index.php?setup=web/City%20bricks%20freemind&model=City%20bricks%20freemind&aframe=false:
-auch sehr sehr nice
-mit bausteinen verschiedene sachen visualisieren
-
-
-https://codescene.com/product:
-2d kreis diagramme
-
-https://github.com/adamtornhill/code-maat
-bietet auch einiges in 2d
-
-Wie ist der Stand der Forschung?
-overview of 3d software visualisierung: https://ieeexplore.ieee.org/document/4564449
-
-interessant: https://opus-htw-aalen.bsz-bw.de/frontdoor/deliver/index/docId/658/file/ICCSE16-SEE.pdf
-
-\cite{slrSoftwareVisualization}:
-A systematic literature review of software visualization evaluation:
-Wie kann man visualisierungen bewerten?
-Hier geht es vor allem darum: "help analysts make sense of multivariate data
-(Merino et al., 2015), to support programmers in comprehending the
-architecture of systems (Panas et al., 2016), to help researchers analyze
-version control repositories (Greene et al., 2017), and to aid developers
-of software product lines"
-
-
-Quality models are usually defined based on concrete measurements of software metrics (N. Fenton and J. Bieman, Software metrics: a rigorous and practical approach. CRC Press, 2014)
-
-%https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=7332436:
-4 metriken werden visualisiert: farbe, position, höhe, breite
-
-%https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6462737:
-sehr interessant.
-1. Idee unterschiedliche metriken zu stacken
-2. gibt einen generelen qualitäts wert am ende heraus, erstellt aber eine grafik, die die einflüsse verschiedener klassen auf die verschiedenen metriken zeigt und die generelle bedeutung für die allgemein metrik am ende.
-
-Moose - ich würde das eher bewreten für entwickler. Es werden hier verbindungen von klassen dargestellt - abhängigkeiten undco.
+CodeScene \cite{codescene_2025}
+2d kreis diagramme, circular treemaps
+FAzit: circle packing
 
 
 
+\subsection{Fazit der Suche}
 
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        Layout & Anzahl & Bemerkungen \\
+        \hline
+        Treemap & 7 & \\
+        Sunburst & 5 & \\
+        Circle Packing & 5 & Eins der Vier zu halb Kugeln extrudiert\\
+        Voronoi Treemap & 4 & \\
+        CodeCity Layout & 4 & \\
+        Street Map & 3 & \\
+        Kartographie Layout & 2 & \\
+        Icicle Plot/Stack & 2 & \\
+        Bubble Treemap & 1 & \\
+        UML Layout & 1 & \\
+        E-Quality Layout & 1 & \\
+    \hline
+    \end{tabular}
+    \caption{Zusammenfassung der gefundenen Layouts und deren Eignung.}
+    \label{tab:layoutZusammenfassung}
+\end{table}
 
-VON cascaded: hier könnte man auch nochmal suchen, muss aber auch nicht.
-So etwas ähnliches auch sagen:
-A number of other hierarchy visualization techniques have been
-developed [18, 23, 29, 32], including space-filling visualizations
-like step trees [6], Voronoi treemaps [2] and generalized treemaps
-[34]. Although relevant to hierarchy visualization, we pursue
-contributions that are sufficiently distinct from such work that we
-do not dwell on extensive comparisons. \cite{lu2008cascaded}
+Anzumerken: Die anzahl der Layouts hat keinen wissenschafltichen wert
+Es geht nur darum einen allerersten kleinen trend zu verschaffen um interessante und weit verbreitete layouts auszuwählen, das heißt nicht, dass das eine layout weiter verbreitet ist als das andere, oder dass eines beser ist als das andere. Es versichert uns nur, dass wir layouts auswählen, die zumindest einpaar mal verwendet wurden
 
-
-\section{Dokumentation der Ergebnisse und Vorstellung der Layout-Umsetzung} \label{sec:DokumentationLayoutUmsetzung}
-In diesem Abschnitt stellen wir die Ergebnisse der Recherche vor und dokumentieren die Layouts, die wir in dieser Arbeit umsetzen wollen. 
-
-\subsection{Sunburst Layout}
-
-\subsection{Circle Packing Layout}
-
-\subsection{Noch eins mehr?}
+Wir wählen die top 3 layouts und codecity, da dies das allererste Layout ist und als baseline dienen kann
+Außerdem werden wir von dem Treemap zwei versionen testen. einmal mit der zu diesem Zeitpunkt standard implementierung von CodeCharta, da dort die bekannte d3.js bibliothek in reinform verwendet wird und einmal mit einer von uns angepassten Version, um zu schauen, ob unsere Anpassungen einen Unterschied zu einer der weit verbreitetsten und generalisiertesten (also nicht nur für softwarevisualierung gedachten) implementierungen macht
