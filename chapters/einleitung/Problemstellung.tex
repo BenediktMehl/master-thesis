@@ -51,15 +51,12 @@ Eine detaillierte Betrachtung der Eingabedaten erfolgt in Abschnitt \ref{sec:dat
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp erfolgt die Umsetzung im Webbrowser mittels TypeScript und Three.js. Die Übertragung der Methoden auf andere Programmierumgebungen ist grundsätzlich möglich.
 
 \subsection*{5. Wie erfolgt die Darstellung?}
-Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}).
+Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}). Bei diesem Schema ist im Vergleich zu Schema \ref{lst:nodeSchema} eine Liste von 2D-Punkten (points) hinzugekommen. Diese Liste definiert je nach geometrischer Form die Position, Größe und Form des Knotens im zweidimensionalen Raum. Die Punkte können beispielsweise die Ecken eines Rechtecks oder das Zentrum und Schnittpunkt eines Kreises darstellen.
 
 \begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
     "node": {
         "name": string,
-        "x": number,
-        "y": number,
-        "width": number,
-        "length": number,
+        "points": List[2D-Point],
         "children": List[Node] | "value": number
     }
 \end{lstlisting}

@@ -62,140 +62,82 @@ In diesem Abschnitt stellen wir die Ergebnisse der Suche nach anwendung der Inkl
 
 \subsection*{Ergebnisse der ersten Google Scholar Suche}
 
-Voronoi treemaps for the visualization of software metrics \cite{voronoiTree}
-- Voronoi Treemap Layout
-- sie sagen dass problem ist dass geschwister nicht einfach von anderen benachbarten knoten unterschieden werden können, wir versuchen dass mit den margins zu lösen
-- als erste probieren sie nicht rechtecke sondern polygone
+In der Arbeit \texit{Voronoi treemaps for the visualization of software metrics}~\cite{voronoiTree} wird ein spezielles Voronoi Treemap Layout vorgestellt. Sie wollen das Problem lösen, welches auch normale Treemaps haben, dass die hierarchische struktur nicht so einfach zu erkennen ist. Dafür nutzen sie eben polygone und versuchen diese so zu positionieren, dass deren kannten nicht inneinander laufen.
 \begin{quote}
-    The problem is provoked by the square-like shape of the rectangles, and because the edges are only horizontally and vertically aligned, whereby the edges of the different objects appear to run into each other. [...] A solution for this problem is the layout of Treemaps based on non-rectangular objects.\cite[3]{voronoiTree}
+    these polygons are clearly distinguishable because of their irregular shapes \cite[6]{voronoiTree}
 \end{quote}
-\begin{quote}
-    these polygons are clearly distinguishable because of their irregular shapes, and their aspect ratio converges to one \cite[6]{voronoiTree}
-\end{quote}
-Aber selbst sie fügen kanten hinzu - und größere he höher
-außerdem nutzen sie Sättigung um noch mehr die Tiefe und die Hierarchie darzustellen
-- Kritik: sie wollen treemap geschwisterproblem lösen, schaffen dies aber durch ihren ansatz nicht wirklich und fügen dann doch wieder kanten und farbe hinzu um das zu unterstützen
-Fazit: Ja, voronoi würde zu unseren anforderungen passen, aber man hätte genau wie bei treemaps das struktur und abstandsproblem
+trotzdem fügen sie am ende noch Kanten mit verschiedenen dicken und einfärbungen hinzu, um die Hierarchie zu verdeutlichen. 
+Es wird also eine Voronoi Treemap vorgestellt. Dies passt sowohl von den Eingabedaten als auch von der 2D-Darstellung und Extrusion in 2.5D zu unserer Problemstellung. Anzurmerken ist aber, dass man genau wie bei treemaps das struktur und abstandsproblem hat, welches in der arbeit aus unserer sicht nicht wirklich gelöst wurde.
+
+\smallskip
 
 
-
-
-
-Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
-- Zeichnen auch Quader. diese Quader haben immer die selbe grundfläche
-- metriken werden dargestellt durch 1. die höhe des Quaders, 2. die farbe des Quaders, 3. die rotation (zwischen 0 und 90 Grad) 
-- deren problem ist also nur die platzierung der Quader
-- KRitik: gefällt mir nicht so gut, vorallem die Roation, außerdem viel platz verschwendet. Sie sagen, dass gedreht schlecht ist. aber 90 Grad sieht nicht so schlimm aus wie 45 grad. dumm
--Struktur auf klassen und paket ebene -> das macht es natürlich einfacher, da es generell wenier packete als ordner gibt (packete können auch nochmal in ordner unterteilt sein)
-- Am ende nutzen sie für die platzierung treemap und Sunburst
-- Da die fläche fix und diskret ist, erweitern sie sowohl den treemap als auch den sunburst algorithmus
-- Treemap: beim slicen, wenn der platz zu schmal wird, wird der platz einfach erweitert, für alle knoten, in eine richtung -> sehr viel leerer platz, auch wenn sie versuchen das so gering wie möglich zu halten, werden wir nicht umsetzen
-\enquote{burst can still result in the insertion of holes in the representations. In simple illustrations such as in Figure 4, this looks like a serious problem. However, our framework is designed to study systems made of hundreds and thousands of elements. In fact, in the average cases (real softwares) that we tested, it did not prove a problem at all in our visualization.}
-Zeigt, wie wichtig unsere datenanalyse ist, da es wichtig ist die visualisierung für reale daten zu machen und nicht nur simple beispiele
-
+In der Arbeit \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge} wird eine Visualisierung vorgestllt, bei der pro datei ein quader gezeichnet wird, der verschiedene metriken darstellt. Quader haben immer die selbe grundfläche, metriken werden über Höhe, FArbe und rotation (von 0 bis 90 grad) dargestellt (sieh Abbiildung \ref{fig:visbasedlarge}).
+Hier geht es also nicht um die Fläche sondern nur um die Platzierung. 
+Die Input daten sind geeignet, das es hier eine hierarchische Struktur gibt, auch wenn diese hier nur zwei ebenen gibt Packete und Klassen.
+für die platzierung nutzen sie angepasste Treemap und Sunburst Layouts.
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/visbasedlarge.png}
     \caption{(Oben) Modifizierte Treemap-Technik und (unten) modifizierte Sunburst-Technik. Beide repräsentieren PCGEN, ein Tool zur Charaktererstellung in RPG (1129 Klassen). \cite[5]{visbasedlarge}.}
     \label{fig:visbasedlarge}
 \end{figure}
-vielleicht etwas zu simple gedacht??
+Sie sagen zwar, dass Treemap layout, aber wir ordnen es hier eher als codecity layout ein, weil viel freier platz und keine Kantenbündige Anordnung. Und sie nutzen noch das sunburst layout, aber auch in einer simplen Form.
 
-\enquote{there is still room for improvements, mainly to better exploit the entire display space}\cite[8]{visbasedlarge}
-
-Fazit: Ja, geeignet, Nutzen im grunde sehr simple treemap oder sunburst
+\smallskip
 
 
-
-
-
-A solar system metaphor for 3D visualisation of object oriented software metrics \cite{solarSystem}
-Schauen diese metriken an:
-ganz neue methapher: solar system
-
+In der Arbeit \textit{A solar system metaphor for 3D visualisation of object oriented software metrics}~\cite{solarSystem}  kritisieren sie, dass die Stadt-Metapher nicht so gut ist, da sie nicht wirklich 3D ist. Und keine Komplexen Zusammenhänge dargestellt werden können. es wird eine neue methpher vorgestllt solar system (siehe Abbildung \ref{fg:solarSystem}).
 \begin{figure}
     \centering
     \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphor.png}
     \caption{Solar System Metapher für 3D Visualisierung von objektorientierten Softwaremetriken. Die farben des bildes sind invertiert, um die lesbarkeit im ausdruck zu verbessern. \cite[4]{solarSystem}}
+    \label{fg:solarSystem}
 \end{figure}
-Man erkennt, dass es wirklich 3D ist und nicht 2.5D
-Sie kritisieren, dass die Stadt-Metapher nicht so gut ist, da sie nicht wirklich 3D ist. Und keine Komplexen Zusammenhänge dargestellt werden können. Überdeckung.
+Planeten sind Klassen, wobei die größe eine metrik ist und verbindungen wie vererbungen und co als linien dargestellt werden. Farbe gibt den typ der klasse an zB. interface, abstact, ... Paketet sind die großen Sterne in der Mitte.
+Die Visualierung ist wirklich 3D. Die dritte dimension wird kopmlett ausgeschöpft und planeten können in allen drei achesen platziert sein. Die eingabe daten passen, da es eine hierarchische struktur gibt, die tiefe wird durch die umlaufbahn darstellt, wie weit entfernt von mitte ist die tiefe.
 
-Sonnen sind pakete. Planeten sind Klassen, wobei die farbe den typ der klasse angibt. 
-Umlaufbahnen stellen die Vererbungsebenen innerhalb des Pakets dar. Planeten in derselben Umlaufbahn gehören zur gleichen Vererbungshierarchie
-Die Größe der Planeten ist eine Metrik (die anzahl der zeilen code)
-Verbindungen zeigen kopplung zwischen Klassen an.
+In der DAtenanalyse haben wir gesehen, dass es häufig bis zu tiefe von 13 geht, was unserer meinung unübersichtlich werden kann. Es werden in dem paper nur relativ kleine Pakete visualisiert, mit nur so ca. 30-40 klassen, bei größeren vermuten wird, dass es unübersichtlich werden könnte. Außerdem viel leerer Platz auch und überdeckungen, wenn die Planeten hinter anderen Planeten sind.
 
-Es werden aber nur relativ kleine Pakete visualisiert, mit nur so ca. 30-40 klassen.
+Auch wenn sich die eingabe daten eignen würden, Dieses Layout eignet sich nicht für unsere Zwischen darstellung, da es wirklich 3D ist und nicht durch die 2D-Punkt liste dargestllt werden kann. 
 
-es können nur 2 metriken dargestellt werden, eine auf klassenebene, eine auf verbindungsebene.
-Man könnte noch die Farbe als metrik nutzen und man könnte nicht auf klassen sondern auf file ebene betrachten (geht ja eigentlich immer)
-Es wird gefühlt sehr viel leerer platz verschwendet
-Es gibt doch auch einige überdeckungen, da die umlaufbahnen, teilweise hinter anderen planeten hergehen.
-Man könnte das ganze als 2D Layout verwenden und dann kugelförmig extrudieren, das 
-ich stelle es mir unvorteilhaft vor
+\smallskip
 
-Fazit: Nicht geeignet, es ist wirklich 3D und nicht 2.5D. Zudem viele Nachteile
+In der Arbeit \textit{Visualization of the static aspects of software: A survey}~\cite{staticSurvey} werden verschiedene Visualisierungen vorgestellt. dieses paper auch schon in verwandten arbeiten erwähnt (Abschnitt \ref{sec:VerwandteArbeiten}).
+Von den ganzen layouts passen folgende zu unserer Problemstellung: 
+Treemap, Sunburst, voronoi-> wurden hier schon vorgestellt
+Circle Packing: \ref{fig:circlePacking} ist eine Visualisierung, ähnlich den klassischen Treemaps nur, das als geometrische form kreise und nicht rechtecke verwendet werden.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/literatur/CirclePacking.png}
+    \caption{Circle Packing Layout generiert mit dem d3.js Algorithmus \cite{d3_treemap_github}.}
+    \label{fig:circlePacking}
+\end{figure}
 
+Außerdem stellen sie Verschiedene Stadtmethaphern vor
+Eine klassiche stadt methapher stadt 
+und eine insel methapher, dabei ist es im grunde wie eine stadt, nur dass die obere heirarchie ebene in verschiedene inseln aufgeteilt ist, bei denen dann wieder verbindungen dargestellt werden könnnen.
+dann stellen sie noch hierarchical net vor, das ist eine 2.5D visualierung, die auf dem circle packing layoutbasiert, aber nicht zu zylindern extrudiert wird, sondern zu halbkugeln (siehe abblundg \ref{fig:hierarchicalNet3D})
+Ansonsten viele andere visualisierungen vorgestellt, die nicht unsere Anforderungen erfüllen
 
+Also es wurde: Treemap, Sunburst, voronoi, Circle Packing 2 mal, codecity, insel, 
 
+\smallskip
 
+In der Arbeit \textit{Visual realism for the visualization of software metrics}~\cite{visRealism}
+nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level, aber passt auf input anforderung
+Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte dar zu stellen, passt trotzdem auf layout-anforderung
+Ist also geeignet, aber nur als einfache treemap, weil cushion, wie in abschnit Problemstellung nicht geeignet
 
-
-
-Visualization of the static aspects of software: A survey \cite{staticSurvey}
-In diesem Paper werden verschiedene Visualisierungen vorgestellt. dieses paper auch schon in verwandten arbeiten erwähnt.
-Es werden 6 verschiedene Visualisierungen vorgestellt, die auch auf unseren usecase passen. 
-
-Sehr gute arbeit, da sie einige visualiasierungen vorstellen.
-2D: Treemap, Sunburst, Circle Packing, voronoi
-
-Verschiedene Stadtmethaphern
-Eine stadt und insel methapher,
-wieder solar system methapher
--> im grunde circle packing, aber in 3D
-hierarchical net -> circle packing in 2.5D -> mit extrusion zu halbkugel
-
-Zeigen auch, dass das was am meisten verwendet ist stadt methapher und generell treemaps
-
-Ansonsten auch viele andere visualisierungen, die nicht so gut passen, weil es speziell um architektur, evolution oder verbindungen geht.
-
-Fazit: Geeignet: in 2D: Treemap, Sunburst, Circle Packing, voronoi
-in 2.5D: hierarchical net, was in 2D quasi Circle Packing ist
-
-
-
-
-
-
-
-
-Visual realism for the visualization of software metrics \cite{visRealism}
-Nutzen normale Cushion Treemaps und schattierung und struktur um metrik werte dar zu stellen
-nutzen aber auch package struktur, die deutlich einfacher ist als ordner struktur -> nur drei level
-Fazit: Ja, geeignet, aber nur als einfache treemap, weil cushion, wie in abschnit Problemstellung nicht geeignet
-
-
-
-
-
-
-
-
+\smallskip
 
 CityVR: Gameful software visualization \cite{cityVR}
+Input ist auch eine hierarchische Struktur, also geeignet
 - Stellen stadt methapher in 3D vor
-- fokus auf gamification
-- layout ist ähnlich wie bei codecity
-Fazit: codecity layout geeignet
+- layout ist ähnlich wie bei codecity, also geeginet
+also codecity layout geeignet
 
-
-
-
-
-
-
-
+\smallskip
 
 EvoSpaces: 3D Visualization of Software Architecture. \cite{EvoSpaces}
 Sie untersuchen verschiedene darstellungen 
@@ -221,14 +163,9 @@ sie stellen aber nur zwei layouts vor, die nicht die struktur zeigen, sondern au
 \end{figure}
 
 Fazit: Layouts sehr simple, wert wird auf Darstellung der GEbäude gelegt
-Theoretisch geeignet, aber hier nicht, weil zu simple und wir denken dass die anderen Darstellungen überlegen sind, weil einfacher und mehr metriken darstellbar
+Theoretisch geeignet, wir sagen schachbrett und kreis 
 
-
-
-
-
-
-
+\smallskip
 
 3D representations for software visualization \cite{3dsoftwareMarcus}
 weiterentwicklung von 2d pixel bars ins 3D, weil mehr metriken und besser die verbindungen darstellbar
@@ -248,13 +185,7 @@ keine hierarchie
 
 Fazit: ist 2.5D aber zu detailiert. Die input daten passen nicht zu unseren Anforderungen
 
-
-
-
-
-
-
-
+\smallskip
 
 Software cartography: Thematic software visualization with consistent layout \cite{softwareCartography}
 Es wird eine topographische Kartenmetapher verwendet
@@ -273,13 +204,7 @@ wurde besonders entwickelt mit dem Ziel von software evolution
 
 Fazit: Ja, ist 2.5D und geeignet
 
-
-
-
-
-
-
-
+\smallskip
 
 \subsubsection*{Ergebnisse der Zweiten Google Scholar Suche}
 
@@ -299,9 +224,7 @@ interaktion mit zoomen ist von nöten.
 
 FAzit: Nein, ist 3D
 
-
-
-
+\smallskip
 
 Visualizing Software Metrics in a Software System Hierarchy \cite{visSoftwareMetricsBook}
 im grunde eine link treediagram, 
@@ -314,20 +237,15 @@ Metrik stripes - metrische streifen, zeigen über breite und farbe verschiedene 
 \end{figure}
 layout wird wie in groundlagen gesagt, sehr schnell unübersichtlich.
 
-Fazit: Ja, ist 2D und könnte 3D werden, aber wir haben bereits in den grundlagen festgestellt, dass link treediagramme nicht gut geeignet sind, deshalb hier nicht weiter verfolgt
+Fazit: Ja, ist 2D und könnte 3D werden, aber wir haben bereits in den grundlagen festgestellt, dass link treediagramme nicht gut geeignet sind, deshalb hier nicht in liste aufgenommen.
 
-
-
-
+\smallskip
 
 A Stable Greedy Insertion Treemap Algorithm for Software Evolution Visualization \cite{stableGreedyInsertion}
 stellen nur neuen treemap algorithmus vor, der fokus auf stabilität hat
 Fazit: ja, treemap
 
-
-
-
-
+\smallskip
 
 Visualizing Program Quality – A Topological Taxonomy of Features  \cite{visualizingProgramQuality}
 eigentlich gar nicht für software qualität, aber schlagen die bubble treemap vor
@@ -342,11 +260,7 @@ diese wruden erstmals hier vorgestellt \cite{Goertler2017BubbleTreemapsUncertain
 
 FAzit: ja, ist 2D und lässt sich gut in 2.5D extrudieren
 
-
-
-
-
-
+\smallskip
 
 Stable and predictable Voronoi treemaps for software quality monitoring \cite{stablePredictableVoronoi}
 erweitern voronoi
@@ -356,32 +270,24 @@ idee ist als 3. metrk den fully qualified name zu nutzen um so die topologie der
 
 Fazit: Ja, voronoi treemap
 
-
-
-
-
-
+\smallskip
 
 Visualization and evolution of software architectures \cite{visualizationEvolution}
 Bereits in verwandten arbeiten erwähnt
-Sie stellen verschiedene visualisierungen vor
-unter anderem:
-- 2D: Treemap, Sunburst, Voronoi, circle treemap, icicle plot, hyperbolic tree, streetmap 
+Sie stellen verschiedene visualisierungen vor nur diese passen auf unsere Anforderungen:
+- 2D: Treemap, Sunburst, Voronoi, circle treemap 
 
+icicle plot: abbildung \ref{fig:dreiVis} Die hierarchie ist von oben nach untern zu lesen. Die breite ist eine metrik. in dem level darunter ist dann die kinder dargestellt wieder.
+
+hyperbolic tree: abbildung \ref{fig:dreiVis} wie node link, aber im kreis und am ende eine metrik pro datei
+
+streetmap: stadtmethaper mit straßen zügen, die einzelne distrikte verbinden
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/streetmap.png}
     \caption{Die Streetmap Visualisierung \cite{visualizationEvolution}.}
     \label{fig:streetmap}
 \end{figure}
-
-Fazit: noch nicht erwähnt: icicle Plot: ja, ist 2D und lässt sich in 2.5D extrudieren, wir zweifeln an dass es gut ist
-hyperbolic tree: ja, ist 2D, aber ähnliche kritik, wie bei link treediagrammen, deshalb nicht weiter verfolgt 
-streetmap: Ja, ist 2D und lässt sich in 2.5D extrudieren
-
-
-
-
 
 
 \subsection{Ergebnisse der IEEE Suche} \label{sec:ieeeSuche}
@@ -401,22 +307,14 @@ das layout ist nach einem gleichheitswert der klassen angeordnet, dieser wert ka
 
 Fazit: Nein, ist 3D 
 
-
-
-
-
-
+\smallskip
 
 Visualizing Metric Trends for Software Portfolio Quality Management \cite{visualizingMetricTrends}
 Stellen einfach eine Plattform vor, die verschiedene Metriken über zeit visualisiert
-mit linien plots und balken diagrammen für komplette software - nicht wirklich relevant für uns
+mit linien plots und balken diagrammen für komplette software 
+passt nicht zur anforderung der eingabe daten, da auf projekt ebene und nicht hierarchisch
 
-Fazit: Ist zwar 2D, aber nicht sinnvoll in 2.5D extrudierbar, deshalb nicht weiter verfolgt
-
-
-
-
-
+\smallskip
 
 E-Quality: A graph based object oriented software quality visualization tool \cite{eQuality}
 
@@ -437,22 +335,13 @@ Metriken haben auswirkung auf, muster, größe, farbe, form
 
 Fazit: Ja, ist 2D und lässt sich in 2.5D extrudieren
 
-
-
-
-
-
+\smallskip
 
 Visualization of Software Quality Expert Assessment \cite{visSoftQualExpert}
 Einzelne qulitätswerte auf projekt ebene
 Fazit: Nein, input daten passen nicht
 
-
-
-
-
-
-
+\smallskip
 
 QScored: An Open Platform for Code Quality Ranking and Visualization \cite{QScored}
 stellen eigentlich nur plattform vor
@@ -461,37 +350,22 @@ visualisieren mit treemaps und sunburst und dependecy graph
 Fazit: treemap und sunbusrt, klar
 dependecy graph: Nein, input ist nicht hierarchisch
 
-
-
-
-
-
-
-
+\smallskip
 
 Using the City Metaphor for Visualizing Test-Related Metrics \cite{citMetaphorTestMetrics}
 Stadt methapher in minecraft
 Gebäude sind sehr detailiert und bilden methoden, attribute, metriken, interfaces, ... alles mögliche ab
 eher eine spielerei, aber im grunde layout wie code city
 
-Fazit: Schwer zu sagen, layout nicht wirklich beurteilbar
+Fazit: Schwer zu sagen, layout nicht wirklich beurteilbar -> also nein
 
-
-
-
-
-
-
-
-
-
+\smallskip
 
 Visual Analytics of Software Structure and Metrics \cite{visAnaSoftStructure}
 Nutzen den city view: von ecity \cite{ecity}
 eCITY: A Tool to Track Software Structural Changes Using an Evolving City
 
 Fazit: Ja, streetmap
-
 
 \subsection{Google Suche} \label{sec:GoogleSuche}
 
@@ -513,15 +387,9 @@ Auch Hasso-Plattner-Institut \cite{hassoPlattner} gefunden. Viele Arbeiten zu so
 Fazit: 1. Treemap mit stadt methapher und 2. nennt sich zwar software aber ist ähnlich zu kartographie
 also geht beides
 
-
-
-
-
-
-
+\smallskip
 
 ein projekt, welcher sehr interessant ist, weil es auch open source ist ist CodeCharta \cite{code_charta_github}. Man kann einfach sehen, welche algorithmen verwendet werden. Sie nutzen den d3.js treemap algorithmus (siehe Abbildung \ref{fig:codeChartaTreemap}). Außerdem nutzen sie einen eigenen algorithmus, um Streemap layout zu generieren \ref{fig:codeChartaStreetMap}. Dies wird auch in der Literatur erwähnt, vorallem wenn es darum geht Evolution von software zu visualisieren, die dieses Layout sehr stabil ist \cite{overview3D}.
-
 
 \begin{figure}
     \centering
@@ -538,25 +406,13 @@ ein projekt, welcher sehr interessant ist, weil es auch open source ist ist Code
 \end{figure}
 FAzit: Treemap und Streetmap
 
-
-
-
-
-
-
-
-
+\smallskip
 
 Ein tool genannt jArchitect \cite{jarchitect_2024} nutzt zum beipiel cushion treemaps.
 genauso wie ndepend \cite{ndepend}
 FAzit: zweimal treemap
 
-
-
-
-
-
-
+\smallskip
 
 University of groningen: Scientific Visualization and Computer Graphics
 nutzen im grunde UML als Layout und setzen dann auf die einzelnen UML Elemente verschiedene Metriken. in 3D drauf siehe abbildung \ref{fig:umlMetrics}.
@@ -568,7 +424,7 @@ nutzen im grunde UML als Layout und setzen dann auf die einzelnen UML Elemente v
 \end{figure}
 Fazit: ja, ist 2.5D
 
-
+\smallskip
 
 code-is-beautiful: letzter commit vor 7 jahren
 \cite{codeIsBeautiful}
@@ -581,11 +437,7 @@ nutzen für ihre visualierungen auch d3.js
 Fazit: treemap, sunburst
 stack ist neu: ist 2D und extrudierbar, wir zählen das zusammen mit icicle plot, da sehr ähnoich
 
-
-
-
-
-
+\smallskip
 
 Code Radar:
 https://github.com/pschild/CodeRadarVisualization
@@ -593,20 +445,11 @@ Wie code city speziell auf vergleich von versionen ausgelegt, indem man zwei kar
 letzter commit vor 7 jahren
 Fazit: code city
 
-
-
-
-
-
+\smallskip
 
 CodeScene \cite{codescene_2025}
 2d kreis diagramme, circular treemaps
 FAzit: circle packing
-
-
-
-
-
 
 \subsection{Zusammenfassung der Auswertung}
 
@@ -616,17 +459,21 @@ FAzit: circle packing
         \hline
         Layout & Anzahl & Bemerkungen \\
         \hline
-        Treemap & 7 & \\
+        Treemap & 10 & \\
         Sunburst & 5 & \\
-        Circle Packing & 5 & Eins der Vier zu halb Kugeln extrudiert\\
-        Voronoi Treemap & 4 & \\
+        Circle Packing & 4 & Eins der Vier zu halb Kugeln extrudiert\\
         CodeCity Layout & 4 & \\
+        Voronoi Treemap & 4 & \\
         Street Map & 3 & \\
         Kartographie Layout & 2 & \\
         Icicle Plot/Stack & 2 & \\
         Bubble Treemap & 1 & \\
         UML Layout & 1 & \\
+        Insel-Layout & 1 & \\
         E-Quality Layout & 1 & \\
+        kreisförmige Anordnung & 1 & \\
+        Schachbrett Anordnung & 1 & \\
+        hyperbolic Tree & 1 & \\
     \hline
     \end{tabular}
     \caption{Zusammenfassung der gefundenen Layouts und deren Eignung.}
