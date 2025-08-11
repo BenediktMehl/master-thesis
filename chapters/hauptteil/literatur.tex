@@ -1,88 +1,66 @@
-\chapter{Layout Auswahl} \label{sec:LiteraturRecherche}
-Das Ziel dieses Abschnitts ist es 2D-Layouts zu finden, die geeignet sind, um in 2.5D extrudiert zu werden und Software-Qualitätsmetriken in Form der in Abschnit \ref{sec:Problemstellung} definierten Form in 2.5D zu visualisieren.
-Im ersten Abschnitt stellen wir zunächst die Methodik vor, die wir bei der Suche der Layouts verwendet haben. Anschließend stellen wir die Ergebnisse der Suche und die finale entscheidung für die Layouts vor, die wir in dieser Arbeit implementieren und evaluieren werden.
+\chapter{Layoutauswahl} \label{sec:LiteraturRecherche}
+Ziel dieses Abschnitts ist die Identifikation von 2D-Layouts, die sich für eine Extrusion in 2.5D eignen und die Visualisierung von Software-Qualitätsmetriken in der in Abschnitt \ref{sec:Problemstellung} definierten Form unterstützen. Zunächst wird die verwendete Methodik zur Suche der Layouts beschrieben. Anschließend werden die Suchergebnisse zusammengefasst sowie die finale Entscheidung für die Layouts begründet, die in dieser Arbeit implementiert und evaluiert werden.
 
 \section{Methodik} \label{sec:Methodik}
-Die ersten Schritte der hier verwendete Methodik orientiert sich an der Methodik der systematischen Literaturrecherche, wie sie in \textit{Procedures for performing systematic reviews}\cite{kitchenham2004procedures} beschrieben wird, ist aber leicht angepasst, da es vorallem um das finden und einordnen von Layouts geht und nicht direkt um das Bewerten und vergleichen von verschiedenen Arbeiten.
+Die Methodik orientiert sich an der systematischen Literaturrecherche gemäß \textit{Procedures for performing systematic reviews}, wurde jedoch angepasst, da der Fokus auf der Identifikation und Einordnung geeigneter Layouts liegt und nicht primär auf der Bewertung und dem Vergleich kompletter Studien~\cite{kitchenham2004procedures}.
 
 \subsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
-Die Problemstellung dieser Arbeit an der hier gearbeitet wird ist bereits definiert:
+Die zugrunde liegende Problemstellung ist bereits definiert:
 \begin{quote}
-    Lassen sich durch Analyse verwandter Arbeiten und bestehender Tools (zum Treemap Layout) alternative Layouts identifizieren, die eine bessere Grundlage für die Visualisierung von Code-Qualitätsmetriken bieten? (siehe Abschnitt \ref{sec:Problemstellung})
+    Lassen sich durch Analyse verwandter Arbeiten und bestehender Tools (zum Treemap-Layout) alternative Layouts identifizieren, die eine bessere Grundlage für die Visualisierung von Code-Qualitätsmetriken bieten? (siehe Abschnitt \ref{sec:Problemstellung})
 \end{quote}
 
-Die Konkrete Forschungsfrage bzw. das Ziel dieser Rechere leitet sich aus dieser Problemstellung ab:
-Unsere Recherche hat das Ziel, Layouts zu finden, die geeignet sind, um Software-Qualitätsmetriken in 2.5D zu visualisieren. Wir wollen dabei nicht nur spezifisch nach 2.5D visualierungen suchen, sondern auch nach 2D-Layouts, die geeignet sind, um in 2.5D extrudiert zu werden.
+Die konkrete Forschungsfrage beziehungsweise das Ziel der Recherche leitet sich daraus ab: Ziel ist die Identifikation von Layouts, die geeignet sind, Software-Qualitätsmetriken in 2.5D zu visualisieren. Dabei sollen nicht ausschließlich existierende 2.5D-Visualisierungen betrachtet werden, sondern ebenso 2D-Layouts, die sich für eine Extrusion in 2.5D eignen.
 
 \subsection*{2. Suchstrategie} \label{sec:Suchstrategie}
-Wir wollen sowohl wissenschaftliche Arbeiten als auch bestehende Tools und Ansätze finden, die sich mit der Visualisierung von Software-Qualitätsmetriken beschäftigen und analysieren, ob diese Ansätze geeignet sind, um auf unser spezifische Problemstellung übertragen zu werden.
+Es werden sowohl wissenschaftliche Arbeiten als auch bestehende Tools und Ansätze identifiziert, die sich mit der Visualisierung von Software-Qualitätsmetriken befassen. Diese werden daraufhin analysiert, ob sie auf die spezifische Problemstellung übertragbar sind.
 
-Für die Suche nutzen wir zunächst Google Scholar wir wollen folgende Suche nutzen:
+Als primäre Quelle wird Google Scholar genutzt. Ausgangspunkt ist folgende Suchanfrage:
+\texttt{("3D" OR "2.5D" OR "visualization" OR "treemap" OR "hierarchical data") AND ("software" AND ("quality" OR "metrics"))}.
 
-Wir wollen paper suchen, die sich mit der Visualisierung von Software-Qualitätsmetriken beschäftigen.
-Wir teilen unsere Suche in zwei Teile auf:
-Der fordere Teil beziet sich auf die Visualierung.
-Und 
-Der Hintere teil soll sicher gehen, dass es sich um Software-Qualitätsmetriken handelt, dafür muss auf jeden fall das wort software vorkommen und dann entweder "quality" oder "metrics". 
-Beides muss im Paper vorkommen, um in unserer suche aufzutauchen.
-Daraus ergibt sich folgende Suchanfrage:
-("3D" OR "2.5D" OR "visualization" OR "treemap" OR "hierarchical data") AND ("software" AND ("quality" OR "metrics"))
+Da die erweiterte Suche von Google Scholar keine verschachtelten booleschen Anfragen unterstützt, wird die Suche in zwei Teilanfragen zerlegt~\cite{scholar_queries_2023}:
+\begin{itemize}
+    \item \texttt{("3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics") AND "software"}
+    \item \texttt{("treemap" OR "hierarchical data" OR "quality" OR "metrics") AND "software"}
+\end{itemize}
+Zusätzlich wird die \textit{Command Search} von IEEE Xplore verwendet, da sie verschachtelte boolesche Suchanfragen unterstützt~\cite{ieee_xplore_boolean_2025}.
 
-Zur suche nutzen wir die erweiterte Suche von Google Scholar, um möglichst viele relevante Ergebnisse von verschiedenen Journalen und Anbietern zu finden.
-Das Problem bei der erweiterten suche von Google scholar ist, dass sie sehr limitert ist und keine verschachtelten Suchanfragen unterstützt \cite{scholar_queries_2023}.
-Deshalb teilen wir die Suche in zwei Teile auf: 
-"3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics AND "software"
-und 
-"treemap" OR "hierarchical data" OR "quality" OR "metrics AND "software"
+Die Vielfalt an Softwarevisualisierungen ist sehr groß. Eine vollständige Erfassung ist nicht möglich. Daher liegt der Fokus auf Arbeiten und Tools mit hoher Relevanz für die Problemstellung und die Forschungslage. Pro Suchanfrage werden deshalb die ersten 20 Ergebnisse gesichtet, um einen praktikablen Kompromiss zwischen Relevanz und Umfang herzustellen. 
 
-Um trotzdem die gewünsche Suchanfrage nutzen zu können, um potentiell noch spezifischere und relevantere Ergebnisse zu erhalten, nutzen wir zusätzlich die \textit{Command Search} von IEEE Xplore, die auch verschachtelte boolsche Suchanfragen unterstützt \cite{ieee_xplore_boolean_2025}.
+Die Suche berücksichtigt nicht nur Titel, sondern auch Volltexte. Dies ist insbesondere relevant für die Begriffe \textit{quality} und \textit{metrics}, die nicht immer im Titel oder Abstract erscheinen, obwohl entsprechende Daten als Grundlage der Visualisierung dienen. Ein Beispiel hierfür ist \textit{Visualization of the Static Aspects of Software: A Survey}~cite{staticSurvey}.
 
-Wir schauen uns jeweils die ersten 20 Ergenisse an, da dies ein guter Kompromiss zwischen Relevanz und Anzahl der Ergebnisse ist.
-Es ist anzumerken, dass es wirklich unzählige verschiede Softwarevisualierungen gibt und niemals alle betrachtet und analysiert werden können. Deshalb konzentrieren wir uns auf die, die am relevantesten für unsere Problemstellung sind und die am relevantesten für die Forchung sind.
-
-Wir suchen nicht nur im Titel, sondern auch im Text, da es nicht immer alles expliziet im Title steht. 
-Als Ziel des Papers, das ist zb. wichtig für die wörter quality oder metrics. Auch wenn viele das nicht explizit im Titel oder im abstract haben, wird trotzdem gibt es Paper diese daten als grundlage für die visualisierung verwendet, ohne dies wirklich explizit zu unterscheiden zwischen qualität und software selbst. ZB: Visualization of the Static Aspects of Software: A Survey
-
-Außerdem suchen mit der normalen Google Suche nach existierenden Tools oder anderen Seiten, Ideen die genutzt werden können, um Software-Qualitätsmetriken zu visualisieren. Nutzen wir verschiedenste suchanfragen.
+Ergänzend werden mittels der normalen Google-Suche existierende Tools, Repositorien und praxisorientierte Ressourcen identifiziert, die Ideen oder etablierte Ansätze zur Visualisierung von Software-Qualitätsmetriken liefern. Hierzu werden verschiedene Suchanfragen und Kombinationen einschlägiger Schlagworte eingesetzt.
 
 \subsection*{3. Inklusions- und Exklusionskriterien} \label{sec:InklusionExklusionKriterien}
-Auf die Suchergebnisse wenden wir noch folgende Filter an, um unrelevante oder nicht zugängliche Ergebnisse zu exkludieren:
+Auf die Suchergebnisse werden folgende Filter angewandt, um irrelevante oder nicht zugängliche Treffer zu exkludieren:
 
-1. Wie bereits gesagt für google scholar: software ist ein muss, der rest ist optional in google scholar, auch wenn wir eigentlich gerne hätten, dass zumindest eines der wörter "quality" oder "metrics" vorkommt, um sicher zu gehen, dass es sich um Software-Qualitätsmetriken handelt und nicht um software-Visualisierung im allgemeinen (die wichtigkeit der unterscheidung wurde im Grundlagen Abschnitt \ref{sec:SoftwareVisualisierung} erleutert) deswegen filtern wir die suchergebnisse auch manuell, um sicher zu gehen, dass es sich um relevante Ergebnisse handelt: zB: Software Architecture Visualization: An Evaluation Framework and Its Application \cite{gallagher2008software}
+\begin{itemize}
+    \item Für Google Scholar gilt: Der Begriff \textit{software} ist obligatorisch; weitere Begriffe sind optional. Um sicherzustellen, dass es sich tatsächlich um Software-Qualitätsmetriken und nicht ausschließlich um allgemeine Softwarevisualisierung handelt (zur Relevanz der Unterscheidung siehe Abschnitt \ref{sec:SoftwareVisualisierung}), erfolgt eine manuelle Relevanzprüfung. Beispiel für einen relevanten, aber manuell einzuordnenden Treffer: \textit{Software Architecture Visualization: An Evaluation Framework and Its Application}~\cite{gallagher2008software}.
+    \item Zulässige Sprachen sind Deutsch und Englisch. Aufgrund der verwendeten Suchbegriffe sind nahezu alle Quellen englischsprachig; eine Ausnahme ist das spanische Überblickspapier \textit{Software visualization tools and techniques: A systematic review of the literature}~\cite{cruz2016software}.
+    \item Freier Zugriff über gängige Anbieter (z. B. IEEE, SpringerLink, ACM Digital Library, ResearchGate) ist erforderlich. Die meisten Treffer erfüllen dies, mit Ausnahmen wie \textit{Understanding software evolution using a combination of software visualization and software metrics}~\cite{lanza2002understanding}.
+    \item Thematische Passung ist zwingend; fachfremde Domänen werden ausgeschlossen, etwa \textit{Open source software for visualization and quality control of continuous hydrologic and water quality sensor data}~\cite{horsburgh2015open}.
+    \item Es muss mindestens eine Visualisierung vorgestellt werden: entweder mindestens ein 2D-Layout oder eine 2.5D-Visualisierung. Arbeiten, die lediglich Metriken diskutieren, ohne Visualisierung einzuführen, werden ausgeschlossen, beispielsweise \textit{Existing model metrics and relations to model quality}~\cite{mohagheghi2009existing}.
+    \item Doppelte Treffer werden entfernt, etwa \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge}.
+\end{itemize}
 
-2. in englisch oder deutsch - aber alles war sowieso auf englisch, aufgrund der Suchbegriffe, außer ein spanisches paper: Software visualization tools and techniques: A systematic review of the literature\cite{cruz2016software}
-
-3. Frei zugänglich über alle herkömmlichen anbieter: IEEE, sprignerlink, acm digital library, researchgate,... Das sind die meisten außer zb. Understanding software evolution using a combination of software visualization and software metrics \cite{lanza2002understanding}
-
-4. Außerdem generell innhalblich auch passen. zb. Open source software for visualization and quality control of continuous hydrologic and water quality sensor data \cite{horsburgh2015open}
-
-5. wird wirklich eine visualisierung vorgestellt? Wenn in dem paper entweder, mindestens eine 2D layout vorgestellt wird oder wenn mindestens eine 2.5D Visualisierung vorgestellt wird. zb.: Existing model metrics and relations to model quality \cite{mohagheghi2009existing}
-
-6. Doppelte Treffer filtern wir natürlich auch raus: 4 zB.: Visualization-based analysis of quality for large-scale software systems \cite{visbasedlarge}
-
-
-Für die normale Google suche, verwenden wir verschiedenste heuristische Filter um werbung, Dienstleistungsanbieter und andere irrelevante Ergebnisse zu filtern.
+Für die allgemeine Google-Suche werden zusätzlich heuristische Filter eingesetzt, um Werbung, Dienstleistungsangebote und andere irrelevante Inhalte auszuschließen. Dazu gehören unter anderem die Analyse der Domain-Reputation, das Ausschließen kommerzieller Schlüsselwörter und die Bevorzugung von Repositorien, Dokumentationen und Open-Source-Projekten.
 
 \subsection*{4. Auswertung} \label{sec:Auswertung}
-Filtern der Layouts, könnten diese für 2.5D geeignet sein?
-Die anforderung die wir an das layout haben:
-1. die input daten für das layout müssen die zuvor definierte form haben \ref{lst:nodeSchema}
-sie müssen zunächst in einem layout schritt in die zuvor definierte form gebracht werden können: \ref{lst:nodeLayoutSchema}
-Dann müssen sie in einem extrusions- und rendering-schritt sinnvoll in 2.5D form gebracht werden können
+Im Rahmen der Auswertung werden identifizierte Layouts nach Eignung für eine 2.5D-Visualisierung gefiltert und strukturiert beurteilt. Dabei gelten folgende Anforderungen:
+\begin{enumerate}
+    \item Die Eingabedaten des Layouts müssen der zuvor definierten Form entsprechen (\ref{lst:nodeSchema}). \item Das 2D-Layout muss im zuvor definierten Format darstellbar sein (\ref{lst:nodeLayoutSchema}).
+    \item Das 2D-Layout muss sich in einem Extrusions- und Rendering-Schritt sinnvoll in 2.5D überführen lassen.
+\end{enumerate}
 
-Sammeln und gruppieren der geeigneten verschiedener Layouts
-wir gruppieren die layouts 
-Wir unterscheiden bewusst zwischen Treemap und CodeCity, da CodeCity zwar ein Treemap Layout nutzt, dieses aber sehr untypisch für eigentliche Treemaps ist, da viele freie flächen gibt und nicht kante an kante liegt.
+Anschließend werden die geeigneten Layouts gesammelt und thematisch gruppiert. Das in CodeCity verwendete Treemap-Layout weist charakteristische Unterschiede zu klassischen Treemaps auf, insbesondere durch größere Freiflächen und das Fehlen einer flächendeckenden, kantenbündigen Anordnung. Aus diesem Grund erfolgt eine Unterscheidung zwischen Treemap- und CodeCity-Layouts, obwohl strenggenommen CodeCity-Layouts Treemap-Layouts sind.
 
-Danach werten wir aus und wählen dann layouts aus, die wir in dieser arbeit implementieren und vergleichen werden
+Abschließend werden die Layouts vergleichend ausgewertet und diejenigen ausgewählt, die in dieser Arbeit implementiert und gegenübergestellt werden.
 
 
 \section{Ergebnisse der Suche und Auswertung} \label{sec:Ergebnisse}
 In diesem Abschnitt stellen wir die Ergebnisse der Suche nach anwendung der Inklusions- und Exklusionskriterien vor und machen die Auswertung der Ergebnisse.
 
-\subsection{Google Scholar Suche} \label{sec:googleScholarSuche}
-
-\subsubsection*{Ergebnisse der ersten Google Scholar Suche}
+\subsection*{Ergebnisse der ersten Google Scholar Suche}
 
 Voronoi treemaps for the visualization of software metrics \cite{voronoiTree}
 - Voronoi Treemap Layout
