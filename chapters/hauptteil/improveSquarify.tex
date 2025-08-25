@@ -13,7 +13,7 @@ Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D
     \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen.
     \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht.
     \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies verbessert die Skalierbarkeit und generelle Nutzbarkeit der Visualisierung.
-    \item \textbf{Stabilität:} Die Knoten sollten bei Änderungen die Position und Größe beibehalten, um eine stabile Visualisierung zu gewährleisten. 
+    %\item \textbf{Stabilität:} Die Knoten sollten bei Änderungen die Position und Größe beibehalten, um eine stabile Visualisierung zu gewährleisten. 
 \end{itemize}
 
 In dieser Arbeit sollen space filling approaches anaylsiert werden und speziell darauf untersucht werden, wie sie sich eignenen für die definierten anforderungen. Wie gut wird was erfüllt? Wann sollte man was anwenden? Kann eine gute kombination aus verschiedenen Ansätzen gefunden werden?
@@ -236,6 +236,8 @@ T_2 \approx 235 \cdot (18 \cdot 4.17) = 235 \cdot 75.06 \approx 17639
 Der algorithmus mit sortierung braucht im Schnitt ca. 5.5ms und mit sortierung ca. 6.5ms. also ca 1ms mehr (Median 0.4ms). 
 
 %gehe noch darauf ein, dass man mit der reihenfolge theorteisch auch bestimmten kann, wo hohe knoten platziert werden, um Potentielle überdeckung zu vermeiden.
+
+%mit reihenfolge könnte man auch stabilität erhöhen, indem man fully qualified name nutzt, aber diese anforderung zweitrangig - vielleicht wenn reihenfolge gar keinen unterschied gemacht hätte, dann ja
 
 \subsection{Reihenfolge der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
 Durch die updates der Größen der Knoten nach dem ersten Layoutschritt, kann es passieren, dass die Größenreihenfolge der Knoten sich ändert. Das als zum Beispiel Knoten A im ersten Layoutschritt größer ist als Knoten B, aber nach dem Update der Größen von Knoten A kleiner ist als Knoten B. Das kann dazu führen, dass im folgenden Layoutschritt, die Knoten in einer anderen Reihenfolge platziert werden als im ersten Layoutschritt. 

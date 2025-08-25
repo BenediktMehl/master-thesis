@@ -1,3 +1,76 @@
+Fragen: 
+Test:
+Finde die Blobs
+
+Finde Ordner, die viele Blobs enthaltenen
+Finde Ordner, die viele Dateien enthalten
+Finde Ordner, die schlechte Hohe metrik
+Finde Ordner, die schlechte Farbe metrik
+
+Wie würdest du die Qualität dieser Software bewerten?
+
+Bild von oben, welches ist der größte Ordner?
+
+Tiefe nesting level finden
+
+Dateien mit falschen namen in falschen ordnern
+
+outliers finden
+
+duplikate finden anhand von struktur oder name oder farbe
+
+Selbe grundfäche mit verschiedenen metriken zeigen und schauen, ob noch eine korrelation hergestellt werden kann
+
+Interessant ist vllt auch die lokation von files. wie gut kann ein nutzer erkennen, wo sich eine Datei befindet. - 
+Ist datei X im selben ordern wie datei Y oder Z? 
+
+Bewertung Fragen:
+Wie viele Informationen konntest du aus diesem Layout entnehmen?
+Wie gut konntest du die Struktur erkennen?
+Wie gut wurde der Platz genutzt?
+
+Wie Komplex war das Layout für dich?
+Wie gut konntest du die Visualisierung verstehen?
+Wie gut konntest du die Visualisierung auf große Codebasen anwenden?
+%korrelation mit dem Code schwer direkt zu fragen, ohne codebase zu zeigen.
+
+Wie gut war die visuelle Metapher für dich?
+Wie gut kontest du die abstrake visualisierung auf die Reele Welt übertragen?
+
+
+
+%warum sind große files schlecht?
+% 1. Sie sind schwer zu verstehen
+% unerwartete Funktionalität
+% 2. schwer zu navigieren
+% single Responsibility Principle nicht eingehalten
+
+%sage dass es in anlehnung an echte in der Praxis genutzte Software audits ist, die wegen daten schutz aber hier nicht gezeigt werden können
+Zitat: "Our goal is to provide you with an overview of your codebase, identifying potential hotspots that will serve as a foundation for communication. We understand that code is not only developed by programmers but is also influenced by external requirements and factors that shape it over time."
+
+" The resulting map resembles a small city featuring numerous colored rectangular cuboids, referred to as "buildings," each representing a file in your application. The height, area, and color of these buildings correspond to different metrics. Metrics that are shown in the maps, can be changed to fit different needs."
+
+"Deep nesting in your code can significantly lower understanding and maintenance, leading to increased development time in the long run. As nesting levels increase, the complexity of interactions between different components grows, making it challenging to change. We consider a nesting level of 3(yellow) as medium and 4(red) or higher as high."
+
+
+%in audits werden vergleiche gemacht mit verschiedenen metriken, es werden verschiede varianten von metrik kombinationen gezeigt, um verschiedene sachen zu zeigen, wenn man diesen technischen hintergrund weg nimmt geht es oft nur darum zu zeigen, wo was rot ist
+
+Numerous files are either redundant or overly complex, which significantly complicates maintenance and
+increases the likelihood of errors during updates or feature enhancements, in short it is hard to change.
+Too many components exceed 500 lines of code and are burdened with an excessive number of comments
+(beyond essential API specifications), numerous exception handlers, and high complexity levels.
+Even parts of the code base that should help in simplifying interactions are hindered by their complexity,
+making the codebase harder to understand, test, and modify.
+Portions of the code are not utilizing modern Java features, limiting the ability to leverage modern language
+enhancements that can improve performance and developer productivity.
+Comments within the code suggest uncertainties about potential issues, highlighting areas that may be
+fragile or prone to misinterpretation.
+Although the legacy system is theoretically organized by conceptual file and folder structures, the presence
+of numerous underlying issues makes refactoring and modification tasks exceptionally challenging.
+The identified issues collectively pose substantial barriers to efficient maintenance, scalability, and
+modernization of the software.
+
+\subsection{Ideen für die Umfrage}
 Interessante Ideen von anderen papern zur umfragen gestaltung:
 
 Anti patterns finden
@@ -47,10 +120,6 @@ engineering researchers. To avoid significant differences between them, they rec
 packages are represented within each layout technique, how
 to navigate in this 3D space, and finally how to perform the
 tasks and record time.
-
-%-------
-Interessant ist vllt auch die lokation von files. wie gut kann ein nutzer erkennen, wo sich eine Datei befindet. - 
-Ist datei X im selben ordern wie datei Y oder Z? 
 
 
 %-------

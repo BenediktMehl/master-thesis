@@ -51,8 +51,10 @@ Eine detaillierte Betrachtung der Eingabedaten erfolgt in Abschnitt \ref{sec:dat
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp erfolgt die Umsetzung im Webbrowser mittels TypeScript und Three.js. Die Übertragung der Methoden auf andere Programmierumgebungen ist grundsätzlich möglich.
 
 \subsection*{5. Wie erfolgt die Darstellung?}
+%das hier nochmal ändern, wir machen nicht nur 2.5 sondern auch 3D
 Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}). Bei diesem Schema ist im Vergleich zu Schema \ref{lst:nodeSchema} eine Liste von 2D-Punkten (points) hinzugekommen. Diese Liste definiert je nach geometrischer Form die Position, Größe und Form des Knotens im zweidimensionalen Raum. Die Punkte können beispielsweise die Ecken eines Rechtecks oder das Zentrum und Schnittpunkt eines Kreises darstellen.
 
+%das hier eher in implementierung stecken
 \begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
     "node": {
         "name": string,
@@ -67,6 +69,7 @@ Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die G
 
 \smallskip
 
+%das hier noch mehr erklären, warum nicht naviagation etc.
 Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen grundlegenden Anforderungen (Abschnitt \ref{sec:3DSoftwareVisualisierung}) ergeben sich für die im Rahmen dieser Arbeit entwickelte Visualisierung folgende Anforderungen:
 
 \begin{itemize}
@@ -74,12 +77,15 @@ Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen grundleg
     \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Das Layout muss klar und intuitiv lesbar bleiben, um Überforderung zu vermeiden.
     \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein.
     \item \textbf{Korrelation mit dem Code:} Eine gute Zuordnung zwischen Visualisierung und Quellcode muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen.
+    \item \textbf{Visuelle Metaphern}: Eine gute Visuelle Metapher hilft nutzern dabei sich alles gut vorzustellen.
     \item \textbf{Stabilität gegenüber Änderungen:} Nachrangig, aber erwünscht ist, dass die Visualisierung auf Änderungen im Code robust reagiert, um zeitliche Vergleiche zu ermöglichen, ohne dass sich der Betrachter neu orientieren muss.
 \end{itemize}
 
 Interaktionsmöglichkeiten des Nutzers mit dem Layout werden in dieser Arbeit bewusst nicht betrachtet, da dies den Rahmen sprengen und die Vergleichbarkeit der Layouts erschweren würde. Die Interaktion hängt stark vom jeweiligen Layout ab. Im Fokus steht daher ausschließlich der Vergleich der Layouts selbst.
 
 \section{Das Treemap-Problem} \label{sec:TreemapProblem}
+%warum gehen wir hier nochmal auf das treemap prolbme ein?
+%wie wir im abschnitt der literatur recherche sehen werden, ist 2.5D treemap am weitesten verbreitet, deshalb schauen wir uns dieses layout nochmal genauer an
 
 Lü und Fogarty identifizieren in ihrer Arbeit ein zentrales Problem von Treemaps: die erschwerte Wahrnehmbarkeit der zugrundeliegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. Dieses Problem wird bereits von Shneiderman und Johnson adressiert~\cite{johnson1991tree}. Sie schlagen vor, Abstände zwischen den Rechtecken einzuführen, um die Hierarchieebene zu verdeutlichen.
 
