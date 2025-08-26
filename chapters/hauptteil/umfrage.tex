@@ -1,41 +1,113 @@
-Fragen: 
-Test:
-Finde die Blobs
+Ausgangslage:
+Ich habe 6 verschiedene Visualisierungen (oder nur 5?)
 
-Finde Ordner, die viele Blobs enthaltenen
-Finde Ordner, die viele Dateien enthalten
-Finde Ordner, die schlechte Hohe metrik
-Finde Ordner, die schlechte Farbe metrik
+Ich will herausfinden, wie gut diese Visualisierungen für verschiedene Aufgaben geeignet sind.
 
-Wie würdest du die Qualität dieser Software bewerten?
+\section{Ablauf der Umfrage}
 
-Bild von oben, welches ist der größte Ordner?
+Einwilligung + Kurzbriefing: Ziel, Dauer, Datenschutz
 
-Tiefe nesting level finden
+\subsection{1. Meta Daten abfragen (Alter, Erfahrung mit Softwareentwicklung)}
+Alter (in 10er schritten)
+Erfahrung mit Softwareentwicklung:
+Optionen: Keine, Informatik studiert, Beruflich Softwareentwicklung, Hobbymäßig Softwareentwicklung, Auftraggeber (PO, Stakeholder, bei Entwicklung dabei, aber kein entwickler)
+Besteht eine Farbenblindheit? Ja/Nein -> wenn ja, welche
 
-Dateien mit falschen namen in falschen ordnern
 
-outliers finden
+\subsection{2. Kurze Erlärung}
+Was ist software, wie ist software aufgebaut
+was Visualisiert wird, was die einzelnen Elemente sind, was die Metriken sind und wie sie dargestellt und interpretiert werden können.
+erkläre die kombination aus verschiedenen metriken
 
-duplikate finden anhand von struktur oder name oder farbe
+\subsection{3. Testaufgaben}
 
-Selbe grundfäche mit verschiedenen metriken zeigen und schauen, ob noch eine korrelation hergestellt werden kann
+Nehme ich echte Codebasen oder künstliche oder mix?
+Ich würde einen Mix nehmen. Echte Codebasen, bei denen ich aber bestimmte Fehler bewusst einbaue, die Nutzer finden sollen. Sonst wird es schwer code basen zu finden, die alle dieser Probleme haben. 
 
-Interessant ist vllt auch die lokation von files. wie gut kann ein nutzer erkennen, wo sich eine Datei befindet. - 
-Ist datei X im selben ordern wie datei Y oder Z? 
+Welche Metriken nehme ich?
+Idee: Fläche: LOC, Höhe: Komplexität, Farbe: Testabdeckung
 
-Bewertung Fragen:
+Option 1:
+Ich zeige alle Visualisierungen gleichzeitig und frage, bei welcher Visualisierung sie die Aufgabe am besten lösen konnten.
+Beispiel: In welcher der hier gezeigten Visualisierungen wird am deutlichsten, dass es im Ordner X viele schlechte Dateien gibt?
+
+Option 2: 
+Ich zeige nur eine Visualisierung und lasse die Nutzer die aufgaben lösen, dann frage ich sie, wie gut sie die aufgaben lösen konnten.
+-> Problem: ich kann ja nicht immer die selbe Codebase zeigen oder weil die nutzer ja dazu lernen, das macht es schwerer zu vergleichen
+Beispiel: Welcher Ordner hat die meisten schlechten Dateien?
+Dann kann ich sowohl Korrektheit als auch Zeit messen, die sie brauchen.
+
+
+Fragen:
+A. Identifikation
+Idee: Es gibt Ordner mit schlechter Testabdeckung, aber die Dateien sind nicht komplex. Es gibt Ordner mit hoher Komplexität, aber guter Testabdeckung. Es gibt dann auch mittel mäßig komplexe Dateien mit schlechter Testabdeckung.
+A1: In welchem Ordner sind die Dateien mit der niedrigesten Testabdeckung?
+A2: Welche Datei ist die größte?
+A3: Welches ist die Datei mit der höchsten Komplexität?
+A4: Finde Ordner mit vielen “Blobs” (interpretiere “Blobs” als Dateien mit schlechter Qualitätsfarbe Rot)
+
+B. Aggregation
+B1: In welchem Teil der Software sollten am dringensten Tests geschrieben werden? (Ordner mit den roten Dateien, die aber auch eine gewisse Komplexität haben)
+B2: Welche Datei sollte am dringensten überarbeitet werden / in mehrere DAteien aufgeteilt werden und warum?
+
+C. Struktur
+C1: Liegen Datei X und Y im selben Ordner?
+C2: Wie tief ist das maximale Nesting (hierarchische Tiefe)?
+C3: Welche Datei ist am tiefsten verschachtelt?
+C3: Gib den Pfad der Datei X an.
+C4: Gibt es Dateien, die in andere Ordner verschoben werden sollten?
+
+D. Muster/Anomalien
+D1: Finde Ausreißer (Outlier): Welche Datei weicht deutlich in Höhe oder Farbe ab?
+D2: Wie würdest du das beurteilen? 
+D3: Finde Duplikate: Welche zwei Ordner sind wahrscheinlich Duplikate?
+
+E. Qualitätbeurteilen
+E1: Wie würdest du die Qualität dieser Codebasis anhand der Visualisierung einschätzen?
+E2: An welchen Stellen der Software würdest du am ehesten mit Problemen rechnen und warum?
+
+
+\subsection{4. Direkte Bewertung der Visualisierungen}
+Selbe frage: Stelle ich die fragen pro Visualisierung oder im vergleich?
+
+
 Wie viele Informationen konntest du aus diesem Layout entnehmen?
 Wie gut konntest du die Struktur erkennen?
 Wie gut wurde der Platz genutzt?
 
 Wie Komplex war das Layout für dich?
 Wie gut konntest du die Visualisierung verstehen?
+
 Wie gut konntest du die Visualisierung auf große Codebasen anwenden?
-%korrelation mit dem Code schwer direkt zu fragen, ohne codebase zu zeigen.
 
 Wie gut war die visuelle Metapher für dich?
 Wie gut kontest du die abstrake visualisierung auf die Reele Welt übertragen?
+Hilft es sich den Code als Stadt vorzustellen?
+
+
+
+Am Ende auf jeden Fall Rangfolge:
+Welche Visualisierung hat dir optimisch am besten gefallen?
+Welche Visualisierung hat dir am meisten geholfen, Qualitätsprobleme zu finden?
+Welche Visualisierung würdest du am ehesten in der Praxis verwenden?
+
+
+
+Offene Fragen:
+Was für Probleme hattest du mit den Visualisierungen?
+Was kann man noch verbessern?
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

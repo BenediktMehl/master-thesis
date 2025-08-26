@@ -7,6 +7,8 @@
 	url          = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true}
 }
 
+
+
 @misc{seaborngalery,
 	year         = 2024,
 	journal      = {Pydata.org},
@@ -20,6 +22,13 @@
 	year         = 2015,
 	journal      = {Systect.de},
 	url          = {https://www.systect.de/sowaca.html}
+}
+
+@misc{flare_d3js,
+    year         = 2025,
+    journal      = {D3js.org},
+    url          = {https://github.com/d3/d3-hierarchy/blob/main/test/data/flare-one.json},
+    note         = {[Online; besucht 26-August-2025]}
 }
 
 @misc{evanli_githubranking_2025,

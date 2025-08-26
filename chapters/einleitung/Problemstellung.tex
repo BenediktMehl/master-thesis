@@ -1,5 +1,6 @@
 \chapter{Problemstellung} \label{sec:Problemstellung}
 
+% das ist falsch, muss jetzt nochmal angepasst werden an neue problemstellung
 Die zentrale Herausforderung bei der Entwicklung von Stadtmetaphern für die Softwarevisualisierung liegt in der Festlegung eines geeigneten Layouts für die Visualisierung. Abschnitt \ref{sec:CodeCity} stellt das ursprüngliche Layout-Konzept der CodeCity-Analogie vor. Ein gemeinsames Grundprinzip dieser und verwandter Ansätze besteht darin, zunächst ein zweidimensionales Layout zu erzeugen, das anschließend durch eine zusätzliche Metrik in die dritte Dimension extrudiert und schließlich durch weitere Metriken, wie beispielsweise Farbe oder Transparenz, angereichert wird.
 
 Im Fokus dieser Arbeit steht die Untersuchung dieses Grundprinzips, insbesondere die Analyse, wie sich verschiedene Layout-Algorithmen auf die Visualisierung von Code-Qualitätsmetriken auswirken. Daraus ergibt sich die folgende Leitfrage:
@@ -97,15 +98,10 @@ Das Grundproblem bei der Erstellung von Treemaps, nämlich das Aufteilen eines R
     \item Bei kleinen Knoten können durch Abzüge von Minimalabständen einzelne Knoten vollständig verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand wird. Knoten sind also nicht nur \textit{zu klein}, um gesehen zu werden, sondern sie verschwinden tatsächlich vollständig.
 \end{itemize}
 
-Die Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} zeigen verschiedene Treemap-Layouts, die mithilfe des Squarify-Algorithmus (siehe Abschnitt \ref{sec:Squarify}) erzeugt wurden. Die zugrundeliegenden Strukturen und Metriken wurden händisch erstellt, um typische Probleme bei der Flächenproportionalität und Sichtbarkeit in Treemaps zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}).
+Die Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} zeigen verschiedene Treemap-Layouts, die mithilfe des Squarify-Algorithmus (siehe Abschnitt \ref{sec:Squarify}) erzeugt wurden. Die zugrundeliegenden Strukturen und Metriken wurden händisch erstellt, um typische Probleme bei der Flächenproportionalität und Sichtbarkeit in Treemaps zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}). Wir werden später zeigen, dass diese Probleme auch in realen Anwendungsfällen auftreten, allerdings hier zur verdeutlichung und um das Problem klar zu erkennen, haben wir diese künstlichen Beispiele erstellt.
 
-In Abbildung \ref{fig:zeroMarginArtificialMap} sind alle Knoten sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten. Dadurch ergibt sich eine exakte Flächenproportionalität zwischen Wert und Darstellung.
 
-In Abbildung \ref{fig:fiveMarginArtificialMap} ist zwar weiterhin jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten der Knoten. Beispielsweise besitzt der große Knoten 3 mit dem Wert 3000 nur noch eine Fläche von etwa 2600, was einem Flächen-Wert-Verhältnis von ungefähr 0,9 entspricht. Der kleine Knoten oben links (Knoten 5) mit dem Wert 30 weist hingegen nur noch eine Fläche von etwa 5 auf, entsprechend einem Verhältnis von ca. 0,2. Knoten 2 hat eine Fläche von etwa 17 und erscheint somit, obwohl er den gleichen Wert wie Knoten 5 besitzt, deutlich größer. Dies verdeutlicht, dass die Abstände die Flächenproportionalität erheblich beeinträchtigen.
-
-In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem Abstand von 10, werden einige Knoten, wie beispielsweise der zuvor oben links gelegene Knoten 5 mit Wert 30, gar nicht mehr dargestellt, da ihre berechnete Breite kleiner als der vorgegebene Abstand ist. Damit sind relevante Informationen in der Visualisierung nicht länger sichtbar.
-
-Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf Proportionalität und Lesbarkeit von Treemaps.
+In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Es sind alle Knoten sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten. Dadurch ergibt sich eine exakte Flächenproportionalität zwischen Wert und Darstellung.
 
 \begin{figure}
     \centering
@@ -114,6 +110,10 @@ Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf 
     \label{fig:zeroMarginArtificialMap}
 \end{figure}
 
+%DIE WERTE HIER SIND VERWIRREND für den leser. am besten verscuhen ohne werte zu erklären
+In Abbildung \ref{fig:fiveMarginArtificialMap} gibt es nun einen Abstand zwischen Knoten und ORdnern. Es ist zwar weiterhin jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten der Knoten. Beispielsweise ist die Fläche des großen Knotens 3 auf Grund der Abstände etwas kleiner geworden und das Verhältnis von seinem Wert zu der Abgebildeten Fläche beträgt jetzt ungefähr $0,9$. Das wäre an sich ja kein Problem wenn alle Knoten dieses Wert-Flächen-Verhältnis hätten, aber das ist nicht der Fall.
+Der kleine Knoten oben links (Knoten 5) ist relativ gesehen viel kleiner geworden und weißt nur noch ein Wert-Fläche-Verhältnis von $0,2$ auf.  Obwohl zum Beispiel Knoten 2 genau den gleichen Wert hat wie Knoten 5 ist die Fläche von Knoten 2 deutlich größer als die von Knoten 5. Dies verdeutlicht, dass die Abstände die Flächenproportionalität erheblich beeinträchtigen.
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
@@ -121,12 +121,34 @@ Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf 
     \label{fig:fiveMarginArtificialMap}
 \end{figure}
 
+In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem noch größeren Abstand als zuvor, werden einige Knoten, wie beispielsweise der zuvor oben links gelegene Knoten 5, gar nicht mehr dargestellt, da ihre eigentliche Breite kleiner als der vorgegebene Abstand ist und damit die Breite der Fläche Null oder kleiner als null wird. Damit sind relevante Informationen in der Visualisierung nicht länger sichtbar und Rechtecke verschwinden vollständig. 
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
     \caption[Treemap-Layout mit Abstand 10]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
     \label{fig:tenMarginArtificialMap}
 \end{figure}
+
+Diese künstlichen Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf Proportionalität und Lesbarkeit von Treemaps.
+
+Folgend zeigen wir das Problem an einem realen Beispiels. Wir nutzen hier das Beispiel, welches auch in der bekannten Visualisierungsbibliothek D3.js~\cite{d3_treemap_github} verwendet wird, names \textit{flare}~\cite{flare_d3js}. In Abbildung \ref{fig:flareZero} ist das Treemap-Layout des Flare-Beispiels ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flare48Missing} ist das gleiche Layout mit einem Abstand dargestellt. Hier fehlen 48 Knoten, zum Beisiiel fehlen Oben links die Knoten 79 und 82 oder auch ganz oben rechts in der Ecke gibt es jetzt einen ORdner komplett ohne Kindknoten, da Knoten 220 fehlt. Außerdem sind die Flächen nicht mehr Proportional zu den Werten.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/problemstellung/flarezero.png}
+    \caption[Treemap-Layout des Flare-Beispiels mit Abstand 0]{Treemap-Layout des Flare-Beispiels mit Abstand 0. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. Wir haben extra noch Kanten in schwarz markiert, zur besseren Sichtbarkeit der Knoten.}
+    \label{fig:flareZero}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/problemstellung/flare48Missing.png}
+    \caption[Treemap-Layout des Flare-Beispiels mit Abstand]{Treemap-Layout des Flare-Beispiels mit Abstand. 48 Knoten fehlen.}
+    \label{fig:flare48Missing}
+\end{figure}
+
+\smallskip
 
 Das zentrale Dilemma entsteht dadurch, dass die Kernannahme der Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wie viel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive \textit{Belegungsfläche} hängt erheblich von der jeweiligen Anordnung der Knoten ab.
 
