@@ -95,7 +95,7 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
 
 Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken stellt das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza dar~\cite{codeCity1}. Erstmals wurde ein Ansatz vorgestellt, der die Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 2.5D-Visualisierung zu generieren. Softwareeinheiten werden dabei als Quader dargestellt. Wie von Young und Munro~\cite{visSoftwareVR} gefordert, wird eine einprägsame visuelle Metapher verwendet: die Stadtmetapher. Sie ist zentrales Gestaltungselement von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung~\ref{fig:codeCity}).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/codeCityExample.png}
     \caption[Originale CodeCity-Visualisierung]{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
@@ -123,14 +123,14 @@ Shneiderman und Johnson definieren für gelungene Treemaps folgende Schlüsselzi
 
 Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung~\ref{fig:baumdiagramm}) oder Venn-Diagramme (Abbildung~\ref{fig:venndiagram}) konnten diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}~\cite[5]{johnson1991tree}
 
-\begin{figure}[ht]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/treediagram.png}
     \caption[Baumdiagramm]{Beispiel für ein Baumdiagramm \cite{johnson1991tree}}
     \label{fig:baumdiagramm}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/verdiagram.png}
     \caption[Venn-Diagramm]{Beispiel für ein Venn-Diagramm \cite{johnson1991tree}}
@@ -147,7 +147,7 @@ Zur Lösung der genannten Schwierigkeiten formulieren Shneiderman und Johnson vi
 
 Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung erfolgt von der Wurzel bis zu den Blättern und hat eine Laufzeit von $O(n)$. Ein Beispiel für eine mit diesem Algorithmus erstellte Treemap ist in Abbildung~\ref{fig:nestedTreemap} dargestellt.
 
-\begin{figure}[ht]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/nestedTreemapDiagramm.png}
     \caption[Treemap]{Beispiel für eine Treemap \cite{johnson1991tree}}
@@ -178,7 +178,7 @@ Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konk
 
 Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird solange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/squarify_example_1.png}
     \caption[Die erste Reihe des Squarify-Algorithmus]{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
@@ -187,7 +187,7 @@ Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4
 
 Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten in die noch leere Reihe eingefügt. Das Seitenverhältnis dieses Rechtecks beträgt $1,5 \times 4$ (1,5 Einheiten breit und 4 Einheiten lang). Das schlechteste Seitenverhältnis aller Rechtecke in der aktuellen Reihe ist in diesem Fall $4 : 1,5 \approx 2,67$ (es wird stets der größere Wert durch den kleineren geteilt, wobei 1 der optimale Wert ist). In Schritt 2 wird das nächste Rechteck mit einer Fläche von 6 Einheiten in die Reihe \textit{von oben} über das erste Rechteck eingefügt. Dadurch wird die Reihe und auch das erste Rechteck breiter. In diesem Fall haben beide Rechtecke das gleiche Seitenverhältnis von $3 \times 2$ (3 Einheiten breit und 2 Einheiten lang). Das schlechteste Seitenverhältnis in der Reihe beträgt nun $3 : 2 = 1,5$. Das neue schlechteste Seitenverhältnis ist besser als das vorherige, sodass die Reihe weiter gefüllt werden kann. Im nächsten Schritt soll ein Rechteck mit einer Fläche von 4 Einheiten eingefügt werden. Das Hinzufügen dieses Rechtecks macht die Reihe erneut breiter. Es entsteht ein neues schlechtestes Seitenverhältnis von $4 : 1 = 4$. Da das Verhältnis nun schlechter ist als das vorherige, wird die Reihe, wie sie zuvor war, als abgeschlossen betrachtet. Das zuletzt eingefügte Rechteck (mit Fläche 4) wird daher nicht mehr in dieser Reihe, sondern in einer neuen Reihe einsortiert (siehe Schritt 4).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{images/squarify_example_2.png}
     \caption[Die zweite Reihe des Squarify-Algorithmus]{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
@@ -200,7 +200,7 @@ Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/Benedik
 
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \begin{minipage}{1\textwidth}
         \centering

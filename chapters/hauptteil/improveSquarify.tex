@@ -72,7 +72,7 @@ Am ehesten ist dieser Ansatz wahrscheinlich mit dem Absulten-Update Ansatz mit S
 
 Das Problem des Algorithmuses ist am besten an einem Beispiel zu verdeutlichen. Wir visualieren den ZWITEN AnHANG - auch wieder eine händisch erstellte Map, um das Problem zu verdeutlichen. In Abbildung \ref{fig:zeroMarginSquarifyArtifialTwo} ist das Layout mit einem Abstand von 0 zu sehen. 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/zeroMarginSquarifyArtifialTwo.png}
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 0 und der einfachen Größenanpassung auf der händisch erstellen map (siehe Anhang).}
@@ -82,7 +82,7 @@ Das Problem des Algorithmuses ist am besten an einem Beispiel zu verdeutlichen. 
 In Abbildung \ref{fig:simpleIncreaseMarginOne} ist das Layout mit einem Abstand von 1 zu sehen. Es ist zu erkennen, dass die Knoten auf der linken Seite des Layouts sich außerhalb ihrer Elternknoten erstrecken. Warum passiert das? Knoten 10 ist im zweiten Layout-Schritt deutlich schmaler als im ersten Layout-Schritt. Dadurch wird die Fläche die durch den Abstand eingenommen wird größer als angenommen, weshalb die Fläche des Knotens nach abzug des Abstands im letzen Schritt kleiner ist, als gewünscht. Dementsprechend ist auch die Fläche der Knoten unten links größer als gewünscht, da das Layout der Knoten im zweiten Layout-Schritt quadratischer wird. Knoten 5, der Knoten, der am Quadratischsten ist, wird also am größten erscheinen. Obwohl beide den selben wert haben ist Knoten 5 ca. 1,2 mal größer als Knoten 10) In diesem Beispiel erscheint der unterschied kaum merklich, aber es gibt ihn trotzdem und in anderen fällen kann dieser Unterschied merklich werden.
 Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmaler werden, wodurch die fläche, die der innerere abstand einnimm, ebenfalls größer wird und dass sogar immer mehr von ebene zu ebene, wenn man runter geht. Dadurch wird die Fläche für die Kindknoten immer kleiner, was dazu führt, dass Knoten teilweise über ihre Elternknoten hinauswachsen.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOne.png}
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der einfachen Größenanpassung auf der händisch erstellen map (siehe Anhang).}
@@ -135,7 +135,7 @@ Problem:
 Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus ZEILEN ANPASSEN  \ref{alg:ZweifachBerechnung}). 
 es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel platz als auch zu wenig Platz bekommen, jenachdem ob Sie im zweiten schritt quadratischer oder schmaler werden.  Siehe Abbildung \ref{fig:relativeIncreaseMarginOne} für ein Beispiel.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/increaseMarginOne.png}
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellen map (siehe Anhang).}
@@ -167,7 +167,7 @@ Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Flä
 
 Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten werden dadurch natürlich nicht mehr proportional zu ihren Werten sein. Knoten 10 hat zum beispiel ein Verhältnis von ca. 0.5 zu seinem Wert, während Knoten 6 ein Verhältnis von ca. 1.4 zu seinem Wert hat.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOneScale.png}
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der einfachen Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
@@ -176,7 +176,7 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
 
 Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlich dieser Effekt aus. Siehe im Vergleich dazu Abbildung \ref{fig:relativeIncreaseMarginOneScale}, da die relative Größenanpassung deutlich genauer ist, ist der Effekt hier auch deutlich geringer. Knoten 10 hat Größe 40 und Knoten 6 hat Größe 41, was fast ähnlich Groß ist.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/increaseMarginOneScale.png}
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
@@ -294,7 +294,7 @@ Im Schnitt werden ca. 175 Ordner pro Codebasis gefaltet (12 Median). bei ca. 958
 
 Folgend kommen die DAten:
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattknotenOhneFläche.png}
     \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die das verschwinden von Knoten reduziert.}
@@ -302,28 +302,28 @@ Folgend kommen die DAten:
 \end{figure}
 %sage dass bewusst blattknoten genommen wurden als metrik hier
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/FaltungWertFlächeVerhältnis.png}
     \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten das Wert-Fläche-Verhältnis der Knoten verbessert.}
     \label{fig:FaltungWertFlächeVerhältnis}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/FaltungSeitenverhältnis.png}
     \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten das Seitenverhältnis der Knoten verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Es zeigt sich ein leicht positiver Effekt besonders bei kleinen und großen Abständen.} 
     \label{fig:FaltungSeitenverhältnis}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattFläche.png}
     \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
     \label{fig:FaltungBlattFläche}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/FaltungZeit.png}
     \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten die Rechenzeit verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven Effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Die Schwankungen sind zwischen ungefähr 1 und 2 millisekunden, was nicht wikrlich ausschlaggebend ist. Trotzdem ist ein leichter perfomance gewinn zu erkennen beim falten, was wahrscheinlich einfach daran liegt, dass es weniger Knoten gibt.}
@@ -354,7 +354,7 @@ Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für
 Hao Lü and James Fogarty schlagen vor dynamisch zu entscheiden, ob die Beschriftung der Knoten angezeigt werden soll oder nicht \cite{lu2008cascaded}. Wenn das Hinzufügen der Beschriftung den Knoten dazu führen würde, dass gar kein Platz mehr für den Knoten selbst übrig bleibt, wird die Beschriftung nicht angezeigt. Der Vorteil dieses Ansatzes ist, dass sicher gegangen wird, dass durch die Beschriftung kein Knoten verschwindet. Der Nachteil ist, dass selbst wenn die Änderung der Knotenfläche zum Knotenwert durch das hinzufügen der Beschriftung riesig wird (wenn die Fläche also super klein wird), die Beschriftung trotzdem hinzugefügt wird. 
 
 %\cite{largeHierarchicalRepositories}
-% \begin{figure}
+% \begin{figure}[h]
 %     \centering
 %     \includegraphics[width=0.8\textwidth]{images/improve/beschriftungAuf.png}
 %     \caption{Beispiel Platzierung der Beschriftung auf der Treemap \cite{largeHierarchicalRepositories}.}
@@ -403,35 +403,35 @@ Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von
 % const amountOfTopLabelsValues = [1]
 % const labelLengthValues = [0]
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterKnotenOhneFläche.png}
     \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes.}
     \label{fig:GeschwisterKnotenOhneFläche}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterWertFlächeVerhältnis.png}
     \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Wert-Fläche-Verhältnis der Knoten verbessert.}
     \label{fig:GeschwisterKnotenWertFlächeVerhältnis}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterSeitenverhältnis.png}
     \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Seitenverhältnis der Knoten verbessert.}
     \label{fig:GeschwisterKnotenSeitenverhältnis}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterBlattFläche.png}
     \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
     \label{fig:GeschwisterKnotenBlattFläche}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterZeit.png}
     \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Rechenzeit nicht signifikant beeinflussen.}

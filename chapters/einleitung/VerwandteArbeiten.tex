@@ -14,14 +14,14 @@ Teyseyre et al. geben in \textit{An overview of 3D software visualization}~\cite
 \end{itemize}
 Einige Ansätze verwenden Metaphern aus der realen Welt, wie Städte oder Landschaften. Von den 22 analysierten Tools sind lediglich vier für das Management oder Stakeholder ohne spezielle Entwicklungskompetenzen geeignet. Davon visualisiert nur eines tatsächlich den Quellcode, während die anderen drei Tools Anforderungen darstellen. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze weiter einschränkt~\cite{overview3D}. In dieser Arbeit wird daher untersucht, ob die vorgestellten Ansätze auch für Nutzer ohne tiefere technische Kenntnisse geeignet sind.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/verwandte/hierarchicalNet3D.png}
     \caption[Hierarchisches Netz in 3D]{Beispiel für ein hierarchisches Netz in 3D. Die hierarchische Struktur wird durch Kreise, Halbkugeln und deren Verbindungen dargestellt~\cite[6]{overview3D}.}
     \label{fig:hierarchicalNet3D}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/verwandte/geometrischeFigurenOhneZoom.png}
     \caption[Abstrakte geometrische Darstellung von Software]{Beispiel für eine abstrakte geometrische Darstellung von Software.~\cite[7]{overview3D} Die bunten Flächen repräsentieren Dateien und die Quader stehen dann für Attribute oder Methoden}
@@ -38,7 +38,7 @@ Für die Architekturebene, die im Fokus dieser Arbeit steht, werden insbesondere
 
 Khan et al. stellen in \textit{Visualization and evolution of software architectures}~\cite{visualizationEvolution} verschiedene Visualisierungstechniken vor. Sie unterscheiden zwischen hierarchischen und beziehungsorientierten Visualisierungstechniken. Bei den hierarchischen Ansätzen werden platzfüllende Treemaps hervorgehoben, die insbesondere für große Hierarchien geeignet sind. Es werden jedoch Einschränkungen hinsichtlich der Visualisierung multipler Metriken und der Anschaulichkeit interner Strukturen festgestellt, was in dieser Arbeit adressiert wird. Ergänzend werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume genannt (siehe Abbildung \ref{fig:dreiVis}).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/verwandte/dreiVis.png}
     \caption[Drei verschiedene Visualisierungen]{Beispiele für \textit{Icicle Plots} (links), \textit{Sunburst-Diagramme} (Mitte) und \textit{hyperbolische Treelayouts} (rechts)~\cite[4]{visualizationEvolution}.}
@@ -49,7 +49,7 @@ Bassil und Keller untersuchen in \textit{Software visualization tools: survey an
 
 Scheibel et al. bieten in \textit{Survey of treemap layout algorithms}~\cite{scheibel2020survey} eine detaillierte Übersicht verschiedener Treemap-Layout-Algorithmen. Die Autoren unterscheiden zwischen der Art der Aufteilung (packing vs. splitting). Splitting bezeichnet die klassische Treemap-Variante, bei der die Fläche geteilt wird, während Packing-Ansätze die Rechtecke so platzieren, dass möglichst wenig Platz verschwendet wird. Beide Ansätze erzeugen unterschiedliche Layouts (siehe Abbildung \ref{fig:packingVsSplitting}).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/verwandte/packingVsSplitting.png}
     \caption[Unterschied Splitting- und Packing-Layout]{Beispiel für Layouts, die durch Splitting (links) und Packing (rechts) Algorithmen erzeugt wurden. Bei Packing-Algorithmen entsteht mehr Platz zwischen den Knoten~\cite[3]{scheibel2020survey}.}
@@ -70,7 +70,7 @@ Wie in Abschnitt \ref{sec:TreemapProblem} beschrieben, stellt die erschwerte Wah
 
 Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln in einer späteren Arbeit das Konzept der \textit{Cushion Treemaps}~\cite{cushionTreemaps}. Dabei wird jedem Knoten ein Innenraumschatten zugewiesen, der durch gezielte Schattierungseffekte die hierarchische Struktur visuell hervorhebt (siehe Abbildung \ref{fig:cushion}). Das klassische Layout bleibt erhalten, während die Wahrnehmung der Hierarchiebeziehungen unterstützt wird.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/cushionTreemap.png}
     \caption[Cushion Treemap]{Beispiel für eine Cushion Treemap~\cite[4]{cushionTreemaps}.}
@@ -79,7 +79,7 @@ Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000sq
 
 Ein alternativer Ansatz wird von Demian und Fruchter vorgeschlagen, die unterschiedlich dicke Umrisslinien verwenden, um die Zugehörigkeit und Tiefe der Knoten in der Hierarchie hervorzuheben~\cite{largeHierarchicalRepositories}. Kong et al. stellen ebenfalls die Vor- und Nachteile verschiedener Umrissstärken für die Darstellung der Knotenstruktur dar~\cite{2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}).
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/lineThickness2.png}
     \caption[Treemap mit unterschiedlich dicken Outlines]{Beispiel für eine Treemap mit unterschiedlich dicken Outlines zur Verdeutlichung der Hierarchiestruktur der Knoten~\cite[1]{2010-perception-treemaps}.}
@@ -92,7 +92,7 @@ Eine explizite Behandlung dieses Problems findet sich in der Arbeit \textit{Casc
 
 Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor. Im sogenannten \textit{Cascaded Treemap}-Ansatz werden Kindknoten nicht direkt innerhalb, sondern leicht versetzt über ihren Elternknoten dargestellt (siehe Abbildung \ref{fig:cascaded}). Dadurch entsteht ein subtiler 3D-Effekt, und der Platzverlust im Vergleich zu klassischen Verschachtelungen wird reduziert.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/cascaded.png}
     \caption[Nested-Treemap und Cascaded-Treemap]{Links: Nested-Treemap-Ansatz mit vollständiger Verschachtelung. Rechts: Cascaded-Treemap-Ansatz nach~\cite[3]{lu2008cascaded} mit versetzten Kindknoten.}
@@ -112,7 +112,7 @@ Ein zentrales Problem bleibt jedoch bestehen: Einzelne Knoten können vollständ
 
 Obwohl kein Quellcode für das beschriebene Verfahren vorliegt, lässt sich aus der publizierten Beschreibung ein weiterer Nachteil erkennen: Bei jeder betrachteten Reihen-Kante wird nur der Raum für die Abstände entlang der Richtung berücksichtigt, die senkrecht zu dieser Kante steht. Abbildung \ref{fig:cascadedBadExample} verdeutlicht, dass der Algorithmus für den Bereich oberhalb und unterhalb der Trennlinie jeweils die gleiche Menge an Abstandfläche vorsieht, da ausschließlich die senkrechte Richtung zur Kante berücksichtigt wird. Dies führt dazu, dass die in der Abbildung roten Rechtecke zusammen einen wesentlich größeren Bedarf an Abstand aufweisen würden als das gelbe Rechteck alleine. Der Algorithmus differenziert jedoch nicht zwischen diesen Konstellationen, was zu einer ineffizienten Allokation von Abstandflächen führen kann.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/cascadedBadExample.png}
     \caption[Cascaded-Treemap - ungünstige Flächenaufteilung]{Illustration einer für den Cascaded-Treemap-Algorithmus ungünstigen Flächenaufteilung. Die Teilungskante ist blau markiert. Senkrecht zu dieser Kante werden die benötigten Flächen neu berechnet. Für die roten Rechtecke wird zu viel, für das gelbe Rechteck vergleichsweise wenig Abstand berücksichtigt.}

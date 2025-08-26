@@ -103,7 +103,7 @@ Die Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificial
 
 In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Es sind alle Knoten sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten. Dadurch ergibt sich eine exakte Flächenproportionalität zwischen Wert und Darstellung.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/zeroMarginArtificialMap.png}
     \caption[Treemap-Layout mit Abstand 0]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 0).} 
@@ -114,7 +114,7 @@ In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abst�
 In Abbildung \ref{fig:fiveMarginArtificialMap} gibt es nun einen Abstand zwischen Knoten und ORdnern. Es ist zwar weiterhin jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten der Knoten. Beispielsweise ist die Fläche des großen Knotens 3 auf Grund der Abstände etwas kleiner geworden und das Verhältnis von seinem Wert zu der Abgebildeten Fläche beträgt jetzt ungefähr $0,9$. Das wäre an sich ja kein Problem wenn alle Knoten dieses Wert-Flächen-Verhältnis hätten, aber das ist nicht der Fall.
 Der kleine Knoten oben links (Knoten 5) ist relativ gesehen viel kleiner geworden und weißt nur noch ein Wert-Fläche-Verhältnis von $0,2$ auf.  Obwohl zum Beispiel Knoten 2 genau den gleichen Wert hat wie Knoten 5 ist die Fläche von Knoten 2 deutlich größer als die von Knoten 5. Dies verdeutlicht, dass die Abstände die Flächenproportionalität erheblich beeinträchtigen.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
     \caption[Treemap-Layout mit Abstand 5]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 5).}
@@ -123,7 +123,7 @@ Der kleine Knoten oben links (Knoten 5) ist relativ gesehen viel kleiner geworde
 
 In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem noch größeren Abstand als zuvor, werden einige Knoten, wie beispielsweise der zuvor oben links gelegene Knoten 5, gar nicht mehr dargestellt, da ihre eigentliche Breite kleiner als der vorgegebene Abstand ist und damit die Breite der Fläche Null oder kleiner als null wird. Damit sind relevante Informationen in der Visualisierung nicht länger sichtbar und Rechtecke verschwinden vollständig. 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
     \caption[Treemap-Layout mit Abstand 10]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
@@ -134,14 +134,14 @@ Diese künstlichen Beispiele verdeutlichen die Auswirkungen gewählter Abstandsp
 
 Folgend zeigen wir das Problem an einem realen Beispiels. Wir nutzen hier das Beispiel, welches auch in der bekannten Visualisierungsbibliothek D3.js~\cite{d3_treemap_github} verwendet wird, names \textit{flare}~\cite{flare_d3js}. In Abbildung \ref{fig:flareZero} ist das Treemap-Layout des Flare-Beispiels ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flare48Missing} ist das gleiche Layout mit einem Abstand dargestellt. Hier fehlen 48 Knoten, zum Beisiiel fehlen Oben links die Knoten 79 und 82 oder auch ganz oben rechts in der Ecke gibt es jetzt einen ORdner komplett ohne Kindknoten, da Knoten 220 fehlt. Außerdem sind die Flächen nicht mehr Proportional zu den Werten.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/problemstellung/flarezero.png}
     \caption[Treemap-Layout des Flare-Beispiels mit Abstand 0]{Treemap-Layout des Flare-Beispiels mit Abstand 0. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. Wir haben extra noch Kanten in schwarz markiert, zur besseren Sichtbarkeit der Knoten.}
     \label{fig:flareZero}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/problemstellung/flare48Missing.png}
     \caption[Treemap-Layout des Flare-Beispiels mit Abstand]{Treemap-Layout des Flare-Beispiels mit Abstand. 48 Knoten fehlen.}
@@ -154,7 +154,7 @@ Das zentrale Dilemma entsteht dadurch, dass die Kernannahme der Treemap-Algorith
 
 Diese Problematik illustriert Abbildung \ref{fig:marginAreaDifference}. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit jeweils einem Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z.B. $4 \times 4$) oder länglich (z.B. $2 \times 8$) angeordnet sind; die zusätzliche Fläche für Abstände variiert somit erheblich.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/marginArea.png}
     \caption[Platz für Abstände hängt vom Seitenverhältnis ab]{Zwei Rechtecke der Fläche $16$ (dunkelgrau) mit umgebendem Abstand $1$ (hellgrau): Links ($4 \times 4$) mit Gesamtfläche $25$ ($5 \times 5$), rechts ($2 \times 8$) mit $40$ ($4 \times 10$). Der jeweils notwendige Platz für Abstände hängt vom Seitenverhältnis ab.}
