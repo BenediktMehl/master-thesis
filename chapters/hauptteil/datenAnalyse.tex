@@ -1,174 +1,176 @@
 \chapter{Datenanalyse} \label{sec:datenAnalyse}
-Dieser abschnitt hat 2 ziele 1. eine gute auswahl an code basen finden, die wir sowohl für unsere algorithmus anpassungen als auch für die evaluation am ende verwenden können.
-2. wollen wir die Struktur von Softwareprojekten näher untersuchen, um zu verstehen, wie sie aufgebaut sind und welche Eigenschaften sie haben.
-wie gesagt wir wollen die Struktur näher bestimmen. Wie definiert ist die struktur immer eine baumstruktur. genauso wie in der problemstellung (abschnit \ref{sec:Problemstellung}) definiert.
-
+Ziel dieses Abschnitts ist erstens die Auswahl geeigneter Codebasen für Algorithmusanpassungen und die spätere Evaluation und zweitens die Untersuchung der Struktur von Softwareprojekten im Hinblick auf Aufbau und charakteristische Eigenschaften. Die Struktur wird als Baumstruktur auf Dateiebene verstanden, wie in der Problemstellung definiert (siehe Abschnitt \ref{sec:Problemstellung}).
 
 \section{Auswahl der Projekte} \label{sec:auswahlDerProjekte}
-Als Quelle werden wir GitHub verwenden, da es eine große Anzahl an Open-Source-Projekten bietet und die Daten leicht zugänglich sind.
-Wir gehen nicht davon aus, dass es einen signifikanten Unterschied zwischen Open-Source und Closed-Source Projekten gibt \cite{closedVsOpenSource, closedVsOpenSource2}, weshalb wir nur auf open source zugreifen 
-Wir probieren möglich breit gefächert Projekte zu betrachten, um ein möglichst breites Spektrum an Softwareprojekten abzudecken. 
-Das Ziel bei der Auswahl der Projekte ist es, eine möglichst diverse Auswahl an Projekten zu haben, um später eine Aussage über die Struktur von Softwareprojekten im Allgemeinen treffen zu können und nicht nur über die Stuktur der meisten Softwareprojekte. Wir könnten einfach zufällige Projekte von Github auswählen, aber das würde vermutlich zu einer Verzerrung führen und eher kleinere und unbekannte Projekte auswählen.
-Deshalb suchen wir nach Kriterien, die einen Einfluss auf die Struktur von Softwareprojekten haben könnten. 
+Als Quelle dient GitHub, da dort eine große Zahl an Open-Source-Projekten vorliegt und die Daten gut zugänglich sind. Es wird nicht von signifikanten Unterschieden zwischen Open-Source- und Closed-Source-Projekten ausgegangen~\cite{closedVsOpenSource, closedVsOpenSource2}. Die Projektauswahl wird breit gefächert angelegt, um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen. Eine reine Zufallsauswahl von GitHub würde voraussichtlich zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen. Abbildung \ref{fig:repoGroesseVerteilungUnfiltered} zeigt die Größenverteilung von 2500 zufällig ausgewählten Repositories. Es zeigt sich: kleinere Projekte sind deutlich häufiger. Zum Größenvergleich: Das React-Repository gilt als sehr groß und liegt bei etwa 1 GB.Daher werden Kriterien herangezogen, die die Struktur von Softwareprojekten beeinflussen könnten.
 
-da es keine quellen gibt, die eine solche Auswahl an Kriterien vorgeben, können wir nur vermutungen anstellen und diese im nachhinein anhand der Daten überprüfen, können aber nicht sicher garantieren, dass wir wirklich alle relevanten Kriterien berücksichtigt haben. aber das ist ja auch keine arbeit über die selektion von Projekten, deshalb geben wir uns damit zufrieden.
-Zur identifikation von relevanten Kriterien richten wir uns nach den informationen, die die GitHub API uns zur verfügung stellt. Es gibt eine Vielzahl an Metainformationen. 
-
-Folgend checken wir erstmal die Kriterien, ob diese überhaupt relevant sind und ob sie einen Einfluss auf die Struktur von Softwareprojekten haben.
-
-\subsection*{Programmiersprache} Wir werden Projekte in verschiedenen Programmiersprachen betrachten, da die Struktur von Softwareprojekten in verschiedenen Programmiersprachen stark unterschiedlich sein kann - hier fehlt noch ein beweis - ist da überhaupt so? wenn nicht kann man das auch weglassen. Wir wählen die Programmiersprachen nach ihrer Popularität und Paradigma aus. 
-    \begin{itemize}
-        \item \textbf{Python:} Die zweit populärste Sprache \cite{software_state_2022} mit dynamischer Typisierung, sowohl imperativem als auch objektorientiertem Paradigma. 
-        \item \textbf{JavaScript:} die populärste Sprache \cite{software_state_2022} mit dynamischer Typisierung. Die Struktur von JavaScript-Projekten ist besonders geprägt durch Frameworks.
-        \item \textbf{Java:} Die dritt populärste Sprache \cite{software_state_2022} mit statischer Typisierung und objektorientiertem Paradigma. Java-Projekte sind oft sehr strukturiert und folgen bestimmten Konventionen.
-        \item \textbf{C:} Eine der ältesten Programmiersprachen, die immer noch weit verbreitet ist (Platz 9 \cite{software_state_2022}). C-Projekte sind oft sehr nah an der Hardware und haben eine andere Struktur als Projekte in höheren Programmiersprachen.
-        \item \textbf{Shell:} Eine Skriptsprache (Platz 8 \cite{software_state_2022}), die oft für Automatisierung und Systemadministration verwendet wird.
-    \end{itemize}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsTiefe.png}
-        \caption{Die Tiefe variert stark nach Sprache. Zum Beispiel sind die meisten Knoten (95\%) in java deutlich tiefer (tiefe 7) gelgen als die meisten Knoten (75\%) in shell (tiefe 4)}
-        \label{fig:spracheVsTiefe}
-    \end{figure}
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsBreite.png}
-        \caption{Die Varieiert zwar im Durchschnitt teilweise zb zwsichen sheell und C aber im großen und ganzen sind die Intervalle der Quantile schon überlappend}
-        \label{fig:spracheVsBreite}
-    \end{figure}
-
-    
-Man sieht aber in beiden GRafiekn, dass die Sprache einen Einfluss auf die Struktur hat, was alles war was wir hiermit zeigen wollten.
-
-\subsection*{Projektgröße} Die Projektgröße ist offensichlich der Wichtigste Faktor für die STruktur eines Projekts. Wir gehen davon aus, dass Große Projekte auch dann größere Strukturen (also mehr knoten) haben (stimmt nicht zwingen - wie im folgenden ABschnit \ref{sec:auswahlDerProjekteImDetail} gezeigt wird) Github bietet leider nur die möglichkeit nach größe und nicht nach Anzahl der Dateien zu filtern, was uns eigentich interessieren würde. 
-
-Wir beweisen kurz, dass die Größe einen Einfluss auf die Struktur hat, indem die Hierarchie-Tiefe in Abhängigkeit von der Größe untersuchen.
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/githubGrößeVsTiefe.png}
-    \caption{Die Hierarchie-Tiefe korreliert positiv mit der Größe des Repositories, was zeigt, dass größere Repositories tendenziell eine tiefere Hierarchie haben. Pearson Korrelation von 0.37, zeigt dass die korrelation schon schwach ist, bzw es viele ausreißen oder andere faktoren gibt (wie zum beispiel die sprache)}
+    \includegraphics[width=\textwidth]{images/datenanalyse/repoSizeUnfilteredVerteilung.png}
+    \caption[Größenverteilung roh]{Größenverteilung zufällig gewählter Repositories (logarithmisch abnehmend).}
+    \label{fig:repoGroesseVerteilungUnfiltered}
+\end{figure}
+
+Da keine etablierten Quellen eine geeignete Kriterienliste vorgeben, erfolgt die Ableitung heuristisch aus den über die GitHub-API verfügbaren Metadaten. Die Relevanz der in Betracht gezogenen Kriterien wird empirisch geprüft. Ein Anspruch auf Vollständigkeit besteht nicht, was für die Ziele dieses Abschnitts aber auch nicht notwendig ist.
+
+Im Folgenden werden zunächst potenziell relevante Kriterien hinsichtlich ihres Einflusses auf die Struktur bewertet, bevor dann anhand der ausgewählten Kriterien die konkrete Projektauswahl beschrieben wird.
+
+\subsection*{Programmiersprache}
+Es werden Projekte in verschiedenen Programmiersprachen betrachtet. Unterschiede in Typisierung, Paradigmen und Ökosystemen können die Projektstruktur beeinflussen. Die Sprachen werden nach Popularität und Paradigma ausgewählt:
+\begin{itemize}
+    \item \textbf{Python:} Zweitpopulärste Sprache~\cite{software_state_2022}, dynamisch typisiert, imperativ und objektorientiert.
+    \item \textbf{JavaScript:} Populärste Sprache~\cite{software_state_2022}, dynamisch typisiert; Struktur häufig durch Frameworks geprägt.
+    \item \textbf{Java:} Drittpopulärste Sprache~\cite{software_state_2022}, statisch typisiert, objektorientiert; klare Konventionen.
+    \item \textbf{C:} Etabliert und weit verbreitet (Rang 9~\cite{software_state_2022}), hardwarenahe Projekte mit abweichenden Strukturmustern.
+    \item \textbf{Shell:} Skriptsprache (Rang 8~\cite{software_state_2022}), häufig für Automatisierung und Administration.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/spracheVsTiefe.png}
+    \caption[Tiefe nach Sprache]{Die Tiefe variiert deutlich nach Sprache. In Java liegen die meisten Knoten (95\%) deutlich tiefer (Tiefe 7) als in Shell (75\% bei Tiefe 4).}
+    \label{fig:spracheVsTiefe}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/spracheVsBreite.png}
+    \caption[Breite nach Sprache]{Die Breite variiert im Mittel zwischen den Sprachen (z. B. Shell vs. C), die Quantilsintervalle überlappen jedoch weitgehend.}
+    \label{fig:spracheVsBreite}
+\end{figure}
+
+Die Abbildungen \ref{fig:spracheVsTiefe} und \ref{fig:spracheVsBreite} verdeutlichen einen Einfluss der Programmiersprache auf die Struktur. Daher wird die Sprache als Auswahlkriterium berücksichtigt.
+
+\subsection*{Projektgröße}
+Die Anzahl an Dateien ist offensichtlich ein zentraler Faktor für die Struktur (z. B. Knotenzahl und Hierarchietiefe). GitHub erlaubt jedoch nur eine Filterung nach Größe (Bytes), nicht nach Anzahl der Dateien. Zur Plausibilisierung wird geprüft, inwieweit die Größe mit strukturellen Kennzahlen korreliert.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/githubGrößeVsTiefe.png}
+    \caption[Größe vs. Tiefe]{Die Hierarchietiefe korreliert positiv mit der Repository-Größe (Pearson r = 0{,}37); die Korrelation ist schwach, weitere Faktoren (z. B. Sprache) spielen eine Rolle.}
     \label{fig:repoSizeVsTiefe}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/githubGrößeVsBreite.png}
-    \caption{Die Durchschnittliche Anzahl an Kinder-Knoten allerdings nur leicht positiv mit der Größe des Repositories korreliert, was zeigt, dass größere Repositories tendenziell eine größere Anzahl an Kinder-Knoten haben, aber nicht wikrlich ausschlaggebend. (Pearson Korrelation: 0.09)}
+    \includegraphics[width=\textwidth]{images/datenanalyse/githubGrößeVsBreite.png}
+    \caption[Größe vs. Breite]{Die durchschnittliche Kinderzahl pro Knoten korreliert schwach positiv mit der Repository-Größe (Pearson r = 0{,}09).}
     \label{fig:repoSizeVsBreite}
 \end{figure}
 
-Man sieht aber in beiden GRafiekn, dass die größe einen Einfluss auf die Struktur hat, was alles war was wir hiermit zeigen wollten.
+Beide Abbildungen zeigen einen geringen Einfluss der Größe auf strukturelle Eigenschaften. Dies rechtfertigt die Berücksichtigung der Größe als Auswahlkriterium, auch weil es sonst gar keine praktikable Möglichkeit gibt, die Knotenzahl vorab einzuschätzen, da wir auf die GitHub-API beschränkt sind.
 
 \subsection*{Ungenutzte Kategorien}
-Man könnte denken, dass auch andere Kategorien wie die Anzahl der Sterne oder die Anzahl der Mitwirkenden eines Projekts einen Einfluss auf die Struktur eines Projekts haben. Wir hatten auch diese vermutung und haben dies nachgeprüft. Um fragen zu vermeiden zeigen wir hier auch die ergebnisse, die gezeigt haben dass diese Kategorien keinen Einfluss haben und wir sie deshalb verworfen haben.
+Weitere Kategorien wie Popularität (z. B. Sterne) oder Anzahl der Mitwirkenden könnten strukturelle Effekte haben. Eine Vorprüfung zeigt jedoch keine tragfähige Relevanz für diese Analyse:
 
-1. Wir gingen davon aus, dass die Popularität eines Projekts einen Einfluss auf die Qualität eines Projekts hat. Je Popularitärer ein Projekt ist, desto "besser" muss es sein, desto besser muss ja auch die Qualität sein. Und wir gehen davon aus, dass die Qualität eines Projekts einen Einfluss auf die Struktur des Projekts hat. Allerdings deutet eine Studie an, dass Popularität nicht in Korrelation mit Software Qualität steht \cite{popAndQuality}. Außerdem sind die meisten Projekte die auf GitHub viele Sterne haben eher Sammlungen von Bücher, Kursen oder anderen Ressourcen und nicht wirklich Softwareprojekte \cite{evanli_githubranking_2025}, weshalb wir uns entschieden haben, die Popularität nicht als Kriterium zu verwenden, auch wenn es auf den ersten Blick sinnvoll erscheinen mag.
+1. Popularität korreliert nicht zuverlässig mit Softwarequalität~\cite{popAndQuality}. Zudem sind viele Projekte mit hoher Sternzahl keine Softwareprojekte im engeren Sinn (z. B. Sammlungen von Ressourcen)~\cite{evanli_githubranking_2025}. Die Popularität wird daher nicht berücksichtigt.
 
-2. Eine größere Anzahl an Mitwirkenden, mehr Änderungen und generell mehr aufmerksamkeit. 
-Es gibt paper, die sagen, dass unterschiedlichen Anzahlen an Mitwirkenden hat einen Einfluss auf die Struktur und Qualität des Codes haben kann \cite{numDevs}. Wir werden nur Projekte bereits ab einer Anzahl von 2 Mitwirkenden betrachten, da Projekte mit nur einem Mitwirkenden oft nicht wirklich repräsentativ für die Struktur von Softwareprojekten sind. 
-Wir überprufen, ob die Anzahl der Mitwirkenden einen Einfluss auf die Struktur - konkret die Hierarchie-Tiefe und die Anzahl der Kinder-Knoten - hat.
+2. Die Anzahl der Mitwirkenden kann die Qualität und Struktur beeinflussen~\cite{numDevs}. Projekte mit nur einer Person werden ausgeschlossen, da sie oft nicht repräsentativ sind. Für die Gruppe mit mindestens zwei Mitwirkenden zeigen die Daten jedoch keinen erkennbaren Einfluss der Mitwirkendenzahl auf Tiefe oder Breite der Struktur (Abbildungen \ref{fig:mitwirkendeVsKindknoten} und \ref{fig:mitwirkendeVsTiefe}).
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/mitwirkendeVsKindknoten.png}
-    \caption{Die Anzahl der Mitwirkenden auf der x-Achse hat keinen erkennbaren Einfluss auf die Anzahl der Kinder-Knoten eines Knotens.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/mitwirkendeVsKindknoten.png}
+    \caption[Mitwirkende vs. Kinderzahl]{Die Anzahl der Mitwirkenden zeigt keinen erkennbaren Einfluss auf die durchschnittliche Kinderzahl eines Knotens.}
     \label{fig:mitwirkendeVsKindknoten}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/mitwirkendeVsTiefe.png}
-    \caption{Die Anzahl der Mitwirkenden auf der x-Achse hat keinen erkennbaren Einfluss auf die Hierarchie-Tiefe eines Knotens.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/mitwirkendeVsTiefe.png}
+    \caption[Mitwirkende vs. Tiefe]{Die Anzahl der Mitwirkenden zeigt keinen erkennbaren Einfluss auf die Hierarchietiefe.}
     \label{fig:mitwirkendeVsTiefe}
 \end{figure}
 
 \subsection{Die Auswahl der Projekte im Detail} \label{sec:auswahlDerProjekteImDetail}
-So wir wissen jetzt, dass wir nur auf sprache und größe achten wollen. wir haben 5 verschiedene bekannte sprachen und verschiedene größen. Wir nehmen eine gute anzahl an Projekten, so dass jede kombi repräsentiert ist, aber trotzdem nur so viele wie wir rechnerisch handlen können. 
-In Abbildung \ref{fig:repoGroesseVerteilungUnfiltered} haben wir die Verteilung der Projektgrößen von 2500 zufällig ausgewählten GitHub-Repositories dargestellt. Es ist zu erkennen, dass es deutlich mehr kleinere Projekte gibt. (Zur Größen einordung: das REact repository, was als ein sehr großes Projekt gilt, hat eine Größe von ca.  einem Gigabyte)
-Wir wollen die Größe von 98 Prozent aller Repositories abdekcen. Wir haben uns für diesen Wert entschieden, da wir eine sehr gute Abdeckung auch großer Projekte haben wollen, aber trotzdem auch nicht zu viele Projekte generell haben wollen. Außerdem ab dieser Größe wird es wahrscheinlich generell sehr schwer sinnvoll zu visualisieren bereits das React Repo kann mit 1GB teilweise unübersichlich werden, nicht weil der algorithmus oder die visualisierung schlcht ist sondern weil es einfach zu viele Dateien werden irgendwann. %beispiel für react visualisierung
+Für die Auswahl werden die Kriterien Sprache und Größe kombiniert. Fünf Sprachen werden betrachtet (siehe oben), und die Größenverteilung wird so abgedeckt, dass alle Kombinationen hinreichend repräsentiert sind, ohne den rechnerischen Rahmen zu sprengen.
+
+Zudem werden Projekte wie \textit{The most comprehensive database of Chinese poetry} oder \textit{A list of funny and tricky JavaScript examples} manuell ausgeschlossen, da es sich nicht um Softwareapplikationen im engeren Sinne handelt. Wir gehen also sicher, dass die Projekte wirklich Softwareprojekte sind.
+
+Ziel ist eine Abdeckung bis zum 98. Größenquantil (ca. 1{,}5 GB), um auch große Projekte einzubeziehen. Oberhalb dieser Größe wird eine sinnvolle Visualisierung praktisch schwierig, da die Knotenzahl sehr groß wird.
+
+Die Auswahl erfolgt größenstratifiziert bis 1{,}5 GB mit etwa linearer Abdeckung (ca. alle 0{,}1 GB ein Projekt), was zu genau 15 Projekten pro Sprache führt (insgesamt 70 Projekte). Die konkrete Liste findet sich im Anhang (Listing \ref{lst:selected_repos.json}).
+
+Abbildung \ref{fig:repoGroesseVerteilung} zeigt die Größenverteilung der ausgewählten Repositories je Sprache. Die Verteilung ist bis 1{,}5 GB gleichmäßig abgedeckt.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/repoSizeUnfilteredVerteilung.png}
-    \caption{Das Diagram zeigt, dass es deutlich mehr kleine Projekte gibt (logarithmisch abnehmend)}
-    \label{fig:repoGroesseVerteilungUnfiltered}
-\end{figure}
-
-Man könnte argumentieren, warum macht ihr euch die arbeit und nehmt nicht einfach random Projekte? Weil wir spezifisch sicher gehen wollen projekte aller größen in einer linearen verteilung. ansonsten hätten wir einen bias richtung kleine Projekte, weil es auf github mehr kleine als große projekte gibt.
-
-Deswegen wählen wir spezifisch Projekte bis zu 1,5GB (98er Quantil) aus. Wir wählen das so, dass wir eine lineare verteilung haben und ca. alle 0,1GB ein Projekt - also haben wir 15 Projekte pro Sprache -> 70 Projekte, die die grundlage für alle analysen und evals dieser ARbeit bieten. 
-Zusätzlich gehen wir sicher, dass Projekte  wie \textit{The most comprehensive database of Chinese poetry} oder \textit{A list of funny and tricky JavaScript examples} nicht im datensatz enthalten sind, weil das keine echten Software-Applikationen sind, sondern sammlungen oder andere sachen, für die unsere Visualisierung nicht gedacht ist -> klar auch möglich natürlich, aber nich das Ziel dieser Arbeit.
-
-In Abbildung \ref{fig:repoGroesseVerteilung} ist zu erkennen, dass wir relativ gleichmäßg die repos bis zu einer Größe von 1,5GB abdecken.  Die genau auswahl an repos ist in Anhang \ref{lst:selected_repos.json} zu finden.
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/repoGrößeVerteilung.png}
-    \caption{Die Verteilung der Projektgrößen der ausgewählten Repositories je Sprache.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/repoGrößeVerteilung.png}
+    \caption[Größenverteilung ausgewählt]{Größenverteilung der ausgewählten Repositories je Sprache.}
     \label{fig:repoGroesseVerteilung}
 \end{figure}
 
-Da die größe nicht 1 zu 1 mit der Anzahl an nodes korreliert. ein order zum beispiel nimmt fast keine größe ein. außerdem sind bei jeder sparche die dateien verschieden groß es gibt unterschiedliche anzahl an dateien die nicht betrachtet werden wie png, mp4 etc die zur größe aber nicth zur anzahl an nodes beitragen. Es ist zu erkennen, dass dadurch doch wieder mehr kleinenere Repos gibt, aber das akzeptieren wir einfach. \ref{fig:repoAnzahlNodesVerteilung} Besonders bei Shell ist zu erkennen, dass die Anzahl an Knoten nicht wirklich linear verteilt ist. Zeigt wie unterschiedlich die repos der verschiedenen Sprachen sind, trotzdem aktzeptieren wir das, am ende bildet es die Realität ab.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/repoAnzahlNodesVerteilung.png}
-    \caption{Die Verteilung der Anzahl an Knoten der ausgewählten Repositories je Sprache.}
-    \label{fig:repoAnzahlNodesVerteilung}
-\end{figure}
-
-\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}    
-
-Wie berechnen wir die Struktur der Repositories und wie bekommen wir metrik daten für diese REpos?
-Wir clonen jedes repo und analysieren die Struktur der Repositories mit dem CodeCharta Analysis CLI Tools \cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
+\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}
+Die Struktur- und Metrikdaten werden durch Klonen der Repositories und Analyse mit dem CodeCharta Analysis CLI gewonnen~\cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei (es werden nur Dateien betrachtet die zur entsprechenden Programmiersprache gehören, also zB. .py für Python) die Metriken, die wir später für die Visualisierung verwenden werden. Genutzt wird der unified parser mit diesem Command:
 \begin{verbatim}
-    ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc "--verbose=false" "--exclude=" "--file-extensions="
+ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc
+  "--verbose=false" "--exclude=" "--file-extensions="
 \end{verbatim}
-Als ergebnis bekommen wir eine JSON-Datei, mit der in Abschnit \ref{sec:Problemstellung} definierten Struktur. Ein Beispiel ist auch im anhang (Listing \ref{lst:artificial.cc.json}) zu finden.
+Das Ergebnis ist eine JSON-Datei im in Abschnitt \ref{sec:Problemstellung} definierten Format. Ein Beispiel findet sich im Anhang (Listing \ref{lst:artificial.cc.json}).
 
-Im Abschnitt Problemstellung (Abschnit \ref{sec:Problemstellung}) wurde das Format der Eingabe-Daten formal definiert (siehe Listing \ref{lst:nodeSchema}). Die Hierarschische-Struktur selbst ist offen in ihrer Größe und Form also zB. wie viele Kinder hat ein Knoten, wie Tief ist die Verschachtelung etc. Wir verscuhen das in diesem Kapitel einzuschreänken, also auf zu zeigen, wie hierarschiche strukturen, die aus software analyse auf file-basis laufen aussehen. UM nochmal klarer zu werden: die formale definition steht. aber in der praxis realität werden diese Strukturen aus der Datei-Hierachie von Software-Projekten entstehen. 
+Folgend werden Grenzen und typische Eigenschaften hierarchischer Strukturen aus dateibasierten Softwarehierarchien aufgezeigt, um Algorithmen und Visualisierungen dieser Arbeit gezielt auf diese Strukturen zu optimieren und Laufzeiten realistisch einzuschätzen.
 
-Warum wollen wir das tun? Weil wir uns erhoffen, erkenntnisse über die Datei-Struktur von Software-Projekten zu gewinnen, die uns helfen, die algorithmen genau für diese Strukturen zu optimieren und außerdem die Laufzeiten der algorithmen eine bessere einschätzung zu geben.
-
-Im Grundlagen Kapitel wurde bereits erwähnt, dass die Metrik-Daten, die wir durch die Analyse von Code erhalten, spezielle Eigenschaften aufweist (siehe Abschnitt \ref{sec:SoftwareQualitaetsmetriken}). Diese Eigenschaften sind wichtig, um die Visualierung zu optimieren und zu wissen in welchem Rahmen sich die zu visualisierenden Daten bewegen. 
-
-numberOfFiles: 3262.34 (avr), 708.50 (median), 7391.42 (std)
-numberOfFolders: 958.76 (avr), 242.00 (median), 2089.59 (std)
-numberOfNodes: 4221.10 (avr), 1108.50 (median), 9308.05 (std)
-
-sehr hohe varianz zwischen den einzelen repos. 
-
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+         & Durchschnitt & Median & Standardabweichung \\
+        \hline
+        Datei Anzahl   & 3262 & 708  & 7391 \\
+        Ordner Anzahl & 958  & 242  & 2089 \\
+        Knoten Anzahl   & 4221 & 1108 & 9308 \\
+        \hline
+    \end{tabular}
+    \caption{Kennzahlen über alle analysierten Repositories gerundet auf ganze Zahlen.}
+    \label{tab:repo-kennzahlen}
+\end{table}
+    
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/anzahlKindZuOrdner.png}
-    \caption{Die Anzahl der Kind-Knoten pro Ordner. Mehr als 50\% der Ordner haben nur ein Kind. Das 95 Prozent Quantil liegt bei 18.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/anzahlKindZuOrdner.png}
+    \caption[Kinder pro Ordner]{Kinderzahlen pro Ordner. Über 50\% der Ordner haben nur ein Kind; das 95\%-Quantil liegt bei 18.}
     \label{fig:anzahlKindZuOrdner} 
 \end{figure}
 
-in abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben (was auffällig ist, sie Ordnerketten im folgenden). Das quantil 95 liegt bei 18, was interessant wird im Abschnitt 
+Abbildung \ref{fig:anzahlKindZuOrdner} zeigt, dass die meisten Ordner nur ein Kind besitzen, was im nächsten Abschnitt (Abschnitt \ref{sec:OrdnerKetten} relevant wird. Das 95\%-Quantil von 18. An diesem Wert werden wir uns in den folgenden Abschnitten orientieren.
 
-\subsection{Orderketten} \label{sec:OrderKetten}
-Wir vermuten, dass die hohe Tiefe bei java daher kommt, dass es in Java üblich ist, die Struktur des Codes in Paketen zu organisieren, die häufig in mehreren Ebenen verschachtelt sind. Zb: 
-\begin{figure}[h]
+\begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsKettentiefe.png}
-    \caption{Die Kettentiefe ist besonders bei Java auffällig variant und auch der Mittelwert ist höher als der bei allen anderen Sprachen.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/tiefeAufteilung.png}
+    \caption[Verteilung der Tiefe]{Verteilung der Tiefe. Die meisten Knoten liegen in mittleren Tiefen (3-11); sehr tiefe Knoten sind selten.}
+    \label{fig:tiefeAufteilung}
 \end{figure}
-Zum Beispiel im OpenSource Projekt CodeCharta \cite{code_charta_github}
-codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt
-Ab dem Ordern \textit{main} bis zum Ordner \textit{analyserinterface} geht die Kette von Ordnern.
-Da wir uns aber für die generelle vertelung interessieren hier die grafik:
+
+Abbildung \ref{fig:tiefeAufteilung} zeigt die Verteilung der Tiefe aller Knoten. Die meisten Knoten liegen in mittleren Tiefen (3-11); sehr tiefe Knoten sind selten. Das 95\%-Quantil liegt bei Tiefe 13, was in den folgenden Abschnitten als Orientierung dient.
+
+
+\subsection{Ordnerketten} \label{sec:OrdnerKetten}
+Es wird vermutet, dass die hohe Tiefe insbesondere in Java aus stark verschachtelten Paketstrukturen resultiert. Abbildung \ref{fig:spracheVsKettentiefe} zeigt die Kettentiefe nach Sprache; in Java ist die Varianz hoch, der Mittelwert liegt über den übrigen Sprachen. Ein Beispiel ist das Open-Source-Projekt CodeCharta~\cite{code_charta_github}:
+\path{codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt}
+Die Kette verläuft ab dem Ordner \textit{main} bis \textit{analyserinterface}.
+
+Für die Verteilung der Kettenlängen zeigt Abbildung \ref{fig:kettentiefe}, dass die meisten Ketten nur eine Ordnerstufe umfassen (Ordner → Ordner → Datei/weitere Ordner), aber auch längere Ketten (z. B. Länge 4) häufig auftreten. Abbildung \ref{fig:spracheVsOrderInKetten} zeigt den Anteil der Ordner, die Teil einer Kette sind; über alle Sprachen liegt der Mittelwert bei ca. 33\%, in Java bei ca. 50\%.
+
+Die beiden grafiken zeigen uns, dass es viele Ketten gibt (speziell in Java) und dass viele Ordner in diesen Ketten sind. Außerdem können ketten nicht nur ein order tief sein sondern häufig auch 4 ordner tief. Diese erkenntniss wird in Abschnitt \ref{sec:OrderKettenOptimierung} eine Rolle spielen.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/kettentiefe.png}
-    \caption{Die meisten Ketten sind nur 1 Ordner tief (Ordner + Ordner + Datei/Mehrer Dateien/Mehrere Ordner). Auffällig ist, dass es wieder mehr ketten von länge 4 gibt.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/spracheVsKettentiefe.png}
+    \caption[Kettentiefe nach Sprache]{Kettentiefe nach Sprache: Java zeigt höhere Mittelwerte und Varianz.}
+    \label{fig:spracheVsKettentiefe}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/kettentiefe.png}
+    \caption[Verteilung Kettenlängen]{Verteilung der Kettenlängen. Viele Ketten sind kurz; Ketten der Länge 4 treten ebenfalls häufig auf.}
     \label{fig:kettentiefe}
 \end{figure}
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/datenanalyse/spracheVsOrderInKetten.png}
-    \caption{Die Anzahl der Ordner, die Teil einer Kette sind, ist besonder hoch bei Java. Der Durchschnittswert über alle Sprachen liegt bei ca. 33\% und der von Java bei ca. 50\%.}
+    \includegraphics[width=\textwidth]{images/datenanalyse/spracheVsOrderInKetten.png}
+    \caption[Ordneranteil in Ketten]{Anteil der Ordner, die Teil einer Kette sind. Java liegt mit ca. 50\% deutlich über dem Mittel von ca. 33\%.}
     \label{fig:spracheVsOrderInKetten}
 \end{figure}
-Die beiden grafiken zeigen uns, dass es viele Ketten gibt (speziell in Java) und dass viele Ordner in diesen Ketten sind. Außerdem können ketten nicht nur ein order tief sein sondern häufig auch 4 ordner tief. Diese erkenntniss wird in Abschnitt \ref{sec:OrderKettenOptimierung} eine Rolle spielen.
+
+

@@ -27,7 +27,7 @@ Metriken erfassen stets nur einzelne Aspekte der Software. Sie erlauben daher ke
 
 Da Qualitätsziele kontextabhängig sind, existiert keine universelle Metrik, die Softwarequalität vollständig beschreibt. Stattdessen sollten Metriken so ausgewählt werden, dass sie die Qualität einer Software im Hinblick auf die jeweiligen Ziele abbilden~\cite{hall1994implementing}. Zudem ist zu berücksichtigen, dass die Erhebung und Auswertung von Metriken zusätzlichen Aufwand verursacht.
 
-Kritische Anmerkungen zu Softwaremetriken betreffen unter anderem die mangelnde wissenschaftliche Fundierung vieler Metriken sowie die teilweise unklare Nachweisbarkeit ihres Nutzens~\cite{voas_kuhn_2017}. Es besteht zudem die Gefahr, dass bei ungeeigneten Kennzahlen lediglich die Metrikwerte optimiert werden, ohne dass sich die Gesamtqualität tatsächlich verbessert. Entwickler könnten ihr Handeln stärker auf das Erreichen guter Metrikwerte als auf die eigentlichen Ziele der Software ausrichten~\cite{worst_gitclear_2025}. Viele Metriken sind kontextabhängig und ersetzen keine Code Reviews oder softwarepraktischen Tests; sie liefern lediglich Hinweise, die stets im jeweiligen Kontext zu interpretieren sind. Klassische Beispiele wie \enquote{Lines of Code} oder die Anzahl der Commits werden häufig fehlinterpretiert und bilden beispielsweise Komplexität oder tatsächlichen Arbeitsaufwand nicht ab~\cite{worst_gitclear_2025}.
+Kritische Anmerkungen zu Softwaremetriken betreffen unter anderem die mangelnde wissenschaftliche Fundierung vieler Metriken sowie die teilweise unklare Nachweisbarkeit ihres Nutzens~\cite{voas_kuhn_2017}. Es besteht zudem die Gefahr, dass bei ungeeigneten Kennzahlen lediglich die Metrikwerte optimiert werden, ohne dass sich die Gesamtqualität tatsächlich verbessert. Entwickler könnten ihr Handeln stärker auf das Erreichen guter Metrikwerte als auf die eigentlichen Ziele der Software ausrichten~\cite{worst_gitclear_2025}. Viele Metriken sind kontextabhängig und ersetzen keine Code Reviews oder softwarepraktischen Tests. Sie liefern lediglich Hinweise, die stets im jeweiligen Kontext zu interpretieren sind. Klassische Beispiele wie \enquote{Lines of Code} oder die Anzahl der Commits werden häufig fehlinterpretiert und bilden beispielsweise Komplexität oder tatsächlichen Arbeitsaufwand nicht ab~\cite{worst_gitclear_2025}.
 
 Einfache Metriken sind zudem nicht in der Lage, komplexe Qualitätsprobleme zu identifizieren~\cite{voas_kuhn_2017} und sind abhängig von Programmiersprache und individuellem Stil.
 
@@ -59,7 +59,7 @@ Traditionell wurden Softwaremetriken in numerischer oder zweidimensionaler Form 
 Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from 'outside'. 3D visualizations on the other hand provide the potential to create such an immersive experience~\cite[1]{codeCity1}
 \end{quote}
 
-Es wird zusätlich noch zwischen echter 3D-Visualisierung und sogenannten 2.5D-Visualisierungen unterschieden. Eine 2.5D Visualisierung nutzt zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet~\cite{wikipedia2.5D}. 2.5D Visualisierungen entstehen durch ein 2D-Layout, das um eine dritte Dimension erweitert wird. Zum beispiel wäre ein 2D-Raum-Layout, welches nach oben extrudiert wird, eine 2.5D-Visualisierung. Echte 3D-Visualisierungen hingegen nutzen alle drei Dimensionen vollständig aus, indem Objekte frei im dreidimensionalen Raum positioniert werden können, zum Beispiel wäre eine ein Modell des Sonnensystems, bei dem die Planeten frei im Raum positioniert sind, eine echte 3D-Visualisierung.
+Zusätzlich wird zwischen echter 3D-Visualisierung und sogenannten 2.5D-Visualisierungen unterschieden. Eine 2.5D-Visualisierung nutzt zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet~\cite{wikipedia2.5D}. 2.5D-Visualisierungen entstehen durch ein 2D-Layout, das um eine dritte Dimension erweitert wird. Beispielsweise stellt ein 2D-Raum-Layout, das nach oben extrudiert wird, eine 2.5D-Visualisierung dar. Echte 3D-Visualisierungen hingegen nutzen alle drei Dimensionen vollständig, indem Objekte frei im dreidimensionalen Raum positioniert werden können. Beispielsweise stellt ein Modell des Sonnensystems, bei dem die Planeten frei im Raum positioniert sind, eine echte 3D-Visualisierung dar.
 
 Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}).
 
@@ -108,7 +108,7 @@ Das Originalverfahren des CodeCity-Algorithmus ist nicht öffentlich verfügbar.
 
 \section{Treemap-Layouts} \label{sec:Treemap}
 
-Hierarchische Daten werden häufig als Bäume dargestellt. Klassische Darstellungen wie Baumdiagramme oder Venn-Diagramme erweisen sich jedoch insbesondere bei großen Datenmengen als ineffizient hinsichtlich der Flächennutzung und generell als unübersichtlich~\cite{johnson1991tree}. Für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an ihre Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können.
+Hierarchische Daten werden häufig als Bäume dargestellt. Klassische Darstellungen wie Baumdiagramme oder Venn-Diagramme erweisen sich jedoch insbesondere bei großen Datenmengen als ineffizient hinsichtlich der Flächennutzung und als unübersichtlich~\cite{johnson1991tree}. Für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an ihre Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können.
 
 Zur Lösung dieser Herausforderungen entwickelten Shneiderman und Johnson 1991 das Konzept der \textit{Treemap} zur effizienten Darstellung hierarchischer Strukturen~\cite{johnson1991tree}. Das zentrale Prinzip von Treemaps besteht darin, jedem Knoten eines gewichteten Baums ein Rechteck zuzuweisen, dessen Fläche proportional zum Gewicht (beispielsweise Datenmenge, Marktwert o. ä.) ist. Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus, sodass die Gesamtfläche der Kindknoten exakt der Fläche ihres Elternrechtecks entspricht. Mathematisch liegt der Visualisierung ein gewichteter Baum zugrunde, wobei insbesondere die Blattknoten jeweils einen numerischen Wert besitzen.
 
@@ -119,7 +119,7 @@ Shneiderman und Johnson definieren für gelungene Treemaps folgende Schlüsselzi
     \item \textbf{Ästhetik:} Ansprechende und übersichtliche Anordnung der Rechtecke.
 \end{itemize}
 
-Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung~\ref{fig:baumdiagramm}) oder Venn-Diagramme (Abbildung~\ref{fig:venndiagram}) konnten diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}~\cite[5]{johnson1991tree}
+Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung~\ref{fig:baumdiagramm}) oder Venn-Diagramme (Abbildung~\ref{fig:venndiagram}) können diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}~\cite[5]{johnson1991tree}
 
 \begin{figure}[h]
     \centering
@@ -166,7 +166,7 @@ Der Squarify-Algorithmus arbeitet rekursiv, indem er die zu verteilende Fläche 
 
 Im Folgenden wird der Algorithmus anhand eines Beispiels aus dem Originalartikel von Bruls et al.~\cite[5]{bruls2000squarified} erläutert, wobei die Erklärung näher an einer praktischen Implementierung aus der d3-Bibliothek~\cite{d3_treemap_code} orientiert ist.
 
-Der Algorithmus füllt die zur Verfügung stehende Fläche stets in Reihen auf, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt iterativ: Das erste Rechteck wird eingefügt, dann das aktuelle Seitenverhältnis des Rechtecks berechnet. Anschließend wird das nächste Rechteck eingefügt. Verschlechtert sich durch das Einfügen das schlechteste Seitenverhältnis eines Rechtecks in der Reihe, wird eine neue Reihe begonnen.
+Der Algorithmus füllt die zur Verfügung stehende Fläche stets in Reihen, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt iterativ: Das erste Rechteck wird eingefügt, dann wird das aktuelle Seitenverhältnis des Rechtecks berechnet. Anschließend wird das nächste Rechteck eingefügt. Verschlechtert sich durch das Einfügen das schlechteste Seitenverhältnis eines Rechtecks in der Reihe, wird eine neue Reihe begonnen.
 
 In dieser Arbeit wird (abweichend von einigen Publikationen) die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente (Höhe im dreidimensionalen Raum) zu vermeiden.
 
@@ -174,12 +174,12 @@ In dieser Arbeit wird (abweichend von einigen Publikationen) die X-Koordinate al
 
 Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konkreten Beispiels erläutert. Es sollen Rechtecke mit den Werten $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ eingefügt werden.
 
-Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird solange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
+Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird so lange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\textwidth]{images/squarify_example_1.png}
-    \caption[Die erste Reihe des Squarify-Algorithmus]{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Erste Reihe im Squarify-Beispiel]{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_example_1}
 \end{figure}
 
@@ -188,13 +188,13 @@ Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{images/squarify_example_2.png}
-    \caption[Die zweite Reihe des Squarify-Algorithmus]{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Zweite Reihe im Squarify-Beispiel]{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_example_2}
 \end{figure}
 
 Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe Abbildung~\ref{fig:squarify_example_2}). Das durch die zuvor erstellte Reihe verbliebene, zu füllende Rechteck hat die Abmessungen $3 \times 4$ (3 Einheiten breit und 4 Einheiten lang). Da die Reihe länger als breit ist, wird das nächste Rechteck eingefügt. Durch das Einfügen des Rechtecks entsteht ein schlechtestes Seitenverhältnis von $3 : 1,33 \approx 2,25$. Das Einfügen des nächsten Rechtecks mit der Fläche 3 Einheiten verbessert das schlechteste Seitenverhältnis auf $2,33 : 1,29 \approx 1,8$ und ist damit besser als das vorherige. Das Einfügen des nächsten Rechtecks mit der Fläche 2 verschlechtert das schlechteste Seitenverhältnis auf $3 : 0,67 \approx 4,5$, sodass die Reihe abgeschlossen wird (Schritt 8).
 
-Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/images/squarify_example.gif}{Link}~\cite{squarify_video_link} ein Video verfügbar, das das Füllen der ersten zwei Reihen des Algorithmus zeigt. Es ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
+Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/images/squarify_example.gif}{Link}~\cite{squarify_video_link} ein Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus zeigt. Es ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
 
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
 
@@ -222,7 +222,7 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (
         \caption*{Reihe 5}
     \end{minipage}
     
-    \caption[Die letzten Reihen des Squarify-Algorithmus]{Beispiel für die letzten Reihen des Squarify-Algorithmus. Die Reihen sind im linken großen Rechteck in hellgrau dargestellt, sie können nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
+    \caption[Letzte Reihen im Squarify-Beispiel]{Beispiel für die letzten Reihen des Squarify-Algorithmus. Die Reihen sind im linken großen Rechteck in hellgrau dargestellt, sie können nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
     \label{fig:squarify_examples}
 \end{figure}
 
@@ -245,7 +245,7 @@ Das jeweils schlechteste Seitenverhältnis in einer Reihe kann rechnerisch effiz
 
 Analog gilt $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Es genügt daher, für das jeweils größte und kleinste Rechteck in der Reihe den Wert zu berechnen und daraus das schlechteste Seitenverhältnis zu bestimmen.
 
-Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal berechnet werden; $sV$ wird bei jedem neuen Rechteck in der Reihe aktualisiert.
+Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal berechnet werden. $sV$ wird bei jedem neuen Rechteck in der Reihe aktualisiert.
 
 Zur weiteren Veranschaulichung wird im Folgenden der Code des Algorithmus in TypeScript aufgeführt, der als Grundlage für die Erweiterungen in dieser Arbeit dient. Die Implementierung orientiert sich an der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}.
 
@@ -259,13 +259,13 @@ In Abbildung~\ref{fig:squarifyRatio1} ist ein Beispiel für ein Layout zu sehen,
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/oneSquarify.png}
-    \caption[Squarify-Layout mit quadratischen Rechtecken]{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
+    \caption[Squarify: quadratische Rechtecke]{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
     \label{fig:squarifyRatio1}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.5\textwidth]{images/fiveSquarify.png}
-    \caption[Squarify-Layout mit länglichen Rechtecken]{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
+    \caption[Squarify: längliche Rechtecke]{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
     \label{fig:squarifyRatio5}
 \end{figure}
