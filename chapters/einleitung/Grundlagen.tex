@@ -53,17 +53,13 @@ Die Visualisierung von Softwarestrukturen ist essenziell, um komplexe Softwaresy
 
 Softwarevisualisierung ermöglicht es, Strukturen und Beziehungen so darzustellen, dass sie schneller und intuitiver erfasst werden können~\cite{diehl2007software}. Visuelle Repräsentationen unterstützen Entwickler bei Analyse und Fehlersuche und fördern die Kommunikation zwischen technischen und fachfremden Beteiligten~\cite{baltes2017sketches}.
 
-\subsection{2.5D- und 3D-Software-Visualisierung} \label{sec:3DSoftwareVisualisierung}
-
-%nochmal früher den unterschied erklären, was 2.5 und was 3
-
-Traditionell werden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. 3D-Visualisierungen bieten darüber hinaus die Möglichkeit, immersive Einblicke zu schaffen und Software \enquote{greifbar} zu machen:
+Traditionell wurden Softwaremetriken in numerischer oder zweidimensionaler Form präsentiert. Mehrdimensionale Visualisierungen bieten darüber hinaus die Möglichkeit, immersive Einblicke zu schaffen und Software \enquote{greifbar} zu machen:
 
 \begin{quote}
 Despite the proven usefulness of 2D visualizations, they do not allow the viewer to be immersed in a visualization, and the feeling is that we are looking at things from 'outside'. 3D visualizations on the other hand provide the potential to create such an immersive experience~\cite[1]{codeCity1}
 \end{quote}
 
-Obwohl die Autoren von CodeCity von 3D-Visualisierung sprechen, handelt es sich tatsächlich um sogenannte 2.5D-Visualisierungen~\cite{johnson1993treemapsPhd}. Nach Wikipedia~\cite{wikipedia2.5D} nutzen solche Darstellungen zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet. Bei CodeCity beispielsweise dient die dritte Dimension zur Extrusion der Rechtecke zu Quadern, nicht jedoch zur Positionierung der Quader im 3D-Raum, was eine deutliche Einschränkung darstellt. Aus diesem Grund wird diese Art der Visualisierung in dieser Arbeit als 2.5D-Visualisierung bezeichnet.
+Es wird zusätlich noch zwischen echter 3D-Visualisierung und sogenannten 2.5D-Visualisierungen unterschieden. Eine 2.5D Visualisierung nutzt zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet~\cite{wikipedia2.5D}. 2.5D Visualisierungen entstehen durch ein 2D-Layout, das um eine dritte Dimension erweitert wird. Zum beispiel wäre ein 2D-Raum-Layout, welches nach oben extrudiert wird, eine 2.5D-Visualisierung. Echte 3D-Visualisierungen hingegen nutzen alle drei Dimensionen vollständig aus, indem Objekte frei im dreidimensionalen Raum positioniert werden können, zum Beispiel wäre eine ein Modell des Sonnensystems, bei dem die Planeten frei im Raum positioniert sind, eine echte 3D-Visualisierung.
 
 Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}).
 
@@ -101,6 +97,8 @@ Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und
     \caption[Originale CodeCity-Visualisierung]{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
     \label{fig:codeCity}
 \end{figure}
+
+Obwohl die Autoren von CodeCity von 3D-Visualisierung sprechen, handelt es sich tatsächlich um sogenannte 2.5D-Visualisierungen~\cite{johnson1993treemapsPhd}. Nach Wikipedia~\cite{wikipedia2.5D} nutzen solche Darstellungen zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet. Bei CodeCity beispielsweise dient die dritte Dimension zur Extrusion der Rechtecke zu Quadern, nicht jedoch zur Positionierung der Quader im 3D-Raum, was eine deutliche Einschränkung darstellt. Aus diesem Grund wird diese Art der Visualisierung in dieser Arbeit als 2.5D-Visualisierung bezeichnet.
 
 Während frühere Arbeiten, wie die von Marcus et al.~\cite{3dsoftwareMarcus}, auf sehr feingranulare Codebestandteile wie Attribute und Methoden fokussierten, bietet CodeCity eine abstrahierende Sicht auf Klassen, Pakete und deren Struktur. Dadurch ist die Visualisierung insbesondere für nicht-technische Stakeholder verständlicher und leichter zu überblicken.
 

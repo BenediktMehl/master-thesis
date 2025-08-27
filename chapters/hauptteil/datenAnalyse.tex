@@ -96,7 +96,7 @@ Wir wollen die Größe von 98 Prozent aller Repositories abdekcen. Wir haben uns
     \label{fig:repoGroesseVerteilungUnfiltered}
 \end{figure}
 
-Man könnte argumentieren, warum macht ihr euch die arbeit und nehmt nicht einfach random Projekte? Weil wir spezifisch sicher gehen wollen projekte aller größen in einer linearen verteilung. ansonsten haben wir vorallem kleine Projekte, bei denen sowieso das treemap problem nicht so sehr auftritt, dann würden wir in den daten auch keine wirklichen änderungen sehen können (wahrscheinich) oder nicht so große. weil eher kleine projekte \ref{fig:cumSumRepoSizeLog}.
+Man könnte argumentieren, warum macht ihr euch die arbeit und nehmt nicht einfach random Projekte? Weil wir spezifisch sicher gehen wollen projekte aller größen in einer linearen verteilung. ansonsten hätten wir einen bias richtung kleine Projekte, weil es auf github mehr kleine als große projekte gibt.
 
 Deswegen wählen wir spezifisch Projekte bis zu 1,5GB (98er Quantil) aus. Wir wählen das so, dass wir eine lineare verteilung haben und ca. alle 0,1GB ein Projekt - also haben wir 15 Projekte pro Sprache -> 70 Projekte, die die grundlage für alle analysen und evals dieser ARbeit bieten. 
 Zusätzlich gehen wir sicher, dass Projekte  wie \textit{The most comprehensive database of Chinese poetry} oder \textit{A list of funny and tricky JavaScript examples} nicht im datensatz enthalten sind, weil das keine echten Software-Applikationen sind, sondern sammlungen oder andere sachen, für die unsere Visualisierung nicht gedacht ist -> klar auch möglich natürlich, aber nich das Ziel dieser Arbeit.

@@ -1,22 +1,47 @@
 \chapter{Implementierung} \label{sec:Implementierung}
+In diesem Abschnitt werden wir kurz die Architektur der Implementierungen beschreiben ohne zusehr ins detail zu gehen.
 
-Beschreibe grob wie es implementiert ist.
-in layout schritt 
-und visualisierung schritt
-dass alle im grunde das gemeinsam haben und auch die selbe schnittstelle nutzen.
+Alle ausgewählten Visualierungen haben gemeinsam, dass sie 2.5D-Visualisierungen sind. Die gemeinsamkeit ist also, dass sie auf einem 2D layout basieren und dann in die dritte dimension extrudiert werden. 
+Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}). Bei diesem Schema ist im Vergleich zu Schema \ref{lst:nodeSchema} ein x, y, breite und länge Attribut hinzugekommen. Diese Attribute definiert je nach geometrischer Form die Position und Größe des Knotens im zweidimensionalen Raum. Dabei hat jeder Aspekt (Fläche, Höhe, Farbe) eine Metrik die dadurch kodiert wird. Die Punkte können beispielsweise die Ecken eines Rechtecks oder das Zentrum und Schnittpunkt eines Kreises darstellen.
 
-\subsection{Treemap Layout}
-das treemap layout ist eines der meist genutzten layouts für visualisierungen, wie wir sie vorhaben
-wir werden das treemap layout in verschiedenen ausführungen testen. 
-1. das original layout von code city
-2. das layout so wie es von d3.js vorgeschlagen ist wie es zum beispiel durch codechata tool verwendet wird
-3. unser verbessertes
+\begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
+    "node": {
+        "name": string,
+        "x": number,
+        "y": number,
+        "width": number,
+        "length": number,
+        "children": List[Node] | "values": number[3]
+    }
+\end{lstlisting}
 
-\subsection{Sunburst Layout}
-wir werden ein sunburst layout testen:
+Dieses Schema ermöglicht die Definition von Position und Größe jedes Knotens im zweidimensionalen Raum. Die dritte Dimension wird durch eine zusätzliche Metrik extrudiert. Dadurch ergibt sich eine eindeutige Definition und Anforderung an 2D-Layouts bei gleichzeitiger Flexibilität in der Darstellung der dritten Dimension.
+
+Wir machen uns diese Eigenschaft zunutze und trennen die Implementierung in zwei Schritte:
+\begin{itemize}
+    \item \textbf{Layout-Schritt:} In diesem Schritt wird das 2D-Layout basierend auf den Eingabedaten generiert. Dabei wird das Layout-Schema \ref{lst:nodeLayoutSchema} ausgefüllt.
+    \item \textbf{Visualisierungs-Schritt:} In diesem Schritt wird das generierte 2D-Layout in eine 2.5D-Visualisierung überführt. Dabei werden die Punkte des Layouts verwendet, um die geometrischen Formen zu erstellen und die dritte Dimension durch Extrusion hinzuzufügen, wobei der Extrusionsschritt auch je nach Visualisierung variieren kann.
+\end{itemize}
+
+Die Implementierung erfolgt in typescript mit der bekannten 3D-Rendering Bibliothek \textit{three.js}~\cite{threejs}. 
+
+\subsection{Treemap} \label{sec:TreemapImplementation}
+Weikl das treemap layout so wichtig für softwarequalitätsmetrikvisualiserung ist, ist Die Implentierung des 2D-Treemap-Layouts werden wir besonders detailliert beschreiben und optimieren. Deshalb gibt es dafür ein eigenes Kapitel \ref{sec:VerbesserungSquarify}.
+Der output dieses layout schritts beschreibt die position der linken unteren ecke des rechtecks und die breite (in x richtung) und länge (in y richtung) des rechtecks. Der Visualisierungsschritt extrudiert dann alle nicht blattknoten um einen festen wert und alle blattknoten um den wert der Metrik die wir in der höhe darstellen wollen. Außerdem ist die z Position der Knoten immer \textit{auf} dem eltern knoten, also die z position des elternknotens + die höhe des elternknotens.
+
+\subsection{Streetmap}
 
 
-\subsection{Circle Packing Layout}
-einmal circle packing
+\subsection{Code City}: 
+Leider gibt es keine offene Implementierung des Code City Layouts. Deshalb haben wir uns an die Beschreibung in der Originalarbeit gehalten~\cite{codeCity1} und das Layout selbst implementiert. Der Algorithmus platzier bottom up (also zuerst die tiefen elemente der struktur) die rechtecke. Die Fläche der Knoten ist quadratisch, die seitenlänge ist also die wurzel aus der Metrik die wir in der Fläche darstellen wollen.
+Im grunde implementieren wir einen packing algorithmus und nicht wirklich ein Treemap algorithmus, wie in der ursprünglichen arbeit beschrieben gesagt (komisch, dass die autoren von treemap reden, wobei das ergebnis eher wie von einem packing algorithmus aussieht).
+Dabei werden die elemente von groß zu klein immer möglichst weit unten links platziert, so dass ein Quadratischer Elternknoten, der alle geschwister Knoten umfasst, möglichst wenig Fläche hat.
+Es fällt auf, dass durch die einschränkung von quadratischen Knoten, es möglich ist, anders als bei treemap, einen bottom up Algorithmus zu verwenden, was das problem vereinfacht.
+Der Output des algorithmus und der Visualisierungsschritt sind analog zu dem der Treemap zuvor (abschnitt \ref{sec:TreemapImplementation}).
 
-\subsection{Noch eins mehr?}
+\subsection{Sunburst}:
+Der Sunburst Algorithmus ist relativ einfach. Der Layoutschritt erzeugt quasi ein schema, dass man sich wie ein stacked layoutvorstellen kann und der Visualisierungsschritt rendert die Knoten dann in einem Kreis.
+Der Layoutschritt geht einfach top down runter, nachdem die werte aller elternknoten durch das summieren der werte der Kinderknoten bestimmt wurde. Dann bekommt jeder Knoten einen x wert, der den start winkel im kreis beschreibt und einen breite wert, der die winkel breite beschreibt. Die y position und die länge werden für dieses Layout nicht benötigt, sie ergeben sich aus der hierarchischen tiefe der Knoten. Der Visualisierungsschritt rendert dann die Knoten als Kreissegmente, 
+%mache hier weiter
+
+\subsection{Circle}: 

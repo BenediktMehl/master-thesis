@@ -25,6 +25,45 @@ Dies soll getestet werden auf basis von verschiedenen öffentlichen Repositories
 
 auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
 
+
+\section{Angestrebtes Seitenverhältnis} \label{sec:Seitenverhältnis}
+Wie bereits in den grundlagen erwähnt (siehe Abschnit \ref{sec:Squarify}) muss der angestrebte Seitenverhältniswert nicht zwingend 1 sein. Die bekannte d3.js implementierung des Squarify Algorithmus \cite{d3_treemap_code} nutzt zum Beispiel den Goldenenschnitt (1.618) als Zielwert für das Seitenverhältnis. Dieser Zielwert wird als Faktor in die bedingung des Algorithmus eingebaut, der bestimmt, wann eine Reihe komplett ist, dabei ist dann das optimale Seitenverhältnis nicht 1, sondern eben der angestrebte Wert. Will wollen uns hier nicht streiten, ob 1 oder der Goldene Schnitt am ende schönerer und übersichtlichere Layouts erzeugt, sondern wir zweifeln an, dass diese Zielwerte überhaupt sinnvoll sind, da man wie am Ende von Abschnitt \ref{sec:Squarify} an den Beiden beispielen sieht, die Ziel ratios nicht erreicht werden können (Ziel Seitenverhältnis von 1 führt zu einem Durchschnittlichen Seitenverhältnis von 1,42 und Ziel Seitenverhältnis von 5 führt zu einem Durchschnittlichen Seitenverhältnis von 2,79 - siehe Abbildung \ref{fig:squarifyRatio1} und \ref{fig:squarifyRatio5})
+speziell wenn wir uns hierarchien Anschauen, die tief verschachtelt sind und pro Ordner nur wenige Kindknoten haben (siehe Datenanalyse Abschnit \ref{sec:strukturVonSoftwareprojekten}), vermuten wir, dass diese Ziele unnereichbar sind, da die Struktur der Daten das Layout zu stark beeinflusst. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/aimedRatioZuRatio.png}
+    \caption{Zusammenhang zwischen dem angestrebten Seitenverhältnis und dem tatsächlich erreichten Seitenverhältnis bei der Anwendung des Standard d3.js Squarify Algorithmus auf die ausgewählten Repositories.}
+    \label{fig:aimedRatioZuRatio}
+\end{figure}
+
+In Abbildung \ref{fig:aimedRatioZuRatio} ist der Zusammenhang zwischen dem angestrebten Seitenverhältnis und dem tatsächlich erreichten Seitenverhältnis abbgebildet. Es ist klar zu erkenne, dass nie der angestrebte Wert erreicht wird, das tatsächliche Seitenverhältnis ist immer deutlich höher. Die Werte um 1 herum liefern dabei noch die besten Ergebnisse, trotzdem kommt hier kein Zielwert überhuapt in die nähe von dem Goldenenschnitt geschweige denn 1. ein zielwert vom goldenen Schnitt liefert ein median Seitenverhältnis von 7.35	mit durchschnitt 18.80, was deutlich schlechter ist als ein zielwert von 1 mit median 6.58 und durchschnitt 16.44.
+Interessant ist es, wenn man sich die WErte um 1 herum in tabelle \ref{tab:seitenverhaeltnis_um_1} anschaut.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \makecell{\textbf{Angestrebtes}\\\textbf{Seitenverhältnis}} & \makecell{\textbf{Median des}\\\textbf{Seitenverhältnisses}} & \makecell{\textbf{Durchschnittliches}\\\textbf{Seitenverhältnis}} \\
+        \hline
+        0.900 &	6.82	& 16.32 \\
+        0.990 &	6.57	& 16.44 \\
+        1.000 &	6.58	& 16.44 \\
+        1.025 &	6.37	& 16.55 \\
+        1.050 &	6.28	& 16.17 \\
+        1.100 &	6.30	& 16.17 \\
+        1.150 &	6.32	& 16.67 \\
+        1.200 &	6.40	& 16.78 \\
+        1.300 &	6.79	& 16.89 \\
+        \hline
+    \end{tabular}
+    \caption{Durchschnittliches und median Seitenverhältnis bei verschiedenen angestrebten Seitenverhältnissen um 1 herum bei der Anwendung des Standard Squarify Algorithmus auf die ausgewählten Repositories.}
+    \label{tab:seitenverhaeltnis_um_1}
+\end{table}
+
+Anders als erwartet liefert ein Angestrebtes Seitenverhältnis von 1 nicht das beste Ergebnis, sondern ein Wert von 1.05 liefert das beste Ergebnis. Es ist zwar im Median nur um ca. 5\% besser, aber immerhin.  Warum dass der Fall ist, ist schwer nachzuvollziehen, aber ist auch nicht so wichtig warum. Wir werden in dieser Arbeit den Wert von 1.05 als angestrebtes Seitenverhältnis verwenden, da dieser Wert die besten Ergebnisse für unserer Softwaremetrik daten liefert.
+
+
 \section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
 
 %HIER noch definieren die namen der schritte für bessere Lesbarkeit in den kapiteln danach z.b. layout schritt update schritt,...
@@ -41,8 +80,6 @@ Die Algorithmen funktionieren allerdings alle nach ähnlichem Prinzip: Es wird z
 
 Nach dem zweiten Durchlauf wird nun die Fläche der Knoten so reduziert, dass sowohl der Abstand zwischen Geschwistern als auch der Abstand zu den Elternknoten den gewünschten Wert hat. Dies ist straight forward und wird hier nicht weiter erläutert. Anzumerken ist aber das dieser Schritt speziell abhängt von der Art der Größenanpassung, die im ersten Schritt durchgeführt wurde.
 
-\subsection{annäherungs wert} 
-Hier beschreiben, welche phi wert genutzt wurde und warum.
 
 
 \subsection{Größenanpassung}

@@ -1,5 +1,5 @@
 \chapter{Layoutauswahl} \label{sec:LiteraturRecherche}
-Ziel dieses Abschnitts ist die Identifikation von 2D-Layouts, die sich für eine Extrusion in 2.5D eignen und die Visualisierung von Software-Qualitätsmetriken in der in Abschnitt \ref{sec:Problemstellung} definierten Form unterstützen. Zunächst wird die verwendete Methodik zur Suche der Layouts beschrieben. Anschließend werden die Suchergebnisse zusammengefasst sowie die finale Entscheidung für die Layouts begründet, die in dieser Arbeit implementiert und evaluiert werden.
+Ziel dieses Abschnitts ist die Identifikation 2.5- und 3D-Visualisierungen, die sich für die Visualisierung von Software-Qualitätsmetriken in der in Abschnitt \ref{sec:Problemstellung} definierten Form eignen. Zunächst wird die verwendete Methodik zur Suche und Bewertung der Layouts beschrieben. Anschließend werden die Suchergebnisse zusammengefasst sowie die finale Entscheidung für die Visualisierungen begründet, die in dieser Arbeit implementiert und evaluiert werden.
 
 \section{Methodik} \label{sec:Methodik}
 Die Methodik orientiert sich an der systematischen Literaturrecherche gemäß \textit{Procedures for performing systematic reviews}, wurde jedoch angepasst, da der Fokus auf der Identifikation und Einordnung geeigneter Layouts liegt und nicht primär auf der Bewertung und dem Vergleich kompletter Studien~\cite{kitchenham2004procedures}.
@@ -46,15 +46,30 @@ Auf die Suchergebnisse werden folgende Filter angewandt, um irrelevante oder nic
 Für die allgemeine Google-Suche werden zusätzlich heuristische Filter eingesetzt, um Werbung, Dienstleistungsangebote und andere irrelevante Inhalte auszuschließen. Dazu gehören unter anderem die Analyse der Domain-Reputation, das Ausschließen kommerzieller Schlüsselwörter und die Bevorzugung von Repositorien, Dokumentationen und Open-Source-Projekten.
 
 \subsection*{4. Auswertung} \label{sec:Auswertung}
-Im Rahmen der Auswertung werden identifizierte Layouts nach Eignung für eine 2.5/3D-Visualisierung gefiltert und strukturiert beurteilt. Dabei gelten folgende harte Anforderung: Die Eingabedaten des Layouts müssen der zuvor definierten Form entsprechen (\ref{lst:nodeSchema}).
+Im Rahmen der Auswertung werden identifizierte Layouts nach Eignung für eine 2.5/3D-Visualisierung gefiltert und strukturiert beurteilt. Dabei gilt folgende harte Anforderung: Die Eingabedaten des Layouts müssen der zuvor definierten Form entsprechen (\ref{lst:nodeSchema}).
 
-Anschließend werden die geeigneten Layouts gesammelt und thematisch gruppiert. Das in CodeCity verwendete Treemap-Layout weist charakteristische Unterschiede zu klassischen Treemaps auf, insbesondere durch größere Freiflächen und das Fehlen einer flächendeckenden, kantenbündigen Anordnung. Aus diesem Grund erfolgt eine Unterscheidung zwischen Treemap- und CodeCity-Layouts, obwohl strenggenommen CodeCity-Layouts Treemap-Layouts sind.
+
+In dem Grundlagen (siehe Abschnitt \ref{sec:SoftwareVisualisierung}) wurden beretis Aspekte beschrieben, die eine gute Softwarevisualisierung ausmachen. Aus denen in der zuvor beschriebenen Anwendungsfällen und Anforderungen (siehe Abschnitt \ref{sec:Problemstellung}) bilden wir konkrete Kriterien die wir für die Bewertung der Layouts nutzen werden. 
+Es sich für die im Rahmen dieser Arbeit entwickelte Visualisierung folgende Kriterien:
+
+\begin{itemize}
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden. Dieses Kriterium ist besonders wichtig. Wir verbinden Informationsgehalt und effiziente Nutzung des Platzes, da sie stark miteinander verknüpft sind.
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Das Layout muss klar und intuitiv lesbar bleiben, um Überforderung zu vermeiden.
+    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Besonders für unsere Arbeit ist das wichtig, da Software visualiseriung wirklich sinnvoll wird, wenn man die codebasis sonst nicht mehr überblicken kann.
+    \item \textbf{Korrelation mit dem Code:} Eine gute Zuordnung zwischen Visualisierung und Quellcode muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen. 
+    \item \textbf{Visuelle Metaphern}: Eine gute Visuelle Metapher hilft nutzern dabei sich alles gut vorzustellen.
+\end{itemize}
+
+Interaktionsmöglichkeiten des Nutzers mit dem Layout werden in dieser Arbeit bewusst nicht betrachtet, da dies den Rahmen sprengen und die Vergleichbarkeit der Layouts erschweren würde (siehe Abschnit \ref{sec:Problemstellung}). Die Interaktion hängt stark vom jeweiligen Layout ab. Im Fokus steht daher ausschließlich der Vergleich der Layouts selbst. Außerdem wird aufgefallen sein, dass in den Grundlagen der Aspekt der Stabilität gegenüber Änderungen als wichtig hervorgehoben wurde. Fpr uns ist dieser Aspekt nicht wichtig, da wir den aktuellen Stand der software zeigen wollen, um maßnahmen zu begründen und den aktuellen stand verständlich zu machen.
+
 
 Abschließend werden die Visualisierungen anhader der in der Problemstellung (Abwchnit \ref{sec:Problemstellung}) aufgelisteten Kriterien beurteilt. Wir bergeben bewertung zwischen 1 (Kriterium gar nicht erfült) bis 5 (Kriterium best möglichst erfüllt).
 Anhand der Beurteilung und der häufigkeit in der die viauliserung aufgetaucht ist, wird dann eine entscheidung getroffen, welche layouts implementiert und empirisch evaluiert werden sollen.
 Zwei der Kriterien lassen wir aus. Einmal die Korrelation mit dem Code, erstens weil wir das zu einem gewissen grad voraussetzen für alle visualisierungen und 2. weil es nicht wirklich bewertbar ist, ohne den quellcode zu betrachten. Das zweite Kriterium, das wir auslassen ist die Stabilität gegenüber Änderungen, da in (fast) keiner der ARbeiten dieser Aspekt berücksichtigt wird und wir diesen Aspekt daher leider auch nicht bewerten können, ohne den Quellcode zu haben.
 Folgende Kriterien werden also bewertet:
 Informationsgehalt und effiziente Nutzung des Platzes, Niedrige visuelle Komplexität und hohe Verständlichkeit, Skalierbarkeit, Visuelle Metapher.
+
+Anschließend werden die geeigneten Layouts gesammelt und thematisch gruppiert.
 
 \section{Ergebnisse der Suche und Auswertung} \label{sec:Ergebnisse}
 Dieser Abschnitt berichtet über die Ergebnisse der Suche unter Anwendung der Inklusions- und Exklusionskriterien und stellen die Auswertung der gefundenen Arbeiten anhand der drei zuvor formulierten Anforderungen vor.
@@ -464,7 +479,7 @@ Aus der Literatur analyse kann man einiges folgern:
 
 Es ist auffällig, dass sehr viele Visualisierungen die Stadtmetapher verwenden. Scheint wohl eine der beliebtesten Metaphern zu sein. Wir vermuten, dass das daran liegt, dass die Stadtmetapher eine sehr starke visuelle Metapher ist, die es dem Nutzer erleichtert, sich in der Visualisierung zu orientieren und die Struktur zu verstehen. Außerdem sind Städte etwas, mit dem die meisten Menschen vertraut sind, was die Zugänglichkeit der Visualisierung erhöht.
 
-Es ist auch auffälig, dass fast alle Visualisierungen 2.5D Visualisierungen sind und Außerdem dass die besten Visualisierungen alle 2.5D Visualisierungen sind. Wir vermuten, dass das erstens daran liegt, dass es einfacher zu implementieren ist. und übersichlicher ist.
+Es ist auch auffälig, dass fast alle Visualisierungen 2.5D Visualisierungen sind und Außerdem dass die besten Visualisierungen alle 2.5D Visualisierungen sind. Wir vermuten, dass das erstens daran liegt, dass es einfacher zu implementieren ist. und übersichlicher ist. Zudem bilden alle Visualisierungen genau 3 Metriken ab in form von Fläche, Höhe und Farbe. Wir vermuten, dass das daran liegt, dass 3 Metriken ein guter Kompromiss zwischen Informationsgehalt und Komplexität sind. Mehr Metriken würden die Visualisierung zu komplex machen und den Nutzer überfordern, weniger Metriken würden Platz verschwenden und Potenzial von 3D nicht ausnutzen.
 
 Außderm nur wenige Visualisierungen scahffen es sowohl Viele Metriken darzustellen, als auch die Struktur zu repräsentieren und gleichzeitg visuell nicht zu komplex zu sein und den platz effizient zu nutzen. 
 
@@ -478,6 +493,8 @@ Alles in allem scheinen die beliebtesten Visualisierungen recht einfach gehalten
 
 Um eine große spanne von Visualiserungen zu haben und nicht 4 mal eine visualiserung mit stadtmethapher zu haben, gruppieren wir die visualisierungen nach typ und schauen, wie die einzelnen gruppen im schnitt abschneiden. Folgende Tabelle zeigt die Ergebnisse Gruppiert nach Typen:
 
+Das in CodeCity verwendete Treemap-Layout weist charakteristische Unterschiede zu klassischen Treemaps auf, insbesondere durch größere Freiflächen und das Fehlen einer flächendeckenden, kantenbündigen Anordnung. Aus diesem Grund erfolgt eine Unterscheidung zwischen Treemap- und CodeCity-Layouts, obwohl strenggenommen CodeCity-Layouts Treemap-Layouts sind.
+
 \input{chapters/hauptteil/literaturBewertungGrouped.tex}
 
 Die Streetmap layouts schneiden im Durchschnitt am besten ab, da sie nicht sehr komplex sind und eine starke methapher besitzen. Wenn man nur die Visualisierungen betrachten wurde und Methapher weg lässt, schneiden die Treemap layouts am besten ab. 
@@ -489,8 +506,7 @@ es ist auffällig, dass sehr häufig Treemaps verwendet werden (echte treemaps u
 
 Also wählen wir:
 \begin{itemize}
-    \item \textbf{Treemap} (Standard): Treemap  
-    \item \textbf{Treemap} (Angepasst): Optimierte Version dieser Arbeit
+    \item \textbf{Treemap}: Optimierte Treemap Version dieser Arbeit
     \item \textbf{Streetmap}: Streetmap
     \item \textbf{Code City}: Code City
     \item \textbf{Sunburst}: Sunburst

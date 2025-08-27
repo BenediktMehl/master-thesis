@@ -1,25 +1,29 @@
 \chapter{Problemstellung} \label{sec:Problemstellung}
+In diesem Abschnitt werder wir nochmal die Problemstellung und Forschungsfragen exakt definieren.
 
-% das ist falsch, muss jetzt nochmal angepasst werden an neue problemstellung
-Die zentrale Herausforderung bei der Entwicklung von Stadtmetaphern für die Softwarevisualisierung liegt in der Festlegung eines geeigneten Layouts für die Visualisierung. Abschnitt \ref{sec:CodeCity} stellt das ursprüngliche Layout-Konzept der CodeCity-Analogie vor. Ein gemeinsames Grundprinzip dieser und verwandter Ansätze besteht darin, zunächst ein zweidimensionales Layout zu erzeugen, das anschließend durch eine zusätzliche Metrik in die dritte Dimension extrudiert und schließlich durch weitere Metriken, wie beispielsweise Farbe oder Transparenz, angereichert wird.
+In dieser Arbeit werden wir die wahrscheinlich grundlegendste frage stellen. In der Softwareentwicklung ist es oft nötig software an leute zu verkaufen die keine ahnung von software haben oder leute die die software nicht kennen, dabei muss begründet werden wie gut software ist, warum es nötig beim aktuellen Stand des Software systems ist diese anzupassen oder zu verändern. Diese Begründungen müssen untermauert sein mit beweisen und verständlich gemacht werden. Es stellt sich die frage, welche Visualisierung für diese Zielgruppe und Aufgabe am besten geeignet ist.
 
-Im Fokus dieser Arbeit steht die Untersuchung dieses Grundprinzips, insbesondere die Analyse, wie sich verschiedene Layout-Algorithmen auf die Visualisierung von Code-Qualitätsmetriken auswirken. Daraus ergibt sich die folgende Leitfrage:
+Konkret stellen wir uns diese Frage: 
 
 \begin{quote}
-Welches Layout eignet sich am besten zur Visualisierung von Code-Qualitätsmetriken? Gibt es Ansätze, die Übersichtlichkeit und Verständlichkeit im Vergleich zu bestehenden Lösungen, insbesondere der CodeCity-Metapher, verbessern?
+    Welche 3D-Visualisierung eignet sich am besten zur Darstellung von Code-Qualitätsmetriken für Personen ohne Kenntnisse der Codebasis bzw. ohne Programmierkenntnisse?
 \end{quote}
 
-Hieraus leiten sich die folgenden konkreten Forschungsfragen ab:
-\begin{enumerate}
-    \item Wie lassen sich bestehende Treemap-Layout-Algorithmen an das spezifische Anwendungsproblem dieser Arbeit anpassen? Welche Vor- und Nachteile ergeben sich daraus?
-    \item Lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools alternative Layouts identifizieren, die eine bessere Grundlage für die Visualisierung von Code-Qualitätsmetriken bieten?
-    \begin{enumerate}
-        \item Beispielsweise: Übertrifft das Sunburst-Layout das beste Treemap-Layout hinsichtlich der Darstellung von Code-Qualitätsmetriken?
-        \item Beispielsweise: Bietet das Stack-Layout Vorteile gegenüber klassischen Treemap-Layouts für diesen Anwendungszweck?
-    \end{enumerate}
-\end{enumerate}
+Diese frage läst sich nicht vollends beantworten, da wir nicht alle erdenklichen Visualisierungen testen und vergleichen können. Deshalb werden wir uns auf die Visualisierungen konzentrieren, die in der Literatur und in bestehenden Tools die am geeignetsten für unsereren Anwendungsfall erscheinen und häufig verwendet werden.
+Wir leiten also die folgenden zwei beantwortbaren Forschungsfragen ab:
 
-Zur eindeutigen Evaluation und klaren Zieldefinition der angestrebten Visualisierungen wird auf die fünf Dimensionen der Softwarevisualisierung nach Marcus Adrian et al. Bezug genommen~\cite[2]{3dsoftwareMarcus}:
+\begin{quote}
+    Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
+\end{quote}
+
+\begin{quote}
+    Welche der Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Bezug auf den Anwendungsfall und die Anforderungen dieser Arbeit?
+\end{quote}
+    
+Dabei werden wir die Visualisierungen sowohl anhand von Kriterien aus der Literatur bewerten, als auch durch eine empirische Studie mit Teilnehmern, die keine oder nur geringe Kenntnisse der Codebasis und Programmierung besitzen, durchführen. 
+
+
+Zur eindeutigen bestimmung des Anwendungsfalls und der Anforderungen an die angestrebte Visualisierungen werden wir die fünf Dimensionen der Softwarevisualisierung nach Marcus Adrian et al.~\cite[2]{3dsoftwareMarcus} heran ziehen:
 \begin{quote}
     \begin{itemize}
         \item \textbf{Tasks}: Warum wird die Visualisierung benötigt?
@@ -31,10 +35,10 @@ Zur eindeutigen Evaluation und klaren Zieldefinition der angestrebten Visualisie
 \end{quote}
 
 \subsection*{1. Warum ist die Visualisierung von Code-Qualitätsmetriken wichtig?}
-Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das bessere Verständnis der Softwarequalität. Sie dient dazu, einen schnellen Überblick über komplexe Codebasen zu erhalten, Hotspots zu identifizieren und vertiefende Analysen effizient einzuleiten. Insbesondere werden Zusammenhänge zwischen verschiedenen Metriken auf einen Blick sichtbar, was in rein tabellarischer oder isolierter Darstellung kaum möglich ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität anschaulich und greifbar zu machen.
+Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das bessere Verständnis der Softwarequalität. Sie dient dazu, einen schnellen Überblick über komplexe Codebasen zu erhalten, Hotspots zu identifizieren und vertiefende Analysen effizient einzuleiten. Insbesondere werden Zusammenhänge zwischen verschiedenen Metriken auf einen Blick sichtbar, was in rein tabellarischer oder isolierter Darstellung kaum möglich ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität anschaulich und greifbar zu machen und Experten-Analysen und Bewertungen zu unterstützen und verständlich zu kommunizieren.
 
 \subsection*{2. Wer ist die Zielgruppe der Visualisierung?}
-Die Visualisierung richtet sich primär an Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse. Darüber hinaus kann sie auch Entwicklerinnen und Entwicklern helfen, die sich neu in ein Projekt einarbeiten, sowie Teams, die systematisch die Softwarequalität verbessern möchten, indem sie die Kommunikation unterstützen.
+Darüber hinaus kann sie auch Entwicklerinnen und Entwicklern helfen, die sich neu in ein Projekt einarbeiten, sowie Teams, die systematisch die Softwarequalität verbessern möchten, indem sie die Kommunikation unterstützen. Die Visualisierung richtet sich primär an Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse. Dies können beispielsweise Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder sein, die Entscheidungen über die Softwareentwicklung treffen müssen, ohne selbst Entwickler zu sein. Auch Personen, die gelegentlich mit der Software arbeiten oder diese bewerten müssen, aber nicht täglich mit dem Code in Berührung kommen, gehören zur Zielgruppe. Insgesamt zielt die Visualisierung darauf ab, technische Informationen so aufzubereiten, dass sie für ein breites Publikum verständlich und zugänglich sind.
 
 \subsection*{3. Was ist die Datenquelle?}
 Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene (File-Basis) erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie (Node) besitzt einen Namen und entweder eine Liste von Kindknoten (children) oder einen Wert (value), der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}). Diese Struktur erlaubt es, komplexe Softwareprojekte in übersichtliche Hierarchien zu zerlegen, die anschließend visualisiert werden können.
@@ -46,51 +50,22 @@ Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus de
     }
 \end{lstlisting}
 
-Eine detaillierte Betrachtung der Eingabedaten erfolgt in Abschnitt \ref{sec:datenAnalyse}.
+Diese Definition erlaubt nicht nur die Darstellung von Metriken auf Datei- und Ordnerebene, sondern auch auf zB. Modul, Paket und Klassenebene, was in den meisten Fällen keinen Riesen Unterschied macht, solange die Daten hierarchisch sind. Wir lassen also auch Eingangsdaten zu, die nicht auf Dateiebene sind, solange sie hierarchisch sind, auch wenn wir in dieser Arbeit dann mit Daten auf Dateiebene arbeiten werden.
+
+Eine detaillierte Betrachtung der Eingabedaten auf Dateiebene erfolgt in Abschnitt \ref{sec:datenAnalyse}.
 
 \subsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
-Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert. Im vorliegenden Prototyp erfolgt die Umsetzung im Webbrowser mittels TypeScript und Three.js. Die Übertragung der Methoden auf andere Programmierumgebungen ist grundsätzlich möglich.
+Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert, vorranging für Desktop-Computer, Laptos und co. und nicht für kleine mobile Geräte. 
 
 \subsection*{5. Wie erfolgt die Darstellung?}
-%das hier nochmal ändern, wir machen nicht nur 2.5 sondern auch 3D
-Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}). Bei diesem Schema ist im Vergleich zu Schema \ref{lst:nodeSchema} eine Liste von 2D-Punkten (points) hinzugekommen. Diese Liste definiert je nach geometrischer Form die Position, Größe und Form des Knotens im zweidimensionalen Raum. Die Punkte können beispielsweise die Ecken eines Rechtecks oder das Zentrum und Schnittpunkt eines Kreises darstellen.
-
-%das hier eher in implementierung stecken
-\begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
-    "node": {
-        "name": string,
-        "points": List[2D-Point],
-        "children": List[Node] | "value": number
-    }
-\end{lstlisting}
-
-Dieses Schema ermöglicht die Definition von Position und Größe jedes Knotens im zweidimensionalen Raum. Die dritte Dimension wird durch eine zusätzliche Metrik extrudiert, wobei diese Extrusion nicht zwingend linear erfolgen muss. Beispielsweise kann ein Kreis nicht nur zu einem Zylinder, sondern auch zu einem Kegel oder einer Kugel extrudiert werden. Dadurch ergibt sich eine eindeutige Definition und Anforderung an 2D-Layouts bei gleichzeitiger Flexibilität in der Darstellung der dritten Dimension.
-
-Im Mittelpunkt dieser Arbeit steht das zweidimensionale Layout der Knoten. Die Gestaltung dieses Layouts wird jedoch dadurch eingeschränkt, dass Fläche, Höhe und Farbgebung (einschließlich Schattierung, Struktur oder Transparenz) zur Darstellung verschiedener Metriken dienen. Maßnahmen wie das Einfärben von Ordnern oder Modulen zur besseren visuellen Unterscheidung werden für die Visualisierung in dieser Arbeit weitgehend ausgeschlossen (mit wenigen Ausnahmen, siehe Abschnitt \ref{sec:AbständeGeschwister}). Der Fokus liegt stattdessen auf der geschickten Platzierung, der Wahl von Abständen und der Beschriftung.
-
-\smallskip
-
-%das hier noch mehr erklären, warum nicht naviagation etc.
-Aus dem hier definierten Rahmen und den in den Grundlagen beschriebenen grundlegenden Anforderungen (Abschnitt \ref{sec:3DSoftwareVisualisierung}) ergeben sich für die im Rahmen dieser Arbeit entwickelte Visualisierung folgende Anforderungen:
-
-\begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden.
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Das Layout muss klar und intuitiv lesbar bleiben, um Überforderung zu vermeiden.
-    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein.
-    \item \textbf{Korrelation mit dem Code:} Eine gute Zuordnung zwischen Visualisierung und Quellcode muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen.
-    \item \textbf{Visuelle Metaphern}: Eine gute Visuelle Metapher hilft nutzern dabei sich alles gut vorzustellen.
-    \item \textbf{Stabilität gegenüber Änderungen:} Nachrangig, aber erwünscht ist, dass die Visualisierung auf Änderungen im Code robust reagiert, um zeitliche Vergleiche zu ermöglichen, ohne dass sich der Betrachter neu orientieren muss.
-\end{itemize}
-
-Interaktionsmöglichkeiten des Nutzers mit dem Layout werden in dieser Arbeit bewusst nicht betrachtet, da dies den Rahmen sprengen und die Vergleichbarkeit der Layouts erschweren würde. Die Interaktion hängt stark vom jeweiligen Layout ab. Im Fokus steht daher ausschließlich der Vergleich der Layouts selbst.
+In dieser Arbeit werden wir alle erdenklichen 2.5- oder 3D-Visualisierungen betrachten, die in der Literatur und in bestehenden Tools für die Darstellung von Code-Qualitätsmetriken verwendet werden. Darunter können ganz einfache simple 2.5D Visualisierungen fallen, wie sie beispielsweise von CodeCity~\cite{codeCity1} verwendet werden, aber auch komplexere 3D-Visualisierungen, wie beispielsweise solar systeme \cite{solarSystem} oder photo realistische Visualisierungen. Wichtig ist nur, dass die Visualisierung in irgendeiner Form sowhl metriken als auch die hierarchische Struktur der Software darstellen kann.
+Interaktive Visualisierungen, die beispielsweise zoomen oder drehen erlauben, werden in dieser Arbeit nicht betrachtet. Dies ist auch weil in der Praxis oft darauf verscihtet wird, um die Komplexität zu reduzieren und die Visualisierung für den Betrachter so einfach wie möglich zu halten, ohne die notwendigkeit dem Nutzer eine komplexe Steuerung oder navigation zuzumuten. Deshalb werden in dieser ARbeit zwar 3D-Visualisierungen betrachtet, diese werden aber in einer statischen Ansicht in form von ausgewählten 
+ bzw. Bildern präsentiert, wie es auch in der Praxis oft der Fall ist.
 
 \section{Das Treemap-Problem} \label{sec:TreemapProblem}
-%warum gehen wir hier nochmal auf das treemap prolbme ein?
-%wie wir im abschnitt der literatur recherche sehen werden, ist 2.5D treemap am weitesten verbreitet, deshalb schauen wir uns dieses layout nochmal genauer an
+In der Literatur recherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) werden wir sehen, dass Treemaps die am weitesten verbreitete Visualisierung für Code-Qualitätsmetriken sind und dass diese trotzdem noch optimierungspotential haben. Ein spezielles Problem von Treemaps, welches auch von Lü und Fogarty identifizieren in ihrer Arbeit identifiert wurde ist: die erschwerte Wahrnehmbarkeit der zugrundeliegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. Wir wollen in dieser Arbeit wie zuvor definiert auch die hiercharchische Struktur der Software darstellen, weshalb wir uns in dieser Arbeit mit diesem Problem beschäftigen werden und das PRoblem in diesem Abschnitt hier nochmal genauer erklären und erklären wo es herkommt und warum es so schwer zu lösen ist.
 
-Lü und Fogarty identifizieren in ihrer Arbeit ein zentrales Problem von Treemaps: die erschwerte Wahrnehmbarkeit der zugrundeliegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. Dieses Problem wird bereits von Shneiderman und Johnson adressiert~\cite{johnson1991tree}. Sie schlagen vor, Abstände zwischen den Rechtecken einzuführen, um die Hierarchieebene zu verdeutlichen.
-
-Obwohl dieser Ansatz weit verbreitet ist, weisen Shneiderman und Johnson nicht explizit auf ein zentrales Problem hin: Der notwendige Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche häufig nicht mehr proportional zu den zugehörigen Werten. Insbesondere sehr kleine oder langgestreckte Rechtecke können im Extremfall sogar vollständig verschwinden. Dies verletzt die Eigenschaft der strikten Proportionalität. In praktischen Anwendungsfällen, beispielsweise wenn die Rechtecksfläche eine Kennzahl wie \enquote{Lines of Code} repräsentiert, können kleine Dateien oder Knoten durch die Ränder vollständig verloren gehen. Dies ist insbesondere problematisch, wenn eine weitere Dimension (wie beispielsweise die Testabdeckung) diese Elemente eigentlich hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
+Dieses Problem wird bereits von Shneiderman und Johnson adressiert~\cite{johnson1991tree}. Sie schlagen vor, Abstände zwischen den Rechtecken einzuführen, um die Hierarchieebene zu verdeutlichen. Obwohl dieser Ansatz weit verbreitet ist, weisen Shneiderman und Johnson nicht explizit auf ein zentrales Problem hin: Der notwendige Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche häufig nicht mehr proportional zu den zugehörigen Werten. Insbesondere sehr kleine oder langgestreckte Rechtecke können im Extremfall sogar vollständig verschwinden. Dies verletzt die Eigenschaft der strikten Proportionalität. In praktischen Anwendungsfällen, beispielsweise wenn die Rechtecksfläche eine Kennzahl wie \enquote{Lines of Code} repräsentiert, können kleine Dateien oder Knoten durch die Ränder vollständig verloren gehen. Dies ist insbesondere problematisch, wenn eine weitere Dimension (wie beispielsweise die Testabdeckung) diese Elemente eigentlich hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
 
 Das Grundproblem bei der Erstellung von Treemaps, nämlich das Aufteilen eines Rechtecks in kleinere Rechtecke entsprechend deren Werte, ist bereits ohne Abstände NP-schwer~\cite[3]{bruls2000squarified}. Zusätzliche Abstände verkomplizieren die Problematik weiter. Wesentliche Schwierigkeiten bei der Integration von Abständen in das Layout ergeben sich durch:
 \begin{itemize}
@@ -110,7 +85,6 @@ In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abst�
     \label{fig:zeroMarginArtificialMap}
 \end{figure}
 
-%DIE WERTE HIER SIND VERWIRREND für den leser. am besten verscuhen ohne werte zu erklären
 In Abbildung \ref{fig:fiveMarginArtificialMap} gibt es nun einen Abstand zwischen Knoten und ORdnern. Es ist zwar weiterhin jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten der Knoten. Beispielsweise ist die Fläche des großen Knotens 3 auf Grund der Abstände etwas kleiner geworden und das Verhältnis von seinem Wert zu der Abgebildeten Fläche beträgt jetzt ungefähr $0,9$. Das wäre an sich ja kein Problem wenn alle Knoten dieses Wert-Flächen-Verhältnis hätten, aber das ist nicht der Fall.
 Der kleine Knoten oben links (Knoten 5) ist relativ gesehen viel kleiner geworden und weißt nur noch ein Wert-Fläche-Verhältnis von $0,2$ auf.  Obwohl zum Beispiel Knoten 2 genau den gleichen Wert hat wie Knoten 5 ist die Fläche von Knoten 2 deutlich größer als die von Knoten 5. Dies verdeutlicht, dass die Abstände die Flächenproportionalität erheblich beeinträchtigen.
 
