@@ -90,53 +90,53 @@ In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics
     \label{fig:voronoiTree}
 \end{figure}
 
-Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2.5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 4, da etwa drei Metriken kodierbar sind und bis auf die Kanten die Fläche komplett genutzt wird. Die visuelle Komplexität ist niedrig, da die Knoten klar abgegrenzt sind und die Kanten Orientierung geben. Hier ergibt sich der Wert 4, da die unregelmäßigen Formen gegenüber Rechtecken teils unruhig wirken können. Die Skalierbarkeit ist gut, da keine Überlappungen auftreten und das Layout auf große Codebasen anwendbar ist. Der Wert beträgt 4, da die Erkennbarkeit von Details stark von der Metrikverteilung abhängt. Eine explizite visuelle Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2.5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung  darstellbar sind, wird der Informationsgehalt zusammen mit der Flächeneffizienz mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken. Vor diesem Hintergrund fällt die visuelle Komplexität mit 4 aus. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 angesetzt. Eine ausdrückliche visuelle Metapher ist nicht vorhanden, weshalb die Metaphernqualität die Einstufung 1 erhält.
 
 \smallskip
 
-In der Arbeit \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge} wird eine Visualisierung vorgestellt, bei der pro Datei ein Quader gezeichnet wird, der mehrere Metriken repräsentiert. Die Quader besitzen eine einheitliche Grundfläche. Metriken werden über Höhe, Farbe und Rotation im Bereich 0 bis 90 Grad kodiert, siehe Abbildung \ref{fig:visbasedlarge}. Der Fokus liegt auf der Platzierung, nicht auf variablen Grundflächen. Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt, auch wenn diese mit Paketen und Klassen in diesem Beispiel nur zwei Ebenen umfasst.
+In der Arbeit \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge} wird eine Visualisierung vorgestellt, bei der pro Datei ein Quader gezeichnet wird, der mehrere Metriken repräsentiert. Die Quader besitzen eine einheitliche Grundfläche. Metriken werden über Höhe, Farbe und Rotation im Bereich 0 bis 90 Grad kodiert (siehe Abbildung \ref{fig:visbasedlarge}). Der Fokus liegt auf der Platzierung, nicht auf variablen Grundflächen. Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt, auch wenn diese mit Paketen und Klassen in diesem Beispiel nur zwei Ebenen umfasst.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/visbasedlarge.png}
     \caption[Beispiel aus visbasedlarge]{Oben modifizierte Treemap, unten modifizierter Sunburst. Beide repräsentieren PCGEN, ein Tool zur Charaktererstellung in RPG (1129 Klassen)~\cite[5]{visbasedlarge}.}
     \label{fig:visbasedlarge}
 \end{figure}
-Die Arbeit spricht vom Treemap-Layout. Die Ausprägung entspricht jedoch eher einem nicht platzfüllenden Code-City-Layout, da viel freier Raum verbleibt, keine kantenbündige Anordnung erfolgt und alle Gebäude die gleiche Grundfläche besitzen. Im Folgenden wird diese Variante als \textit{Chess Layout} bezeichnet, da die Gebäude alle die gleiche Grundfläche haben und rechteckig angeordnet sind. Zusätzlich wird ein vereinfachtes Sunburst-Layout genutzt. Für die Code-City-ähnliche Variante werden drei Metriken kodiert, der Platz wird jedoch nicht vollständig ausgenutzt. Zudem wird nur eine Hierarchieebene dargestellt. Für Informationsgehalt und Flächeneffizienz ergibt sich daher der Wert 3. Die visuelle Komplexität ist erhöht, da die Rotation uneindeutig interpretierbar ist. Beispielsweise sind 0 Grad und 90 Grad visuell ähnlich. Der Wert beträgt 3. Die Skalierbarkeit ist grundsätzlich gut, da alle Grundflächen gleich groß sind. Bei sehr großen Codebasen erschwert die Ein-Ebenen-Darstellung jedoch die Übersicht. Der Wert beträgt 4. Eine klare Metapher ist nur indirekt über die Stadtmetapher gegeben. Die Ausprägung mit gleich großen Grundflächen und Rotation ist jedoch wenig konsistent. Der Wert beträgt 2. Das konzentrische Layout wird im Folgenden als \textit{Concentric Layout} bezeichnet, da die Fläche nicht voll ausgenutzt wird und die Elemente nur kreisförmig um das Zentrum herum platziert werden. Die Bewertung erfolgt analog. Eine visuelle Metapher fehlt hier vollständig. Der Wert für die Metapher beträgt 1.
+Die Arbeit spricht vom Treemap-Layout. Die Ausprägung entspricht jedoch eher einem nicht platzfüllenden Code-City-Layout, da viel freier Raum verbleibt, keine kantenbündige Anordnung erfolgt und alle Gebäude die gleiche Grundfläche besitzen. Im Folgenden wird diese Variante als \textit{Chess Layout} bezeichnet, da die Gebäude alle die gleiche Grundfläche haben und rechteckig angeordnet sind. Zusätzlich wird ein vereinfachtes Sunburst-Layout genutzt. In der Code-City-ähnlichen Variante werden drei Metriken kodiert, der Platz wird jedoch nicht ausgeschöpft und nur eine Hierarchieebene dargestellt. Aus dem Metrikumfang von 3 bei gleichzeitig deutlichen Flächenverlusten folgt für Informationsgehalt und Flächeneffizienz die Bewertung 3. Die Rotation lässt sich visuell schwer einordnen, 0 und 90 Grad sind intuitiv nicht von einander zu unterscheiden und haben die selbe visuelle Wirkung. In Verbindung mit der einfachen Geometrie ergibt sich eine mittlere kognitive Last. Die visuelle Komplexität wird daher mit 3 eingestuft. Alle Grundflächen sind gleich groß, wodurch alle Gebäude immer gleich gut sichtbar sind. Die Beschränkung auf eine Ebene beeinträchtigt jedoch die Übersicht bei großen Systemen. Deshalb wird die Skalierbarkeit mit 4 bewertet. Eine Metapher ist nur indirekt angelegt und in sich inkonsistent, da gleich große Grundflächen und Rotationen die Stadtmetapher verwässern. Die Metaphernqualität wird folglich mit 2 bewertet. Das konzentrische Layout (\textit{Concentric Layout}) nutzt die Fläche ebenfalls nicht voll aus und erhält die selben Werte wie das Chess Layout, außer bei der Metaphernqualität. Mangels konkreter Metapher wird diese mit 1 bewertet.
 
 \smallskip
 
-In \textit{A solar system metaphor for 3D visualisation of object oriented software metrics}~\cite{solarSystem} wird kritisiert, dass die Stadtmetapher nicht voll 3D sei und komplexe Zusammenhänge nur eingeschränkt darstellbar seien. Als Alternative wird eine Solar-System-Metapher eingeführt, siehe Abbildung \ref{fg:solarSystem}.
+In \textit{A solar system metaphor for 3D visualisation of object oriented software metrics}~\cite{solarSystem} wird kritisiert, dass die Stadtmetapher nicht voll 3D sei und komplexe Zusammenhänge nur eingeschränkt darstellbar seien. Als Alternative wird eine Solar-System-Metapher eingeführt (siehe Abbildung \ref{fg:solarSystem}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphor.png}
     \caption[Solar-System-Metapher]{Solar-System-Metapher für 3D-Visualisierung objektorientierter Softwaremetriken. Die Farben des Bildes sind invertiert, um die Lesbarkeit im Ausdruck zu verbessern~\cite[4]{solarSystem}.}
     \label{fg:solarSystem}
 \end{figure}
-Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen wie Vererbungen erscheinen als Linien. Die Farbe kennzeichnet den Klassentyp, beispielsweise Interface oder Abstract. Pakete fungieren als zentrale Sterne. Die Eingabedaten sind geeignet, da eine Hierarchie vorliegt. Die hierarchische Tiefe wird über die Distanz der Umlaufbahnen zum Zentrum repräsentiert. Es wird viel Fläche zwischen den Planeten freigelassen. Kodiert werden eine Metrik über Größe und optional eine zweite über Farbe. Verbindungsmetriken sind darstellbar. Deshalb ergibt sich für Informationsgehalt und Flächeneffizienz der Wert 2. Die visuelle Komplexität ist niedrig. Die Struktur ist einfach und die Objekte sind klar getrennt. Der Wert beträgt 5. Aus der Datenanalyse ist bekannt, dass Hierarchietiefen bis etwa 13 auftreten (siehe Abschnitt \ref{sec:datenAnalyse}). Im Paper werden relativ kleine Pakete mit etwa 30 bis 40 Klassen und maximaler Tiefe von 3 gezeigt. Bei größeren Paketen ist mit Unübersichtlichkeit und Okklusion zu rechnen. Die Skalierbarkeit erhält daher den Wert 1. Die visuelle Metapher ist sehr klar und intuitiv, da sie auf einem bekannten System beruht. Der Wert beträgt 5.
+Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen wie Vererbungen erscheinen als Linien. Die Farbe kennzeichnet den Klassentyp, beispielsweise Interface oder Abstract. Pakete fungieren als zentrale Sterne. Die Eingabedaten sind geeignet, da eine Hierarchie vorliegt. Die hierarchische Tiefe wird über die Distanz der Umlaufbahnen zum Zentrum repräsentiert. Zwischen den Planeten bleibt viel Fläche frei. Größe und optional Farbe kodieren Klassenmetriken, Verbindungen erlauben Beziehungsmetriken. Da damit nur ein bis zwei Dateimetriken verfügbar sind und die Fläche großteils ungenutzt bleibt, werden Informationsgehalt und Flächeneffizienz mit 2 bewertet. Die Anordnung ist einfach und die Objekte sind klar separiert. Dadurch entsteht ein sehr ruhiges Bild. Die visuelle Komplexität fällt folglich mit 5 aus. In realen Projekten treten Hierarchietiefen bis etwa 13 auf (siehe Abschnitt \ref{sec:datenAnalyse}), während die Beispiele eine Tiefe von 3 zeigen . Mit wachsender Tiefe und Paketgröße ist Okklusion zu erwarten. Die Skalierbarkeit wird deshalb mit 1 bewertet. Die Solar-System-Metapher ist unmittelbar verständlich. Entsprechend erhält die Metapher die Bewertung 5.
 
 \smallskip
 
-In \textit{Visualization of the static aspects of software: A survey} werden verschiedene Visualisierungen systematisch dargestellt~\cite{staticSurvey}. Die erste Anforderung erfüllen Treemap, Sunburst, Voronoi und Circle Packing. Zudem werden verschiedene Ausprägungen der Stadtmetapher beschrieben, darunter eine klassische Code City sowie eine Inselmetapher, bei der die oberste Hierarchieebene in mehrere Inseln segmentiert wird, zwischen denen Verbindungen visualisiert werden können, siehe Abbildung \ref{fig:islandMetaphor}. Metriken können über Fläche, Höhe, Farbe, Typ und Symbole kodiert werden. Zwischen Ordnern sind Beziehungsmetriken darstellbar. 
+In \textit{Visualization of the static aspects of software: A survey} werden verschiedene Visualisierungen systematisch dargestellt~\cite{staticSurvey}. Die erste Anforderung erfüllen Treemap, Sunburst, Voronoi und Circle Packing. Zudem werden verschiedene Ausprägungen der Stadtmetapher beschrieben, darunter eine klassische Code City sowie eine Inselmetapher, bei der die oberste Hierarchieebene in mehrere Inseln segmentiert wird, zwischen denen Verbindungen visualisiert werden können (siehe Abbildung \ref{fig:islandMetaphor}). Metriken können über Fläche, Höhe, Farbe, Typ und Symbole kodiert werden. Zwischen Ordnern sind Beziehungsmetriken darstellbar. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/islandMetaphor.png}
     \caption[Insel-Metapher]{Insel-Metapher: Pakete als Inseln, Klassen als Gebäude~\cite[9]{staticSurvey}.}
     \label{fig:islandMetaphor}
 \end{figure}
-Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 4, da viele Metriken kodierbar sind, jedoch zwischen den Inseln Platz verloren geht. Die visuelle Komplexität ist hoch, da zahlreiche Symbole und Farben korrekt interpretiert werden müssen. Der Wert 2 ergibt sich. Die Skalierbarkeit ist mit Code City vergleichbar, tendenziell etwas schlechter aufgrund zusätzlicher Details und größerer Abstände zwischen den Inseln. Der Wert beträgt 2. Die visuelle Inselmetapher ist direkt verständlich und recht realistisch. Teilweise sind die Gebäude allerdings schwer als Gebäude erkennbar, etwa bei pflanzenartigen Formen. Der Wert beträgt 4.
+Die Kombination vieler visueller Variablen ermöglicht eine reiche Metrikdarstellung. Gleichzeitig geht zwischen Inseln Fläche verloren. Aus sehr hoher Informationsfülle und einigen Lücken resultiert für Informationsgehalt und Flächeneffizienz die Bewertung 4. Die Vielzahl an Symbolen und Farben erfordert eine genaue Legende und erhöht die kognitive Last. Daher wird die visuelle Komplexität mit 2 bewertet. Zusätzliche Details und größere Abstände verschlechtern gegenüber klassischen Code City Ansätzen die Darstellung großer Systeme. Die Skalierbarkeit wird deshalb mit 2 angesetzt. Die Inselmetapher ist anschaulich und in der Regel schnell zugänglich. Ungewöhnliche Gebäudeformen schmälern die Eindeutigkeit. Die Metaphernqualität wird deshalb mit 4 bewertet.
 
-Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung basierend auf Circle Packing, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert, siehe Abbildung \ref{fig:hierarchicalNet3D}. Das Layout entspricht Circle Packing. Durch die Extrusion in Halbkugeln wird die Struktur besser erkennbar. Die zusätzliche Höhenmetrik entfällt jedoch, da die Höhe durch den Durchmesser vorgegeben ist. Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 3. Eine explizite Metapher fehlt. Der Wert beträgt 1. Die anderen Kriterien erhalten die gleichen Werte wie Circle Packing, also 5 für visuelle Komplexität und 3 für Skalierbarkeit.
+Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung basierend auf dem Circle Packing Layout, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert (siehe Abbildung \ref{fig:hierarchicalNet3D}). Die Halbkugeln betonen die Gruppierung und damit die Struktur, nehmen aber die Höhenmetrik, da Höhe an den Durchmesser gebunden ist. Aus dieser Einschränkung bei konstanter Flächennutzung ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 3. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität erhält daher 1. Visuelle Komplexität und Skalierbarkeit entsprechen Circle Packing und werden mit 5 beziehungsweise 3 bewertet.
 
 \smallskip
 
-In \textit{Visual realism for the visualization of software metrics}~\cite{visRealism} wird die Paketstruktur verwendet, typischerweise mit bis zu drei Ebenen. Dies ist kompatibel mit der Eingabeanforderung. Es kommen klassische Cushion-Treemaps zum Einsatz. Cushion-Treemap ist in dieser Form nicht extrudierbar, da die Schattierungen nur in 2D funktionieren. Dieser Aspekt wird deshalb hier nicht berücksichtigt. Kodiert werden Metriken über Fläche, Farbe und Textur, siehe Abbildung \ref{fig:structureTreemap}. Bei Extrusion in 2.5D wäre zusätzlich Höhe möglich.  
+In \textit{Visual realism for the visualization of software metrics}~\cite{visRealism} wird die Paketstruktur verwendet, typischerweise mit bis zu drei Ebenen. Dies ist kompatibel mit der Eingabeanforderung. Es kommen klassische Cushion-Treemaps zum Einsatz. Cushion-Treemap ist in dieser Form nicht extrudierbar, da die Schattierungen nur in 2D funktionieren. Dieser Aspekt wird deshalb hier nicht berücksichtigt. Kodiert werden Metriken über Fläche, Farbe und Textur (siehe Abbildung \ref{fig:structureTreemap}). Bei Extrusion in 2.5D wäre zusätzlich Höhe möglich.  
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/structureTreemap.png}
     \caption[Cushion-Treemap mit Textur]{Cushion-Treemap, die sowohl über Farbe als auch über Textur Metriken kodiert~\cite[6]{visRealism}.}
     \label{fig:structureTreemap}
 \end{figure}
-Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 5, da bis zu vier Metriken kodierbar sind und die Fläche komplett genutzt wird. Die visuelle Komplexität ist erhöht, da Texturen weniger eindeutig interpretierbar sein können als Farben und die Struktur ohne Schattierungen schwerer erkennbar ist. Der Wert beträgt 3. Die Skalierbarkeit ist grundsätzlich gut. Bei großen Codebasen wird es jedoch unübersichtlich, da die Struktur der Treemap ohne Schattierung schwer lesbar ist. Der Wert beträgt 3. Eine Metapher ist nicht vorhanden. Ein Übertrag zur Stadtmetapher gelingt nicht, da keine Abstände zwischen den Quadern bestehen. Der Wert beträgt 1.
+Die vollständige Flächennutzung gepaart mit bis zu vier visuellen Variablen ermöglicht eine dichte Darstellung. Daher werden Informationsgehalt und Flächeneffizienz mit 5 bewertet. Texturen sind semantisch weniger selbsterklärend als Farben und die fehlende Schattierung in 2.5D erschwert die Strukturwahrnehmung. Unter diesen Bedingungen wird die visuelle Komplexität mit 3 eingestuft. Die Grundstruktur skaliert gut, jedoch wird bei sehr großen Systemen die Hierarchie ohne Schattierung schwer lesbar. Die Skalierbarkeit wird daher mit 3 bewertet. Eine Metapher wird nicht verfolgt, folglich erhält die Metaphernqualität die Bewertung 1.
 
 \smallskip
 
@@ -147,18 +147,18 @@ Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 5, da bis zu 
     \caption[CityVR mit Code City]{Code-City-Visualisierung wie sie in CityVR verwendet wird~\cite[1]{cityVR}.}
     \label{fig:vrCodeCity}
 \end{figure}
-Es können drei Metriken dargestellt werden: Höhe, Grundfläche und Farbe. Zwischen den Gebäuden geht viel Fläche verloren. Für Informationsgehalt und Flächeneffizienz ergibt sich daraus der Wert 3. Die visuelle Komplexität ist niedrig. Einfache Quader und klare Abgrenzung erlauben gute Lesbarkeit. Der Wert beträgt 5. Die Skalierbarkeit ist begrenzt, da kleine Gebäude bei großen Codebasen schwer erkennbar werden und zusätzlich die Freiflächen das Problem verstärken. Der Wert beträgt 3. Die Metapher ist klar und intuitiv, bleibt in der Ausprägung jedoch abstrakt und nicht realistisch. Der Wert beträgt 4.
+Höhe, Grundfläche und Farbe erlauben drei Metriken. Zwischen Gebäuden bleibt jedoch viel Freiraum. Daraus folgt für Informationsgehalt und Flächeneffizienz die Bewertung 3. Schlichte Quaderformen und klare Abstände reduzieren die kognitive Last deutlich. Die visuelle Komplexität wird deshalb mit 5 bewertet. Bei großen Codebasen werden viele kleine Gebäude schlecht unterscheidbar und Freiflächen verschärfen das Problem. Vor diesem Hintergrund wird die Skalierbarkeit mit 3 angesetzt. Die Stadtmetapher ist leicht zugänglich, bleibt aber abstrakt. Die Metaphernqualität wird mit 4 bewertet.
 
 \smallskip
 
-\textit{EvoSpaces: 3D Visualization of Software Architecture}~\cite{EvoSpaces} untersucht unterschiedliche Darstellungsformen, von einfachen Quadern bis zu komplexeren Hausmetaphern. Metriken werden über Transparenz, Höhe, Grundfläche, Textur und weitere Aspekte kodiert. Gebäude repräsentieren Klassen oder Dateien. Verbindungen erscheinen als Röhren beziehungsweise gebogene Strahlen, siehe Abbildung \ref{fig:evoSpaces}. Die Eingabedaten sind geeignet.
+\textit{EvoSpaces: 3D Visualization of Software Architecture}~\cite{EvoSpaces} untersucht unterschiedliche Darstellungsformen, von einfachen Quadern bis zu komplexeren Hausmetaphern. Metriken werden über Transparenz, Höhe, Grundfläche, Textur und weitere Aspekte kodiert. Gebäude repräsentieren Klassen oder Dateien. Verbindungen erscheinen als Röhren beziehungsweise gebogene Strahlen (siehe Abbildung \ref{fig:evoSpaces}). Die Eingabedaten sind geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaces.png}
     \caption[EvoSpaces-Beispiel]{EvoSpaces-Visualisierung. Gebäude repräsentieren Klassen. Je nach Metrikwert erfolgt eine Kategorisierung, etwa bis 50 LOC Wohnhaus und 51 bis 200 LOC Apartmentblock~\cite[3]{EvoSpaces}.}
     \label{fig:evoSpaces}
 \end{figure}
-Vorgestellt werden zwei Layouts, die primär die Gebäude anordnen, jedoch deren Größe nicht ändern, siehe Abbildung \ref{fig:evoSpaceLayout}.
+Vorgestellt werden zwei Layouts, die primär die Gebäude anordnen, jedoch deren Größe nicht ändern (siehe Abbildung \ref{fig:evoSpaceLayout}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaceLayout.png}
@@ -173,11 +173,11 @@ Vorgestellt werden zwei Layouts, die primär die Gebäude anordnen, jedoch deren
     \label{fig:evoCity}
 \end{figure}
 
-Für den Informationsgehalt ergibt sich in beiden Layouts der Wert 3. Zwischen den Gebäuden wird Platz verschenkt und die Hierarchiestruktur wird nicht explizit dargestellt, jedoch können mehr als vier Metriken kodiert werden. Die visuelle Komplexität liegt im mittleren Bereich. Das Layout ist einfach. Das Rendering der Gebäude erfordert jedoch ein Verständnis der Kodierungen und ist weniger offensichtlich als reine Farbe. Der Wert beträgt 3. Die Skalierbarkeit ist solide. Bei sehr großen Codebasen werden Details schwer erkennbar. Der Wert beträgt 3. Die Metapher ist klar und intuitiv. Die Gebäude wirken realistisch und die städtische Anordnung ist ohne Erklärung erkennbar. Der Wert beträgt 5.
+Mehrere visuelle Variablen erlauben mehr als vier Metriken. Gleichzeitig bleibt zwischen den Gebäuden viel ungenutzte Fläche und die Hierarchie wird nicht direkt gezeigt. Dieser Kompromiss führt für den Informationsgehalt zu einer 3. Das Layout ist einfach, die semantische Deutung von Gebäudekategorien, Texturen und Transparenzen erfordert jedoch Einarbeitung. Die visuelle Komplexität wird entsprechend mit 3 bewertet. Mit steigender Elementzahl werden Details schwer erkennbar, dennoch bleibt die Grundstruktur stabil. Aus diesem Grund wird die Skalierbarkeit mit 3 angesetzt. Die Stadtmetapher ist realistisch ausgestaltet und unmittelbar erfassbar. Die Metaphernqualität wird mit 5 bewertet.
 
 \smallskip
 
-\textit{3D representations for software visualization}~\cite{3dsoftwareMarcus} erweitert 2D Pixel Bars in die dritte Dimension, um zusätzliche Metriken und Verbindungen darzustellen. Die Basis sind Metriken auf Zeilenebene. Die Darstellung ist sehr detailliert, da einzelne Codezeilen visualisiert werden. Okklusion wird über Transparenz adressiert. Das Layout orientiert sich an Zeilenfolgen. Eine hierarchische Struktur wird nicht abgebildet, siehe Abbildung \ref{fig:3dsoftwareMarcus}. Die Eingabedaten sind damit zu detailliert und nicht konsistent über Dateien hinweg. Die definierte Eingabeanforderung wird nicht erfüllt.
+\textit{3D representations for software visualization}~\cite{3dsoftwareMarcus} erweitert 2D Pixel Bars in die dritte Dimension, um zusätzliche Metriken und Verbindungen darzustellen. Die Basis sind Metriken auf Zeilenebene. Die Darstellung ist sehr detailliert, da einzelne Codezeilen visualisiert werden. Okklusion wird über Transparenz adressiert. Das Layout orientiert sich an Zeilenfolgen. Eine hierarchische Struktur wird nicht abgebildet (siehe Abbildung \ref{fig:3dsoftwareMarcus}). Die Eingabedaten sind damit zu detailliert und nicht konsistent über Dateien hinweg. Die definierte Eingabeanforderung wird nicht erfüllt.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/marcus.png}
@@ -187,18 +187,18 @@ Für den Informationsgehalt ergibt sich in beiden Layouts der Wert 3. Zwischen d
 
 \smallskip
 
-\textit{Software cartography: Thematic software visualization with consistent layout}~\cite{softwareCartography} nutzt eine topographische Kartenmetapher, siehe Abbildung \ref{fig:softwareCartography}. Dateien werden als Hügel dargestellt. Die Höhe kodiert eine Metrik wie LOC. Die Grundfläche ergibt sich dann aus der Höhe. Das Layout wird mit einem speziellen MDS-Algorithmus (HiT-MDS) erzeugt, der als Stresswert die lexikalische Distanz zwischen Dateinamen verwendet. Die Hierarchie wird nicht abgebildet. Die Struktur wird ausschließlich über lexikalische Nähe dargestellt, die in Form von Distanzen zwischen Hügeln erscheint. Die Eingabedaten sind dennoch geeignet, da sie anhand der Dateinamen in eine hierarchische Struktur überführt werden können.
+\textit{Software cartography: Thematic software visualization with consistent layout}~\cite{softwareCartography} nutzt eine topographische Kartenmetapher (siehe Abbildung \ref{fig:softwareCartography}). Dateien werden als Hügel dargestellt. Die Höhe kodiert eine Metrik wie LOC. Die Grundfläche ergibt sich dann aus der Höhe. Das Layout wird mit einem speziellen MDS-Algorithmus (HiT-MDS) erzeugt, der als Stresswert die lexikalische Distanz zwischen Dateinamen verwendet. Die Hierarchie wird nicht abgebildet. Die Struktur wird ausschließlich über lexikalische Nähe dargestellt, die in Form von Distanzen zwischen Hügeln erscheint. Die Eingabedaten sind dennoch geeignet, da sie anhand der Dateinamen in eine hierarchische Struktur überführt werden können.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartography.png}
     \caption[Software Cartography]{Topographische Kartenmetapher. Hügel repräsentieren Dateien. Die Höhe kodiert eine Metrik wie LOC~\cite{softwareCartography}.}
     \label{fig:softwareCartography}
 \end{figure}
-Der Informationsgehalt ist gering, da nur eine Metrik direkt kodiert wird und Schachtelung nicht dargestellt ist. Der Wert beträgt 1. Die visuelle Komplexität ist niedrig, da die Darstellung sehr minimal gehalten ist. Kleine Hügel neben großen können die Höhenbeurteilung jedoch beeinträchtigen, weshalb sich der Wert 4 ergibt. Die Skalierbarkeit ist mittel, da bei großen Codebasen viele Hügel dicht beieinanderliegen. Dadurch wird die Höhenmetrik schwer zu interpretieren und die Struktur schwer erkennbar. Der Wert beträgt 3. Die Metapher ist klar und intuitiv. Der Wert beträgt 5.
+Nur eine Dateimetrik wird direkt kodiert und die Schachtelung fehlt vollständig. Damit bleiben Informationsgehalt und Flächeneffizienz gering. Sie werden mit 1 bewertet. Das Bild ist reduziert und klar, doch lokale Kontraste, etwa kleine Hügel neben großen, erschweren die Höhenbeurteilung. Die visuelle Komplexität wird daher mit 4 eingestuft. Bei großen Codebasen rücken viele Hügel dicht zusammen, wodurch Höhenvergleiche und Strukturverständnis leiden. Unter diesen Bedingungen wird die Skalierbarkeit mit 3 bewertet. Die Metapher ist geläufig und intuitiv. Die Metaphernqualität erhält die Bewertung 5.
 
 \subsection{Ergebnisse der zweiten Google-Scholar-Suche}
 
-\textit{Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs}~\cite{exploringRelations} nutzt auf oberer Ebene das Energy-Model von Noack und Lewerentz zur Graphlayoutierung. Der Graph kann mehrere Hierarchieebenen auf Dateiebene visualisieren und erfüllt damit die Anforderung. Farben unterstützen die Unterscheidung von Paketen und Ordnern. Jeder Knoten enthält intern eine Treemap, die seine Struktur zeigt, siehe Abbildung \ref{fig:exploringRelations}. Interaktion mittels Zoom ist erforderlich.
+\textit{Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs}~\cite{exploringRelations} nutzt auf oberer Ebene das Energy-Model von Noack und Lewerentz zur Graphlayoutierung. Der Graph kann mehrere Hierarchieebenen auf Dateiebene visualisieren und erfüllt damit die Anforderung. Farben unterstützen die Unterscheidung von Paketen und Ordnern. Jeder Knoten enthält intern eine Treemap, die seine Struktur zeigt (siehe Abbildung \ref{fig:exploringRelations}). Interaktion mittels Zoom ist erforderlich.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/expoloringRelations.png}
@@ -206,18 +206,18 @@ Der Informationsgehalt ist gering, da nur eine Metrik direkt kodiert wird und Sc
     \label{fig:exploringRelations}
 \end{figure}
 
-Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualisierungen wird angenommen, dass die Treemaps in 2.5D extrudiert werden. Der Informationsgehalt ist hoch. Die Hierarchie wird dargestellt. Mehrere Metriken in der Treemap sind möglich und zusätzlich Beziehungsmetriken auf den oberen Graph-Ebenen. Der Wert beträgt 4, da auf den oberen Ebenen viel Fläche ungenutzt bleibt. Die visuelle Komplexität ist erhöht, da zwei Darstellungsprinzipien kombiniert werden. Dieselbe Metrik erscheint auf oberer Ebene als Knotengröße und auf unterer Ebene als Rechtecksfläche, was Verwirrung stiften kann. Der Wert beträgt 2. Die Skalierbarkeit ist eingeschränkt. Auf oberer Ebene wird viel Fläche verschenkt. Bei großen Codebasen werden Treemaps klein und Verbindungen unübersichtlich. Der Wert beträgt 2. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualisierungen wird angenommen, dass die Treemaps in 2.5D extrudiert werden. Die Hierarchie ist sichtbar, in den Treemaps lassen sich drei Metriken kodieren und auf oberer Ebene kommen Beziehungsmetriken hinzu. Da jedoch viel Fläche in der Graphansicht frei bleibt, werden Informationsgehalt und Flächeneffizienz mit 4 bewertet. Zwei Darstellungsprinzipien treffen aufeinander und dieselbe Metrik erscheint als Kreisfläche auf oberen Ebenen und als Rechtecksfläche auf unteren Ebenen. Diese Dopplung kann irritieren. Entsprechend wird die visuelle Komplexität mit 2 eingestuft. Mit wachsender Projektgröße schrumpfen die eingebetteten Treemaps und die Kanten werden unübersichtlich, während auf oberer Ebene Fläche ungenutzt bleibt. Die Skalierbarkeit wird daher mit 2 bewertet. Eine Metapher ist nicht beabsichtigt. Die Metaphernqualität liegt bei 1.
 
 \smallskip
 
-\textit{Visualizing Software Metrics in a Software System Hierarchy}~\cite{visSoftwareMetricsBook} entspricht im Kern einem Link-Tree-Diagramm. Sogenannte \textit{Metric Stripes} kodieren über Breite und Farbe verschiedene Metriken, siehe Abbildung \ref{fig:visHierarchy}. Die Eingabe hierarchischer Daten ist geeignet.
+\textit{Visualizing Software Metrics in a Software System Hierarchy}~\cite{visSoftwareMetricsBook} entspricht im Kern einem Link-Tree-Diagramm. Sogenannte \textit{Metric Stripes} kodieren über Breite und Farbe verschiedene Metriken (siehe Abbildung \ref{fig:visHierarchy}). Die Eingabe hierarchischer Daten ist geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/vishierarchy.png}
     \caption[Link-Tree mit Metric Stripes]{Link-Tree-Diagramm mit \textit{Metric Stripes} zur Metrikkodierung~\cite[740]{visSoftwareMetricsBook}.}
     \label{fig:visHierarchy}
 \end{figure}
-Es handelt sich um ein 2D-Layout. Für den Vergleich wird angenommen, dass die Rechtecke in 2.5D extrudiert werden. Theoretisch sind beliebig viele Metriken im Metrikstreifen kodierbar. Gleichzeitig wird viel Fläche zwischen den Knoten verschenkt. Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 4. Die visuelle Komplexität ist gering bis mittel. Die Struktur ist klar. Die Metriken sind als einfache Rechtecke erkennbar. Die Zuordnung einzelner Streifenpositionen zur Metrik ist jedoch nicht intuitiv und schwer schnell zu leisten. Dies hängt von der Anzahl der dargestellten Metriken ab. Der Wert beträgt 4. Das Grundlayout ist ein Link-Tree. Bereits in den Grundlagen wurde erwähnt, dass bei großen Hierarchien sehr viel Fläche verloren geht und die Darstellung unübersichtlich wird (siehe Abschnitt \ref{sec:Treemap}). Die Skalierbarkeit erhält den Wert 1. Eine Metapher fehlt. Der Wert beträgt 1.
+Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings bleibt zwischen den Knoten viel Leerraum. Diese Kombination aus hoher Metrikzahl und geringer Flächennutzung führt für Informationsgehalt und Flächeneffizienz zur Bewertung 4. Die Struktur des Baumes ist klar, die Rechtecke sind einfach lesbar. Die Zuordnung vieler Streifenpositionen zu Metriken ist jedoch nicht selbsterklärend und ist kognitiv schlecht. Unter dieser Prämisse wird die visuelle Komplexität mit 4 bewertet. Link-Tree-Diagramme verlieren bei großen Hierarchien viel Fläche und werden schnell unübersichtlich, wie bereits in den Grundlagen dargelegt wurde (siehe Abschnitt \ref{sec:Treemap}). Die Skalierbarkeit wird folglich mit 1 bewertet. Eine Metapher wird nicht verwendet, weshalb die Metaphernqualität 1 beträgt.
 
 \smallskip
 
@@ -225,7 +225,7 @@ Es handelt sich um ein 2D-Layout. Für den Vergleich wird angenommen, dass die R
 
 \smallskip
 
-\textit{Visualizing Program Quality - A Topological Taxonomy of Features}~\cite{visualizingProgramQuality} schlägt die Bubble-Treemap vor, die erstmals in \cite{Goertler2017BubbleTreemapsUncertainty} beschrieben wurde, siehe Abbildung \ref{fig:bubbleTreemap}. Sie verhält sich zu Circle Packing ähnlich wie Treemap zu Code City, da weniger Platz verschwendet wird und eine Kante-an-Kante-Anordnung angestrebt ist. Aufgrund der hierarchischen Struktur auf Dateiebene ist die Anforderung erfüllt.
+\textit{Visualizing Program Quality - A Topological Taxonomy of Features}~\cite{visualizingProgramQuality} schlägt die Bubble-Treemap vor, die erstmals in \cite{Goertler2017BubbleTreemapsUncertainty} beschrieben wurde (siehe Abbildung \ref{fig:bubbleTreemap}). Sie verhält sich zu Circle Packing ähnlich wie Treemap zu Code City, da weniger Platz verschwendet wird und eine Kante-an-Kante-Anordnung angestrebt ist. Aufgrund der hierarchischen Struktur auf Dateiebene ist die Anforderung erfüllt.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/bubbleTreemap.png}
@@ -233,7 +233,7 @@ Es handelt sich um ein 2D-Layout. Für den Vergleich wird angenommen, dass die R
     \label{fig:bubbleTreemap}
 \end{figure}
 
-Bewertet wird die 2.5D-Extrusion zu Zylindern. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken kodieren, abhängig von der Nutzung der Farbe. Der Informationsgehalt ist vergleichbar mit Treemaps. Zwischen Kreisen geht jedoch mehr Fläche verloren. Der Wert beträgt 4. Die visuelle Komplexität ist niedrig. Einfache Formen und klare Struktur erleichtern die Lesbarkeit. Der Wert beträgt 5. Die Skalierbarkeit ist gut und vergleichbar mit Voronoi. Der Wert beträgt 4. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, ähnlich der Treemap. Durch die runden Zellen geht etwas mehr Fläche verloren. Aus diesem Verhältnis ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 4. Kreise sind einfach zu unterscheiden und die Struktur ist klar. Dadurch bleibt die kognitive Anforderung gering. Die visuelle Komplexität wird mit 5 bewertet. Das Layout vermeidet Überlappungen und bleibt bei vielen Elementen lesbar, hat aber das gleiche Problem wie Voronoi- und Treemap-Layouts, dass bei großen Codebasen kleine Elemente schwer zu erkennen sind. Die Skalierbarkeit wird also wie bei Voronoi und Treemap mit 4 eingestuft. Eine Metapher wird nicht verfolgt. Die Metaphernqualität liegt bei 1.
 
 \smallskip
 
@@ -241,25 +241,25 @@ Bewertet wird die 2.5D-Extrusion zu Zylindern. Es lassen sich ähnlich wie bei T
 
 \smallskip
 
-\textit{Visualization and evolution of software architectures}~\cite{visualizationEvolution} stellt verschiedene Visualisierungen vor. Für die erste Anforderung passend sind Treemap, Sunburst, Voronoi, Circle Treemap und Street Map. Diese werden oder wurden in diesem Abschnitt bereits beschrieben. Entsprechend wird für diese Visualisierungen die identische Bewertung angesetzt. Zusätzlich wird ein Icicle Plot vorgestellt, der dem Stack-Layout in \textit{code-is-beautiful} entspricht. Auch hierfür wird die entsprechende Bewertung übernommen. Neu hinzu kommt der Hyperbolic Tree, siehe Abbildung \ref{fig:hyperbolictree}. Er ähnelt einem Node-Link-Diagramm in kreisförmiger Anordnung und kodiert eine Metrik pro Datei. 
+\textit{Visualization and evolution of software architectures}~\cite{visualizationEvolution} stellt verschiedene Visualisierungen vor. Für die erste Anforderung passend sind Treemap, Sunburst, Voronoi, Circle Treemap und Street Map. Diese werden oder wurden in diesem Abschnitt bereits beschrieben. Entsprechend wird für diese Visualisierungen die identische Bewertung angesetzt. Zusätzlich wird ein Icicle Plot vorgestellt, der dem Stack-Layout in \textit{code-is-beautiful} entspricht. Auch hierfür wird die entsprechende Bewertung übernommen. Neu hinzu kommt der Hyperbolic Tree (siehe Abbildung \ref{fig:hyperbolictree}). Er ähnelt einem Node-Link-Diagramm in kreisförmiger Anordnung und kodiert eine Metrik pro Datei. 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/hyperbolictree.png}
     \caption[Hyperbolic Tree]{Hyperbolic Tree~\cite[4]{visualizationEvolution}.}
     \label{fig:hyperbolictree}
 \end{figure}
-Der Informationsgehalt und die Flächeneffizienz sind gering, da nur eine Metrik dargestellt wird und viel Fläche ungenutzt bleibt. Der Wert beträgt 1. Die visuelle Komplexität ist schwer zu beurteilen. Grundsätzlich ist die Darstellung einfach. Sie wird jedoch schnell unübersichtlich aufgrund zahlreicher Verbindungen. Der Wert beträgt 3. Die Skalierbarkeit ist sehr schwach, analog zu Node-Link-Diagrammen. Bereits bei moderat großen Hierarchien entstehen Unübersichtlichkeit und Kantenüberschneidungen. Der Wert beträgt 1. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Es wird nur eine Metrik kodiert und große Flächen bleiben leer. Damit sind Informationsgehalt und Flächeneffizienz sehr gering und werden mit 1 bewertet. Die Darstellung ist prinzipiell einfach, doch die Vielzahl an Kanten erzeugt schnell visuelles Durcheinander. Unter dieser Abwägung wird die visuelle Komplexität mit 3 angesetzt. Mit wachsender Hierarchie treten Kantenüberschneidungen und Unübersichtlichkeit auf, wie es für Node-Link-Diagramme typisch ist. Die Skalierbarkeit wird deshalb mit 1 bewertet. Eine Metapher ist nicht intendiert. Die Metaphernqualität liegt bei 1.
 
 \subsection{Ergebnisse der IEEE-Suche} \label{sec:ieeeSuche}
 
-\textit{Metrics-based 3D visualization of large object-oriented programs}~\cite{metricsBased3DVisualization} stellt eine 3D-Spherical-Graph-Visualisierung vor, in der Elemente auf einer Kugeloberfläche platziert werden. Metriken werden über Größe und Farbe kodiert. Klassen werden als Kugeln oder Würfel im 3D-Raum dargestellt und je nach Beziehungsmetrik verbunden. Die Anordnung folgt einem Similarity-Score, der vielfältig definiert werden kann, etwa durch Dateistruktur oder Kohäsion, siehe Abbildung \ref{fig:metricsBased3DVisualization}. Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt.
+\textit{Metrics-based 3D visualization of large object-oriented programs}~\cite{metricsBased3DVisualization} stellt eine 3D-Spherical-Graph-Visualisierung vor, in der Elemente auf einer Kugeloberfläche platziert werden. Metriken werden über Größe und Farbe kodiert. Klassen werden als Kugeln oder Würfel im 3D-Raum dargestellt und je nach Beziehungsmetrik verbunden. Die Anordnung folgt einem Similarity-Score, der vielfältig definiert werden kann, etwa durch Dateistruktur oder Kohäsion (siehe Abbildung \ref{fig:metricsBased3DVisualization}). Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/metricsBased3DVisualization.png}
     \caption[Spherical Graph]{Spherical Graph~\cite[5]{metricsBased3DVisualization}.}
     \label{fig:metricsBased3DVisualization}
 \end{figure}
-Der Informationsgehalt ist niedrig. Kodiert werden eine Datei- und eine Beziehungsmetrik. Die Struktur entsteht nur über Abstände. Zudem geht viel Fläche verloren. Der Wert beträgt 2. Die visuelle Komplexität ist moderat. Verbindungen werden jedoch schnell unübersichtlich. Der Wert beträgt 4. Die Skalierbarkeit ist eingeschränkt. Bei großen Codebasen entstehen Verdeckungen und dichte Kantenbündel. Der Wert beträgt 3. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Zwei Datei- und eine Beziehungsmetrik werden kodiert, die Struktur entsteht über Distanzen und die Fläche wird ineffizient genutzt, da es viel Freiräume gibt. Daraus folgt für Informationsgehalt und Flächeneffizienz die Bewertung 2. Die Darstellung ist zunächst gut erfassbar, doch die Verbindungen sind etwas unübersichtlich. Die visuelle Komplexität wird unter diesem Aspekt mit 4 bewertet. Große Systeme erzeugen Kantenbündel und Verdeckungen. Deshalb wird die Skalierbarkeit mit 3 eingestuft. Eine Metapher fehlt, bekommt also Wertung 1.
 
 \smallskip
 
@@ -267,7 +267,7 @@ Der Informationsgehalt ist niedrig. Kodiert werden eine Datei- und eine Beziehun
 
 \smallskip
 
-\textit{E-Quality: A graph based object oriented software quality visualization tool}~\cite{eQuality} stellt eine graphbasierte Visualisierung für objektorientierte Softwarequalität vor. Pakete werden kreisförmig angeordnet. Metriken beeinflussen Muster, Größe, Farbe und Form, siehe Abbildung \ref{fig:eQuality}. Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt und auf Klassenebene dargestellt wird.
+\textit{E-Quality: A graph based object oriented software quality visualization tool}~\cite{eQuality} stellt eine graphbasierte Visualisierung für objektorientierte Softwarequalität vor. Pakete werden kreisförmig angeordnet. Metriken beeinflussen Muster, Größe, Farbe und Form (siehe Abbildung \ref{fig:eQuality}). Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt und auf Klassenebene dargestellt wird.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/equality.png}
@@ -275,7 +275,7 @@ Der Informationsgehalt ist niedrig. Kodiert werden eine Datei- und eine Beziehun
     \label{fig:eQuality}
 \end{figure}
 
-Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit wird die 2.5D-Extrusion angenommen. Der Informationsgehalt ist hoch, da viele verschiedene visuelle Metrikdarstellungen genutzt werden. Die Struktur wird allerdings nur in zwei Ebenen dargestellt. Zwischen den Elementen besteht viel freier Raum, der teils durch Verbindungen gefüllt wird. Der Wert beträgt trotzdem 4, da sehr viele Informationen kodiert werden. Die visuelle Komplexität ist aus diesem Grund jedoch sehr hoch. Zahlreiche Formen, Farben und Muster mit unterschiedlichen Bedeutungen erhöhen die kognitive Last. Der Wert beträgt 1. Die Skalierbarkeit ist mittel. Bei vielen Elementen sind Details schwer erkennbar, zugleich ist die Struktur einfach. Der Wert beträgt 3. Eine Metapher fehlt. Der Wert beträgt 1.
+Durch die Vielfalt der visuellen Variablen lassen sich viele Metriken darstellen. Jedoch wird die Struktur nur in zwei Ebenen dargestellt und zwischen Knoten gibt es viele Freiflächen. Unter dieser Abwägung werden Informationsgehalt und Flächeneffizienz mit 4 bewertet. Die vielen Formen, Muster und Farben mit unterschiedlicher Semantik sind nicht komplett intuitiv und erhöhen die kognitive Last stark. Die visuelle Komplexität wird deshalb mit 1 bewertet. Bei vielen Elementen werden Details kaum unterscheidbar, die einfache Grundstruktur stabilisiert jedoch die Übersicht. Die Skalierbarkeit wird mit 3 eingestuft. Eine Metapher ist nicht vorgesehen und erhält daher Wertung 1.
 
 \smallskip
 
@@ -290,33 +290,33 @@ Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit wird die 2.5D-Extrus
     \caption[Dependency-Graph in QScored]{Dependency-Graph in QScored~\cite[3]{QScored}.}
     \label{fig:qScored}
 \end{figure}
-Es handelt sich um ein 2D-Layout. Für die Bewertung wird eine 2.5D-Extrusion zu Zylindern angenommen. Kodierbar sind drei Metriken, nämlich Farbe, Höhe und Knotengröße, sowie eine Beziehungsmetrik. Zwischen den Knoten geht viel Fläche verloren und die Hierarchie wird nicht dargestellt. Für Informationsgehalt und Flächeneffizienz ergibt sich der Wert 3. Die visuelle Komplexität ist moderat. Formen und Farben sind einfach, Verbindungen werden jedoch unübersichtlich. Der Wert beträgt 4. Die Skalierbarkeit ist gering, da Verbindungen bei großen Codebasen unübersichtlich werden und ohne Struktur chaotisch wirken. Der Wert beträgt 2. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+Drei Dateimetriken plus eine Beziehungsmetrik sind darstellbar, doch bleiben große Flächen zwischen Knoten frei und die Hierarchie fehlt. Vor diesem Hintergrund werden Informationsgehalt und Flächeneffizienz mit 3 bewertet. Formen und Farben sind klar, die wachsende Zahl an Kanten erzeugt jedoch schnell Unübersichtlichkeit. Die visuelle Komplexität wird mit 4 eingestuft. Ohne hierarchische Struktur wirken große Graphen chaotisch und Kanten verdecken Inhalte. Die Skalierbarkeit wird daher mit 2 bewertet. Eine Metapher ist nicht vorhanden. Der Wert für die Methaper ist also 1.
 
 \smallskip
 
-\textit{Using the City Metaphor for Visualizing Test-Related Metrics}~\cite{citMetaphorTestMetrics} setzt die Stadtmetapher in einem Sandbox-Spiel (\textit{Minecraft}) um, siehe Abbildung \ref{fig:minecraft}. Gebäude sind detailliert und bilden Methoden, Attribute, Metriken und Interfaces ab. Das Layout ist spielerisch und schwer zu normieren. Die Eingabedaten erfüllen die Anforderung.
+\textit{Using the City Metaphor for Visualizing Test-Related Metrics}~\cite{citMetaphorTestMetrics} setzt die Stadtmetapher in einem Sandbox-Spiel (\textit{Minecraft}) um (siehe Abbildung \ref{fig:minecraft}). Gebäude sind detailliert und bilden Methoden, Attribute, Metriken und Interfaces ab. Das Layout ist spielerisch und schwer zu normieren. Die Eingabedaten erfüllen die Anforderung.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/minecraft.png}
     \caption[Stadtmetapher in Minecraft]{Stadtmetapher in Minecraft~\cite[5]{citMetaphorTestMetrics}.}
     \label{fig:minecraft}
 \end{figure}
-Die Bewertung ist aufgrund der Ausprägung mit Unsicherheiten behaftet. Der Informationsgehalt ist sehr hoch. Es werden neben zahlreichen Metriken auch Code-Level-Informationen dargestellt. Der Wert beträgt 5, auch wenn potenziell Flächenverluste auftreten. Die visuelle Komplexität ist aufgrund der Nutzung von Minecraft sehr hoch. Die Detailtiefe, Textur und Struktur der Blöcke erhöhen die kognitive Last unnötig. Der Wert beträgt 1. Die Skalierbarkeit ist schwer einzuschätzen. Details werden bei großen Codebasen schwer erkennbar. Der Wert beträgt 3. Die Metapher ist klar und sehr eingängig. Der Wert beträgt 5.
+Die Einbindung von Quelltextdetails neben zahlreichen Metriken macht die Darstellung sehr informationsreich. Der Informationsgehalt wird daher mit 5 bewertet. Die blockbasierten Texturen, hohe Detailtiefe und Spieloptik erhöhen die kognitive Last deutlich. Die visuelle Komplexität wird folglich mit 1 bewertet. Viele Details werden bei Größenwachstum schwer erkennbar. Die Skalierbarkeit wird mit 3 angesetzt. Die Stadtmetapher ist einprägsam und unmittelbar zugänglich. Die Metapher erhält die Bewertung 5.
 
 \smallskip
 
-\textit{Visual Analytics of Software Structure and Metrics}~\cite{visAnaSoftStructure} nutzt den City View von eCITY~\cite{ecity}, siehe Abbildung \ref{fig:colorStreetmap}. Die Eingabe hierarchischer Daten ist geeignet. Es wird die Stadtmetapher verwendet, jedoch mit einem anderen Anordnungsalgorithmus. Die Straßenstruktur bildet die Schachtelung ab. Jede Hierarchieebene erzeugt eine Abzweigung. Metriken werden über Fläche und Farbe kodiert.
+\textit{Visual Analytics of Software Structure and Metrics}~\cite{visAnaSoftStructure} nutzt den City View von eCITY~\cite{ecity} (siehe Abbildung \ref{fig:colorStreetmap}). Die Eingabe hierarchischer Daten ist geeignet. Es wird die Stadtmetapher verwendet, jedoch mit einem anderen Anordnungsalgorithmus. Die Straßenstruktur bildet die Schachtelung ab. Jede Hierarchieebene erzeugt eine Abzweigung. Metriken werden über Fläche und Farbe kodiert.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/colorStreetmap.png}
     \caption[Streetmap-Layout in eCITY]{Streetmap-Layout~\cite[6]{visAnaSoftStructure}.}
     \label{fig:colorStreetmap}
 \end{figure}
-Für die Bewertung wird die 2.5D-Extrusion der Rechtecke zu Quadern angenommen. Informationsgehalt und Flächeneffizienz sind geringer als bei Treemaps, da dieselben Metriken kodiert werden, aber mehr Fläche für Straßen und Zwischenräume benötigt wird. Der Wert beträgt daher 3. Die visuelle Komplexität ist niedrig. Struktur und Metriken sind klar erkennbar. Der Wert beträgt 5. Die Skalierbarkeit ist mittel. Bei großen Codebasen werden kleine Elemente schwer erkennbar und die Straßen beanspruchen zusätzliche Fläche. Der Wert beträgt 3. Die Metapher ist klar und intuitiv, wenn auch abstrakter und nicht so realistisch wie bei anderen Stadtmetaphern. Der Wert beträgt 4.
+Die Flächen werden durch Straßen aufgeteilt, wodurch gegenüber zum Beispiel Treemaps viel Platz verloren geht, obwohl die gleichen Metriken kodiert werden. Daraus ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 3. Die rechteckigen Parzellen und klaren Straßen erzeugen eine sehr gut lesbare Struktur. Zusätlich die einfachen Formen, führen zu einer visuellen Komplexität von 5. Mit zunehmender Größe werden kleine Parzellen schwer wahrnehmbar und die Straßen benötigen zusätzliche Fläche. Unter dieser Abwägung wird die Skalierbarkeit mit 3 eingestuft. Die Metapher ist intuitiv, wenn auch abstrakter und weniger realistisch als andere Stadtvarianten. Die Metaphernqualität wird daher mit 4 bewertet.
 
 \subsection{Google-Suche} \label{sec:GoogleSuche}
 
-Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisualisierung, häufig mit Stadtmetapher, siehe Abbildung \ref{fig:sereene}~\cite{hassoPlattner}. Das zugehörige Tool, auf das die wissenschaftlichen Arbeiten zur Stadtmetapher ausgerichtet sind, nennt sich Sereene. Zudem werden alternative Visualisierungen wie \textit{Software Forest} vorgestellt, die der Softwarekartographie ähnelt, siehe Abbildung \ref{fig:softwareForest}. Die Eingabedaten sind hierarchisch auf Dateiebene und damit geeignet.
+Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisualisierung, häufig mit Stadtmetapher (siehe Abbildung \ref{fig:sereene})~\cite{hassoPlattner}. Das zugehörige Tool, auf das die wissenschaftlichen Arbeiten zur Stadtmetapher ausgerichtet sind, nennt sich Sereene. Zudem werden alternative Visualisierungen wie \textit{Software Forest} vorgestellt, die der Softwarekartographie ähnelt (siehe Abbildung \ref{fig:softwareForest}). Die Eingabedaten sind hierarchisch auf Dateiebene und damit geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/sereene.png}
@@ -324,7 +324,7 @@ Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisu
     \label{fig:sereene}
 \end{figure}
 
-Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe und Farbe dar. Informationsgehalt und Flächeneffizienz sind gut, da die gesamte Fläche genutzt wird und mehrere Metriken kodierbar sind. Der Wert beträgt 4. Die visuelle Komplexität ist niedrig. Struktur und Metriken sind klar und die Formen einfach. Der Wert beträgt 5. Die Skalierbarkeit ist gut. Kleine Elemente werden bei sehr großen Codebasen jedoch schwer erkennbar. Der Wert beträgt 4. Die visuelle Metapher ist vorhanden, bleibt jedoch abstrakt. Im Vergleich zur Streetmap ist sie weniger intuitiv, da etwa Straßen fehlen. Der Wert beträgt 3.
+Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe und Farbe dar. Da die gesamte Fläche genutzt und zugleich mehrere Metriken sichtbar werden, werden Informationsgehalt und Flächeneffizienz mit 4 bewertet. Die Formen bleiben einfach, die Struktur ist klar. Dadurch ist die kognitive Last gering. Die visuelle Komplexität wird mit 5 eingestuft. Auch große Systeme können abgebildet werden, kleine Elemente verlieren jedoch an Lesbarkeit. Unter dieser Prämisse wird die Skalierbarkeit mit 4 bewertet. Die Metapher ist präsent, bleibt aber abstrakt, da typische Stadtstrukturen wie Straßen fehlen. Die Metapher wird daher mit 3 bewertet.
 
 \begin{figure}[h]
     \centering
@@ -333,11 +333,11 @@ Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe u
     \label{fig:softwareForest}
 \end{figure}
 
-Der Software Forest ist ein hügeliger Wald. Jeder Baum repräsentiert eine Datei. Die Höhe des Hügels kodiert eine Metrik, ähnlich der Softwarekartographie. Über die Bäume kann zusätzlich eine weitere Metrik über Farbe kodiert werden. Der Ansatz ist mit der Softwarekartographie vergleichbar, bietet jedoch zusätzliche Information über die Bäume. Für den Informationsgehalt ergibt sich daher ein höherer Wert als in der Softwarekartographie, nämlich 2. Die visuelle Komplexität bleibt vom Wert her gleich, da die Bäume die Höheneinschätzung zwar erleichtern, aber selbst zusätzliche Details und Komplexität mitbringen. Die anderen Kriterien werden gleich bewertet wie bei der Softwarekartographie.
+Der Software Forest ist ein hügeliger Wald. Jeder Baum repräsentiert eine Datei. Die Höhe des Hügels kodiert eine Metrik, ähnlich der Softwarekartographie. Über die Bäume kann zusätzlich eine weitere Metrik über Farbe kodiert werden. Gegenüber der Softwarekartographie erhöht der zusätzliche Farbkanal pro Baum die Informationsdichte, während die restliche Struktur vergleichbar bleibt. Deshalb wird der Informationsgehalt um eine Stufe höher, also mit 2, bewertet. Die visuelle Komplexität bleibt vom Wert her gleich, da die Bäume die Höheneinschätzung zwar erleichtern, aber selbst zusätzliche Details und Komplexität mitbringen. Die anderen Kriterien werden gleich bewertet wie bei der Softwarekartographie.
 
 \smallskip
 
-Das Open-Source-Projekt \textit{CodeCharta}~\cite{code_charta_github} ist besonders relevant, da die verwendeten Algorithmen offenliegen. Eingesetzt werden der d3.js-Treemap-Algorithmus, siehe Abbildung \ref{fig:codeChartaTreemap}, sowie ein eigener Algorithmus zur Erzeugung von Streetmap-Layouts, siehe Abbildung \ref{fig:codeChartaStreetMap}. Beide nutzen hierarchische Metrikdaten auf Dateiebene und sind damit geeignet.
+Das Open-Source-Projekt \textit{CodeCharta}~\cite{code_charta_github} ist besonders relevant, da die verwendeten Algorithmen offenliegen. Eingesetzt werden der d3.js-Treemap-Algorithmus (siehe Abbildung \ref{fig:codeChartaTreemap}) sowie ein eigener Algorithmus zur Erzeugung von Streetmap-Layouts (siehe Abbildung \ref{fig:codeChartaStreetMap}). Beide nutzen hierarchische Metrikdaten auf Dateiebene und sind damit geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codeChartaTreemap.png}
@@ -358,34 +358,34 @@ Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\c
 
 \smallskip
 
-An der University of Groningen (Scientific Visualization and Computer Graphics) wird UML als Layout verwendet und mit 3D-Metrikrepräsentationen verbunden, siehe Abbildung \ref{fig:umlMetrics}~\cite{and_2025}. Die Eingabe umfasst UML-Strukturen auf Klassenebene mit zusätzlichen Metrikwerten. Diese Daten sind geeignet.
+An der University of Groningen (Scientific Visualization and Computer Graphics) wird UML als Layout verwendet und mit 3D-Metrikrepräsentationen verbunden (siehe Abbildung \ref{fig:umlMetrics})~\cite{and_2025}. Die Eingabe umfasst UML-Strukturen auf Klassenebene mit zusätzlichen Metrikwerten. Diese Daten sind geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/umlMetrics.png}
     \caption[UML und 3D-Metriken]{Verbindung aus UML-Visualisierung und 3D-Metriken~\cite{and_2025}.}
     \label{fig:umlMetrics}
 \end{figure}
-Der Informationsgehalt ist sehr hoch. Es werden Struktur- und Implementierungsinformationen aus UML mit beliebig vielen Metriken kombiniert. Der Wert beträgt 5, auch wenn die Fläche nicht optimal genutzt wird. Die visuelle Komplexität ist sehr hoch. Zwei unterschiedliche Konzepte werden kombiniert. Viele Details und umfangreicher Text erhöhen die kognitive Last. Der Wert beträgt 1. Die Skalierbarkeit ist schwach, da Text und Detaildichte bei großen Codebasen schwer lesbar sind. Der Wert beträgt 1. Eine Metapher ist nicht vorhanden. Der Wert beträgt 1.
+UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreichen Metriken kombiniert werden. Dieser Umfang rechtfertigt beim Informationsgehalt die Bewertung 5, obwohl die Fläche nicht effizient genutzt wird. Die Verbindung aus textlastigen UML-Diagrammen und 3D-Metrikobjekten erzeugt hohe kognitive Anforderungen. Die visuelle Komplexität wird deshalb mit 1 bewertet. Mit wachsender Projektgröße werden Texte und Details schwer lesbar, wodurch die Darstellung rasch an Grenzen stößt. Die Skalierbarkeit wird mit 1 eingestuft. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität beträgt 1.
 
 \smallskip
 
-\textit{code-is-beautiful}~\cite{codeIsBeautiful} bietet Code-City-Visualisierungen. Die entsprechende Bewertung wurde oben bereits vorgenommen und gilt hier ebenfalls. Das Sunburst-Layout entspricht einem Kreisdiagramm, das die Ordnerstruktur von innen nach außen zeigt. Größe als Sektorfläche und Farbe kodieren Metriken, siehe Abbildung \ref{fig:sunburst}. Eine 2.5D-Extrusion ist möglich.
+\textit{code-is-beautiful}~\cite{codeIsBeautiful} bietet Code-City-Visualisierungen. Die entsprechende Bewertung wurde oben bereits vorgenommen und gilt hier ebenfalls. Das Sunburst-Layout entspricht einem Kreisdiagramm, das die Ordnerstruktur von innen nach außen zeigt. Größe als Sektorfläche und Farbe kodieren Metriken (siehe Abbildung \ref{fig:sunburst}). Eine 2.5D-Extrusion ist möglich.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/sunburst.png}
     \caption[Sunburst-Layout]{Sunburst-Layout~\cite{codeIsBeautiful}.}
     \label{fig:sunburst}
 \end{figure}
-Beim Informationsgehalt und der effizienten Nutzung des Platzes schneidet Sunburst etwas schlechter ab als eine Treemap, da viel Fläche für die Darstellung der Ordner in der Mitte benötigt wird. In einer Treemap werden diese lediglich über Abstände modelliert. Der Wert beträgt 3, auch wenn gleich viele Metriken dargestellt werden können und die Struktur erkennbar ist. Die Darstellung ist sehr einfach zu verstehen. Vor allem die Struktur ist sehr klar. Es ist gut erkennbar, welche Datei in welchem Ordner liegt. Auch die Metriken sind klar zu erkennen. Der Wert beträgt 5. Skalierbarkeit ist gut. Bei großen Codebasen wird es jedoch unübersichtlich, wenn viele kleine Elemente vorhanden sind. Der Wert beträgt 4. Eine visuelle Metapher ist nicht vorhanden. Der Wert beträgt 1.
+In Sunburst wird ein zentraler Bereich für Ordner benötigt, der zum Beispiel bei Treemaps entfällt. Bei gleicher Metrikzahl sinkt dadurch die Flächeneffizienz leicht. Informationsgehalt und Flächenausnutzung werden also mit 3 bewertet. Die verschachtelte Struktur ist visuell sehr klar und einfach zu verfolgen. Die visuelle Komplexität wird mit 5 eingestuft. Mit zunehmender Elementzahl leidet die Lesbarkeit kleiner Sektoren, insgesamt bleibt die Darstellung jedoch gut lesbar. Die Skalierbarkeit wird daher mit 4 bewertet. Eine Metapher ist nicht vorgesehen, weshalb Wert 1 vergeben wird.
 
-Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2.5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert, siehe Abbildung \ref{fig:stack}.
+Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2.5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert (siehe Abbildung \ref{fig:stack}).
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/stack.png}
     \caption[Stack-Layout]{Stack-Layout~\cite{codeIsBeautiful}.}
     \label{fig:stack}
 \end{figure}
-Für Informationsgehalt und Flächeneffizienz ergibt sich ein niedrigerer Wert als beim Sunburst, da die oberen Ordner mehr Fläche verbrauchen als bei Sunburst. Der Wert beträgt daher 2. Die übrigen Aspekte entsprechen dem Sunburst, da die Darstellungsprinzipien ähnlich sind, nur einmal linear und einmal kreisförmig.
+Die oberen Hierarchieebenen nehmen vergleichsweise viel Platz ein, mehr als bei Sunburst. Trotz gleicher Metrikzahl sinkt damit die Flächeneffizienz. Für Informationsgehalt und Flächenausnutzung wird folglich die Bewertung 2 vergeben. Die weiteren Aspekte entsprechen dem Sunburst-Layouts und bekomme die gleichen Wertungen, da die Prinzipien der Layouts ähnlich sind, nur einmal linear und einmal radial.
 
 \smallskip
 
@@ -393,7 +393,7 @@ Für Informationsgehalt und Flächeneffizienz ergibt sich ein niedrigerer Wert a
 
 \smallskip
 
-\textit{CodeScene}~\cite{codescene_2025} nutzt 2D-Kreisdiagramme und Circular Treemaps, die als Circle Packing bezeichnet werden, siehe Abbildung \ref{fig:circlePacking}. Die Eingaben sind hierarchische Metrikdaten auf Dateiebene und damit geeignet.
+\textit{CodeScene}~\cite{codescene_2025} nutzt 2D-Kreisdiagramme und Circular Treemaps, die als Circle Packing bezeichnet werden (siehe Abbildung \ref{fig:circlePacking}). Die Eingaben sind hierarchische Metrikdaten auf Dateiebene und damit geeignet.
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codescene.png}
@@ -401,7 +401,7 @@ Für Informationsgehalt und Flächeneffizienz ergibt sich ein niedrigerer Wert a
     \label{fig:circlePacking}
 \end{figure}
 
-Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die einzelnen Kreise in 2.5D extrudiert werden, also zu Zylindern. Der Informationsgehalt ist gleich wie bei Bubble-Treemaps, nur dass etwas mehr Platz zwischen den Kreisen verloren geht. Deshalb geben wir eine Wertung weniger als bei Bubble-Treemaps, also Wert 3. Die Formen sind sehr einfach. Durch den Abstand und die Formen ist die Struktur gut erkennbar. Für die visuelle Komplexität ergibt sich der Wert 5. Die Skalierbarkeit ist grundsätzlich gut. Durch den zusätzlichen Flächenverlust werden kleine Elemente jedoch etwas schwerer erkennbar. Der Wert beträgt 3. Der Anbieter stellt eine Metapher zu einem Tatort (\textit{crime scene}) bereit. Je nach Auswahl der Farben, beispielsweise Rot für schlecht und transparent für gut, sollen die Kreise an Blutflecken erinnern und auf Hotspots hinweisen~\cite{codescene_2025}. Diese Metapher ist abstrakt und unterstützt die Orientierung nur begrenzt. Bei einer Übertragung in eine 2.5D-Darstellung verliert die Metapher weitgehend ihre Wirksamkeit. Der Wert beträgt 2.
+Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die einzelnen Kreise in 2.5D extrudiert werden, also zu Zylindern. Gegenüber zum Beispiel Bubble-Treemaps geht zwischen Kreisen etwas mehr Fläche verloren, die Metrikzahl bleibt jedoch gleich. Deshalb werden Informationsgehalt und Flächeneffizienz eine Stufe niedriger bewertet und erhalten 3. Die Kreisform und klare Abstände unterstützen die Wahrnehmung der Struktur stark. Die visuelle Komplexität wird mit 5 bewertet. Durch zusätzliche Abstände werden kleine Elemente bei großen Systemen etwas schwerer erkennbar. Die Skalierbarkeit wird daher mit 3 eingestuft. Der Anbieter dieser Visualisierung schlägt eine Tatortmetapher vor, die roten Kreise sind als Blutflecken zu interpretieren. Diese Assoziation ist abstrakt und ergibt in 2.5D nur wenig Sinn. Die Metapher wird daher mit 2 bewertet.
 
 \section{Zusammenfassung der Ergebnisse} \label{sec:LiteraturErgebnisse}
 
