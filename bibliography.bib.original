@@ -22,6 +22,23 @@
 	url          = {https://www.systect.de/sowaca.html}
 }
 
+@inproceedings{3dvoronoi,
+	title        = {Advanced Visual Metaphors and Techniques for Software Maps},
+	author       = {Limberger, Daniel and Scheibel, Willy and D\"{o}llner, J\"{u}rgen and Trapp, Matthias},
+	year         = 2019,
+	month        = {09},
+	doi          = {10.1145/3356422.3356444},
+	isbn         = {978-1-4503-7626-6}
+}
+
+@misc{surveymars_2023,
+	year         = 2023,
+	journal      = {Surveymars.com},
+	url          = {https://surveymars.com/de/},
+	note         = {[Online; besucht 4-September-2025]}
+}
+
+‌
 @misc{threejs,
 	year         = 2025,
 	journal      = {Threejs.org},
