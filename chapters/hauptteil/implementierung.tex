@@ -3,7 +3,8 @@ In diesem Abschnitt werden wir kurz die Architektur der Implementierungen und di
 
 \section{Überblick der Architektur} \label{sec:Architektur}
 
-Alle ausgewählten Visualierungen haben gemeinsam, dass sie 2.5D-Visualisierungen sind. Die gemeinsamkeit ist also, dass sie auf einem 2D layout basieren und dann in die dritte dimension extrudiert werden. 
+Alle ausgewählten Visualierungen haben gemeinsam, dass sie 2.5D-Visualisierungen sind. Die gemeinsamkeit ist also, dass sie auf einem 2D layout basieren und dann in die dritte dimension extrudiert werden. Außerdem stellen alle Visualisierungen genau drei Metriken dar. Eine Metrik wird über die Fläche kodiert, eine über die Höhe und eine über die Farbe. Dies spiegelt auch die Ergebnisse der Literaturrecherche wider (siehe Abschnitt \ref{sec:LiteraturErgebnisse}).
+
 Die in dieser Arbeit betrachteten Darstellungen sind 2.5D-Visualisierungen, die auf einem zweidimensionalen Layout basieren. Dieses 2D-Layout kann hinsichtlich Form, Platzierung und Abständen beliebig gestaltet sein. Allen Layouts liegt jedoch ein gemeinsames Schema zugrunde (siehe Listing \ref{lst:nodeLayoutSchema}). Bei diesem Schema ist im Vergleich zu Schema \ref{lst:nodeSchema} ein x, y, breite und länge Attribut hinzugekommen. Diese Attribute definiert je nach geometrischer Form die Position und Größe des Knotens im zweidimensionalen Raum. Dabei hat jeder Aspekt (Fläche, Höhe, Farbe) eine Metrik die dadurch kodiert wird. Die Punkte können beispielsweise die Ecken eines Rechtecks oder das Zentrum und Schnittpunkt eines Kreises darstellen.
 
 \begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeLayoutSchema}]
@@ -26,6 +27,11 @@ Wir machen uns diese Eigenschaft zunutze und trennen die Implementierung in zwei
 \end{itemize}
 
 Die Implementierung erfolgt in typescript mit der bekannten 3D-Rendering Bibliothek \textit{three.js}~\cite{threejs}. 
+
+
+gehe generell auf farbgebung ein. auf höhe, fläche, farbe, licht schatten, größe, abstände, perspektive, kamera, zoom, rotation, kanten, etc.
+
+beschreibe die kompletten settings, die möglich sind
 
 \subsection{Treemap} \label{sec:TreemapImplementation}
 Weikl das treemap layout so wichtig für softwarequalitätsmetrikvisualiserung ist, ist Die Implentierung des 2D-Treemap-Layouts werden wir besonders detailliert beschreiben und optimieren. Deshalb gibt es dafür ein eigenes Kapitel \ref{sec:VerbesserungSquarify}.

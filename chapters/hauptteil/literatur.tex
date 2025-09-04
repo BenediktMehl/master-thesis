@@ -1,4 +1,4 @@
-\chapter{Layoutauswahl} \label{sec:LiteraturRecherche}
+\chapter{Vergleich bestehender Visualisierungen} \label{sec:LiteraturRecherche}
 Ziel dieses Kapitels ist die Identifikation von 2{,}5D- und 3D-Visualisierungen, die sich für die Darstellung von Softwarequalitätsmetriken in der definierten Form eignen (siehe Abschnitt \ref{sec:Problemstellung}). Zunächst werden die Methodik zur Recherche und Bewertung der Layouts dargelegt sowie deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Anschließend werden die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen begründet, die in späteren Kapiteln implementiert, optimiert und evaluiert werden.
 
 \section{Methodik} \label{sec:Methodik}
@@ -60,14 +60,13 @@ Im Rahmen der Auswertung werden identifizierte Layouts nach Eignung für eine 2.
 In den Grundlagen wurden bereits Merkmale einer guten Softwarevisualisierung beschrieben (siehe Abschnitt \ref{sec:SoftwareVisualisierung}). Aus den zuvor formulierten Anwendungsfällen und Anforderungen werden darauf aufbauend konkrete Kriterien für die Bewertung der Layouts abgeleitet. Es ergeben sich für die in dieser Arbeit betrachteten Visualisierungen folgende Kriterien:
 
 \begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden.
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Das Layout muss klar und intuitiv lesbar bleiben, um Überforderung zu vermeiden.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden. Für die Übersichtlichkeit ist insbesondere relevant, dass die Struktur der Hierarchie erkennbar wird. Außerdem steigt die Verständlichkeit einer Analyse, wenn diese durch viele relevante Informationen gestützt wird.
+    \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Das Layout muss klar und intuitiv lesbar bleiben, um Verständnis zu erhöhen.
     \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Dieser Aspekt ist relevant, da Softwarevisualisierung insbesondere dann sinnvoll wird, wenn die Codebasis ohne Unterstützung nicht mehr überblickt werden kann.
-    \item \textbf{Korrelation mit dem Code:} Eine verlässliche Zuordnung zwischen Visualisierung und Quellcode muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen. 
-    \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell.
+    \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell und steigert im Optimialfall sowohl Übersichtlichkeit als auch Verständlichkeit.
 \end{itemize}
 
-Obwohl in den Grundlagen Stabilität gegenüber Änderungen als wichtig hervorgehoben wurde, ist dieser Aspekt für den Anwendungsfall, den aktuellen Stand der Software zu kommunizieren und Maßnahmen zu begründen, nachrangig und wird deshalb nicht in die Bewertung einbezogen.
+Obwohl in den Grundlagen Stabilität gegenüber Änderungen als Kriterium genannt wurde, ist dieser Aspekt für den Anwendungsfall, den aktuellen Stand der Software zu kommunizieren und Maßnahmen zu begründen, nachrangig und wird deshalb nicht in die Bewertung einbezogen. Zudem wird der Aspekt der Korrelation mit dem Code vorausgesetzt und ebenfalls nicht bewertet. Eine verlässliche Zuordnung zwischen Visualisierung und Quellcode muss gewährleistet sein, um Rückschlüsse auf die Softwarestruktur zu ermöglichen und die Visualisierung zu legitimieren. Ebenso wird Automatisierung für die Erstellung der Visualisierung vorausgesetzt und nicht bewertet.
 
 Um keine nicht existente Präzision vorzutäuschen, wird auf eine exakte numerische Bewertung verzichtet. Stattdessen erfolgt eine grobe Einordnung auf einer Skala von 1 bis 5. Es wird eine Bewertung zwischen 1 (Kriterium nicht erfüllt) und 5 (Kriterium bestmöglich erfüllt) vergeben. Häufig stellen die Arbeiten nur 2D-Layouts vor, die jedoch prinzipiell auf 2.5D erweiterbar sind. Diese Layouts werden ebenfalls berücksichtigt und die Bewertung bezieht sich dann auf die imaginäre 2.5D-Variante.
 
@@ -417,7 +416,7 @@ Aus der Literaturanalyse ergeben sich folgende Beobachtungen. Die Stadtmetapher 
 
 Nur wenige Visualisierungen kombinieren eine hohe Anzahl an Metriken mit Hierarchierepräsentation, niedriger visueller Komplexität und effizienter Flächennutzung. Wenn die Strukturabbildung fehlt, reduziert dies zwar kurzfristig die Komplexität, wirkt sich jedoch bei großen Codebasen negativ auf die Übersichtlichkeit aus. Beziehungsmetriken liefern wertvolle Zusatzinformation. Keine der betrachteten Visualisierungen schafft es jedoch, diese bei großen Codebasen durchgängig übersichtlich darzustellen. Empfohlen wird daher, Beziehungsmetriken nur bei Bedarf und vorzugsweise nur auf oberen Ebenen zu zeigen, wie etwa bei \textit{Treemap Enhanced Hierarchical Graphs}.
 
-Insgesamt schneiden 2.5D-Visualisierungen mit einfachen Formen und Farben, klarer Struktur und begrenzter Metrikzahl am besten ab.
+Insgesamt schneiden 2.5D-Visualisierungen mit einfachen Formen und Farben, klarer Struktur und begrenzter Metrikzahl (drei bis vier) am besten ab.
 
 \smallskip
 
