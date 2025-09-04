@@ -1,7 +1,6 @@
-\chapter{Datenanalyse} \label{sec:datenAnalyse}
-Dieses Kapitel verfolgt zwei miteinander verknüpfte Zielsetzungen. Erstens wird eine geeignete Auswahl von Codebasen identifiziert, die als Grundlage für Anpassungen der Algorithmen sowie für die nachgelagerte Evaluation dient. Zweitens wird die Struktur von Softwareprojekten analysiert, mit Fokus auf Tiefe, Breite und auffällige Merkmale.
-
 \section{Auswahl der Projekte} \label{sec:auswahlDerProjekte}
+In diesem Abschnitt wird eine repräsentative Auswahl von Softwareprojekten beschrieben, die für die Analyse von Softwarestrukturen und die Evaluation der Erweiterung des Squarify-Algothmus verwendet wird.
+
 Als Quelle dient GitHub, da dort eine große Zahl an Open-Source-Projekten vorliegt und die Daten gut zugänglich sind. Es wird nicht von signifikanten Unterschieden zwischen Open-Source- und Closed-Source-Projekten ausgegangen~\cite{closedVsOpenSource, closedVsOpenSource2}. Die Projektauswahl wird breit gefächert angelegt, um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen. Eine reine Zufallsauswahl von GitHub würde voraussichtlich zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen. Abbildung \ref{fig:repoGroesseVerteilungUnfiltered} zeigt die Größenverteilung von 2500 zufällig ausgewählten Repositories. Dabei zeigt sich, dass kleinere Projekte deutlich häufiger sind. Zum Größenvergleich gilt das React-Repository als sehr groß und liegt bei etwa 1 GB. Daher werden Kriterien herangezogen, die die Struktur von Softwareprojekten beeinflussen könnten.
 
 \begin{figure}[h]
@@ -100,7 +99,11 @@ Abbildung \ref{fig:repoGroesseVerteilung} zeigt die Größenverteilung der ausge
     \label{fig:repoGroesseVerteilung}
 \end{figure}
 
-\section{Struktur von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}
+
+
+
+
+\section{Analyse von Softwareprojekten} \label{sec:strukturVonSoftwareprojekten}
 Die Struktur- und Metrikdaten werden durch Klonen der Repositories und Analyse mit dem CodeCharta Analysis CLI gewonnen~\cite{code_charta_wiki_ana}. Dieses Tool analysiert die Struktur der Repositories und berechnet für jede Datei die Metriken, die später für die Visualisierung verwendet werden. Es werden nur Dateien berücksichtigt, die zur entsprechenden Programmiersprache gehören, etwa .py für Python. Genutzt wird der unified parser mit folgendem Befehl:
 \begin{verbatim}
 ccsh unifiedparser "$name" -o "${REPOS_DIR}/${name}.cc.json" -nc
@@ -144,6 +147,7 @@ Abbildung \ref{fig:anzahlKindZuOrdner} zeigt, dass die meisten Ordner nur ein Ki
 Abbildung \ref{fig:tiefeAufteilung} zeigt die Verteilung der Tiefe aller Knoten. Die meisten Knoten liegen in mittleren Tiefen von 3 bis 11. Sehr tiefe Knoten sind selten. Das 95\%-Quantil liegt bei Tiefe 13, was in den folgenden Abschnitten als Orientierung dient.
 
 \subsection{Ordnerketten} \label{sec:OrdnerKetten}
+
 Es liegt die Vermutung nahe, dass die hohe Tiefe insbesondere in Java aus stark verschachtelten Paketstrukturen resultiert. Abbildung \ref{fig:spracheVsKettentiefe} zeigt die Kettentiefe nach Sprache. In Java ist die Varianz hoch und der Mittelwert liegt über den übrigen Sprachen. Ein Beispiel ist das Open-Source-Projekt CodeCharta~\cite{code_charta_github}:
 \path{codecharta/analysis/analysers/AnalyserInterface/src/main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/AnalyserInterface.kt}
 Die Kette verläuft ab dem Ordner \textit{main} bis \textit{analyserinterface}.

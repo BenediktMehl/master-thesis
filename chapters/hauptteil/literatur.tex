@@ -8,11 +8,11 @@ Die Methodik orientiert sich an der systematischen Literaturrecherche nach \text
 Die zugrunde liegenden Problemstellungen sind bereits definiert:
 
 \begin{quote}
-    Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?~\ref{sec:Problemstellung}
+    Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren? (siehe Abschnitt \ref{sec:Problemstellung})
 \end{quote}
 
 \begin{quote}
-    Welche dieser Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Hinblick auf den definierten Anwendungsfall?~\ref{sec:Problemstellung}
+    Welche dieser Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Hinblick auf den definierten Anwendungsfall? (siehe Abschnitt \ref{sec:Problemstellung})
 \end{quote}
 
 Daraus leiten sich zwei Ziele der Recherche ab:
@@ -24,15 +24,18 @@ Daraus leiten sich zwei Ziele der Recherche ab:
 \subsection*{2. Suchstrategie} \label{sec:Suchstrategie}
 Es werden wissenschaftliche Arbeiten sowie bestehende Tools und Ansätze identifiziert, die sich mit der Visualisierung von Software-Qualitätsmetriken befassen. Diese werden daraufhin analysiert, ob sie auf die spezifische Problemstellung übertragbar sind.
 
-Als primäre Quelle dient Google Scholar. Ausgangspunkt ist folgende Suchanfrage:
-\texttt{("3D" OR "2.5D" OR "visualization" OR "hierarchical data") AND ("software" AND ("quality" OR "metrics"))}.
-
-Da die erweiterte Suche von Google Scholar keine verschachtelten booleschen Anfragen unterstützt, wird die Suche in zwei Teilanfragen zerlegt~\cite{scholar_queries_2023}:
-\begin{itemize}
-    \item \texttt{("3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics") AND "software"}
-    \item \texttt{("hierarchical data" OR "quality" OR "metrics") AND "software"}
-\end{itemize}
-Zusätzlich wird die \textit{Command Search} von IEEE Xplore verwendet, da sie verschachtelte boolesche Suchanfragen unterstützt~\cite{ieee_xplore_boolean_2025}.
+Als primäre Quelle dient Google Scholar. Ausgangspunkt ist folgende Suchanfrage:\\
+\verb|("3D" OR "2.5D" OR "visualization" OR "hierarchical data") AND|\\
+\verb|("software" AND ("quality" OR "metrics"))|.\\
+Da die erweiterte Suche von Google Scholar keine verschachtelten booleschen Anfragen unterstützt,
+wird die Suche in zwei Teilanfragen zerlegt~\cite{scholar_queries_2023}:
+\begin{enumerate}
+    \item \verb|("3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics")|\\
+     \verb|AND "software"|
+    \item \verb|("hierarchical data" OR "quality" OR "metrics") AND "software"|
+\end{enumerate}
+Zusätzlich wird die \textit{Command Search} von IEEE Xplore verwendet,
+da sie verschachtelte boolesche Suchanfragen unterstützt~\cite{ieee_xplore_boolean_2025}.
 
 Die Vielfalt an Softwarevisualisierungen ist groß. Eine vollständige Erfassung ist nicht möglich. Der Fokus liegt daher auf Arbeiten und Tools mit hoher Relevanz für die Problemstellung und die Forschungslage. Pro Suchanfrage werden die ersten 20 Ergebnisse gesichtet, um einen praktikablen Kompromiss zwischen Relevanz und Umfang herzustellen. 
 
@@ -107,8 +110,8 @@ Die Arbeit spricht vom Treemap-Layout. Die Ausprägung entspricht jedoch eher ei
 In \textit{A solar system metaphor for 3D visualisation of object oriented software metrics}~\cite{solarSystem} wird kritisiert, dass die Stadtmetapher nicht voll 3D sei und komplexe Zusammenhänge nur eingeschränkt darstellbar seien. Als Alternative wird eine Solar-System-Metapher eingeführt (siehe Abbildung \ref{fg:solarSystem}).
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphor.png}
-    \caption[Solar-System-Metapher]{Solar-System-Metapher für 3D-Visualisierung objektorientierter Softwaremetriken. Die Farben des Bildes sind invertiert, um die Lesbarkeit im Ausdruck zu verbessern~\cite[4]{solarSystem}.}
+    \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphorSharpenedFixed.png}
+    \caption[Solar-System-Metapher]{Solar-System-Metapher für 3D-Visualisierung. Die Farben des Bildes sind invertiert, um die Lesbarkeit im Ausdruck zu verbessern~\cite[4]{solarSystem}. Das original Bild wurde nachträglich für dieses Paper mit Hilfe von AI geschärft.}
     \label{fg:solarSystem}
 \end{figure}
 Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen wie Vererbungen erscheinen als Linien. Die Farbe kennzeichnet den Klassentyp, beispielsweise Interface oder Abstract. Pakete fungieren als zentrale Sterne. Die Eingabedaten sind geeignet, da eine Hierarchie vorliegt. Die hierarchische Tiefe wird über die Distanz der Umlaufbahnen zum Zentrum repräsentiert. Zwischen den Planeten bleibt viel Fläche frei. Größe und optional Farbe kodieren Klassenmetriken, Verbindungen erlauben Beziehungsmetriken. Da damit nur ein bis zwei Dateimetriken verfügbar sind und die Fläche großteils ungenutzt bleibt, werden Informationsgehalt und Flächeneffizienz mit 2 bewertet. Die Anordnung ist einfach und die Objekte sind klar separiert. Dadurch entsteht ein sehr ruhiges Bild. Die visuelle Komplexität fällt folglich mit 5 aus. In realen Projekten treten Hierarchietiefen bis etwa 13 auf (siehe Abschnitt \ref{sec:datenAnalyse}), während die Beispiele eine Tiefe von 3 zeigen . Mit wachsender Tiefe und Paketgröße ist Okklusion zu erwarten. Die Skalierbarkeit wird deshalb mit 1 bewertet. Die Solar-System-Metapher ist unmittelbar verständlich. Entsprechend erhält die Metapher die Bewertung 5.
