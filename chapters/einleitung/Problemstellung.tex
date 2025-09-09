@@ -40,12 +40,12 @@ Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das
 Adressaten sind primär Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse, etwa Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder, die Entscheidungen über die Softwareentwicklung treffen. Darüber hinaus profitieren Entwicklerinnen und Entwickler, die neu in ein Projekt einsteigen, sowie Teams, die systematisch die Softwarequalität verbessern möchten, da die Visualisierung die Kommunikation erleichtert. Ziel ist eine Darstellung, die technische Informationen für ein breites Publikum verständlich und zugänglich macht.
 
 \subsection*{3. Was ist die Datenquelle?}
-Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene (File-Basis) erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie besitzt einen Namen und entweder eine Liste von Kindknoten oder einen Wert, der die Metrik repräsentiert (siehe Listing \ref{lst:nodeSchema}).
+Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene (File-Basis) erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie besitzt einen Namen und entweder eine Liste von Kindknoten oder eine Liste von Werten, die die Metriken repräsentiert (siehe Listing \ref{lst:nodeSchema}).
 
-\begin{lstlisting}[language=json, caption={Schema einer Node}, label={lst:nodeSchema}]
+\begin{lstlisting}[language=json, caption={Schema eines Knotens}, label={lst:nodeSchema}]
     "node": {
         "name": string,
-        "children": List[Node] | "value": number
+        "children": List[Node] | "values": number[n]
     }
 \end{lstlisting}
 
