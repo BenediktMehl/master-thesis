@@ -13,7 +13,6 @@ Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D
     \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen.
     \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht.
     \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies verbessert die Skalierbarkeit und generelle Nutzbarkeit der Visualisierung.
-    %\item \textbf{Stabilität:} Die Knoten sollten bei Änderungen die Position und Größe beibehalten, um eine stabile Visualisierung zu gewährleisten. 
 \end{itemize}
 
 In dieser Arbeit sollen space filling approaches anaylsiert werden und speziell darauf untersucht werden, wie sie sich eignenen für die definierten anforderungen. Wie gut wird was erfüllt? Wann sollte man was anwenden? Kann eine gute kombination aus verschiedenen Ansätzen gefunden werden?
@@ -301,6 +300,62 @@ Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorh
 Grund dafür:
 Grund dagegen: 
 
+% const marginValues = [1, 2, 3, 5, 10, 30, 50, 70, 100]
+% const numberOfPassesValues = [1, 2, 3, 4, 5, 7, 10, 15, 20]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [false]
+% const sortingOptionValues = [SortingOption.DESCENDING]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true]
+% const collapseFoldersValues = [false]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [0]
+% const labelLengthValues = [0]
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/aimedRelativeMargin_over_marginInput.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten relativen Abstand bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsAimedRelativeMarginOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten Seitenverhältnis bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsRatioOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/varianceOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Varianz der Flächenunterschiede bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsVarianceOfAreaDifferencesOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/ratio_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Anzahl der Knoten mit Fläche 0 bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsNumberOfZeroAreaNodesOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem Verhältnis der Fläche der Blätterknoten zur Gesamtfläche bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsSpaceForLeafNodesRatioOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der benötigten Zeit in ms bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
+    \label{fig:multipleRunsTimeNeededInMsOverMarginInput}
+\end{figure}
+
+
 \subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
 In bild updateValues.png ist zu erkennen, dass kp. margin 10 noP 3
 
@@ -313,10 +368,43 @@ Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert
 Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
 hier ist es auch interessant den effekt in kombination mit der Reihenfolge der Knoten zu testen, weil %warum eigentlich?
 
-\section{Änderungen im Layout} \label{sec:LayoutÄnderungen}
-Folgend werden Änderungen beschrieben, die sich sichtbar auf die Visualierung auswirken und nicht nur auf Platzierung, Größe, Form,... etc der Knoten. Diese Änderungen zielen trotzdem vorallem darauf ab, das Treemap-Layout-Problem zu lösen bzw. abzuschwächen, machen dies aber vorallem durch visuelle Anpassungen und nicht durch komplexe algorithmische Anpassungen.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/aimedRelativeMargin_over_marginInput.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten relativen Abstand bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
+    \label{fig:increaseAimedRelativeMarginOverMarginInput}
+\end{figure}
 
-\subsection{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten Seitenverhältnis bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
+    \label{fig:increaseRatioOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/varianceOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Varianz der Flächenunterschiede bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
+    \label{fig:increaseVarianceOfAreaDifferencesOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/ratio_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Anzahl der Knoten mit Fläche 0 bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
+    \label{fig:increaseNumberOfZeroAreaNodesOverMarginInput}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem Verhältnis der Fläche der Blätterknoten zur Gesamtfläche bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
+    \label{fig:increaseSpaceForLeafNodesRatioOverMarginInput}
+\end{figure}
+
+
+\section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
 Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
 obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
 Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
@@ -387,7 +475,7 @@ die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordner
 % const labelLengthValues = [0]
 
 
-\subsection{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
+\section{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
 Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie es dem Nutzer ermöglicht, die Knoten zu identifizieren und zu verstehen, welche Informationen sie repräsentieren. Es gibt verschiedene Ansätze, um die Beschriftung der Knoten zu gestalten. Jeder Ansatz hat seine Vor- und Nachteile. Ein häufig verwendeter Ansatz ist wie zum Beispiel auch beim in Abschmijt VerwandteArbeiten \ref{sec:VerwandteArbeiten} vorgestellten Cascaded Treemap Ansatz \cite{lu2008cascaded}.
 Ordner erhalten eine Zusätzliche horizontale Fläche, entweder unten oder oben, die den Namen des Ordners enthält. 
 Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für den Algorithmus, wie die abstände zwischen den Knoten. Außerdem kann es passieren, dass die Beschriftung zu lang für die breite der Knotens ist, wodurch die Beschriftung entweder abgeschnitten wird oder über den Knoten hinauswächst.
@@ -416,7 +504,7 @@ Mit diesem Ansatz hat man natülich immernoch die gleichen Probleme wie eingangs
 
 %wie genau wirkt sich die wahl von N aus?
 
-\subsection{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
+\section{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
 Abstände zwischen Geschwister Knoten sind eine wichtige Entscheidung. Im Ursprünglichen Squarify Algorithmus Paper \cite{bruls2000squarified} wird der Nested Ansatz mit Abständen vorgestellt, jedoch ohne Abstände zwischen Geschwistern. Viele Tools, verwenden jedoch Abstände auch zwischen Geschwisterknoten \cite{codeCity1, code_charta_webdemo, sereene_website}.
 Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
 \begin{itemize}
