@@ -7,7 +7,7 @@ Alle der zuvor ausgewählten Darstellungen sind 2.5D-Visualisierungen  (siehe Ab
 
 Das zweidimensionale Layout kann hinsichtlich Form, Platzierung und Abständen flexibel gestaltet werden, basiert jedoch stets auf einem einheitlichen Schema, welches hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema \ref{lst:nodeSchema} sind die Attribute x, y, width und length hinzugekommen. Diese Attribute definieren je nach geometrischer Form die Position und Ausdehnung des Knotens im zweidimensionalen Raum. Die Fläche, die Höhe und die Farbe kodieren jeweils eine Metrik. Die Koordinaten x und y bezeichnen je nach Layout entweder die linke untere Ecke eines Rechtecks oder das Zentrum eines Kreises. Die Breite gibt bei rechteckigen Layouts die Ausdehnung in x-Richtung an und die Länge die Ausdehnung in y-Richtung. Bei kreisförmigen Layouts zum Beispiel wird die Breite als Kreisdurchmesser interpretiert und die Länge ignoriert.
 
-\begin{lstlisting}[language=json, caption{Schema eines Knotens}, label={lst:nodeLayoutSchema}]
+\begin{lstlisting}[language=json, caption={Schema eines Knotens}, label={lst:nodeLayoutSchema}]
     "node": {
         "name": string,
         "x": number,
