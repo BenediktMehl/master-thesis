@@ -1,14 +1,15 @@
-\chapter{Erweiterung des Squarify Algorithmus} \label{sec:VerbesserungSquarify}
-In diesem Abschnitt wird der Squarify Algorithmus \cite{bruls2000squarified}, wie er in Abschnitt \ref{sec:Squarify} beschrieben wurde, auf verschiedene Weisen erweitert und angepasst, um das Layoutproblem, wie es in Abschnitt \ref{sec:TreemapProblem} beschrieben wurde, anzugehen. 
-
-%Nesting offsets give users control over the allocation of display space between internal and leaf nodes. Larger offsets put greater emphasis on internal nodes and hence the structure of the hierarchy; smaller offsets emphasize leaf nodes. \cite[48]{johnson1993treemapsPhd}
+\chapter{Erweiterung der Treemap-Visualisierung} \label{sec:VerbesserungSquarify}
+Da die Treemap-Visualisierung die weit verbreitetste Visualisierungsmethode für die Darstellung von Software-Qualitätsmetriken ist und in der Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) zudem sehr gut abgeschnitten hat, macht es Sinn speziellen Augenmerk auf diese Visualisierung zu legen. Zudem wurde in der Auswertung der Literaturrecherche gefolgert, dass die Qualität der Treemap-Visualisierung stark schwanken kann und je nach Anwendungsfall optimiert werden sollte.
+Natürlich gibt es auch andere Treempa-Algorithmen, wie zum Beispiel den Slice-and-Dice Algorithmus \cite{shneiderman1992tree} oder den Pivot-by-Middle Algorithmus \cite{shneiderman2001ordered}. Der Squarify Algorithmus zeigt aber in der Literatur die besten Ergebnisse in Bezug auf das Seitenverhältnis der Knoten \cite{shneiderman2001ordered}. Außerdem ist der Squarify Algorithmus \cite{bruls2000squarified}, wie er in Abschnitt \ref{sec:Squarify} beschrieben wurde, ist für das erstellen von Treemap-Layouts ein sehr vielversprechender Algorithmus, der von vielen Tools und Visualisierungen, die wir zuvor vorgestellt haben verwendet wird \cite{code_charta_github,sereene_website,codeCity1}. 
+Wir werden diesen Algorithmus deshalb auf verschiedene Weisen erweitert und angepassen, um das Layout für unseren Anwendungsfall zu verbessern. Dabei wird das Layoutproblem, wie es in Abschnitt \ref{sec:TreemapProblem} beschrieben wurde, eine zentrale Rolle spielen, da dieses ein großes Problem für die Treemap-Visualisierung darstellt. Zudem werden aber am Anfang des Kapitels noch weitere Kriterien aufgestellt, die für die Qualität der Treemap-Visualisierung relevant sind und die in diesem Kapitel optimiert werden sollen.
+Nach dem Aufstellen der Kriterien werden wir eine Datenanalyse von OpenSource Projekten durchführen, um mehr über typeische Strukturen von Software zu lernen. Zudem Dient die Datenanalyse dazu, ein Set an typischen, breit gefächerten und repräsentativen Software-Projekten zu auszuwählen, die für die Evaluation in diesem Kapitel verwendet werden.
+Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarify Algorithmus beschrieben und evaluiert, um am Ende einen Vorschlag für ein verbessertes Treemap-Layout zu machen, das für unseren Anwendungsfall besonders gut geeignet ist. 
 
 \section{Kriterien für Treemap Layouts} \label{sec:CodeCityLayouts}
 Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D layout, die diese Aspekte messbar machen. Diese Kriterien sollen helfen, die Qualität der Visualisierung zu bewerten und zu vergleichen. Die Kriterien sind:
 
 \begin{itemize}
-    \item \textbf{Abstände:} Abstände zwischen den Knoten verbessern die Übersichtlichkeit und die visuelle Komplexität.
-    \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:Treemap} beschriebene Problem ab.
+    \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:TreemapProblem} beschriebene Problem ab. \enquote{Missing nodes are not addressed in the existing treemap literature. }\cite[5]{lu2008cascaded}
     \item \textbf{Flächengröße:} Um die Korrelation mit dem Code zu gewährleisten, sollte die Fläche der Knoten proportional zum Metrikwert sein. (Hier ist noch unklar, ob das nur für Blätter gilt oder für alle Knoten)
     \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen.
     \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht.
@@ -24,8 +25,60 @@ Dies soll getestet werden auf basis von verschiedenen öffentlichen Repositories
 
 auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
 
-
 \include{chapters/hauptteil/datenAnalyse}
+
+\section{Abstände zwischen Knoten} \label{sec:AbständeZwischenKnoten}
+Wie zuvor beschrieben, entsteht das Treemap-Problem erst durch das Hinzufügen von Abständen zwischen den Knoten (siehe Abschnitt \ref{sec:TreemapProblem}). Je Größer die Abstände sind, desto größer wird das Problem. 
+
+Dabei ist die Wahl des Abstands erstmal subjektiv und kommt auf die Software an und darauf, was man darstellen will. Will man den Fokus auf Struktur oder auf Metriken legen? 
+
+\begin{quote}
+    Nesting offsets give users control over the allocation of display space between internal and leaf nodes. Larger offsets put greater emphasis on internal nodes and hence the structure of the hierarchy; smaller offsets emphasize leaf nodes. \cite[48]{johnson1993treemapsPhd}
+\end{quote}
+
+
+Alle Messwerte und Ergebnisse der Evaluation hängen dabei natürlich sowohl von den Analysierten Daten als auch von der Wahl der Größe des Abstands ab. Je nachdem wie groß der Abstand gewählt wird, desto größer wird das Treemap Problem, man will aber tendenziell nicht zu kleine Abstände, damit man besser die Struktrur der Software erkennen kann. Aus diesem Grund werden wir in diesem Abschnitt die Kriterien immer in Abhängigkeit der Abständsgrößen betrachten. Wichtig zu erwähnen ist, dass die Eingabe des Abstands absolut ist. Für die Visualisierung am Ende zählt aber natürlich der Relative abstand im verhältnis zu der Größe der Abbildung. Wenn es Absoluter abstand von 10 Einheiten zwischen zwei Dateien ist, dann wirkt dieser bei einer Abbildung von 1000x1000 Einheiten natürlich deutlich kleiner als bei einer Abbildung von 200x200 Einheiten. Aus diesem Grund geben wir den Abstand immer Prozentual zur Größe an. Ein Wert von zum Beispiel einem Prozent bedeutet, dass der Abstand zwischen zwei Knoten 1\% der Seitenlänge des Wurzelknotens beträgt. Dadurch, dass durch das Hinzufügen von Abständen, auch die Fläche des Wurzelknotens größer wird ist dieser Zusammenhang nicht linear, wie in Diagram \ref{fig:basic_aimedRelativeMargin_over_marginInput} zu sehen ist. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basic/aimedRelativeMargin_over_marginInput.png}
+    \caption[Absoluter Abstand zu Relativer Abstand]{Zusammenhang zwischen der Absoluten Abstandseingabe und dem Relativen Abstand im Verhältnis zur Seitenlänge des Wurzelknotens}
+    \label{fig:basic_aimedRelativeMargin_over_marginInput}
+\end{figure}
+
+In Abbildung \ref{fig:basic_react_200_to_4} und \ref{fig:basic_qwen3_4_to_4} zeigt, dass bei verschiedenen Softwares verschiedene Eingabe Abstände genutzt werden müssen, um den gleichen relativen Abstand zu erreichen. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basic/react_200_to_4.png}
+    \caption[React mit relativem Abstand von 0,4]{Layout mit einem Absoluten Abstand von 200 und einem Relativen Abstand von 0,4 (generiert aus dem React Repository \cite{githubreact_2025})}
+    \label{fig:basic_react_200_to_4}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basic/qwen3_4_to_4.png}
+    \caption[Qwen3 mit relativem Abstand von 4]{Layout mit einem Absoluten Abstand von 4 und einem Relativen Abstand von 4 (generiert aus dem Qwen3 Repository \cite{githubqwen3_2025})}
+    \label{fig:basic_qwen3_4_to_4}
+\end{figure}
+
+Je nach Software Größe, Struktur und Ziel der Visualisierung kann es also sinnvoll sein, verschiedene Abstände zu wählen. Bei kleinen Softwareprojekten zum Beispiel kann es sinnvoll sein, auch größere relative Abstände zu wählen, um die Struktur der Software besser erkennen zu können, weil man auch bei größeren Abständen die einzelnen Dateien und deren WErte gut erkennen kann (siehe Abbildung \ref{fig:basic_qwen3_10_to_10}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basic/qwen3_10_to_10.png}
+    \caption[Qwen3 mit relativem Abstand von 1]{Layout mit einem Absoluten Abstand von 10 und einem Relativen Abstand von 1 (generiert aus dem Qwen3 Repository \cite{githubqwen3_2025})}
+    \label{fig:basic_qwen3_10_to_10}
+\end{figure}
+
+In dieser Arbeit werden wir daher die Kriterien immer in Abhängigkeit des Relativen Abstands betrachten, dabei werden wir Werte bis ca. 3-4\% betrachten, da darüber hinaus die Abstände unnütig groß werden (siehe Abbildung \ref{fig:basic_qwen3_100_to_35}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basic/qwen3_100_to_35.png}
+    \caption[Qwen3 mit relativem Abstand von 35]{Layout mit einem Absoluten Abstand von 100 und einem Relativen Abstand von 35 (generiert aus dem Qwen3 Repository \cite{githubqwen3_2025})}
+    \label{fig:basic_qwen3_100_to_35}
+\end{figure}
 
 
 \section{Angestrebtes Seitenverhältnis} \label{sec:Seitenverhältnis}
@@ -135,6 +188,19 @@ Wir stellen folgend eine zweite Version der Größenanpassung vor, die versucht 
 Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dafür muss die relative Flächenänderung durch die Kindknoten berechnet werden. und damit dann die Seitenlängen anpassen und dann die margins hinzufügen, um die neue Fläche zu erhalten.
 Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:ZweifachBerechnung}). 
 
+% const marginValues = [1, 2, 3, 5, 10, 30, 50, 100, 200, 400, 500]
+% const numberOfPassesValues = [1]
+% const scaleValues = [true]
+% const simpleIncreaseValuesValues = [true]
+% const sortingOptionValues = [SortingOption.DESCENDING]
+% const orderOptionValues = [OrderOption.NEW_ORDER]
+% const incrementMarginValues = [false]
+% const applySiblingMarginValues = [true]
+% const collapseFoldersValues = [false]
+% const enableFloorLabelsValues = [false]
+% const amountOfTopLabelsValues = [0]
+% const labelLengthValues = [0]
+
 \begin{algorithm}[H]
 \caption{Relative Größenanpassung}
 \label{alg:ZweifachBerechnung}
@@ -196,7 +262,7 @@ mit diesen Werten:
 % const amountOfTopLabelsValues = [1]
 % const labelLengthValues = [0]
 
-
+\subsection{Vergleich mit }
 
 \section{Scaling der Knoten} \label{sec:ScalingKnoten}
 %wird auchin \cite[52]{johnson1993treemapsPhd} erwähnt
