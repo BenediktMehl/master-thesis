@@ -5,25 +5,20 @@ Wir werden diesen Algorithmus deshalb auf verschiedene Weisen erweitert und ange
 Nach dem Aufstellen der Kriterien werden wir eine Datenanalyse von OpenSource Projekten durchführen, um mehr über typeische Strukturen von Software zu lernen. Zudem Dient die Datenanalyse dazu, ein Set an typischen, breit gefächerten und repräsentativen Software-Projekten zu auszuwählen, die für die Evaluation in diesem Kapitel verwendet werden.
 Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarify Algorithmus beschrieben und evaluiert, um am Ende einen Vorschlag für ein verbessertes Treemap-Layout zu machen, das für unseren Anwendungsfall besonders gut geeignet ist. 
 
+
 \section{Kriterien für Treemap Layouts} \label{sec:CodeCityLayouts}
 Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D layout, die diese Aspekte messbar machen. Diese Kriterien sollen helfen, die Qualität der Visualisierung zu bewerten und zu vergleichen. Die Kriterien sind:
 
 \begin{itemize}
-    \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:TreemapProblem} beschriebene Problem ab. \enquote{Missing nodes are not addressed in the existing treemap literature. }\cite[5]{lu2008cascaded}
-    \item \textbf{Flächengröße:} Um die Korrelation mit dem Code zu gewährleisten, sollte die Fläche der Knoten proportional zum Metrikwert sein. (Hier ist noch unklar, ob das nur für Blätter gilt oder für alle Knoten)
-    \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen.
-    \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht.
-    \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies verbessert die Skalierbarkeit und generelle Nutzbarkeit der Visualisierung.
+    \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:TreemapProblem} beschriebene Problem ab. \enquote{Missing nodes are not addressed in the existing treemap literature. }\cite[5]{lu2008cascaded} Diesen Wert kann man einfach zählen, indem Alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium betrachten wir von allen Kriterien als das wichtigste, da für unseren Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies ist vorallem dann der Fall, wenn das 2D Layout in 2.5D extrudiert wird. Selbst wenn ein Knoten eine sehr kleine Fläche hat, kann es sein, dass dieser Knoten eine sehr hohe Höhe oder eine schlechte Farbe hat, wodurch es trotzdem wichtig ist, diesen Knoten zu sehen.
+    \item \textbf{Flächengröße:} Um die Korrelation mit dem Code zu gewährleisten, sollte die Fläche der Knoten proportional zum Metrikwert sein. Wir berechnen dies einfach indem wir die Fläche des Knotens durch den Metrikwert teilen. Im Optimalfall sollte dieser Wert für alle Knoten gleich sein, um eine perfekte Proportionalität zu gewährleisten. Wir messen also die Abweichung des Wert-Fläche-Verhältnisses vom Mittelwert. Um diese Werte besser einordnen und vergleichen zu können, werden wir den Varianzkoeffizienten verwenden. Dies betrachten wir als das zweitwichtigste Kriterium, da die Fläche der Knoten eine wichtige Visuelleeigenschaft ist, die möglichst genau den Metrikwerten entsprechen sollte. 
+    \item \textbf{Seitenverhältnis:} Um die visuelle Komplexität zu reduzieren und die Verständlichkeit zu erhöhen, sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit der Knoten und macht es einfacher, die Informationen zu erfassen. Wir teilen einfach die größere Seitenlänge durch die kleinere Seitenlänge, um das Seitenverhältnis zu berechnen. Ein Wert von 1 bedeutet also ein perfektes Quadrat, während höhere Werte auf längliche Rechtecke hinweisen.
+    \item \textbf{Platznutzung:} Es sollte so wenig Fläche wir möglich ohne Informationsgehalt bleiben. Als gegenbeispiel kann man die Order-Knoten sehen, wie sie in der CodeCity Arbeit beschrieben wurden, bei denen die Fläche der Knoten nicht proportional zur Anzahl der Zeilen im Code ist, wodurch die Fläche an sich keinen Informationsgehalt mehr hat und außerdem viel leere Fläche entsteht. Wir messen dase, indem wir die Fläche aller Blatt-Knoten durch die Fläche des Wurzelknotens teilen. Ein Wert von 1 bedeutet also, dass die gesamte Fläche des Wurzelknotens von den Blatt-Knoten eingenommen wird. 
+    \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies verbessert die Skalierbarkeit und generelle Nutzbarkeit der Visualisierung. Anzumerken ist, dass alle berechnungen auf einem M2 MacBook durchgeführt wurden, und alles in typescript implementiert wurde. Das ist auch praxisnah, da viele Tools in JavaScript/TypeScript implementiert sind und bei Nutzern lokal gerendert werden \cite{code_charta_github,sereene_website,codeIsBeautiful}. Anzumerken ist, dass die gemessene Zeit nur die Ausführung des Layout-Algorithmus beinhaltet und nicht die Zeit für das Rendering der Visualisierung.
 \end{itemize}
 
-In dieser Arbeit sollen space filling approaches anaylsiert werden und speziell darauf untersucht werden, wie sie sich eignenen für die definierten anforderungen. Wie gut wird was erfüllt? Wann sollte man was anwenden? Kann eine gute kombination aus verschiedenen Ansätzen gefunden werden?
-Bisher wurden im Grundlagenteil vorallem die splitting algorhtmen vorgestellt, aber es gibt natürlich auch andere Ansätze, die verfolgt werden können, um Treemap Layouts zu generieren. Zum beispiel gibt es bin packing oder optimierungs algorithmen. In dieser Arbeit sollen auch diese Ansätze betrachtet werden, um zu sehen, ob sie für die Visualisierung von Codequalitätsmetriken in einer space filling layout approach geeignet sind.
 
 \enquote{Especially for the node weights, we assess if the algorithms use the weight values to scale the sizes of leaf nodes. Typically, the size of parent nodes is adjusted to the spatial consumption of the child nodes.}\cite[3]{scheibel2020survey} - Scheibel et al. sagen also, für sie ist es nicht so wichtig, dass die Größe der Elternknoten proportional zu den Metrikwerten der Knoten ist.
-
-Dies soll getestet werden auf basis von verschiedenen öffentlichen Repositories, die von kleinen bis großen Codebasen reichen. Als Metrik für die Fläche soll der Einfachehit halber die Anzahl der Zeilen verwendet werden.
-
-auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
 
 \include{chapters/hauptteil/datenAnalyse}
 
@@ -71,7 +66,7 @@ Je nach Software Größe, Struktur und Ziel der Visualisierung kann es also sinn
     \label{fig:basic_qwen3_10_to_10}
 \end{figure}
 
-In dieser Arbeit werden wir daher die Kriterien immer in Abhängigkeit des Relativen Abstands betrachten, dabei werden wir Werte bis ca. 3-4\% betrachten, da darüber hinaus die Abstände unnütig groß werden (siehe Abbildung \ref{fig:basic_qwen3_100_to_35}).
+In dieser Arbeit werden wir daher die Kriterien immer in Abhängigkeit des Relativen Abstands betrachten, dabei werden wir Werte bis ca. 3\% betrachten, da darüber hinaus die Abstände unnütig groß werden (siehe Abbildung \ref{fig:basic_qwen3_100_to_35}).
 
 \begin{figure}
     \centering
@@ -116,18 +111,15 @@ Interessant ist es, wenn man sich die WErte um 1 herum in tabelle \ref{tab:seite
     \label{tab:seitenverhaeltnis_um_1}
 \end{table}
 
-Anders als erwartet liefert ein Angestrebtes Seitenverhältnis von 1 nicht das beste Ergebnis, sondern ein Wert von 1.05 liefert das beste Ergebnis. Es ist zwar im Median nur um ca. 5\% besser, aber immerhin.  Warum dass der Fall ist, ist schwer nachzuvollziehen, aber ist auch nicht so wichtig warum. Wir werden in dieser Arbeit den Wert von 1.05 als angestrebtes Seitenverhältnis verwenden, da dieser Wert die besten Ergebnisse für unserer Softwaremetrik daten liefert.
+Anders als erwartet liefert ein Angestrebtes Seitenverhältnis von 1 nicht das beste Ergebnis, sondern ein Wert von 1.05 liefert das beste Ergebnis. Es ist zwar im Median nur um ca. 5\% besser, aber immerhin.  Warum dass der Fall ist, ist schwer nachzuvollziehen, vielleicht kann es in manchen Fällen besser sein leicht schlechtere Seitenverhältnisse of höheren Ebenen zu haben, weil dass dann zu besseren Seitenverhältnissen auf niedrigeren Ebenen führt, aber das ist nur eine Vermutung. Wir werden in dieser Arbeit den Wert von 1.05 als angestrebtes Seitenverhältnis verwenden, da dieser Wert die besten Ergebnisse für unserer Softwaremetrik daten liefert.
 
 
 \section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
-
-%HIER noch definieren die namen der schritte für bessere Lesbarkeit in den kapiteln danach z.b. layout schritt update schritt,...
-
-Die Grundlegende Idee dieser Erweiterung ist es, dass sich die Fläche der Knoten mit Abstand durch das Layout und die Fläche der Knoten ohne Abstand approximieren lässt. Die Idee ist es also einen ersten Durchlauf zu machen, bei dem das Layout ohne Abstand berechnet wird. Dann werden die Größen der Knoten entsprechend dem Layout angepasst, sodass die Größe der Knoten nun auch den Abstand berücksichtigt. Anschließend wird ein zweiter Durchlauf mit diesen angepassten Größen durchgeführt, um das finale Layout zu berechnen.
+Die Grundlegende Idee dieser Erweiterung ist es, dass sich die Fläche der Knoten mit Abstand durch das Layout und die Fläche der Knoten ohne Abstand approximieren lässt. Die Idee ist es also einen ersten Durchlauf zu machen, bei dem das Layout ohne Abstand berechnet wird. Dann werden die Größen der Knoten entsprechend dem Layout angepasst, sodass die Größe der Knoten nun auch den Abstand berücksichtigt. Anschließend wird ein zweiter Layout-Schritt mit diesen angepassten Größen durchgeführt, um das finale Layout zu berechnen.
 
 Bevor wir uns die Details und Ergebnisse dieser Erweiterung anschauen, wollen wir vorweg nehmen, dass diese Erweitung natürlich nicht optimal funktionieren kann und das auch klar ist, da sich die die Änderung der Größe der Knoten natürlich auch das Layout im Zeweiten Durchlauf ändern wird, wodurch die Größen der Knoten wieder nicht korrekt sind. Was ja überhaupt erst das Grundlegende Problem ist (siehe Abshnictt \ref{sec:Problemstellung}). Allerdings ist es ein erster Schritt sich dem Problem zu nähern und zu schauen, ob es sich lohnt in diese Richtung weiter zu forschen.
 
-Der Grundlegende Algorithmus bleibt also (fast) gleich, nur dass zwischen dem ersten und dem zweiten Durchlauf ein zusätzlicher Schritt \textit{Größenanpassung} eingefügt wird. Die Einzige änderung die vorgenommen werden muss ist, dass Knoten nur mit dem definierten Abstand zwischen dem Elternknoten platziert werden können und generell die Fläche des Elternknotens um den Abstand verkleinert wird.
+Der Grundlegende Algorithmus bleibt also (fast) gleich, nur dass zwischen dem ersten und dem zweiten Durchlauf ein zusätzlicher Schritt \textit{Größenanpassung} eingefügt wird. Die Einzige änderung die vorgenommen werden muss ist, dass Knoten nur mit dem definierten Abstand zwischen dem Elternknoten platziert werden können und generell die Fläche des Elternknotens um den Abstand verkleinert wird. Wir bezeichnen den Schritt bei dem der Squarify Algorithmus durchgeführt wird als \textit{Layout-Schritt} und den Schritt bei dem die Größen der Knoten angepasst werden als \textit{Größenanpassung}.
 Außerdem ist es nötig nach dem zweiten Durchlauf die Knoten, deren größenwert ja nun den abstand beinhalten, zu verkleinern, um auch den abstand zwischen den Geschwistern herzustellen. Es ist zu erkennen, dass dadurch der Abstand sowohl zwischen Geschwistern als auch zu den Elternknoten den doppelten wert des definierten Abstands hat, dieses Problem ignorieren wir hier, da man es trivialierweise lösen könnte, indem man immer nur die hälfte des Abstands zwischen Geschwistern und Elternknoten abzieht, was wir hier der einfachheit halber nicht tun. -- ODER VIELLEICHT HIER IN DER THESIS DOCH? DANN KÖNNTE ICH MIR DIESEN ABSCHNITT SPAREN, AUCH WENN ES IN DER IMPLEMENTIERUNG AM ENDE ANDERS IST
 
 Wir stellen verschiedene Ansätze vor, was sowohl die Größenanpassung als auch die Anpassung der Knoten nach dem zweiten Durchlauf angeht.
@@ -138,28 +130,27 @@ Nach dem zweiten Durchlauf wird nun die Fläche der Knoten so reduziert, dass so
 
 
 \subsection{Größenanpassung}
-Dies ist die einfachste naive Version der Größenanpassung, der Algorithmus zeigt aber gut die zuvor beschriebenen Probleme auf. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. 
+Es gibt verschiedene Ansätze, wie die Größenanpassung durchgeführt werden kann. Grundsätzliches Ziel der Größenanpassung ist es, die Fläche der Knoten so zu vergrößern, dass diese Fläche den Abstand zwischen den Knoten möglichst gut approximiert. Wir testen hier zwei Ideen aus.
 
-dies ist ähnoich zu dem cascaded ansatz. wir zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw 
-Am ehesten ist dieser Ansatz wahrscheinlich mit dem Absulten-Update Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
+Der erste ansatz ist ähnlich zu dem cascaded ansatz. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. wir zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw Pseudocode für den Algorithmus \ref{alg:EinfacheGrößenanpassung}.
 
 
 \begin{algorithm}[H]
-\caption{Größenanpassung}
-\label{alg:EinfacheGrößenanpassung}
-\begin{algorithmic}[1]
-\Function{increaseValuesSimple}{node: SquarifyNode, margin: number}
-    \State childrenValueIncrease $\gets$ 0
-    \If{node.children}
+    \begin{algorithmic}[1]
+        \Function{absoluteValueIncrease}{node: SquarifyNode, margin: number}
+        \State childrenValueIncrease $\gets$ 0
+        \If{node.children}
         \For{child in node.children}
-            \State childrenValueIncrease += increaseValuesSimple(child, margin)
+        \State childrenValueIncrease += absoluteValueIncrease(child, margin)
         \EndFor
-    \EndIf
-    \State valueIncrease $\gets$ width * margin * 2 + length * margin * 2 + margin * margin * 4 + childrenValueIncrease
-    \State node.value += valueIncrease
-    \State \Return valueIncrease
-\EndFunction
-\end{algorithmic}
+        \EndIf
+        \State valueIncrease $\gets$ width * margin * 2 + length * margin * 2 + margin * margin * 4 + childrenValueIncrease
+        \State node.value += valueIncrease
+        \State \Return valueIncrease
+        \EndFunction
+    \end{algorithmic}
+    \caption[Absolute Größenanpassung]{Absolute Größenanpassung}
+    \label{alg:EinfacheGrößenanpassung}
 \end{algorithm}
 
 Das Problem des Algorithmuses ist am besten an einem Beispiel zu verdeutlichen. Wir visualieren den ZWITEN AnHANG - auch wieder eine händisch erstellte Map, um das Problem zu verdeutlichen. In Abbildung \ref{fig:zeroMarginSquarifyArtifialTwo} ist das Layout mit einem Abstand von 0 zu sehen. 
@@ -177,7 +168,7 @@ Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmal
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOne.png}
-    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der einfachen Größenanpassung auf der händisch erstellen map (siehe Anhang).}
+    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellen map (siehe Anhang).}
     \label{fig:simpleIncreaseMarginOne}
 \end{figure}
 
@@ -186,58 +177,46 @@ Dieser Effekt kann einfach behoben werden, wie wir in Abschnitt \ref{sec:Scaling
 Bei der berechnung zuvor wurde einfach der margin fläche eines Elternknotens berechnet, auf basis der alten Fläche, ohne die Flächenädnerung durch die Kinderknoten zu berücksichtigen. dadurch wird die resultierende Fläche der Elternknoten zu klein sein, da die Fläche der Kinderknoten nicht berücksichtigt wird.
 Wir stellen folgend eine zweite Version der Größenanpassung vor, die versucht die Fläche der Elternknoten durch die Fläche der Kinderknoten zu approximieren. Wir werden dann beide Versionen vergleichen und schauen, welche besser funktioniert.
 Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dafür muss die relative Flächenänderung durch die Kindknoten berechnet werden. und damit dann die Seitenlängen anpassen und dann die margins hinzufügen, um die neue Fläche zu erhalten.
-Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:ZweifachBerechnung}). 
+Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:RelativeGrößenanpassung}). 
 
-% const marginValues = [1, 2, 3, 5, 10, 30, 50, 100, 200, 400, 500]
-% const numberOfPassesValues = [1]
-% const scaleValues = [true]
-% const simpleIncreaseValuesValues = [true]
-% const sortingOptionValues = [SortingOption.DESCENDING]
-% const orderOptionValues = [OrderOption.NEW_ORDER]
-% const incrementMarginValues = [false]
-% const applySiblingMarginValues = [true]
-% const collapseFoldersValues = [false]
-% const enableFloorLabelsValues = [false]
-% const amountOfTopLabelsValues = [0]
-% const labelLengthValues = [0]
 
 \begin{algorithm}[H]
-\caption{Relative Größenanpassung}
-\label{alg:ZweifachBerechnung}
-\begin{algorithmic}[1]
-\Function{increaseValues}{node: SquarifyNode, margin: number}
-    \State width $\gets$ node.x1 - node.x0
-    \State length $\gets$ node.y1 - node.y0
-
-    \If{node.isLeaf}
+    \begin{algorithmic}[1]
+        \Function{relativeValueIncrease}{node: SquarifyNode, margin: number}
+        \State width $\gets$ node.x1 - node.x0
+        \State length $\gets$ node.y1 - node.y0
+        
+        \If{node.isLeaf}
         \State valueIncrease $\gets$ width * margin + length * margin + margin * margin * 2
         \State node.value += valueIncrease
         \State \Return valueIncrease
-    \EndIf
-
-    \State childrenValueIncrease $\gets$ 0
-    \If{node.children}
+        \EndIf
+        
+        \State childrenValueIncrease $\gets$ 0
+        \If{node.children}
         \For{child in node.children}
-            \State childrenValueIncrease += increaseValuesRelative2(child, margin)
+        \State childrenValueIncrease += relativeValueIncrease(child, margin)
         \EndFor
-    \EndIf
-
-    \State ratioChildrenValueIncrease $\gets$ (node.value + childrenValueIncrease) / node.value
-
-    \State valueIncrease $\gets$ 
+        \EndIf
+        
+        \State ratioChildrenValueIncrease $\gets$ (node.value + childrenValueIncrease) / node.value
+        
+        \State valueIncrease $\gets$ 
         Math.sqrt(ratioChildrenValueIncrease) * width * margin * 2 +
         Math.sqrt(ratioChildrenValueIncrease) * length * margin * 2 +
-    margin * margin * 4 +
+        margin * margin * 4 +
         childrenValueIncrease
-
-    \State node.value += valueIncrease
-    \State \Return valueIncrease
-\EndFunction
-\end{algorithmic}
+        
+        \State node.value += valueIncrease
+        \State \Return valueIncrease
+        \EndFunction
+    \end{algorithmic}
+    \caption[Relative Größenanpassung]{Relative Größenanpassung}
+    \label{alg:RelativeGrößenanpassung}
 \end{algorithm}
 
 Problem:
-Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus ZEILEN ANPASSEN  \ref{alg:ZweifachBerechnung}). 
+Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus ZEILEN ANPASSEN  \ref{alg:RelativeGrößenanpassung}). 
 es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel platz als auch zu wenig Platz bekommen, jenachdem ob Sie im zweiten schritt quadratischer oder schmaler werden.  Siehe Abbildung \ref{fig:relativeIncreaseMarginOne} für ein Beispiel.
 
 \begin{figure}[h]
@@ -247,25 +226,9 @@ es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel 
     \label{fig:relativeIncreaseMarginOne}
 \end{figure}
 
-Evaluation:
-mit diesen Werten:
-% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-% const numberOfPassesValues = [2]
-% const scaleValues = [true]
-% const simpleIncreaseValuesValues = [true, false]
-% const sortingOptionValues = [SortingOption.DESCENDING]
-% const orderOptionValues = [OrderOption.NEW_ORDER]
-% const incrementMarginValues = [false]
-% const applySiblingMarginValues = [true]
-% const collapseFoldersValues = [false]
-% const enableFloorLabelsValues = [false]
-% const amountOfTopLabelsValues = [1]
-% const labelLengthValues = [0]
 
-\subsection{Vergleich mit }
-
-\section{Scaling der Knoten} \label{sec:ScalingKnoten}
-%wird auchin \cite[52]{johnson1993treemapsPhd} erwähnt
+\subsection*{Scaling der Knoten} \label{sec:ScalingKnoten}
+Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt die Fläche ist, die der Abstand benötigt. Dadurch können Probleme entstehen.
 
 Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.
@@ -288,12 +251,75 @@ Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlic
     \label{fig:relativeIncreaseMarginOneScale}
 \end{figure}
 
-Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Diese jetzt hier sehr subjektive Einschätzung wird aber nochmal genauer beläuchtet in der evaluation und vergleich.
+Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Wir entscheidung uns in dieser Arbeit dafür, dass wir die Knoten immer skalieren, auch nach oben, um die Identität der Darstellung von Treemap-Layouts zu wahren. Dadurch tauschen wir sozusagen Proportionalität der Knoten gegen Platznutzung ein.
+
+\subsection*{Vergleich der Ansätze} \label{sec:VergleichDerAnsätze}
+
+Wir vergleichen diese beiden Ansätze jetzt mit dem STandard Squarify nested squarify algorithmus von d3.js, wie er von Mike Bostock implementiert wurde \cite{d3_nested_2023}.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
+    \label{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} klar zu erkennen, dass das beide Erweiterungen des Squarify Algorithmus deutlich weniger fehlende Knoten haben als der Standard Squarify Algorithmus von d3.js. Eine wirklich extreme Verbesserung ist zu erkennen, die speziell bei größeren Abständen noch stärker wird. Während der Standard Squarify Algorithmus bei einem Abstand von 1\% im Schnitt ca. 600 fehlende Knoten hat, haben die beiden Erweiterungen fast keine fehlenden Knoten mehr. 
+Zudem ist zu erkennen, dass die absolute Größenanpassung bis 2,5\% etwas mehr fehlende Knoten hat als die relative Größenanpassung.
+Außerdem ist zu erkennen, dass die relative Größenanpassung auch noch bei größeren Abständen weniger fehlende Knoten hat und konstanter bleibt, während die absolute Größenanpassung bei Abständen über 2,5\% höhere Ergebnisse erzielt.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
+    \label{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
+\end{figure}
+
+Bei allen drei Algorithmen ist zu erkennen, dass der Varianzkoeffizient des Flächenverhältnisses mit zunehmendem Abstand steigt (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}). Das bedeutet, dass die Fläche der Knoten mit zunehmendem Abstand immer unproportionaler zu ihren Werten wird.
+Klar zu erkennen ist, dass das schlechteste Seitenverhältnis durch den d3.js squarify Algorithmus erzielt wird. Zweit bestes durch die relative Größenanpassung und das beste durch die absolute Größenanpassung (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}). 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/averageRatio_over_aimedRelativeMargin.png}
+    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
+    \label{fig:basicCompare_averageRatio_over_aimedRelativeMargin}
+\end{figure}
+
+
+In Abbildung \ref{fig:basicCompare_averageRatio_over_aimedRelativeMargin} ist zu erkennen, dass der d3.js ab ca. 0,5\% Abstand Seitenverhältnisse von 4,5 bis 5 erzielt, während die beiden Erweiterungen des Squarify 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen. Werte näher bei 1 sind besser.}
+    \label{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin} ist zu erkennen, dass die Platznutzung bei den beiden Erweiterungen dauerhaft näher an der 1 ist. Theoretisch hätten wir erwartet, dass alle drei Varianten ähnliche Werte produzieren, da der relative Abstand ja bei allen gleich ist. Wir erklären uns das dadruch, dass ja auch mehr Knoten fehlen, wodurch dann die Fläche der Knoten auch kleiner wird.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
+    \label{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin} ist zu erkennen, dass der Zeitaufwand bei den beiden Erweiterungen dauerhaft höher ist. Teilweise doppelt so hoch, teilweise weniger. Das ist natürlich zu erwarten, da ja ein zweiter Layout-Schritt durchgeführt wird. Die relative Größenanpassung ist dabei etwas aufwändiger als die absolute Größenanpassung, da hier ja auch die relative Flächenänderung der Kindknoten berechnet werden muss. Allerdings ist der Unterschied hier nicht so groß. Anzumerken ist, dass das verschwinden von Knoten keinen Einfluss auf die Laufzeit des d3.js Squarify Algorithmus hat, da dieser zuerst das Layout berechnet und dann die Abstände abzieht, bei den angepassten Versionen ist. In den angepassten Versionen implementieren wir early stopping, sobald die Fläche eines Knotens 0 oder negativ wird, was aber nicht so oft passiert, dass es einen großen Einfluss auf die Laufzeit hat.
+
+Alles in allem schneiden die beiden Erweiterungen des Squarify Algorithmus deutlich besser ab als der Standard Squarify Algorithmus von d3.js. Die absolute Größenanpassung schneidet dabei beim Wert-Flächen-Verhältnis besser ab, während die relative Größenanpassung bei der Anzahl der fehlenden Knoten besser abschneidet. Beide Erweiterungen sind valide und zu Begründende alternativen zum Standard Squarify Algorithmus von d3.js. Für die weitere Arbeit in dieser Thesis entscheiden wir uns für die relative Größenanpassung, da wir hier die Anzahl der fehlenden Knoten als das wichtigste Kriterium ansehen.
+
+
+
+
+
+
+
+
 
 \section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
-Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst.
+Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst. Sie begründen das damit, dass sich dadruch bessere Seitenverhältnisse ergeben.
 Außerdem haben wir in Abschnitt \ref{sec:strukturVonSoftwareprojekten} gezeigt, dass 95\% der Ordner maximal 18 Kindknoten haben. Das sortieren aller Knoten in einem Ordner nach Größe ist also gar nicht mal so Zeitaufwendig, wie man denken könnte, wenn man tausende von knoten hat, weil immer nur ein kleines set von knoten sortiert werden muss. Kleines Beispiel:
-%O(n mal log(n))
 Wenn wir von einem typischen sortier algorithmus mit einer Laufzeit von $\mathcal{O}(n\log n)$ (zB. quicksort), einer anzahl von 4221 Knoten (Durchschnittwert der Anzahl der Knoten siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}) und 18 Knoten pro Ordner. 
 Wenn wir alle Knoten auf einmal sortieren wollen: 
 
@@ -323,38 +349,131 @@ T_2 = m \cdot \left(k \cdot \log_2(k)\right) = 235 \cdot \left(18 \cdot \log_2(1
 T_2 \approx 235 \cdot (18 \cdot 4.17) = 235 \cdot 75.06 \approx 17639
 \]
 
-%Zeige zusätzlich anhand von DAten, dass das sortieren eigentlich keinen unterschied macht in der rechendauer
-% generiert mit:
-% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-% const numberOfPassesValues = [2]
-% const scaleValues = [true]
-% const simpleIncreaseValuesValues = [true, false]
-% const sortingOptionValues = [SortingOption.DESCENDING, SortingOption.NONE]
-% const orderOptionValues = [OrderOption.NEW_ORDER]
-% const incrementMarginValues = [false]
-% const applySiblingMarginValues = [true]
-% const collapseFoldersValues = [false]
-% const enableFloorLabelsValues = [false]
-% const amountOfTopLabelsValues = [1]
-% const labelLengthValues = [0]
+D3.js hat das nicht im standard algorithmus implementiert, aber in der dokumentation des Squarify Algorithmus steht explizit: 
+\begin{quote}
+    You probably also want to call root.sort to order the hierarchy before computing the layout. \cite{d3_treemap_code}
+\end{quote}
+Aus diesem Grund testen wir jetzt, ob das sortieren der Knoten nach Größe wirklich die besten auch für unsere Daten liefert und ob sich das auch auf andere Kriterien als das Seitenverhältnis auswirkt. 
 
-Der algorithmus mit sortierung braucht im Schnitt ca. 5.5ms und mit sortierung ca. 6.5ms. also ca 1ms mehr (Median 0.4ms). 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
 
-%gehe noch darauf ein, dass man mit der reihenfolge theorteisch auch bestimmten kann, wo hohe knoten platziert werden, um Potentielle überdeckung zu vermeiden.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
+\end{figure}
 
-%mit reihenfolge könnte man auch stabilität erhöhen, indem man fully qualified name nutzt, aber diese anforderung zweitrangig - vielleicht wenn reihenfolge gar keinen unterschied gemacht hätte, dann ja
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/averageRatio_over_aimedRelativeMargin.png}
+    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_averageRatio_over_aimedRelativeMargin}
+\end{figure}
 
-\subsection{Reihenfolge der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung. Werte näher bei 1 sind besser.}
+    \label{fig:sorting_spaceForLeafNodesRatio_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_timeNeededInMs_over_aimedRelativeMargin}
+\end{figure}
+
+In den wichtigsten Kriterien, Anzahl der fehlenden Knoten (siehe Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}), der Varianzkoeffizient des Flächenverhältnisses (siehe Abbildung \ref{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und das durchschnittliche Seitenverhältnis (siehe Abbildung \ref{fig:sorting_averageRatio_over_aimedRelativeMargin}) schneidet die Sortierung nach Größe durchweg besser ab, weshalb wir uns dafür entscheiden, die Knoten immer nach Größe zu sortieren.
+
+
+
+\subsection{Platzierung der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+Der Algorithmus ihrer Arbeit über Cascaded Treemap von Lu und Fogarty \cite{lu2008cascaded}, wird die Platzierung der Knoten im zweiten Layout-Schritt beibehalten. Im Grunde merken Sie sich in welcher Reihe an welcher Position jeder Knoten platziert ist und behalten diese Platzierung bei. D3.js stellt zu ihrem Squarify Algorithmus auch einen Resquarify Algithmus zu verfügung, der im Grunde diesen zweiten Layout-Schritt mit beibehaltung der Platzierung der Knoten durchführt \cite{d3_treemap_code}. D3.js begründet die existens dieser Strategie anders als Lu und Fogarty, nämlich damit, dass ein erneutes berechnen der Layouts mehr Zeit in anspruch nimmt. Dies macht Sinn weil wenn die Platzierung gleich bleibt, muss ich ja nur noch die Breite der Reihen und die Höhe der Knoten anpassen und nicht noch verschiedene Positionierungen testen und vergleichen.
+
+Die Qualität dieser Strategie wird leider nicht separat evaluiert und hinterfragt. Wir stellen die Hypthese auf, dass durch diese Strategie aufgrund der verschiedenen Flächenänderungen schlechtere Seitenverhältnisse entstehen können, da die optimale Reihenfolge der Knoten sich ja durch die Flächenänderung ändern kann. Wir wollen also nachprüfen ob dieser Ansatz wirklich der beste ist, oder ob es nicht vielleicht bessere Strategien für den zweiten Layout-Schritt gibt.
+
+
+
+
 Durch die updates der Größen der Knoten nach dem ersten Layoutschritt, kann es passieren, dass die Größenreihenfolge der Knoten sich ändert. Das als zum Beispiel Knoten A im ersten Layoutschritt größer ist als Knoten B, aber nach dem Update der Größen von Knoten A kleiner ist als Knoten B. Das kann dazu führen, dass im folgenden Layoutschritt, die Knoten in einer anderen Reihenfolge platziert werden als im ersten Layoutschritt. 
 Das ist erstmal gut für die Seitenverhältnisse der Knoten (wenn wir davon ausgehen, dass die Reihenfolge nach größe sortiert optimla ist), allerdings kann es dazu führen, dass Knoten an ganz anderen Positionen platziert werden, als im ersten layoutschritt. Das  kann dazu führen, dass sich die Form ändert und das kann dazu führen, dass die Kinder anders platziert werden etc. wodurch sich die benötigten Abstände ändern, wodurch die vorausberechnete Fläche der Knoten nicht mehr passt und Knoten entweder verschwinden oder die Wert Fläche relation schlechter wird.
 Das kann natürlich genauso passieren, wenn die Knoten in der selben Reihenfolge platziert werden, wie im ersten Layoutschritt. Es ist nicht klar erstichtlich, was hier am Ende des Tagen am besten ist. Deswegen implementieren wir 3 verschiedene Ansätze:
 \begin{itemize}
-    \item \textbf{Reihenfolge der Knoten nach Größe:} Die Knoten werden in der Reihenfolge ihrer Größe platziert. Wir vermuten, dass dadurch die besten Seitenverhältnisse entstehen, aber die schlechtesten WErt-Fläche-Relationen.
-    \item \textbf{Reihenfolge der Knoten beibehalten:} Die Knoten werden in der Reihenfolge platziert, in der sie im ersten Layoutschritt platziert wurden. Wir vermuten, dass dadurch im Großen und Ganzen die plazierung der Knoten gleich bleibt, außer es gibt wirklich große Flächen updates. Wir vermuten, dass dies ein guter mitelweg zwischen dem ersten und dem jetzt folgenden ansatz ist.
+    \item \textbf{Reihenfolge der Knoten nach Größe:} Die Knoten werden in der Reihenfolge ihrer neu berechneten Größe platziert. Wir vermuten, dass dadurch die besten Seitenverhältnisse entstehen, aber die schlechtesten Wert-Fläche-Relationen, weil sich die Seitenverhältnisse im vergleich zum ersten Layoutschritt stark ändern können und dadruch die vorausberechnete Fläche der Knoten nicht mehr passt.
+    \item \textbf{Reihenfolge der Knoten beibehalten:} Die Knoten werden in der Reihenfolge platziert, in der sie im ersten Layoutschritt platziert wurden (absteigend sortiert). Wir vermuten, dass dadurch im Großen und Ganzen die plazierung der Knoten gleich bleibt, außer es gibt wirklich große Flächen updates. Wir vermuten, dass dies ein guter mitelweg zwischen dem ersten und dem jetzt folgenden ansatz ist.
     \item \textbf{Platzierung der Knoten beibehalten:} Nach dem ersten Layoutschritt wird sich genau die Aufteilung der Knoten in Reihen und die Platzierung der Knoten in den Reihen gemerkt. Wir vermuten, dass dadurch die Form der Knoten im großen und ganzen ähnlich zum ersten Schritt bleibt, wodurch die Wert-Fläche-Relationen besser bleibt, aber die Seitenverhältnisse schlechter werden könnten, die die optimale Reihenfolge der Knoten (aufgrund der neuen werte) nicht mehr berücksichtigt wird.
     \item 
 \end{itemize} 
 Es ist wie gesagt nicht ganz klar, was genau die auswirkungen sind. deswegen nur vermutungen, die wir jetzt testen werden.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \label{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knoten in der Platzierung beizubehalten, die meisten fehlenden Knoten produziert. Die anderen beiden Strategien schneiden deutlich besser ab. In Abbildung \ref{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist genauer zu erkennen, dass die Strategie, die Knoten neu zu sortieren weniger fehlende Knoten produziert als die Strategie, die Reihenfolge der Knoten beizubehalten.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting2/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die zwei verschiedenen Platzierungsstrategien.}
+    \label{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \label{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
+\end{figure}
+
+Anders als erwartet, ist in Abbildung \ref{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} zu erkennen, dass alle drei Strategien ähnliche Ergebnisse beim Varianzkoeffizienten des Flächenverhältnisses erzielen. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/averageRatio_over_aimedRelativeMargin.png}
+    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \label{fig:secondsorting3_averageRatio_over_aimedRelativeMargin}
+\end{figure}
+
+wie erwartet, ist in Abbildung \ref{fig:secondsorting3_averageRatio_over_aimedRelativeMargin} zu erkennen, dass die Strategie, die Knotenplatzierungen bei zu behalten die schlechtesten Seitenverhältnisse produziert. Die anderen beiden Strategien schneiden deutlich besser ab, untereinander verglichen sind sie aber ähnlich.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien. Werte näher bei 1 sind besser.}
+    \label{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin} ist zu erkennen, dass alle drei Strategien ähnliche Ergebnisse bei der Platznutzung erzielen.
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \label{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin}
+\end{figure}
+
+In Abbildung \ref{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin} wird die Erwartung bestätigt, dass die Strategie, die Knotenplatzierungen beizubehalten am wenigsten Zeit benötigt. Da hier der Squarify Algorithmus nur einmal beim ersten Layoutschritt laufen muss. Die anderen beiden Strategien benötigen mehr Zeit, da hier der Squarify Algorithmus zweimal laufen muss. Die Reihenfolge beizubehalten benötigt minimal weniger Zeit (im Schnitt 0,2ms weniger), da hier nur einmal sortiert werden muss. Dies ist aber eine vernachlässigbare Zeitspanne.
+
+\smallskip
+
+Alles in allem konnten wir zeigen, dass der Ansatz von Lu und Fogarty \cite{lu2008cascaded}, die Knotenplatzierung beizubehalten, für unsere Daten und Kriterien nicht der beste ist. Der Ansatz der neuen Sortierung der Knoten nach Größe schneidet bis auf die Laufzeit in allen Kriterien deutlich besser als Lu und Fogartys Ansatz ab und ist entweder gleich oder etwas besser als der Ansatz, die Reihenfolge der Knoten beizubehalten. Wir entscheiden uns in dieser Arbeit dafür, die Knoten im zweiten Layoutschritt nach Größe zu sortieren, da wir hier die besten Seitenverhältnisse erzielen und die Anzahl der fehlenden Knoten im vergliech zu den anderen beiden Ansätzen gering bleibt.
+
+
+
+
 
 
 
@@ -362,64 +481,8 @@ Es ist wie gesagt nicht ganz klar, was genau die auswirkungen sind. deswegen nur
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
 Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
 Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layout-Schritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. 
+Wir stellen also die Hypthese auf, dass durch mehrfaches berechnen des layouts und das aktualisieren der flächen, alle unsere Kriterien, bis auf die laufzeit, besser werden.
 
-Grund dafür:
-Grund dagegen: 
-
-% const marginValues = [1, 2, 3, 5, 10, 30, 50, 70, 100]
-% const numberOfPassesValues = [1, 2, 3, 4, 5, 7, 10, 15, 20]
-% const scaleValues = [true]
-% const simpleIncreaseValuesValues = [false]
-% const sortingOptionValues = [SortingOption.DESCENDING]
-% const orderOptionValues = [OrderOption.NEW_ORDER]
-% const incrementMarginValues = [false]
-% const applySiblingMarginValues = [true]
-% const collapseFoldersValues = [false]
-% const enableFloorLabelsValues = [false]
-% const amountOfTopLabelsValues = [0]
-% const labelLengthValues = [0]
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/aimedRelativeMargin_over_marginInput.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten relativen Abstand bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsAimedRelativeMarginOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten Seitenverhältnis bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsRatioOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/varianceOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Varianz der Flächenunterschiede bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsVarianceOfAreaDifferencesOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/ratio_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Anzahl der Knoten mit Fläche 0 bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsNumberOfZeroAreaNodesOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem Verhältnis der Fläche der Blätterknoten zur Gesamtfläche bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsSpaceForLeafNodesRatioOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der benötigten Zeit in ms bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung auf die ausgewählten Repositories.}
-    \label{fig:multipleRunsTimeNeededInMsOverMarginInput}
-\end{figure}
 
 
 \subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
@@ -434,40 +497,6 @@ Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert
 Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
 hier ist es auch interessant den effekt in kombination mit der Reihenfolge der Knoten zu testen, weil %warum eigentlich?
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/aimedRelativeMargin_over_marginInput.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten relativen Abstand bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
-    \label{fig:increaseAimedRelativeMarginOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem tatsächlich erreichten Seitenverhältnis bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
-    \label{fig:increaseRatioOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/varianceOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Varianz der Flächenunterschiede bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
-    \label{fig:increaseVarianceOfAreaDifferencesOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/ratio_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und der Anzahl der Knoten mit Fläche 0 bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
-    \label{fig:increaseNumberOfZeroAreaNodesOverMarginInput}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/increase/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption{Zusammenhang zwischen dem eingegebenen Abstand und dem Verhältnis der Fläche der Blätterknoten zur Gesamtfläche bei der Anwendung des Squarify Algorithmus mit mehrfacher Berechnung und iterativer Abstandsvergrößerung auf die ausgewählten Repositories.}
-    \label{fig:increaseSpaceForLeafNodesRatioOverMarginInput}
-\end{figure}
 
 
 \section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
@@ -634,37 +663,15 @@ Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von
 
 
 \section{Fazit}
+
+auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
+
+
+Cascaded ist am besten mit Absulten-Update Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
+
+
 Immernoch straight forward, es gibt aber noch Probleme 
 
-Warum besonders den squarify algorithmus betrachtet und nicht zum beipsiel pivot oder circle?? -> weil diese Andere Ziele haben -> noch mehr begründen anhand der definierten Ziele
 
+sage super viele ideen und andere möglichkeiten, diese können noch getestet werden
 
-%erkläre warum genau diese abstände gewählt wurden mit beispielen
-
-%erkläre warum bei den daten immer realisierter Abstand etc gemessen wird
-%erkläre warum bei den Seitenverhältnissen ein low in der mitte
-
-%weitere idee wie bei casced nach jedem layoutschritt im zweiten durchgang den benötigten platz neu berechnen
-
-%sagen dass alle berechnungen auf meinem laptop durchgeführt wurden, das ist auch praxis nah
-
-%schreibe warum die berechnung mit shrinkyfiy und nicht direct mit den margins plazieren
-%ist mein shrinkify gleich zu setzen mit leafs nicht ändern und direkt mit margin platzieren?
-%wenn alles genauso wie berechnet, dann egal, weil ich füge genauso viel platz hinzu, wie ich dann bei shrinkify abziehe
-%wenn nicht alles genauso, dann für ich evtl. weniger platz hinzu als ich danach abziehe, weil sich die form der node ändert
-%macht es am ende dann einen unterschied? weil ich würde dann die node ja trozdem scalen
-
-%das scalen wird auch viel schwerer - weil, ja am anfang dann gar nicht klar ist wie viel platz benötigt wird für die abstände -> wäre das überhaupt möglich? 
-%nein wäre es nicht, es müsste dann jede Row für sich gescaled werden -> interessanter ansatz, aber 
-
-
-%Ideen: im shrink step, auf original größe shrinken -> wenn die zu größ ist, dann zumindest so dass margin hält
-%Idee: einen dritten allgemeinen schritt für die siblingmargins einführen
-%Idee: für sehr kleine nodes heuristisch, absolute werte hinzufügen -> oder dafür auch einen dritten schritt einfüren
-
-
-
-%erkläre, warum wir immer ein seitenverhältnis von 1 anstreben. -> weil dadurch sogar näher am goldenen schnitt als mit phi, dadurch, dass nicht optimial, wird man immer "schlechter" sein, als der angestrebte ratio. vllt sogar grafisch zeigen, dass mit 1 besser ist. In d3.js zum beispiel wird phi verwendet, wir als autoren halte das für eine schlechte idee, aus den genannten gründen
-
-
-%noch ein punkt der nicht beachtet wurde ist die Höhe, 
