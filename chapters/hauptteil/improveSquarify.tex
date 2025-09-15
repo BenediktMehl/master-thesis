@@ -20,7 +20,7 @@ Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D
 
 \enquote{Especially for the node weights, we assess if the algorithms use the weight values to scale the sizes of leaf nodes. Typically, the size of parent nodes is adjusted to the spatial consumption of the child nodes.}\cite[3]{scheibel2020survey} - Scheibel et al. sagen also, für sie ist es nicht so wichtig, dass die Größe der Elternknoten proportional zu den Metrikwerten der Knoten ist.
 
-\include{chapters/hauptteil/datenAnalyse}
+\input{chapters/hauptteil/datenAnalyse}
 
 \section{Abstände zwischen Knoten} \label{sec:AbständeZwischenKnoten}
 Wie zuvor beschrieben, entsteht das Treemap-Problem erst durch das Hinzufügen von Abständen zwischen den Knoten (siehe Abschnitt \ref{sec:TreemapProblem}). Je Größer die Abstände sind, desto größer wird das Problem. 
@@ -74,6 +74,8 @@ In dieser Arbeit werden wir daher die Kriterien immer in Abhängigkeit des Relat
     \caption[Qwen3 mit relativem Abstand von 35]{Layout mit einem Absoluten Abstand von 100 und einem Relativen Abstand von 35 (generiert aus dem Qwen3 Repository \cite{githubqwen3_2025})}
     \label{fig:basic_qwen3_100_to_35}
 \end{figure}
+
+Alles in allem Empfehlen wir also einen Abstand von 0.5\% bis 3\%, je nach Software und Ziel der Visualisierung.
 
 
 \section{Angestrebtes Seitenverhältnis} \label{sec:Seitenverhältnis}
@@ -478,6 +480,10 @@ Alles in allem konnten wir zeigen, dass der Ansatz von Lu und Fogarty \cite{lu20
 
 
 
+
+
+
+
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
 Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
 Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layout-Schritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. 
@@ -499,59 +505,35 @@ hier ist es auch interessant den effekt in kombination mit der Reihenfolge der K
 
 
 
+
+
+
+
+
+
 \section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
 Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
 obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
 Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
+
+Da dies nicht nur eine Algorithmische Änderung ist, sondern auch einen direkten Einfluss auf die Visualisierung hat, werden wir nicht nur die Auswirkungen auf die messbaren Kriterien untersuchen, sondern auch kurz diskutieren, welche Auswirkungen dies auf die generellen Kriterien von Visualiserungen hat, wie wir sie in Abschnitt \ref{sec:MethodikAuswertung} definiert haben.
 Es ergeben sich folgende Auswirkungen auf die Ziele der Visualisierung:
 \begin{itemize}
-\item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verbessert, da weniger Platz für Abstände zwischen den Ordnern benötigt wird und weniger Knoten im Layout sind. 
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Wird verbessert, da weniger Knoten im Layout sind und tiefe Verschachtelungen vermieden werden.
-    \item \textbf{Skalierbarkeit:} Wird verbessert, da weniger Knoten im Layout sind und die Berechnung des Layouts beschleunigt wird.
-    \item \textbf{Korrelation mit dem Code:} wird verschlechtert, da die Ordnerstruktur nicht mehr 1:1 mit der Code-Struktur übereinstimmt. die \textit{wahre} Tiefe der Ordnerstruktur nicht mehr ersichtlich ist. Allerdings ist die Tiefe der Ordnerstruktur selbst in eigentlich gar nicht so relevant, die Tiefe wird eher als Mittel benutzt um die Ordner Struktur darzustellen. Ob eine Datei jetzt 5 oder 10 tief liegt, macht für die WAhrnehmung der Struktur keinen großen Unterschied.
-    \item \textbf{Stabilität gegenüber Änderungen:} Wird verbessert, da durch weniger Abstände die differenz zwischen Knoten Fläche und Knoten Wert geringer werden, wodurch weniger umstrukturierung bei der Platzierung der Knoten nötig ist. Außerdem wirken sich trivialerweise Änderungen an Order-Ketten nicht mehr auf die gesamte Struktur aus und verändern somit auch die Visualierung nicht, was positiv für die stabilität ist (aber wie gesagt negativ für die Korrelation mit dem Code).
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verbessert, da weniger Platz für Abstände zwischen den Ordnern benötigt wird und weniger Knoten im Layout sind. 
+    \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Wird verbessert, da Codebasen mit tiefen Ordnerstrukturen einfacher dargestellt werden können.  
+    \item \textbf{Skalierbarkeit:}  Wird verbessert, da weniger Knoten im Layout sind und große Codebasen mit tiefen Ordnerstrukturen einfacher dargestellt werden können.
+    \item \textbf{Visuelle Metaphern:} Dies hat keine Auswirkungen auf die visuelle Metapher der Stadt.
 \end{itemize}
+
 Wir würden sagen, dass die Vorteile dieser Änderung die Nachteile stark überwiegen.
 
 Im Schnitt werden ca. 175 Ordner pro Codebasis gefaltet (12 Median). bei ca. 958 Knoten (Median 242) sind das ca. 18\% (bzw. 5\% Median) der Knoten die durch die Faltung verschwinden. Also schon einige. 
 
 Folgend kommen die DAten:
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattknotenOhneFläche.png}
-    \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die das verschwinden von Knoten reduziert.}
-    \label{fig:FaltungKnotenOhneFläche}
-\end{figure}
-%sage dass bewusst blattknoten genommen wurden als metrik hier
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungWertFlächeVerhältnis.png}
-    \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten das Wert-Fläche-Verhältnis der Knoten verbessert.}
-    \label{fig:FaltungWertFlächeVerhältnis}
-\end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungSeitenverhältnis.png}
-    \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten das Seitenverhältnis der Knoten verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Es zeigt sich ein leicht positiver Effekt besonders bei kleinen und großen Abständen.} 
-    \label{fig:FaltungSeitenverhältnis}
-\end{figure}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungBlattFläche.png}
-    \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass das Falten von Ordnerketten die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
-    \label{fig:FaltungBlattFläche}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/FaltungZeit.png}
-    \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist nicht klar zu erkennen, ob das Falten von Ordnerketten die Rechenzeit verbessert oder verschlechtert, deshalb sind die Bereiche des Positiven Effekts grün markiert und die Bereiche des negativen Effekts rot markiert. Die Schwankungen sind zwischen ungefähr 1 und 2 millisekunden, was nicht wikrlich ausschlaggebend ist. Trotzdem ist ein leichter perfomance gewinn zu erkennen beim falten, was wahrscheinlich einfach daran liegt, dass es weniger Knoten gibt.}
-    \label{fig:FaltungZeit}
-\end{figure}
 
 die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordnerketten. Wir sprechen uns also dafür aus, dass Ordnerketten immer gefaltet werden sollten, von den messbaren Kriterien her sehen wir keine Gründe, warum das nicht gemacht werden sollte. das einzige Ziel was dagegen spricht ist die Korrelation mit dem Code, die dadurch verschlechtert wird. Alles in allem sprechen wir uns also dafür aus und werden dies fix für unseren Algorithmus implementieren.
 
@@ -568,6 +550,14 @@ die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordner
 % const enableFloorLabelsValues = [false]
 % const amountOfTopLabelsValues = [1]
 % const labelLengthValues = [0]
+
+
+
+
+
+
+
+
 
 
 \section{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
@@ -612,66 +602,26 @@ Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
 
 Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von der gewählten Farbgebung (auch Schattierung, Struktur oder Transparenz). Wie in der Problemstellung definiert (siehe Abschnitt \ref{sec:Problemstellung}) sollte das Layout so gestaltet sein, dass es möglich ist, weitere Metriken durch Farbgebung zu visualisieren. Die Kanten widersprechen dieser Einschränkung nur in Aussahme fällen. Die meisten Visualisierungen in der Praxis verwenden einfache Einfärbungen \cite{codeCity1, code_charta_webdemo, sereene_website}, was bedeutet, dass man einfach Schwarz oder eine Komplementärfarbe als Kantenfarbe nutzen kann, ohne dass es zu Konflikten mit der Farbgebung kommt. Die einzige Ausnahme, die mir bekannt ist, ist wäre die Nutzung von Linien, Schachbrettmuster oder ähnlichen Strukturen, durch die eine Kante nicht mehr als solche erkennbar wäre. Dies könnte zum Beispiel bei dem Ansatz aus dem paper \textit{E-Quality} von Ural Erdemir et al. \cite{eQuality} der Fall sein, da hier zum Beispiel ein Gittermuster verwendet wird, um einen Mangel an Kohäsion zu visualisieren, eine Kante, selbst in anderer Farbe, würde hier eher stören oder in dem Muster untergehen. 
 
-% Mit folgenden Daten:
-% const marginValues = [0, 1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-% const numberOfPassesValues = [2]
-% const scaleValues = [true]
-% const simpleIncreaseValuesValues = [false]
-% const sortingOptionValues = [SortingOption.DESCENDING]
-% const orderOptionValues = [OrderOption.NEW_ORDER]
-% const incrementMarginValues = [false]
-% const applySiblingMarginValues = [true, false]
-% const collapseFoldersValues = [true]
-% const enableFloorLabelsValues = [false]
-% const amountOfTopLabelsValues = [1]
-% const labelLengthValues = [0]
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterKnotenOhneFläche.png}
-    \caption{Die Anzahl der Knoten ohne Fläche geplottet gegenüber des Abstandes.}
-    \label{fig:GeschwisterKnotenOhneFläche}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterWertFlächeVerhältnis.png}
-    \caption{Das Wert-Fläche-Verhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Wert-Fläche-Verhältnis der Knoten verbessert.}
-    \label{fig:GeschwisterKnotenWertFlächeVerhältnis}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterSeitenverhältnis.png}
-    \caption{Das Seitenverhältnis der Knoten geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern das Seitenverhältnis der Knoten verbessert.}
-    \label{fig:GeschwisterKnotenSeitenverhältnis}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterBlattFläche.png}
-    \caption{Die Fläche der Blattknoten in Verhältnis zu der gesamt Fläche geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Fläche der Blattknoten erhöht. Das heißt, es wird weniger Platz benötigt für Abstände und Ordner, also gleiche Informationen auf weniger Fläche, beduetet besserer Informationsgehalt.}
-    \label{fig:GeschwisterKnotenBlattFläche}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/GeschwisterZeit.png}
-    \caption{Die Rechenzeit geplottet gegenüber des Abstandes. Es ist zu erkennen, dass die Abstände zwischen Geschwistern die Rechenzeit nicht signifikant beeinflussen.}
-    \label{fig:GeschwisterKnotenZeit}
-\end{figure}
 
 
 \section{Fazit}
+Wir haben in diesem Kapitel verschiedene Erweiterungen und Anpassungen des Squarify Algorithmus für unsere Anforderungen vorgestellt und evaluiert. Dabei haben wir verschiedene bestehende Ansätze aus der Literatur getestet. 
+Der Cascaded Algorithmus von Lu und Fogarty \cite{lu2008cascaded} hat dabei einige Ideen gegeben. Ihr Ansatz am besten mit dem Absoluten Größenanpassung mit Skalierung und festen Knotenplatzierungen zu vergleichen.
+Dadurch dass die Autoren ihren Ansatz nicht speziell für Softwarequalitätmetriken optimiert haben, konnten wir für einige Ideen zeigen, dass sie auch für unsere Anforderungen gut funktionieren und für andere, dass unsere Ideen besser funktionieren. Der einzige Ansatz der glaube ich nicht weiter verfolgt werden muss ist die Mehrfache Berechnung des Layouts, ich hatte nicht dass gefühlt, dass man hier noch anpassungen an dieser Idee vornehmen könnte, die zu besseren Ergebnissen führen.
 
-auch schauen, wann der algotihmus besonders gut und wann er schlecht ist - hängt natürlich von input daten  ab. zb. ab welcher tiefe ist er gut/schlecht. ab wie viel knoten. Ab wie viel knoten unterschied in der größe
-
-
-Cascaded ist am besten mit Absulten-Update Ansatz mit Scaling und festen Knoten zu vergleichen, nur mit dem Umterschied, dass die kompletten abstände betrachtet werden und diese betrachtung nur einmalig nach dem ersten squarify Layout Schritt durchgeführt wird (was auch in dem casced paper angemerkt wurde, dass das einmalige berechnen der Abstände eine mögliche Optimierung ihres Ansatzes wäre \cite[6]{lu2008cascaded}).
-
-
-Immernoch straight forward, es gibt aber noch Probleme 
+Das Treemap problem ist durch unseren Ansatz stark verbessert worden, allerdings ist es immernoch ein NP-Hartes Problem, weshalb es keine perfekte Lösung gibt. Es gibt sicherlich noch unzählige Ideen, um unseren Ansatz zu verbessern, wie zum Beispiel: Anstatt feste Abstände. Dynamische Abstände die sich an Tiefe oder Anzahl der Geschwister orient. Oder andere Größenanpassungen, die auf anderen Heuristiken basieren. Oder andere Sortier- und Platzierungsstrategien. Oder andere Ansätze um die Knoten zu beschriften. Oder oder oder... 
 
 
-sage super viele ideen und andere möglichkeiten, diese können noch getestet werden
+Alles in allem Empfehlen wir folgende Einstellungen für den Algorithmus:
+\begin{itemize}
+    \item \textbf{Abstände zwischen Geschwistern:} Manuelle Wahl zwischen 0,5\% und 3\% relativem Abstand je nach Software und Ziel der Visualisierung (siehe Abschnitt \ref{sec:AbständeGeschwister})
+    \item \textbf{Angestrebtes Seitenverhältnis:} 1,05 (siehe Abschnitt \ref{sec:Seitenverhältnis})
+    \item \textbf{Sortierung der Knoten:} Absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnotenErstesLayout})
+    \item \textbf{Platzierung der Knoten nach erstem Layoutschritt:} Neue Sortierung absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnotenErstesLayout})
+    \item \textbf{Mehrfache Berechnung:} Nein (siehe Abschnitt \ref{sec:MehrfacheBerechnung})
+    \item \textbf{Optimierung von Ordnerketten:} Ja (siehe Abschnitt \ref{sec:OrderKettenOptimierung})
+    \item \textbf{Beschriftung der Knoten:} Manuelle Wahl zwischen x und y (siehe Abschnitt \ref{sec:BeschriftungKnoten})
+\end{itemize}
 
+Wir werden exakt diese Einstellungen verwenden, um die Visualisierungen für die Umfrage im nächsten Kapitel zu erstellen.

@@ -163,8 +163,8 @@
 	title        = {Squarified treemaps},
 	author       = {Bruls, Mark and Huizing, Kees and Van Wijk, Jarke J},
 	year         = 2000,
-	booktitle   c = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
 	pages        = {33--42},
+	booktitle   = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
 	organization = {Springer}
 }
 
