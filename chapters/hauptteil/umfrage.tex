@@ -44,26 +44,33 @@ Insgesamt haben x Personen an der Umfrage teilgenommen. Davon haben y Personen b
 \subsection{Bewertung anhand von Szenarien} \label{sec:BewertungSzenarienErgebnisse}
 
 \subsection{Direkte Bewertung der Visualiserungen} \label{sec:DirekteBewertungErgebnisse}
-In diesem Abschnitt stellen wir die Ergebnisse der direkten Bewertung der Visualisierungen vor. Die direkte Bewertung wurde nur von den Visualisierungsexperten durchgeführt.
+In diesem Abschnitt stellen wir die Ergebnisse der direkten Bewertung der Visualisierungen vor. Die direkte Bewertung wurde nur von den Visualisierungsexperten durchgeführt. Hier wollen wir überprüfen, ob die Bewertungen, die wir in der Literaturrecherche gemacht haben, auch von anderen Personen (speziell den Visualisierungsexperten) so gesehen werden.
+
+
+\begin{table}[htbp]
+    \hspace*{-1.7cm}
+    \scriptsize
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+         & \multicolumn{3}{c|}{\textbf{Informationsgehalt}} & \multicolumn{3}{c|}{\textbf{Visuelle Komplexität}} & \multicolumn{3}{c|}{\textbf{Skalierbarkeit}} & \multicolumn{3}{c|}{\textbf{Metapher}} & \multicolumn{3}{c|}{\textbf{Gesamtwertung}} \\ \hline
+        \textbf{Name} &  U & L & U-L &  U & L & U-L &  U & L & U-L &  U & L & U-L &  U & L & U-L \\ \hline
+        Treemap & 4.3 & 4 & 0.3 & 3.8 & 5 & -1.2 & 3.7 & 4 & -0.3 & 3.5 & 3 & 0.5 & 3.8 & 4.0 & -0.2 \\ \hline
+        Code City & 2.8 & 3 & -0.2 & 4.2 & 5 & -0.8 & 3.0 & 3 & 0.0 & 3.7 & 4 & -0.3 & 3.4 & 3.8 & -0.4 \\ \hline
+        Circular Treemap & 2.7 & 3 & -0.3 & 3.3 & 5 & -1.7 & 2.8 & 3 & -0.2 & 2.8 & 2 & 0.8 & 2.9 & 3.2 & -0.3 \\ \hline
+        Streetmap & 2.2 & 3 & -0.8 & 2.3 & 5 & -2.7 & 2.7 & 3 & -0.3 & 3.2 & 4 & -0.8 & 2.6 & 3.8 & -1.2 \\ \hline
+        Sunburst & 3.3 & 3 & 0.3 & 3.0 & 5 & -2.0 & 2.2 & 4 & -1.8 & 3.3 & 2 & 1.3 & 3.0 & 3.5 & -0.5 \\ \hline
+    \end{tabular}
+    \caption[Bewertungen der Visualisierungsexperten] {Bewertungen der Visualisierungsexperten im Vergleich zu den Bewertungen aus der Literaturrecherche. U = Bewertung aus der Umfrage, L = Bewertung aus der Literaturrecherche, U-L = Differenz.}
+    \label{tab:dirQuestion} 
+\end{table}
+
 
 \subsection{Zusätzliche Anmerkungen der Befragten} \label{sec:ZusätzlicheAnmerkungen}
-1. Findest Du Software-Visualisierungen generell sinnvoll und nützlich? Warum / warum nicht?
-Metriken genau auswählen, erleichtert Visuelle Komplexittät und Kommunikation speziell ohne Programmier erfahrung. Teambesprechungen besser
-Visualisierungen spezielle bei großen Projekte, können Probleme sichtbar und verständlicher machen
-Geben sehr guten Überblick, inhalte greifbar machen, komplexe dinge schnell erfassbar
+Auf die erste Frage, ob Software-Visualisierungen generell sinnvoll seien und warum, antworteten mehrere Teilnehmende, dass sie Software-Visualisierungen insgesamt als sehr sinnvoll und nützlich eingeschätzen würden. Software-Visualisierungen könnten dabei unterstützen, komplexe Inhalte verständlicher zu machen und einen schnellen Überblick zu ermöglichen. Allerdings sollten Metriken mit Bedacht und klarem Ziel gewählt werden. Besonders in größeren Projekten würden Visualisierungen dazu beitragen, Probleme sichtbar zu machen und die Kommunikation innerhalb des von Entwickler-Teams zu erleichtern, auch für Personen ohne Programmiererfahrung. Zudem wurde berichtet, dass sich dadurch Teambesprechungen effizienter gestalten ließen und visuelle Komplexität reduziert werde.
 
-2. Hast Du konkrete Anmerkungen zu einzelnen Visualisierungen? Gab es etwas, das Dir besonders gut oder besonders schlecht gefallen hat?
-Oft ist Schrift zu klein, speziell bei Streetmap. Außerdem ist es generell schwer die Hinterenteile der Bilder zu erkennen.
-Circle Packing besonders gut, weil direkt unterschied zwischen Ordnern und Dateien sichtbar ist.
-Beschriftungen bei allen zu klein und schlecht und schwer zuzuordnen
-Streetmap schlecht
-treemap funktioniert in 2d besser als in 3D
-Navigation heißt -> kein schneller überblickt
-Je nach fragestellung mal die ein vis gut mal die andere
+Bei der zweiten Frage, ob es konkrete Anmerkungen zu einzelnen Visualisierungen gäbe, wurde allgemein kritisiert, dass die Beschriftungen oftmals zu klein, schwer lesbar und schwer zuzuordnen seien, was die Navigation erschwere und die schnelle Erfassung der Inhalte verhindere. Zudem seien Details im Hintergrund schwer erkennbar. Besonders positiv hervorgehoben wurde das Circle Packing, da hier die Unterschiede zwischen Ordnern und Dateien klar erkennbar würden. Negativ bewertet wurde hingegen die Streetmap, die als unübersichtlich und unleserlich beschrieben wurde. Zudem wurde darauf hingewiesen, dass die Treemap in einer 2D-Darstellung deutlich besser funktionieren würde als in 3D. Es wurde zudem betont, dass je nach Fragestellung unterschiedliche Visualisierungen besser geeignet seinen.
 
-3. Hast Du Kritik oder Anmerkungen zu Dingen, die in der Umfrage nicht abgefragt wurden?
-ah ok, falsche Bilder wurden erkannt. Sind trotzdem sinnvoll, weil es eben zeigt, dass die analyse falsch ist.
-Wusch nach beziehungsmetriken. Es wurde nicht erkannt, dass immer die selbe codebasis verwendet wurde.
-Generell interesse an weiterführenden Metriken
+Ob die Befragten generell Kritik zu Dingen hätten, die in der Umfrage nicht abgefragt wurde, äußerten die Teilnehmenden Anmerkungen, die in der Umfrage nicht direkt abgefragt wurden. Es wurde angemerkt, dass manche Visualisierungen nicht zu den jeweiligen Szenarien passen würden, was den Befragten ja bewusst verschwiegen wurde. Auch wenn diese Visualisierungen dann schlecht bewertet wurden, sei dass ja positiv, da dadurch ja in der praxis falsche Expertenanalysen identifiziert werden könnten.
+Zudem wurde der Wunsch nach zusätzlichen Beziehungsmetriken geäußert, da beispielsweise nicht erkannt worden sei, dass stets dieselbe Codebasis verwendet wurde. Generell wurde ein Interesse an weiterführenden und tiefergehenden Metriken formuliert, um die Aussagekraft der Visualisierungen zu erhöhen.
 
 \section{Fazit} \label{sec:FazitUmfrage}

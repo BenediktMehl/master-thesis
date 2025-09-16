@@ -92,7 +92,7 @@ In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics
     \label{fig:voronoiTree}
 \end{figure}
 
-Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2.5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung  darstellbar sind, wird der Informationsgehalt zusammen mit der Flächeneffizienz mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken. Vor diesem Hintergrund fällt die visuelle Komplexität mit 4 aus. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 angesetzt. Eine ausdrückliche visuelle Metapher ist nicht vorhanden, weshalb die Metaphernqualität die Einstufung 1 erhält.
+Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2.5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung  darstellbar sind, wird der Informationsgehalt zusammen mit der Flächeneffizienz mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken. Zudem werden diese unregelmäßigen Formen sowohl für die darstellung von Dateien als auch von Ordnern verwendet, die visuelle Komplexität mit 3 bewertet wird. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 angesetzt. Eine ausdrückliche visuelle Metapher ist nicht vorhanden, weshalb die Metaphernqualität die Einstufung 1 erhält.
 
 \smallskip
 
@@ -235,7 +235,7 @@ Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings 
     \label{fig:bubbleTreemap}
 \end{figure}
 
-Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, ähnlich der Treemap. Durch die runden Zellen geht etwas mehr Fläche verloren. Aus diesem Verhältnis ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 4. Kreise sind einfach zu unterscheiden und die Struktur ist klar. Dadurch bleibt die kognitive Anforderung gering. Die visuelle Komplexität wird mit 5 bewertet. Das Layout vermeidet Überlappungen und bleibt bei vielen Elementen lesbar, hat aber das gleiche Problem wie Voronoi- und Treemap-Layouts, dass bei großen Codebasen kleine Elemente schwer zu erkennen sind. Die Skalierbarkeit wird also wie bei Voronoi und Treemap mit 4 eingestuft. Eine Metapher wird nicht verfolgt. Die Metaphernqualität liegt bei 1.
+Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, ähnlich der Treemap. Durch die runden Zellen geht etwas mehr Fläche verloren. Aus diesem Verhältnis ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 4. Kreise sind einfach zu unterscheiden und die Struktur ist klar. Dadurch bleibt die kognitive Anforderung gering. Im Vergleich zur Circular Treemap, die später beschrieben wird, ist die Interpretation jedoch etwas komplexer, da hier nicht nur einfache Kreise bzw. Zylinder verwendet werden, sondern auch komplexere Formen entstehen. Die visuelle Komplexität wird daher mit 4 bewertet, auch weil im Vergleich dazu Voronoi ungleichmäßige Volumen sowohl für Ordner als auch für Dateien nutzt und mit 3 bewertet wurde. Das Layout vermeidet Überlappungen und bleibt bei vielen Elementen lesbar, hat aber das gleiche Problem wie Voronoi- und Treemap-Layouts, dass bei großen Codebasen kleine Elemente schwer zu erkennen sind. Die Skalierbarkeit wird also wie bei Voronoi und Treemap mit 4 eingestuft. Eine Metapher wird nicht verfolgt. Die Metaphernqualität liegt bei 1.
 
 \smallskip
 
@@ -335,7 +335,7 @@ Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe u
     \label{fig:softwareForest}
 \end{figure}
 
-Der Software Forest ist ein hügeliger Wald. Jeder Baum repräsentiert eine Datei. Die Höhe des Hügels kodiert eine Metrik, ähnlich der Softwarekartographie. Über die Bäume kann zusätzlich eine weitere Metrik über Farbe kodiert werden. Gegenüber der Softwarekartographie erhöht der zusätzliche Farbkanal pro Baum die Informationsdichte, während die restliche Struktur vergleichbar bleibt. Deshalb wird der Informationsgehalt um eine Stufe höher, also mit 2, bewertet. Die visuelle Komplexität bleibt vom Wert her gleich, da die Bäume die Höheneinschätzung zwar erleichtern, aber selbst zusätzliche Details und Komplexität mitbringen. Die anderen Kriterien werden gleich bewertet wie bei der Softwarekartographie.
+Der Software Forest ist ein hügeliger Wald. Jeder Baum repräsentiert eine Datei. Die Höhe des Hügels kodiert eine Metrik, ähnlich der Softwarekartographie. Über die Bäume kann zusätzlich eine weitere Metrik über Farbe kodiert werden. Gegenüber der Softwarekartographie erhöht der zusätzliche Farbkanal pro Baum die Informationsdichte, während die restliche Struktur vergleichbar bleibt. Deshalb wird der Informationsgehalt um eine Stufe höher, also mit 2, bewertet. Die visuelle Komplexität bleibt vom Wert her gleich, da die Bäume die Höheneinschätzung zwar erleichtern, aber selbst zusätzliche Details und Komplexität mitbringen. Durch die Bäume wird die Skalierung der Darstellung im Vergleich zur Softwarekartographie etwas schlechter, da diese bei großen Systemen sehr dicht werden können und eventuell überlappen oder andere Hügel verdecken, weshalb hier eine Bewertung von 2 vergeben wird. Die Metapher ist anschaulich, leicht zugänglich und wird, wie die Softwarekartographie auch, mit 5 bewertet.
 
 \smallskip
 
@@ -378,7 +378,7 @@ UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreic
     \caption[Sunburst-Layout]{Sunburst-Layout~\cite{codeIsBeautiful}.}
     \label{fig:sunburst}
 \end{figure}
-In Sunburst wird ein zentraler Bereich für Ordner benötigt, der zum Beispiel bei Treemaps entfällt. Bei gleicher Metrikzahl sinkt dadurch die Flächeneffizienz leicht. Informationsgehalt und Flächenausnutzung werden also mit 3 bewertet. Die verschachtelte Struktur ist visuell sehr klar und einfach zu verfolgen. Die visuelle Komplexität wird mit 5 eingestuft. Mit zunehmender Elementzahl leidet die Lesbarkeit kleiner Sektoren, insgesamt bleibt die Darstellung jedoch gut lesbar. Die Skalierbarkeit wird daher mit 4 bewertet. Eine Metapher ist nicht vorgesehen, weshalb Wert 1 vergeben wird.
+In Sunburst wird ein zentraler Bereich für Ordner benötigt, der zum Beispiel bei Treemaps entfällt. Bei gleicher Metrikzahl sinkt dadurch die Flächeneffizienz leicht. Informationsgehalt und Flächenausnutzung werden also mit 3 bewertet. Die verschachtelte Struktur ist visuell sehr klar und einfach zu verfolgen. Die visuelle Komplexität wird mit 5 eingestuft. Mit zunehmender Elementzahl leidet die Lesbarkeit kleiner Sektoren, insgesamt bleibt die Darstellung jedoch gut lesbar. Die Skalierbarkeit wird daher mit 4 bewertet. Eine Metapher ist nicht vorgesehen, aber wie der Name schon sagt, kann es als Sonne interpretiert werden, von der Sonnenstrahlen ausgehen, weshalb Wert 2 für die Metapher vergeben wird.
 
 Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2.5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert (siehe Abbildung \ref{fig:stack}).
 \begin{figure}[h]
@@ -413,7 +413,45 @@ Hinweis: Die Anzahl der Layouts hat keinen wissenschaftlichen Eigenwert. Sie sol
 
 Die Gesamtwertung der Visualisierungen ergibt sich durch das arithmetische Mittel aller Bewertungen. Die Gleichgewichtung der Kriterien stellt eine pragmatische Entscheidung dar. Für eine fundierte Bewertung könnte eine differenzierte Gewichtung sinnvoll sein, die jedoch wissenschaftlich überprüft werden müsste und um weitere Kriterien ergänzt werden sollte. Für die Auswahl der Visualisierungen in dieser Arbeit und eine erste Einordnung ist die gewählte grobe Einordnung ausreichend.
 
-\input{chapters/hauptteil/literaturBewertung.tex}
+\begin{table}[htbp]
+    \hspace*{-2.2cm}
+    \scriptsize
+    \resizebox{1.3\textwidth}{!}{%
+    \begin{tabularx}{1.4\textwidth}{|X|X|c|X|c|c|c|c|c|}
+        \hline
+        \textbf{Name} & \textbf{Quellen} & \makecell{\textbf{Anzahl}\\\textbf{Quellen}} & \textbf{Typ} & \makecell{\textbf{Informations-}\\\textbf{gehalt}} & \makecell{\textbf{Visuelle}\\\textbf{Komplexität}} & \textbf{Skalierbarkeit} & \textbf{Metapher} & \textbf{Gesamtwertung} \\
+        \hline
+        Treemap & \cite{staticSurvey, visualizationEvolution, stableGreedyInsertion, scheibel2020survey, code_charta_github, visSoftQualExpert} & 6 & Treemap & 4 & 5 & 4 & 3 & 4.0 \\ \hline
+        Code City & \cite{staticSurvey, cityVR, codeIsBeautiful, coderadar} & 4 & Code City & 3 & 5 & 3 & 4 & 3.8 \\ \hline
+        Streetmap & \cite{visAnaSoftStructure, code_charta_github} & 2 & Streetmap & 3 & 5 & 3 & 4 & 3.8 \\ \hline
+        Sunburst & \cite{staticSurvey, visualizationEvolution, codeIsBeautiful, visSoftQualExpert} & 4 & Sunburst & 3 & 5 & 4 & 2 & 3.5 \\ \hline
+        Chess City & \cite{EvoSpaces} & 1 & Code City & 3 & 3 & 3 & 5 & 3.5 \\ \hline
+        Minecraft City & \cite{citMetaphorTestMetrics} & 1 & Code City & 5 & 1 & 3 & 5 & 3.5 \\ \hline
+        Circular Treemap & \cite{staticSurvey, visualizationEvolution, codescene_2025} & 3 & Circle & 3 & 5 & 3 & 2 & 3.2 \\ \hline
+        Solar System & \cite{solarSystem} & 1 & Graph & 2 & 5 & 1 & 5 & 3.2 \\ \hline
+        Concentric City & \cite{EvoSpaces} & 1 & Sunburst & 3 & 3 & 3 & 4 & 3.2 \\ \hline
+        Cartography & \cite{softwareCartography} & 1 & Cartography & 1 & 4 & 3 & 5 & 3.2 \\ \hline
+        Bubble treemap & \cite{visualizingProgramQuality} & 1 & Circle & 4 & 4 & 4 & 1 & 3.2 \\ \hline
+        Forest & \cite{softwareForest} & 1 & Cartography & 2 & 4 & 2 & 5 & 3.2 \\ \hline
+        Voronoi & \cite{voronoiTree, staticSurvey, stablePredictableVoronoi, visualizationEvolution} & 4 & Voronoi & 4 & 3 & 4 & 1 & 3.0 \\ \hline
+        Textured Treemap & \cite{visRealism, jarchitect_2024, ndepend} & 3 & Treemap & 5 & 3 & 3 & 1 & 3.0 \\ \hline
+        Stack & \cite{visualizationEvolution, codeIsBeautiful} & 2 & Stack & 2 & 5 & 4 & 1 & 3.0 \\ \hline
+        Island City & \cite{staticSurvey} & 1 & Code City & 4 & 2 & 2 & 4 & 3.0 \\ \hline
+        Hierarchical net & \cite{staticSurvey} & 1 & Circle & 3 & 5 & 3 & 1 & 3.0 \\ \hline
+        Chess Layout & \cite{visbasedlarge} & 1 & Code City & 2 & 3 & 4 & 2 & 2.8 \\ \hline
+        Concentric Layout & \cite{visbasedlarge} & 1 & Sunburst & 2 & 3 & 4 & 1 & 2.5 \\ \hline
+        Metric Stripes & \cite{visSoftwareMetricsBook} & 1 & Metric Stripes & 4 & 4 & 1 & 1 & 2.5 \\ \hline
+        Spherical Graph & \cite{metricsBased3DVisualization} & 1 & Graph & 2 & 4 & 3 & 1 & 2.5 \\ \hline
+        QScored Graph & \cite{QScored} & 1 & Graph & 3 & 4 & 2 & 1 & 2.5 \\ \hline
+        Treemap Enhanced Hierarchical Graph & \cite{exploringRelations} & 1 & Graph & 4 & 2 & 2 & 1 & 2.2 \\ \hline
+        E-Quality & \cite{eQuality} & 1 & Graph & 4 & 1 & 3 & 1 & 2.2 \\ \hline
+        UML & \cite{and_2025} & 1 & UML & 5 & 1 & 1 & 1 & 2.0 \\ \hline
+        Hyperbolic tree & \cite{visualizationEvolution} & 1 & Graph & 1 & 3 & 1 & 1 & 1.5 \\ \hline
+    \end{tabularx}
+    }
+    \caption[Bewertungen der verschiedenen Visualisierungen]{Bewertungen der verschiedenen Visualisierungen sortiert nach Durchschnitt und Anzahl an Quellen}
+    \label{tab:visEval_full}
+\end{table}
 
 Aus der Literaturanalyse ergeben sich folgende Beobachtungen. Die Stadtmetapher wird sehr häufig verwendet. Sie bietet eine starke visuelle Metapher, erleichtert Orientierung und unterstützt ein mentales Modell, da Städte vertraut sind. Auffällig ist weiterhin, dass fast alle Visualisierungen 2.5D-Varianten sind. 3D-Visualisierungen sind selten und schneiden vergleichsweise schlechter ab. Dies dürfte sowohl auf die einfachere Implementierung als auch die bessere Übersichtlichkeit zurückzuführen sein. Zudem bilden nahezu alle Ansätze drei Metriken ab, typischerweise Fläche, Höhe und Farbe. Drei Metriken scheinen einen tragfähigen Kompromiss zwischen Informationsgehalt und Komplexität darzustellen. Mehr Metriken erhöhen die kognitive Last, weniger Metriken nutzen die 3D-Potenziale nicht aus.
 
@@ -429,7 +467,29 @@ Das in Code City verwendete Treemap-Layout weist charakteristische Unterschiede 
 
 Die folgende Tabelle zeigt die gruppierten Ergebnisse.
 
-\input{chapters/hauptteil/literaturBewertungGrouped.tex}
+\begin{table}[htbp]
+    \centering
+    \scriptsize
+    \begin{tabular}{|l|c|c|c|c|c|c|}
+        \hline
+        \textbf{Typ} & \makecell{\textbf{Anzahl}\\\textbf{Quellen}} & \makecell{\textbf{Informations-}\\\textbf{gehalt}} & \makecell{\textbf{Visuelle}\\\textbf{Komplexität}} & \makecell{\textbf{Skalier-}\\\textbf{barkeit}} & \textbf{Metapher} & \makecell{\textbf{Gesamt-}\\\textbf{wertung}} \\
+        \hline
+        Streetmap & 2 & 3.0 & 5.0 & 3.0 & 4.0 & 3.8 \\
+        Treemap & 9 & 4.3 & 4.3 & 3.7 & 2.3 & 3.7 \\
+        Code City & 8 & 3.2 & 3.6 & 3.0 & 4.0 & 3.5 \\
+        Sunburst & 6 & 2.8 & 4.3 & 3.8 & 2.2 & 3.3 \\
+        Circle & 5 & 3.2 & 4.8 & 3.2 & 1.6 & 3.2 \\
+        Cartography & 2 & 1.5 & 4.0 & 2.5 & 5.0 & 3.2 \\
+        Voronoi & 4 & 4.0 & 3.0 & 4.0 & 1.0 & 3.0 \\
+        Stack & 2 & 2.0 & 5.0 & 4.0 & 1.0 & 3.0 \\
+        Metric Stripes & 1 & 4.0 & 4.0 & 1.0 & 1.0 & 2.5 \\
+        Graph & 6 & 2.7 & 3.2 & 2.0 & 1.7 & 2.4 \\
+        UML & 1 & 5.0 & 1.0 & 1.0 & 1.0 & 2.0 \\
+ \hline
+ \end{tabular}
+ \caption[Bewertung der verschiedenen Visualisierungstypen]{Bewertung der verschiedenen Visualisierungstypen sortiert nach Durchschnitt und Anzahl an Quellen}
+ \label{tab:visEval_grouped}
+\end{table}
 
 Streetmap- und Treemap-Layouts schneiden im Durchschnitt am besten ab. Sie sind nicht sehr komplex und besitzen eine starke Metapher. Betrachtet man ausschließlich die Visualisierungen ohne Metapher, erzielen Treemap-Layouts die besten Mittelwerte. 
 
