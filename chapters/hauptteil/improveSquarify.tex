@@ -9,6 +9,7 @@ Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarif
 \section{Kriterien für Treemap Layouts} \label{sec:CodeCityLayouts}
 Um disese fünf Aspekte zu erreichen, definieren wir sechs Kriterien für das 2D layout, die diese Aspekte messbar machen. Diese Kriterien sollen helfen, die Qualität der Visualisierung zu bewerten und zu vergleichen. Die Kriterien sind:
 
+% begründe noch die auswirkung dieser kriterien auf die des problems
 \begin{itemize}
     \item \textbf{Knoten sichtbarkeit:} Es sollte keine Knoten geben, die aufgrund von Abständen oder anderen Gründen nicht sichtbar sind. Dieses Ziel spielt speziell auf das in abschnitt \ref{sec:TreemapProblem} beschriebene Problem ab. \enquote{Missing nodes are not addressed in the existing treemap literature. }\cite[5]{lu2008cascaded} Diesen Wert kann man einfach zählen, indem Alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium betrachten wir von allen Kriterien als das wichtigste, da für unseren Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies ist vorallem dann der Fall, wenn das 2D Layout in 2.5D extrudiert wird. Selbst wenn ein Knoten eine sehr kleine Fläche hat, kann es sein, dass dieser Knoten eine sehr hohe Höhe oder eine schlechte Farbe hat, wodurch es trotzdem wichtig ist, diesen Knoten zu sehen.
     \item \textbf{Flächengröße:} Um die Korrelation mit dem Code zu gewährleisten, sollte die Fläche der Knoten proportional zum Metrikwert sein. Wir berechnen dies einfach indem wir die Fläche des Knotens durch den Metrikwert teilen. Im Optimalfall sollte dieser Wert für alle Knoten gleich sein, um eine perfekte Proportionalität zu gewährleisten. Wir messen also die Abweichung des Wert-Fläche-Verhältnisses vom Mittelwert. Um diese Werte besser einordnen und vergleichen zu können, werden wir den Varianzkoeffizienten verwenden. Dies betrachten wir als das zweitwichtigste Kriterium, da die Fläche der Knoten eine wichtige Visuelleeigenschaft ist, die möglichst genau den Metrikwerten entsprechen sollte. 
@@ -114,6 +115,100 @@ Interessant ist es, wenn man sich die WErte um 1 herum in tabelle \ref{tab:seite
 \end{table}
 
 Anders als erwartet liefert ein Angestrebtes Seitenverhältnis von 1 nicht das beste Ergebnis, sondern ein Wert von 1.05 liefert das beste Ergebnis. Es ist zwar im Median nur um ca. 5\% besser, aber immerhin.  Warum dass der Fall ist, ist schwer nachzuvollziehen, vielleicht kann es in manchen Fällen besser sein leicht schlechtere Seitenverhältnisse of höheren Ebenen zu haben, weil dass dann zu besseren Seitenverhältnissen auf niedrigeren Ebenen führt, aber das ist nur eine Vermutung. Wir werden in dieser Arbeit den Wert von 1.05 als angestrebtes Seitenverhältnis verwenden, da dieser Wert die besten Ergebnisse für unserer Softwaremetrik daten liefert.
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
+Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst. Sie begründen das damit, dass sich dadruch bessere Seitenverhältnisse ergeben.
+Außerdem haben wir in Abschnitt \ref{sec:strukturVonSoftwareprojekten} gezeigt, dass 95\% der Ordner maximal 18 Kindknoten haben. Das sortieren aller Knoten in einem Ordner nach Größe ist also gar nicht mal so Zeitaufwendig, wie man denken könnte, wenn man tausende von knoten hat, weil immer nur ein kleines set von knoten sortiert werden muss. Kleines Beispiel:
+Wenn wir von einem typischen sortier algorithmus mit einer Laufzeit von $\mathcal{O}(n\log n)$ (zB. quicksort), einer anzahl von 4221 Knoten (Durchschnittwert der Anzahl der Knoten siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}) und 18 Knoten pro Ordner. 
+Wenn wir alle Knoten auf einmal sortieren wollen: 
+
+\[
+T_1 = n \cdot \log_2(n) = 4221 \cdot \log_2(4221)
+\]
+
+\[
+\log_2(4221) \approx 12.04
+\]
+
+\[
+T_1 \approx 4221 \cdot 12.04 \approx 50821
+\]
+
+Wenn wir die Knoten in 18er bundleln sortieren wollen: 
+
+\[
+T_2 = m \cdot \left(k \cdot \log_2(k)\right) = 235 \cdot \left(18 \cdot \log_2(18)\right)
+\]
+
+\[
+\log_2(18) \approx 4.17
+\]
+
+\[
+T_2 \approx 235 \cdot (18 \cdot 4.17) = 235 \cdot 75.06 \approx 17639
+\]
+
+D3.js hat das nicht im standard algorithmus implementiert, aber in der dokumentation des Squarify Algorithmus steht explizit: 
+\begin{quote}
+    You probably also want to call root.sort to order the hierarchy before computing the layout. \cite{d3_treemap_code}
+\end{quote}
+Aus diesem Grund testen wir jetzt, ob das sortieren der Knoten nach Größe wirklich die besten auch für unsere Daten liefert und ob sich das auch auf andere Kriterien als das Seitenverhältnis auswirkt. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/averageRatio_over_aimedRelativeMargin.png}
+    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_averageRatio_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
+    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung. Werte näher bei 1 sind besser.}
+    \label{fig:sorting_spaceForLeafNodesRatio_over_aimedRelativeMargin}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/sorting/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
+    \label{fig:sorting_time_over_aimedRelativeMargin}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
 
 
 \section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
@@ -316,75 +411,6 @@ Alles in allem schneiden die beiden Erweiterungen des Squarify Algorithmus deutl
 
 
 
-
-
-
-\section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
-Die Reienfolge in der die knoten in das Layout eingefügt werden, hat einen großen Einfluss auf das Layout. \cite{johnson1991tree} haben in ihrem Paper herausgefunden, dass die ergebnisse am besten sind, wenn die Knoten in der Reihenfolge der Größe eingefügt werden. Also der Größte zuerst. Sie begründen das damit, dass sich dadruch bessere Seitenverhältnisse ergeben.
-Außerdem haben wir in Abschnitt \ref{sec:strukturVonSoftwareprojekten} gezeigt, dass 95\% der Ordner maximal 18 Kindknoten haben. Das sortieren aller Knoten in einem Ordner nach Größe ist also gar nicht mal so Zeitaufwendig, wie man denken könnte, wenn man tausende von knoten hat, weil immer nur ein kleines set von knoten sortiert werden muss. Kleines Beispiel:
-Wenn wir von einem typischen sortier algorithmus mit einer Laufzeit von $\mathcal{O}(n\log n)$ (zB. quicksort), einer anzahl von 4221 Knoten (Durchschnittwert der Anzahl der Knoten siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}) und 18 Knoten pro Ordner. 
-Wenn wir alle Knoten auf einmal sortieren wollen: 
-
-\[
-T_1 = n \cdot \log_2(n) = 4221 \cdot \log_2(4221)
-\]
-
-\[
-\log_2(4221) \approx 12.04
-\]
-
-\[
-T_1 \approx 4221 \cdot 12.04 \approx 50821
-\]
-
-Wenn wir die Knoten in 18er bundleln sortieren wollen: 
-
-\[
-T_2 = m \cdot \left(k \cdot \log_2(k)\right) = 235 \cdot \left(18 \cdot \log_2(18)\right)
-\]
-
-\[
-\log_2(18) \approx 4.17
-\]
-
-\[
-T_2 \approx 235 \cdot (18 \cdot 4.17) = 235 \cdot 75.06 \approx 17639
-\]
-
-D3.js hat das nicht im standard algorithmus implementiert, aber in der dokumentation des Squarify Algorithmus steht explizit: 
-\begin{quote}
-    You probably also want to call root.sort to order the hierarchy before computing the layout. \cite{d3_treemap_code}
-\end{quote}
-Aus diesem Grund testen wir jetzt, ob das sortieren der Knoten nach Größe wirklich die besten auch für unsere Daten liefert und ob sich das auch auf andere Kriterien als das Seitenverhältnis auswirkt. 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
-    \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
-    \label{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
-    \label{fig:sorting_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung. Werte näher bei 1 sind besser.}
-    \label{fig:sorting_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/sorting/timeNeededInMs_over_aimedRelativeMargin.png}
@@ -396,7 +422,7 @@ In den wichtigsten Kriterien, Anzahl der fehlenden Knoten (siehe Abbildung \ref{
 
 
 
-\subsection{Platzierung der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+\section{Platzierung der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
 Der Algorithmus ihrer Arbeit über Cascaded Treemap von Lu und Fogarty \cite{lu2008cascaded}, wird die Platzierung der Knoten im zweiten Layout-Schritt beibehalten. Im Grunde merken Sie sich in welcher Reihe an welcher Position jeder Knoten platziert ist und behalten diese Platzierung bei. D3.js stellt zu ihrem Squarify Algorithmus auch einen Resquarify Algithmus zu verfügung, der im Grunde diesen zweiten Layout-Schritt mit beibehaltung der Platzierung der Knoten durchführt \cite{d3_treemap_code}. D3.js begründet die existens dieser Strategie anders als Lu und Fogarty, nämlich damit, dass ein erneutes berechnen der Layouts mehr Zeit in anspruch nimmt. Dies macht Sinn weil wenn die Platzierung gleich bleibt, muss ich ja nur noch die Breite der Reihen und die Höhe der Knoten anpassen und nicht noch verschiedene Positionierungen testen und vergleichen.
 
 Die Qualität dieser Strategie wird leider nicht separat evaluiert und hinterfragt. Wir stellen die Hypthese auf, dass durch diese Strategie aufgrund der verschiedenen Flächenänderungen schlechtere Seitenverhältnisse entstehen können, da die optimale Reihenfolge der Knoten sich ja durch die Flächenänderung ändern kann. Wir wollen also nachprüfen ob dieser Ansatz wirklich der beste ist, oder ob es nicht vielleicht bessere Strategien für den zweiten Layout-Schritt gibt.
