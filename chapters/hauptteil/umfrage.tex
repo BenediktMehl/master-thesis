@@ -1,28 +1,38 @@
 \chapter{Umfrage} \label{sec:Umfrage}
-In diesem Kapitel geht es um die Umfrage, die mit dem Ziel durchgeführt wurde, die für diese Arbeit implementierten Visualisierungen zu vergleichen, um herauszufinden welche Visualisierung am besten für Anwendung für den zuvor definierten Anwendungsfall geeignet ist (siehe Abschnitt \ref{sec:Problemstellung}). Zunächst werden wir den Aufbau der Umfrage beschreiben und begründen. Anschließend werden die Ergebnisse der Umfrage präsentiert und diskutiert.
-
+Dieses Kapitel beschreibt die Umfrage, die mit dem Ziel durchgeführt wurde, die für diese Arbeit implementierten Visualisierungen zu vergleichen und zu bestimmen, welche Visualisierung sich für den zuvor definierten Anwendungsfall am besten eignet (siehe Abschnitt \ref{sec:Problemstellung}). Zunächst wird der Aufbau der Umfrage beschrieben und begründet (Abschnitt \ref{sec:AblaufUmfrage}). Anschließend werden die Ergebnisse der Umfrage präsentiert und diskutiert (Abschnitt \ref{sec:ErgebnisseUmfrage}).
 
 \section{Ablauf der Umfrage} \label{sec:AblaufUmfrage}
-Das Ziel der Umfrage ist es, herauszufinden, wie gut die verschiedenen Visualisierungen geeignet sind die Nachvollziehbarkeit von Expertenanalysen von Softwarequalität zu unterstützen. Die komplette Umfrage ist im Anhang REFERENZ HIER. Die Umfrage wurde mit dem Online-Tool \textit{SurveyMars}~\cite{surveymars_2023} erstellt, durchgeführt und analysiert. 
+Das Ziel der Umfrage besteht darin, zu ermitteln, wie gut die verschiedenen Visualisierungen geeignet sind, die Nachvollziehbarkeit von Expertenanalysen zur Softwarequalität zu unterstützen. Die vollständige Umfrage ist im Anhang dokumentiert (siehe Anhang REFERENZ HIER). Die Umfrage wurde mit dem Online-Tool \textit{SurveyMars}~\cite{surveymars_2023} erstellt und durchgeführt. Die Umfrage ist in vier Abschnitte unterteilt:
+\begin{enumerate}
+    \item Einleitung und Vorwissen (Abschnitt \ref{sec:EinleitungUmfrage})
+    \item Vergleich anhand von Szenarien (Abschnitt \ref{sec:VergleichSzenarien})
+    \item Direkte Bewertung der Visualisierungen (Abschnitt \ref{sec:DirekteBewertung})
+    \item Offene Fragen (Abschnitt \ref{sec:OffeneFragen})
+\end{enumerate}
 
-\subsection*{1. Einleitung} \label{sec:EinleitungUmfrage}
-Die Umfrage beginnt mit einer kurzen Einleitung und Aufklärung über das Ziel und den Rahmen der Umfrage. Danach wird gefragt, ob 1. die Person mit Softwareentwicklung vertraut ist und 2. ob die Person mit Software-Visualisierungen vertraut ist. Diese Fragen dienen zum einen dazu Erklärungen auf das Vorwissen der Person anzupassen und zum anderen um die Ergebnisse später besser interpretieren zu können. 
-
-Danach folgt (je nach Vorwissen) eine kurze Erklärung zu Software, Softwarequalität und Software-Visualisierungen. Software-Visualisierung wird beispielhaft an einer 2.5D-Vornoi Visualisierung erklärt.
-
+\subsection*{Einleitung} \label{sec:EinleitungUmfrage}
+Die Umfrage beginnt mit einer kurzen Einleitung und einer Aufklärung über Zielsetzung, Rahmen und Datenschutz. Anschließend wird erhoben, ob die befragte Person mit Softwareentwicklung vertraut ist und ob sie mit Software-Visualisierungen vertraut ist. Diese Fragen dienen zum einen dazu, Erklärungen an das Vorwissen der Befragten anzupassen, und zum anderen dazu, die Ergebnisse später besser interpretieren zu können.
+Darauf folgt, abhängig vom angegebenen Vorwissen, eine kurze Einführung in die Themen Software, Softwarequalität und Software-Visualisierungen. Software-Visualisierungen  werden exemplarisch anhand einer 2.5D-Voronoi-Visualisierung erläutert, um den Befragten ein Grundverständnis für die Interpretation von Software-Visualisierungen zu vermitteln. 
 
 \subsection*{2. Vergleich anhand von Szenarien} \label{sec:VergleichSzenarien}
-Die Umfrage orientiert sich sehr stark an sogenannten Software-Audits oder -Health-Checks in der Praxis, wie sie Beispielsweise von der \textit{MaibornWolff GmbH} durchgeführt werden. Ziel dieser Software-Analysen ist es, die Qualität einer Software zu beurteilen, Schwachstellen zu identifizieren und Empfehlungen zur Verbesserung der Software (-qualität) zu geben. In diesem Kontext werden Visualisierungen verwendet, um die Ergebnisse der Analyse zu kommonizieren und Nachvollziehbar zu machen. Da diese Analysen in der Praxis durchgeführt werden und vertrauliche Daten beinhalten, kann hier kein Beispiel gezeigt werden und die für die Umfrage verwendete Codebasis ist auch nicht aus einem echten Audit. 
-Als Code Basis für die Visualisierungen wird das Open-Source Projekt \textit{CodeCharta}~\cite{code_charta_github} verwendet, da es eine mittlere Größe hat (ca. 1200 Dateien).  Alle Szenarien bauen auf der selben Codebasis auf. Nur für zwei Szenarien, bei denen es speziell um eine schlechte Struktur geht, wurde die Struktur der Codebasis verändert, um besser zum Szenario zu passen. Die Szenarien und Visualisierungen sind an realen Audit-Entdeckungen angelehnt. 
-Die Befragten werden also eine Analyse pro Szenario in Form von Text bekommen. Dazu erhlten sie sechs verschiedene Visualisierungen der selben Codebasis mit gleichen Metriken. Fünf Visualisierungen sind die in dieser Arbeit implementierten Visualisierungen und eine Visualisierung ist eine dieser Visualisierungen, nur dass die dargestellten Werte oder Strukturen nicht mehr zur Analyse passen. Diese falsche Visualisierung soll dazu dienen, zu überprüfen, ob die Befragten die Visualisierungen auch wirklich mit der Analyse abgleichen und nicht einfach nur eine Präferenz angeben. Für jede der sechs Visualisierungen wird dann gefragt, wie gut die Visualisierung die Analyse nachvollziehbar macht. Die Reihenfolge der Visualisierungen ist randomisiert, um Reihenfolgeeffekte zu vermeiden.
-Bei der nachvollziebarkeit geht es sowohl um die Nachvollziehbarkeit der Struktur als auch um die Nachvollziehbarkeit der Metriken. Beides muss übersichtlich und verständlich dargestellt werden. von den sieben Verschiedenen Szenarien zielen 3 auf Struktur, 3 auf Metriken und 1 auf beides ab. erkläre noch mehr was genau der unterschied ist 
-1-3: Hotspots finden, sehen ob problem verteilt, vereinzelt oder gebündelt, verschiedene metiken verbinden.
-4-6: Strukturprobleme finden, z.B. breite Struktur, unübersichtliche Struktur, tiefe Struktur
-7: Beides, also z.B. Duplikationen erkennen daran, dass sowohl struktur als auch metriken gleich sind.
-Dabei sind die Szenarien so gewählt, dass sie immer anspruchsvoller werden. Also Szenario 1 ist relativ offensichlich zu erkennen, während Szenario 3 etwas anspruchsvoller ist. Selbes gilt für Szenario 4 bis 6. Szenario 7 ist dann nochmal etwas anspruchsvoller, da hier sowohl Struktur als auch Metriken eine Rolle spielen.
-Die Szenarien orientieren sich an einem realen, internen Software-Audit. Um die Länge der Umfrage im Rahmen zu halten, wird dem Befragten pro Szenario nur 3 zufällige Visualisierungen gezeigt, also bekommt jeder Befrage insgesamt 21 Visualisierungen der insgesamt 42 Visualisierungen zu sehen.
+Die Umfrage orientiert sich eng an in der Praxis durchgeführten Software-Audits und Health-Checks, wie sie beispielsweise von der \textit{MaibornWolff GmbH} oder anderen Softwareentwicklern durchgeführt werden. Ziel solcher Analysen ist es, die Qualität einer Software zu bewerten, Schwachstellen zu identifizieren und darauf aufbauend Empfehlungen zur Verbesserung der Softwarequalität zu formulieren. Visualisierungen dienen in diesem Kontext dazu, Analyseergebnisse nachvollziehbar zu kommunizieren und valide zu begründen. Da entsprechende Praxisanalysen vertrauliche Daten enthalten, kann an dieser Stelle kein reales Beispiel gezeigt werden. Die für die Umfrage verwendete Codebasis stammt daher nicht aus einem tatsächlichen Audit, die erstellten Visualisierungen orientieren sich jedoch eng an realen Darstellungen.
+Als Codebasis für die Visualisierungen wird das Open-Source-Projekt \textit{CodeCharta} verwendet, da es mit circa 1200 Dateien eine mittlere Größe aufweist~\cite{code_charta_github}.
 
-Im folgenden Beispiel wird das Szenario 3 gezeigt, bei dem es darum geht, komplexe und große Dateien zu finden. Die Visualisierung ist eine Treemap, die Metriken sind Anzahl der Codezeilen (Fläche), Komplexität (Höhe) und Testabdeckung (Farbe). In dem bild (siehe Abbildung \ref{fig:beispielSzenario3}) ist der Ordner "Packaging" (blau markiert) zu erkennen, in dem es zwei/drei Dateien gibt, die eine große Fläche haben, hoch sind und rot sind. Der Betrachter kann erkennen, dass diese Kombination an schlechten Werten nur in diesem Ordner vorkommt und dieser Ordner somit ein Hotspot ist, der genauer untersucht werden sollte. Zu erkennen ist gleichzeitig, dass zum Beispiel andere Dateien, die groß und hoch sind, nicht rot sind.
+Den Befragten werden sieben Softwareanalysen in Textform präsentiert, die jeweils ein spezifisches Szenario adressieren. In der ersten Analyse geht es beispielsweise um den Fall, dass ein einzelner Entwickler einen großen Teil des Codes geschrieben hat. Zu jedem Szenario werden sechs Visualisierungen erstellt. Fünf davon sind die in dieser Arbeit implementierten Visualisierungen, die dieselbe Codebasis und dieselben Metriken darstellen. Die sechste Visualisierung stammt ebenfalls aus diesem Set, basiert jedoch auf einer anderen Codebasis oder abweichenden Metriken, sodass diese nicht zur jeweiligen Analyse passt. Diese absichtlich nicht passende Visualisierung dient als Plausibilitätskontrolle, um zu prüfen, ob die Befragten die Visualisierungen tatsächlich mit der Analyse abgleichen und nicht lediglich eine visuelle Präferenz angeben.
+
+Für jede der sechs Visualisierungen wird erhoben, inwieweit sie die Analyse nachvollziehbar macht. Zur Begrenzung der Umfragedauer werden pro Szenario drei der sechs Visualisierungen randomisiert angezeigt, sodass jede befragte Person insgesamt 21 der insgesamt 42 Visualisierungen sieht.
+
+Die Analyse beziehen sich sowohl auf die Struktur als auch auf die Qualitätsmetriken einer Software. Aus diesem Grund soll sichergestellt werden, dass beide Aspekte von den Betrachtenden in der Visualisierung erkannt und nachvollzogen werden können. Von den sieben Szenarien zielen daher drei primär auf Metriken, drei auf die Struktur und eines auf die Kombination beider Aspekte ab:
+
+\begin{itemize}
+    \item \textbf{Szenarien 1 bis 3} fokussieren sich auf Metriken. Hier geht es um das Auffinden von Hotspots, um die Frage, ob Probleme verteilt, vereinzelt oder gebündelt auftreten, sowie um das Verknüpfen unterschiedlicher Metriken.
+    \item \textbf{Szenarien 4 bis 6} adressieren Strukturprobleme. Beispiele sind breite Strukturen, unübersichtliche Strukturen oder sehr tiefe Strukturen.
+    \item \textbf{Szenario 7} kombiniert beide Aspekte der Softwareanalyse. Beispielhaft verwendet wird die Erkennung von Duplikationen, die sich dadurch auszeichnen, dass sowohl Struktur als auch Metriken der Software übereinstimmen.
+\end{itemize}
+
+Die Szenarien sind aufsteigend in der Schwierigkeit gestaltet. Szenario 1 ist vergleichsweise offensichtlich, während Szenario 3 anspruchsvoller ist. Entsprechendes gilt für die Szenarien 4 bis 6. Szenario 7 stellt eine weitere Steigerung dar, da hier die gleichzeitige Berücksichtigung von Struktur und mehreren Metriken erforderlich ist.
+
+Im Folgenden wird Szenario 3 exemplarisch dargestellt. In diesem Szenario soll ein Software-Hotspot mit komplexen, große und ungetesteten Dateien identifiziert werden. Im Beispielbild ist der Ordner „Packaging“ blau markiert. Es finden sich darin zwei bis drei Dateien, die eine große Fläche aufweisen, hoch sind und rot eingefärbt sind (siehe Abbildung \ref{fig:beispielSzenario3}). Dem Betrachtenden soll deutlich werden, dass die Kombination ungünstiger Werte ausschließlich in diesem Ordner auftritt. Der Ordner stellt somit einen Hotspot dar, der genauer untersucht werden sollte. Gleichzeitig ist zum Beispiel erkennbar, dass andere Dateien, die ebenfalls groß und hoch sind, nicht rot sind, also eine bessere Testabdeckung aufweisen.
 
 \subsection*{Beispiel Szenario: Kombinieren von drei Metriken} \label{sec:BeispielSzenario}
 \begin{quote}
@@ -40,7 +50,7 @@ Ordner sind grau, Dateien sind farbig- von rot zu gelb zu grün
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{images/umfrage/treemap/dreierKombi.png}
-    \caption[Beispiel Visualisierung für das Szenario "Kombinieren von drei Metriken"]{Beispiel Visualisierung für das Szenario "Kombinieren von drei Metriken" (Treemap).}
+    \caption[Beispiel Visualisierung der Umfrage]{Beispiel Visualisierung für das Szenario \textit{Kombinieren von drei Metriken} (Treemap).}
     \label{fig:beispielSzenario3}
 \end{figure}
 
@@ -49,29 +59,25 @@ Ordner sind grau, Dateien sind farbig- von rot zu gelb zu grün
 \end{quote}
 
 \subsection*{3. Direkte Bewertung der Visualisierungen} \label{sec:DirekteBewertung}
-In diesem Abschnitt der Umfrage werden die Bewertungen wie wir sie in Abschnitt \ref{sec:LiteraturRecherche} gemacht haben von den Befragten auch gemacht, um zu vergleichen, ob auch andere Personen (speziell die Personen, die erfahrung mit softwareentwicklung und -visualisierung haben) die Visualisierungen ähnlich bewerten. 
+In diesem Teil der Umfrage führen die Befragten jene Bewertungen durch, die in Abschnitt \ref{sec:LiteraturRecherche} vorgenommen wurden, um zu prüfen, ob andere Personen mit Erfahrung in Software-Visualisierungen zu ähnlichen Einschätzungen gelangen (siehe Abschnitt \ref{sec:LiteraturRecherche}). Aus diesem Grund werden ausschließlich Personen berücksichtigt, die zu Beginn angegeben haben, bereits Erfahrung mit Software-Visualisierungen zu besitzen.
 
-Für jede der fünf Visualisierungen werden wir die Befragten bitten, genau wie in der Literaturrecherche eine Bewertung von 1 bis 5 für jedes Kriterium abzugeben. Dafür wird kurz jedes Kriterium erklärt und dann die Bewertung für jede Visualisierung abgefragt. Die Reihenfolge der Visualisierungen ist wieder randomisiert, um Reihenfolgeeffekte zu vermeiden.
+Für jede der fünf Visualisierungen werden die Befragten, analog zur Literaturrecherche, gebeten, für jedes Kriterium eine Bewertung auf einer Skala von 1 bis 5 abzugeben. Dazu wird jedes Kriterium kurz erläutert und anschließend die Bewertung pro Visualisierung erhoben.
 
 \subsection*{4. Offene Fragen} \label{sec:OffeneFragen}
-Am Ende der Umfrage werden noch drei offenene Fragen gestellt:
+Am Ende der Umfrage folgen drei offene Fragen, um zusätzliches Feedback zu den Visualisierungen und zur Umfrage zu erhalten:
 
 \begin{enumerate}
-    \item \textbf{Persönliches Fazit zu Software-Visualisierungen:} Findest Du nach Deiner Erfahrung mit den verschiedenen Visualisierungen Software-Visualisierungen generell sinnvoll und nützlich? Warum / warum nicht?
+    \item \textbf{Persönliches Fazit zu Software-Visualisierungen:} Findest Du nach Deiner Erfahrung mit den verschiedenen Visualisierungen Software-Visualisierungen generell sinnvoll und nützlich? Warum/warum nicht?
     \item \textbf{Konkrete Anmerkungen zu einzelnen Visualisierungen:} Hast Du konkrete Anmerkungen zu einzelnen Visualisierungen? Gab es etwas, das Dir besonders gut oder besonders schlecht gefallen hat?
-    \item \textbf{Kritik, Anmerkungen zu Dingen die nicht abgefragt wurden:} Hast Du Kritik oder Anmerkungen zu Dingen, die in der Umfrage nicht abgefragt wurden?
+    \item \textbf{Kritik, Anmerkungen zu Dingen, die nicht abgefragt wurden:} Hast Du Kritik oder Anmerkungen zu Dingen, die in der Umfrage nicht abgefragt wurden?
 \end{enumerate}
 
 
 \section{Ergebnisse der Umfrage} \label{sec:ErgebnisseUmfrage}
-In diesem Abschnitt stellen wir die Ergebnisse der Umfrage vor und diskutieren diese. 
-Insgesamt haben x Personen an der Umfrage teilgenommen. Davon haben y Personen bereits Erfahrung mit Softwareentwicklung. Und von diesen y Personen haben z Personen bereits Erfahrung mit Software-Visualisierungen, entweder als Nutzer oder als Entwickler. Wir bezeichnen diese z Personen im Folgenden als \textbf{Visualierungsexperten}.  
-
+In diesem Abschnitt werden die Ergebnisse der Umfrage vorgestellt und diskutiert. Insgesamt nahmen 20 Personen teil. Davon verfügten 14 Personen bereits über Erfahrung mit Softwareentwicklung (7 Informatikstudierende, 6 Softwareentwickler, 1 Auftraggeber/Manager o.Ä.). Von diesen 14 Personen mit Erfahrung in der Softwareentwicklung hatten 8 Personen bereits Erfahrung mit Software-Visualisierungen, davon 4 als Nutzende und 4 als Entwickelnde solcher Visualisierungen. Diese Gruppe von 8 Personen wird im Folgenden als \textbf{Visualisierungsexperten} bezeichnet.
 
 \subsection{Bewertung anhand von Szenarien} \label{sec:BewertungSzenarienErgebnisse}
-Im Schnitt wurde jede Visualisierung in jedem Szenario von 9 Personen bewertet. Dabei die visualisierung mit den wenigsten Bewertungen 4 und die mit den Meisten 15 mal bewertet. Die Ergebnisse der Umfrage sind in Abbildung \ref{fig:typSzenarioHeatmap} dargestellt, müssen aber mit Vorsicht interpretiert werden, da die Stichprobengröße pro Visualisierung und Szenario relativ klein ist.
-
-Wir schauen uns zunächst an, ob die nicht passenden Visualisierungen auch wirklich schlechter bewertet wurden als die passenden Visualisierungen, um zu überprüfen, ob die Befragten die Visualisierungen auch wirklich mit der Analyse abgleichen und nicht einfach nur eine Präferenz angeben. 
+Im Mittel wurde jede Visualisierung in jedem Szenario von 10 Personen bewertet. Die Spannweite reichte von 5 bis 16 Bewertungen pro Visualisierung und Szenario. Die Ergebnisse sollten jedoch mit Vorsicht interpretiert werden, da die Stichprobengröße pro Visualisierung und Szenario relativ klein ist.
 
 \begin{table}
     \hspace*{-1.0cm}
@@ -88,41 +94,40 @@ Wir schauen uns zunächst an, ob die nicht passenden Visualisierungen auch wirkl
             7 & Code City & 3.8 & 1.5 & 3.3 & 1.4 & 0.5 \\ \hline
             \multicolumn{2}{|c|}{Durchschnitt} & 3.9 & 1.2 & 2.7 & 1.5 & 1.2 \\ \hline
     \end{tabular}
-    \caption[Unterschied in der Bewertung von passenden und nicht passenden Visualisierungen]{Unterschied in der Bewertung von passenden und nicht passenden Visualisierungen pro Szenario. Ø = Durchschnitt, $\sigma$ = Standardabweichung.}
+    \caption[Passend vs. nicht passend]{Unterschied in der Bewertung von passenden und nicht passenden Visualisierungen pro Szenario. Ø = Durchschnitt, $\sigma$ = Standardabweichung.}
     \label{tab:passendNichtPassend}
 \end{table}
 
-In Tabelle \ref{tab:passendNichtPassend} ist zu sehen, dass die nicht passenden Visualisierungen im Schnitt x Punkte schlechter bewertet wurden als die passenden Visualisierungen. Dies zeigt, dass die Befragten die Visualisierungen tatsächlich mit der Analyse abgeglichen haben und nicht einfach nur eine Präferenz angegeben haben.
-Dadurch, dass die Standardabweichung bei beiden Gruppen jedoch genauso hoch oder höher ist, als der durchschnittliche Unterschied in den Bewertungen, schließen wir, dass die Unterscheidung zwischen passenden und nicht passenden Visualisierungen für viele Befragte nicht so einfach war bzw. dass dies eventuell von manchen Befragten gar nicht bewusst wahrgenommen wurde. Auffallend gut sind die Unterschiede für Treemap im Szenario 1 und 6 so wie Circular Treemap und Treemap in Szenario 3 und 4. Das lässt darauf schließen, dass bei Treemap und Circular Treemap besonders gut erkennbar ist, wenn sie nicht zur Analyse passen.
+Zunächst wird überprüft, ob die als nicht passend identifizierten Visualisierungen tatsächlich schlechter bewertet wurden als die als passend eingestuften. Tabelle \ref{tab:passendNichtPassend} zeigt, dass die nicht passenden Visualisierungen im Mittel um 1,2 Punkte schlechter bewertet wurden als die passenden Visualisierungen. Dies spricht dafür, dass die Befragten die Visualisierungen tatsächlich mit der Analyse abgeglichen haben und nicht lediglich eine visuelle Präferenz ausdrückten. Da die Standardabweichung in beiden Gruppen jedoch ähnlich hoch oder höher ist als der durchschnittliche Unterschied, liegt nahe, dass die Unterscheidung zwischen passenden und nicht passenden Visualisierungen vielen Befragten schwerfiel oder teilweise gar nicht wahrgenommen wurde. In verschiedenen Szenarien und bei verschiedenen Visualiserungen wurden die nicht passenden Visualisierungen unterschiedlich stark erkannt.
+Auffallend groß ist der Erkennungswert bei Treemaps in den Szenarien 1 und 6. Positive Differenzen zeigen sich zudem bei der Circular Treemap im Szenario 3 sowie bei Treemap im Szenario 4. Dies legt nahe, dass bei Treemap und Circular Treemap besonders gut erkennbar ist, wenn die Analyse fehlerhaft ist.
 
 \begin{figure}
     \centering
     \includegraphics[width=1.0\textwidth]{images/umfrage/typSzenarioHeatmap.png}
-    \caption[Bewertung der Visualisierungen pro Szenario]{Durchschnittliche Bewertung der passenden Visualisierungen pro Szenario.}
+    \caption[Bewertungen pro Szenario]{Durchschnittliche Bewertung der passenden Visualisierungen pro Szenario.}
     \label{fig:typSzenarioHeatmap}
 \end{figure}
 
-In Abbildung \ref{fig:typSzenarioHeatmap} sind mehrere Dinge zu erkennen. Erstens ist zu erkennen, dass wie zu erwarten, die Bewertungen der Visualisierungen in den einfacheren Szenarien 1 und 4 im Schnitt besser ausfallen als in den anspruchsvolleren Szenarien 3, 6 und 7.
+In Abbildung \ref{fig:typSzenarioHeatmap} sind die durchschnittlichen Bewertung der passenden Visualisierungen pro Szenario dargestellt. Es lassen sich mehrere Punkte aus der Grafik ablesen. Erstens fallen die Bewertungen in den vergleichsweise einfachen Szenarien 1 und 4 erwartungsgemäß besser aus als in den anspruchsvolleren Szenarien 3, 6 und 7. Außerdem wird sichtbar, wie die verschiedenen Visualisierungen in den einzelnen Szenarien abschneiden. Treemap und Circular Treemap erreichen im Mittel die besten Werte, mit nahezu einem Punkt Vorsprung gegenüber der schwächsten Visualisierung Streetmap. 
 
-Außerdem ist zu sehen, wie die verschiedenen Visualisierungen in den verschiedenen Szenarien bewertet wurden. Dabei ist zu erkennen, dass die Treemap und die Circular Treemap im Schnitt am besten bewertet wurden. Mit fast einem Punkt mehr als die am schlechtesten abschneidende Visualisierung: Streetmap. Die durchschnittliche Bewertung über alle passenden Visualisierungen und Szenarien liegt bei 3,5 Punkten. 
-Bei der Treemap fällt auf, dass sie in allen Szenarien genauso oder sogar deutlich besser abschneidet als der Schnitt. Die einzige ausnahme ist Szenario 7, wo die Treemap deutlich schlechter abschneidet als zum Beispiel Code City. Der Grund dafür könnte sein, dass der Treemap Algorithmus nicht stabil ist. Der Code City Algorithmus rendert aufgrund des bottom-up Ansatzes die gleiche Struktur immer gleich, auch wenn diese an verschiedenen Ordner liegt. Beim Treemap Algorithmus ist das jedoch nicht der Fall. Gleiche Strukturen können unterschiedlich gelayoutet werden, da der Elternknoten eventuell andere Größer und oder anderes Seitenverhältnis hat. 
-Wir werden nicht weiter auf einzelne Visualisierungen in einzelnen Szenarien eingehen, da die Stichprobengröße pro Visualisierung und Szenario zu klein ist, um hier valide Aussagen treffen zu können. Allerdings wollen wir uns zuseltzt noch anschauen, welche Visualisierung in für welches Ziel am besten geeignet ist. Zur erinnerung Szenario 1 bis 3 zielen auf die Erkennung ovn Metriken ab, Szenario 4 bis 6 zielen auf die Erkennung von Strukturproblemen ab und Szenario 7 zielt auf beides ab.
+Die durchschnittliche Bewertung über alle passenden Visualisierungen und Szenarien beträgt 3,5 Punkte. Auffällig ist, dass die Treemap in allen Szenarien gleichauf oder deutlich über dem Durchschnitt von 3,5 liegt. Eine Ausnahme bildet Szenario 7, in dem die Treemap deutlich schlechter abschneidet als beispielsweise Code City. Ein möglicher Grund ist die fehlende Stabilität des Treemap-Algorithmus. Der Code-City-Algorithmus rendert aufgrund seines Bottom-up-Ansatzes gleiche Strukturen immer gleich, auch wenn diese in verschiedenen Ordnern liegen. Beim Treemap-Algorithmus ist dies nicht gewährleistet. Gleiche Strukturen können unterschiedlich gelayoutet werden, da der Elternknoten möglicherweise eine andere Größe und/oder ein anderes Seitenverhältnis aufweist.
+
+Abschließend wird betrachtet, welche Visualisierung für welches Ziel am besten geeignet ist. Zur Erinnerung: Szenario 1 bis 3 zielen auf die Erkennung von Metriken ab, Szenario 4 bis 6 auf die Erkennung von Strukturproblemen, und Szenario 7 kombiniert beide Ziele.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/umfrage/typGruppeHeatmap.png}
-    \caption[Bewertung der Visualisierungen pro Zielgruppe]{Durchschnittliche Bewertung der Visualisierungen pro Zielgruppe. Metriken = Szenario 1 bis 3, Struktur = Szenario 4 bis 6, Beides = Szenario 7.}
+    \caption[Bewertung nach Zielgruppe]{Durchschnittliche Bewertung der Visualisierungen pro Zielgruppe. Metriken = Szenario 1 bis 3, Struktur = Szenario 4 bis 6, Beides = Szenario 7.}
     \label{fig:typGruppeHeatmap}
 \end{figure}
 
-In Abbildung \ref{fig:typGruppeHeatmap} ist zu erkennen, dass die Treemap am besten für die Erkennung von Metriken geeignet ist. circluar treemap und code city sind auch vergleichsweise gut für Metriken geeignet. Für die Erkennung von Strukturproblemen ist die Treemap schlechter geeignet, hier schneidet die Circular Treemap am besten ab, gefolgt von Treemap und code city.  
+Abbildung \ref{fig:typGruppeHeatmap} zeigt, dass Treemaps am besten für die Erkennung von Metriken geeignet sind. Circular Treemap und Code City schneiden hierfür ebenfalls vergleichsweise gut ab. Für die Erkennung von Strukturproblemen erzielt die Circular Treemap die besten Ergebnisse, gefolgt von Treemap und Code City.
 
-
-\subsection{Direkte Bewertung der Visualiserungen} \label{sec:DirekteBewertungErgebnisse}
-In diesem Abschnitt stellen wir die Ergebnisse der direkten Bewertung der Visualisierungen vor. Die direkte Bewertung wurde nur von den Visualisierungsexperten durchgeführt. Hier wollen wir überprüfen, ob die Bewertungen, die wir in der Literaturrecherche gemacht haben, auch von anderen Personen (speziell den Visualisierungsexperten) so gesehen werden. Es wurden x Personen befragt. Die Standardabweichung der Bewertungen der Experten liegt im Schnitt bei einem Punkt. Bei einer Skala von 1 bis 5 und einer Stichproblemgröße von x bedeutet das für uns, dass wir die Ergebnisse der Experten eher als Tendenz interpretieren sollten, als dass wir einzelne Bewertungen überbewerten sollten. 
+\subsection{Direkte Bewertung der Visualisierungen} \label{sec:DirekteBewertungErgebnisse}
+In diesem Abschnitt werden die Ergebnisse der direkten Bewertung der Visualisierungen dargestellt. Diese direkte Bewertung wurde ausschließlich von den Visualisierungsexperten durchgeführt. Ziel ist es zu prüfen, ob die Bewertungen aus der Literaturrecherche auch von anderen erfahrenen Personen geteilt werden. Es wurden 8 Personen befragt. Die Standardabweichung der Expertenbewertungen liegt im Mittel bei einem Punkt. Bei einer Skala von 1 bis 5 und einer Stichprobengröße von 8 sind die Ergebnisse daher eher als Tendenz zu interpretieren.
 
 \begin{table}[htbp]
-    \hspace*{-1.7cm}
+    \hspace*{-1.5cm}
     \scriptsize
     \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
         \hline
@@ -134,29 +139,26 @@ In diesem Abschnitt stellen wir die Ergebnisse der direkten Bewertung der Visual
         Circular Treemap & 2.7 & 3 & -0.3 & 3.3 & 5 & -1.7 & 2.8 & 3 & -0.2 & 2.8 & 2 & 0.8 & 2.9 & 3.2 & -0.3 \\ \hline
         Streetmap & 2.2 & 3 & -0.8 & 2.3 & 5 & -2.7 & 2.7 & 3 & -0.3 & 3.2 & 4 & -0.8 & 2.6 & 3.8 & -1.2 \\ \hline
     \end{tabular}
-    \caption[Bewertungen der Visualisierungsexperten] {Bewertungen der Visualisierungsexperten im Vergleich zu den Bewertungen aus der Literaturrecherche. U = Bewertung aus der Umfrage, L = Bewertung aus der Literaturrecherche, U-L = Differenz.}
+    \caption[Bewertungen der Visualisierungsexperten]{Bewertungen der Visualisierungsexperten im Vergleich zu den Bewertungen aus der Literaturrecherche. U = Bewertung aus der Umfrage, L = Bewertung aus der Literaturrecherche, U-L = Differenz.}
     \label{tab:dirQuestion} 
 \end{table}
 
+Insgesamt bewerten die Experten etwas strenger als in der Literaturrecherche dieser Arbeit. Im Mittel vergeben sie 0,52 Punkte weniger. Auffällig ist das Kriterium der visuellen Komplexität, das von den Experten deutlich schlechter eingeschätzt wird als in der Literaturrecherche. Eine mögliche Erklärung ist, dass in der Literaturrecherche auch Visualisierungen betrachtet wurden, die wesentlich komplexer waren als die hier verwendeten, wodurch die Bewertungskala leicht nach oben verschoben wurde. Besonders deutlich ist die Abweichung bei der Streetmap Visualisierung, die in der Literaturrecherche mit 5 Punkten bewertet wurde, von den Experten jedoch nur 2,3 Punkte erhält. Anscheinend sind Streetmap Visualiserungen schwerer zu erfassen als in der Literaturrecherche angenommen. 
 
-Alles in allem bewerten die Experten etwas strenger. Sie geben im schnitt 0,52 Punkte weniger als in der Literaturrecherche dieser ARbeit vergeben wurde. Auffällig ist das Kriterium Visuelle Komplexität, welches von den Experten deutlich schlechter bewertet wird als in der Literaturrecherche. Dies könnte daran liegen, dass in der Literaturrecherche auch Visualisierungen bewertet wurden, die noch deutlich komplexer waren als die hier verwendeten Visualisierungen und die Experten eher die gut bewerteten Visualisierungen aus der Literaturrecherche im Kopf hatten. Besonders aufällig ist dabei die Abweichung bei der Streetmap, die in der Literaturrecherche noch mit 5 Punkten bewertet wurde, von den Experten aber nur noch mit 2,3 Punkten. Anscheinend ist die Streetmap komplexer zu verstehen, als in der Literaturrecherche angenommen. 
-Eine weitere Auffälligkeit ist, bei der Skalierbarkeit der Sunburst, die in der Literaturrecherche mit 4 Punkten bewertet wurde, von den Experten aber nur noch mit 2,2 Punkten. In der Praxis scheint bei großen Codebasen die Lesbarkeit der Sunburst stark abzunehmen, was in der Literaturrecherche nicht so stark aufgefallen ist.
-Generell liegen die Gesamtwertungen der Experten bei allen Visualisierungen ähnlich der Literaturrecherche. Auffällig ist nur die Streetmap, die in der Literaturrecherche noch mit 3,8 Punkten bewertet wurde, von den Experten aber nur noch mit 2,6 Punkten deutlich schlechter.
+Eine weitere Auffälligkeit zeigt sich bei der Skalierbarkeit von Sunburst, die in der Literaturrecherche mit 4 Punkten bewertet wurde, von den Experten jedoch nur 2,2 Punkte erhält. In der Praxis scheint bei großen Codebasen die Interpretierbarkeit von Sunburst Visualiserungen schlecht zu sein, als in der Literaturrecherche angenommen.
 
-Alles in allem scheinen die Bewertungen der Literaturrecherche also ganz gut mit den Bewertungen der Experten übereinzustimmen, was die Validität der Bewertungen aus der Literaturrecherche stärkt. Ausnahme dabei ist die Streetmap, die von den Experten deutlich schlechter bewertet wurde als in der Literaturrecherche angenommen wurde.
 
+Trotzdem kommen die Ergebnisse der Literaturrecherche in weiten Teilen den Einschätzungen der Experten sehr nahe, was die Validität der Literaturbewertungen stützt. Eine Ausnahme bildet Streetmap, die von den Experten deutlich schlechter bewertet wurde als in der Literaturrecherche angenommen.
 
 \subsection{Zusätzliche Anmerkungen der Befragten} \label{sec:ZusätzlicheAnmerkungen}
-Auf die erste Frage, ob Software-Visualisierungen generell sinnvoll seien und warum, antworteten mehrere Teilnehmende, dass sie Software-Visualisierungen insgesamt als sehr sinnvoll und nützlich eingeschätzen würden. Software-Visualisierungen könnten dabei unterstützen, komplexe Inhalte verständlicher zu machen und einen schnellen Überblick zu ermöglichen. Allerdings sollten Metriken mit Bedacht und klarem Ziel gewählt werden. Besonders in größeren Projekten würden Visualisierungen dazu beitragen, Probleme sichtbar zu machen und die Kommunikation innerhalb des von Entwickler-Teams zu erleichtern, auch für Personen ohne Programmiererfahrung. Zudem wurde berichtet, dass sich dadurch Teambesprechungen effizienter gestalten ließen und visuelle Komplexität reduziert werde.
+Zur ersten Frage, ob Software-Visualisierungen generell sinnvoll seien und warum, gaben mehrere Teilnehmende an, Software-Visualisierungen insgesamt als sehr sinnvoll und nützlich einzuschätzen. Sie könnten helfen, komplexe Inhalte verständlicher darzustellen und einen schnellen Überblick zu ermöglichen. Metriken sollten allerdings mit Bedacht und klarer Zielsetzung gewählt werden. Besonders in größeren Projekten tragen Visualisierungen dazu bei, Probleme sichtbar zu machen und die Kommunikation innerhalb der Entwicklerteams zu erleichtern, auch für Personen ohne Programmiererfahrung. Zudem wurde berichtet, dass sich Teambesprechungen effizienter gestalten ließen und die visuelle Komplexität reduziert werde.
 
-Bei der zweiten Frage, ob es konkrete Anmerkungen zu einzelnen Visualisierungen gäbe, wurde allgemein kritisiert, dass die Beschriftungen oftmals zu klein, schwer lesbar und schwer zuzuordnen seien, was die Navigation erschwere und die schnelle Erfassung der Inhalte verhindere. Zudem seien Details im Hintergrund schwer erkennbar. Besonders positiv hervorgehoben wurde das Circle Packing, da hier die Unterschiede zwischen Ordnern und Dateien klar erkennbar würden. Negativ bewertet wurde hingegen die Streetmap, die als unübersichtlich und unleserlich beschrieben wurde. Zudem wurde darauf hingewiesen, dass die Treemap in einer 2D-Darstellung deutlich besser funktionieren würde als in 3D. Es wurde zudem betont, dass je nach Fragestellung unterschiedliche Visualisierungen besser geeignet seinen.
+Zur zweiten Frage, ob es konkrete Anmerkungen zu einzelnen Visualisierungen gebe, wurde allgemein kritisiert, dass Beschriftungen häufig zu klein, schwer lesbar und schwer zuzuordnen seien, was die Navigation erschwere und die schnelle Erfassung der Inhalte behindere. Zudem seien Details im Hintergrund schwer erkennbar. Besonders positiv hervorgehoben wurde das Circle Packing, da hier Unterschiede zwischen Ordnern und Dateien klar erkennbar würden. Negativ bewertet wurde hingegen die Streetmap, die als unübersichtlich und unleserlich beschrieben wurde. Darüber hinaus wurde darauf hingewiesen, dass die Treemap in einer 2D-Darstellung deutlich besser funktionieren würde als in 3D. Es wurde zudem betont, dass je nach Fragestellung unterschiedliche Visualisierungen besser geeignet seien.
 
-Ob die Befragten generell Kritik zu Dingen hätten, die in der Umfrage nicht abgefragt wurde, äußerten die Teilnehmenden Anmerkungen, die in der Umfrage nicht direkt abgefragt wurden. Es wurde angemerkt, dass manche Visualisierungen nicht zu den jeweiligen Szenarien passen würden, was den Befragten ja bewusst verschwiegen wurde. Auch wenn diese Visualisierungen dann schlecht bewertet wurden, sei dass ja positiv, da dadurch ja in der praxis falsche Expertenanalysen identifiziert werden könnten.
-Zudem wurde der Wunsch nach zusätzlichen Beziehungsmetriken geäußert, da beispielsweise nicht erkannt worden sei, dass stets dieselbe Codebasis verwendet wurde. Generell wurde ein Interesse an weiterführenden und tiefergehenden Metriken formuliert, um die Aussagekraft der Visualisierungen zu erhöhen.
+Auf die dritte Frage, ob es generelle Kritik zu Aspekten gebe, die nicht abgefragt wurden, äußerten die Teilnehmenden Anmerkungen, die in der Umfrage nicht explizit adressiert waren. So wurde angemerkt, dass manche Visualisierungen nicht zu den jeweiligen Szenarien passten, was den Befragten bewusst verschwiegen wurde. Auch wenn diese Visualisierungen daraufhin schlecht bewertet wurden, sei dies positiv, da in der Praxis dadurch fehlerhafte Expertenanalysen identifiziert werden könnten. Zudem wurde der Wunsch nach zusätzlichen Beziehungsmetriken geäußert, da beispielsweise nicht erkannt worden sei, dass stets dieselbe Codebasis verwendet wurde. Generell bestand Interesse an weiterführenden und tiefergehenden Metriken, um die Aussagekraft der Visualisierungen zu erhöhen.
 
 \section{Fazit} \label{sec:FazitUmfrage}
-
-Wann man die drei verschiedenen Ansätze der Bewertung der Visualisierungen (Literaturrecherche, Szenarien und direkte Bewertung) miteinander vergleicht und Platziert erhält man folgendes Ergebnis:
+Werden die drei Ansätze zur Bewertung der Visualisierungen miteinander verglichen und in eine Rangfolge gebracht, ergibt sich das in Tabelle \ref{tab:platzierungVergleich} dargestellte Bild.
 
 \begin{table}
     \hspace*{-0.9cm}
@@ -170,11 +172,10 @@ Wann man die drei verschiedenen Ansätze der Bewertung der Visualisierungen (Lit
         4 & Sunburst (3.5) & Sunburst (3.1) & Circular Treemap (2.9) \\ \hline
         5 & Circular Treemap (3.2) & Streetmap (3.0) & Streetmap (2.6) \\ \hline
     \end{tabular}
-    \caption[Platzierung der Visualisierungen in den drei Bewertungsansätzen]{Platzierung der Visualisierungen in den drei Bewertungsansätzen. In Klammern die jeweilige Durchschnittsbewertung.}
+    \caption[Platzierung im Vergleich]{Platzierung der Visualisierungen in den drei Bewertungsansätzen. In Klammern die jeweilige Durchschnittsbewertung.}
     \label{tab:platzierungVergleich}
 \end{table}
 
-Auffällig ist, dass die circlar Treemap sowohl von den Experten als auch in der Literaturrecherche schlecht abschneiden, aber in den Szenarien mit am besten abschneiden. An dieser Stelle scheint es also eine Diskrepanz zwischen den Bewertungskriterien und der wahrgenommenen Nützlichkeit in den Szenarien zu geben. Möglicherweise sind die Bewertungskriterien nicht optimal gewählt, um die Nützlichkeit der Visualisierungen in den Szenarien zu bewerten, aber das ist nur eine Vermutung.
-Die Streetmap ist von den Befragten in den Szenarien und in der direkten Bewertung am ubeliebtesten. In der Literaturrecherche schneidet sie noch etwas besser ab, anscheinend wurde heir vorallen die visuelle Komplexität unterschätzt.
-Das Sunburst Visualisierung schneidet in allen drei Bewertungsansätzen mittelmäßig ab und die code City Visualisierung durchweg etwas besser als Sunburst.
-Die Treemap schneidet in allen drei Bewertungsansätzen am besten ab. Sie scheint also die beste Visualisierung für den Anwendungsfall zu sein, den wir in dieser Arbeit definiert haben. 
+Auffällig ist, dass die Circular Treemap sowohl in der Literaturrecherche als auch bei den Experten schwach abschneidet, in den Szenarien jedoch zu den besten gehört. Zudem wurde die nicht passende Visualisierung der Circular Treemap vergleichsweise gut erkannt. An dieser Stelle deutet sich eine Diskrepanz zwischen den Bewertungskriterien und der wahrgenommenen Nützlichkeit in den Szenarien an. Möglicherweise können die vier Kriterien, um die Nachvollziehbarkeit von Visualiserungen direkt zu bewerten noch angepasst und verbesser werden, um die wahrgenommene Nützlichkeit der Visualisierungen zur Nachvollziehbarkeit von Expertenanalysen besser abzubilden.
+
+Die Streetmap Visualisierung ist in den Szenarien und in der direkten Bewertung der Visualisierungsexperten am unbeliebtesten. In der Literaturrecherche schneidet sie besser ab. eventuell wurde dort die visuelle Komplexität unterschätzt. Die Sunburst-Visualisierung erreicht in allen drei Ansätzen mittlere Werte. Code City erreicht auch mittlere Werte, schneidet aber durchweg etwas besser ab als Sunburst. Treemap Visualisierungen erzielen in allen drei Ansätzen die besten Ergebnisse und werden zusätzlich gut als nicht passend erkannt. Treemap Visualisierungen scheinen somit die beste Visualisierung für den in dieser Arbeit definierten Anwendungsfall zu sein.
