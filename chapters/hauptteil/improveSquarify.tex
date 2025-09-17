@@ -562,39 +562,36 @@ Die Laufzeit steigt mit der Anzahl der Layoutschritte nahezu proportional an und
 
 
 
-
 \subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
-Wir haben soeben gesehen, dass die mehrfache Berechnung des Layouts nicht sinnvoll ist, so wie sie implementiert ist. Wir vermuten, dass das an den implementierungs details liegt und nicht an der Idee des mehrfachen Layoutings an sich, weshalb wir hier noch eine weitere Variante des mehrfachen Layoutings vorstellen werden.
+Zuvor wurde gezeigt, dass die mehrfache Berechnung des Layouts in der vorliegenden Implementierung nicht sinnvoll ist. Naheliegend ist die Vermutung, dass dies auf Implementierungsdetails zurückzuführen ist und nicht die Grundidee des mehrfachen Layouts in Frage stellt. Aus diesem Grund wird im Folgenden eine weitere Variante des mehrfachen Layouts vorgestellt.
 
-Die Grundlegende Idee dieser Erweiterung ist es, das wenn das Layout mehrfach berechnet wird, es besser ist, den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, anstatt ihn von Anfang an auf den finalen Wert fest zu setzen. 
-Warum gehen wir von dieser Annahme aus? 
-Wenn man im ersten Schritt den Abstand auf den finalen Wert setzt, dann werden die Vorhersagen für die neue Fläche der Knoten im zweiten Schritt nicht exakt sein, das ist ja klar. Umso kleiner die Abstände sind, umso kleiner sind auch die Abweichungen dieser Vorhersagen. Dadurch sollten die Wer-Fläche-Relationen im zweiten Schritt besser sein. 
-Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert vergrößert, dann sind in jedem Schritt die Vorhersagen für die Fläche der Knoten genauer, wodurch die Wert-Fläche-Relationen besser werden. Als Gegenargument könnte man bringen, dass dadurch, dass jedes mal die Abstände größer werden auch jedes mal das Optimale Layout auch in jedem layout schritt anders sein wird. Dadurch wird erst im letzen Layoutschritt das "wahre" optimale Layout angestrebt, wodurch die vorherigen schritte unnötig waren.
+Die grundlegende Idee dieser Erweiterung besteht darin, bei mehrfacher Berechnung des Layouts den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, statt ihn bereits zu Beginn auf den Zielwert festzusetzen. Setzt man den Abstand im ersten Schritt direkt auf den finalen Wert, sind die Vorhersagen der neuen Flächen der Knoten im zweiten Schritt erwartungsgemäß nicht exakt. Je kleiner die Abstände gewählt werden, desto geringer fallen die Abweichungen dieser Vorhersagen aus. Daraus folgt die Erwartung, dass die Wert-Fläche-Relationen im zweiten Schritt günstiger sind. Die Annahme lautet daher, dass bei schrittweiser, kleiner Erhöhung des Abstands in jedem Schritt genauere Flächenschätzungen entstehen, was die Wert-Fläche-Relationen verbessern sollte. Als Gegenargument ist anzuführen, dass sich mit jedem größer werdenden Abstand auch das jeweils optimale Layout verändern kann. Das tatsächlich optimale Layout wird dann erst im letzten Schritt angestrebt, wodurch die vorangehenden Schritte wenig beitragen könnten.
 
-Wir überprufen das jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
+Diese Annahmen werden im Folgenden überprüft, um festzustellen, welcher Effekt überwiegt.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/incrementMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2 Layoutschritte mit direkter Abstandsvergrößerung und 2 Layoutschritte mit iterativer Abstandsvergrößerung.}
+    \caption[Fehlende Knoten vs. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung.}
     \label{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/incrementMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für 2 Layoutschritte mit direkter Abstandsvergrößerung und 2 Layoutschritte mit iterativer Abstandsvergrößerung.}
+    \caption[Flächenverhältnis vs. Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung.}
     \label{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
-Exemplarisch stellen wir in Abbildungen \ref{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} die Ergebnisse für die Anzahl der fehlenden Knoten und den Varianzkoeffizienten des Flächenverhältnisses für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung dar. Ähnliche Ergebnisse zeigen sich aber auch für andere Wahlen der Anzahl der Layoutschritte. Es ist klar erkennbar dass die iterativen Abstandsvergrößerung die anzahl der fehlenden Knoten über alle Abstände hinweg erhöht. Der Varianzkoeffizient des Wert-Flächen-Verhältnisses ist bei der iterativen Abstandsvergrößerung ähnlich oder leicht schlechter als bei der direkten Abstandsvergrößerung. Auch die anderen Kennzahlen zeigen entweder ähnliche oder schlechtere Werte für die iterative Abstandsvergrößerung. 
-Insgesamt ist also die Annahme, dass die iterativen Abstandsvergrößerung bessere Ergebnisse liefert, nicht korrekt. Beide Varianten der mehrfachen Berechnung des Layouts liefern durchweg schlechtere Ergebnisse als die einfache doppelte Berechnung des Layouts, weshalb wir in dieser Arbeit auf die einfache doppelte Berechnung des Layouts zurückgreifen werden.
+Exemplarisch werden in Abbildungen \ref{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} die Ergebnisse für die Anzahl der fehlenden Knoten sowie den Varianzkoeffizienten des Flächenverhältnisses für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung dargestellt. Ähnliche Ergebnisse zeigen sich auch für andere Anzahlen von Layoutschritten. Es ist klar erkennbar, dass die iterative Abstandsvergrößerung die Anzahl der fehlenden Knoten über alle Abstände hinweg erhöht. Der Varianzkoeffizient des Wert-Fläche-Verhältnisses fällt bei der iterativen Abstandsvergrößerung ähnlich oder leicht schlechter aus als bei der direkten Abstandsvergrößerung. Auch die übrigen Kennzahlen zeigen entweder vergleichbare oder schlechtere Werte für die iterative Abstandsvergrößerung.
+
+Insgesamt erweist sich die Annahme, dass die iterative Abstandsvergrößerung bessere Ergebnisse liefert, als nicht zutreffend. Beide Varianten der mehrfachen Berechnung des Layouts schneiden durchweg schlechter ab als die einfache doppelte Berechnung des Layouts. Daher wird in dieser Arbeit auf die einfache doppelte Berechnung des Layouts zurückgegriffen.
 
 
 
 
 \section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
-Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben bzw. dass es \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
+Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben und dass es sogar ganze \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
 obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
 Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
 
