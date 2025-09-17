@@ -591,24 +591,21 @@ Insgesamt erweist sich die Annahme, dass die iterative Abstandsvergrößerung be
 
 
 \section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
-Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben und dass es sogar ganze \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch es gibt auch einige ketten die 4 ordner tief sind, was dann schon wieder (mehr) als viel mal so viel platz für abstände auf braucht durch die Verschachtelung.
-obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (in dem fall \textit{main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface}) angezeigt wird.
+Bei der Datenanalyse ist aufgefallen, dass es oft vorkommt, dass Ordner nur ein Kind haben und dass es sogar ganze \textit{Ketten} von Ordnern gibt, die nur ein Ordner als Kind haben. Häufig sind diese Ketten auch nicht nur einen Ordner tief, was gar nicht so viel Abstand bzw platz verbrauchen würde, doch die meisten Ketten sind bis zu 12 ordner tief sind (siehe Abschnitt \ref{sec:OrdnerKetten}), was dann schon wieder (mehr) als 12 mal so viel platz für abstände auf braucht durch die Verschachtelung.
+obwohl im Grunde diese Schachtelung keine wirklichen Strukturinformationen enthält. Viele IDEs wie zum Beispiel auch IntelliJ IDEA oder VSCode verbergen diese Ordnerstruktur zum beispiel auch automatisch, in dem solche ordner ketten nur als ein Ordner mit entsprechendem zusammen gefügten namen (zum Beispiel \textit{main/kotlin/de/maibornwolff/codecharta/analysers}) angezeigt wird. In der Praxis sind solche Ordnerketten nicht unüblich und meistens sogar best Practice, um Namenspaces von Paketen widerzuspiegeln.
 Diese Optimierung kann auch für unsere Visualisierung übernommen werden, indem solche Ordnerketten zu einem Ordner zusammengefasst werden. 
-
-Da dies nicht nur eine Algorithmische Änderung ist, sondern auch einen direkten Einfluss auf die Visualisierung hat, werden wir nicht nur die Auswirkungen auf die messbaren Kriterien untersuchen, sondern auch kurz diskutieren, welche Auswirkungen dies auf die generellen Kriterien von Visualiserungen hat, wie wir sie in Abschnitt \ref{sec:MethodikAuswertung} definiert haben.
+Da dies nicht nur eine Algorithmische Änderung ist, sondern auch einen direkten Einfluss auf die Visualisierung hat, werden wir nicht nur die Auswirkungen auf die messbaren Kennzahlen untersuchen, sondern auch kurz diskutieren, welche Auswirkungen dies auf die generellen Kriterien von Visualiserungen hat, wie wir sie in Abschnitt \ref{sec:MethodikAuswertung} definiert haben.
 Es ergeben sich folgende Auswirkungen auf die Ziele der Visualisierung:
 \begin{itemize}
     \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verbessert, da weniger Platz für Abstände zwischen den Ordnern benötigt wird und weniger Knoten im Layout sind. 
-    \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Wird verbessert, da Codebasen mit tiefen Ordnerstrukturen einfacher dargestellt werden können.  
+    \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Codebasen mit tiefen Ordnerstrukturen sind einfacher und übersichtlicher. Allerdings wird die Identifikation dieser tiefen Ordnerketten wird dadurch eventuell erschwert, da diese Ordnerketten nicht mehr in der Struktur Visualisiert werden, sondern nur noch als Text und somit eventuell nicht direkt ins Auge fallen, wie ohne die Faltung. In der Praxis ist dies jedoch kein großes Problem, da solche Ordnerketten sowieso meistens kein Problem darstellen und deshalb auch nicht zwingend ins auge fallen müssen.
     \item \textbf{Skalierbarkeit:}  Wird verbessert, da weniger Knoten im Layout sind und große Codebasen mit tiefen Ordnerstrukturen einfacher dargestellt werden können.
     \item \textbf{Visuelle Metaphern:} Dies hat keine Auswirkungen auf die visuelle Metapher der Stadt.
 \end{itemize}
 
-Wir würden sagen, dass die Vorteile dieser Änderung die Nachteile stark überwiegen.
+Bisher überwiegen also die positiven Auswirkungen auf die Ziele der Visualisierung. Jetzt schauen wir uns mal die DAtenlage und die Kennzahlen an, um zu sehen, ob die Faltung von Ordnerketten auch aus dieser Sicht sinnvoll ist.
 
-Im Schnitt werden ca. 175 Ordner pro Codebasis gefaltet (12 Median). bei ca. 958 Knoten (Median 242) sind das ca. 18\% (bzw. 5\% Median) der Knoten die durch die Faltung verschwinden. Also schon einige. 
-
-Folgend kommen die DAten:
+Im Schnitt werden ca. 175 Ordner pro Codebasis gefaltet (12 Median). bei ca. 958 Knoten (Median 242) sind das ca. 18\% (bzw. 5\% Median) der Knoten die durch die Faltung verschwinden. Also schon einige. Dies ist logischerweise unabhängig von dem Abstand.
 
 \begin{figure}
     \centering
@@ -624,12 +621,16 @@ Folgend kommen die DAten:
     \label{fig:foldingChains_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
+In den Kennzahlen (siehe Abbildungen \ref{fig:foldingChains_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:foldingChains_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) zeigt sich, dass das Falten von Ordnerketten in der Anzahl an fehlenden Knoten und im Varianzkoeffizienten des Flächenverhältnisses zu einer verbeserung bei allen Abstandswerten führt.
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/folding/averageRatio_over_aimedRelativeMargin.png}
     \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten.}
     \label{fig:foldingChains_averageRatio_over_aimedRelativeMargin}
 \end{figure}
+
+Das Seitenverhältnis (siehe Abbildung \ref{fig:foldingChains_averageRatio_over_aimedRelativeMargin}) ist mit gefalteten Ordnerketten anders als Erwartet leicht schlechter, aber im Grunde vernachlässigbar der Unterschied.
 
 \begin{figure}
     \centering
@@ -638,6 +639,8 @@ Folgend kommen die DAten:
     \label{fig:foldingChains_spaceForLeafNodesRatio_over_aimedRelativeMargin}
 \end{figure}
 
+Der verfügbare Platz für Blattknoten (siehe Abbildung \ref{fig:foldingChains_spaceForLeafNodesRatio_over_aimedRelativeMargin}) ist mit gefalteten Ordnerketten ebenfalls klar besser, was ja auch zu erwarten war, da weniger Elternknoten im Layout sind.
+
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/folding/timeNeededInMs_over_aimedRelativeMargin.png}
@@ -645,10 +648,11 @@ Folgend kommen die DAten:
     \label{fig:foldingChains_timeNeededInMs_over_aimedRelativeMargin}
 \end{figure}
 
+Der Zeitaufwand (siehe Abbildung \ref{fig:foldingChains_timeNeededInMs_over_aimedRelativeMargin}) ist bei beiden Varianten nahezu identisch. Vom Rechenaufwand her macht es also anscheinend keine wirklichen Unterschied, wenn vor der Berechung des Layouts die Ordnerketten zusammen gefasst werden, wobei die gesamte Baumstruktur natürlich erstmal durchlaufen werden muss, um die Ketten zu finden und zusammen zu fassen mit einer laufzeit von O(N) (N = Anzahl der Knoten). Dies scheint sich aber nicht wirklich auszuwirken, da erstens der Ausschlaggebende Faktor die Layout Berechnung ist und zweitens durch die Faltung ja auch wieder Knoten wegfallen, was den Aufwand der Layout Berechnung wieder verringert.
 
+\smallskip
 
-
-die Daten Zeigen in allen Aspekten eine Verbesserung durch das Falten von Ordnerketten. Wir sprechen uns also dafür aus, dass Ordnerketten immer gefaltet werden sollten, von den messbaren Kriterien her sehen wir keine Gründe, warum das nicht gemacht werden sollte. das einzige Ziel was dagegen spricht ist die Korrelation mit dem Code, die dadurch verschlechtert wird. Alles in allem sprechen wir uns also dafür aus und werden dies fix für unseren Algorithmus implementieren.
+die Daten Zeigen in allen Aspekten eine Verbesserung oder zumindest keine verschlechterung durch das Falten von Ordnerketten. Weil auch die Kriterien für gute Visualisierungen durch das Falten von Ordnerketten verbessert oder zumindest nicht verschlechtert werden, sprechen wir uns also dafür aus, dass Ordnerketten immer gefaltet werden sollten, von den messbaren Kriterien her sehen wir keine Gründe, warum das nicht gemacht werden sollte. Der einzige aspekt, der in der Praxis aber nicht so stark wiegt ist, dass einem solche Ordnerketten nicht direkt auffallen als betrachtender. Alles in allem sprechen wir uns also dafür aus und werden dies für unseren Algorithmus im folgenden anwenden.
 
 
 
