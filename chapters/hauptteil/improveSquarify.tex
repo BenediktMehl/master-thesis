@@ -460,7 +460,7 @@ Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutl
 
 
 
-\section{Zweiter Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+\section{Zweiter Layoutschritt} \label{sec:ReihenfolgeKnotenZweitesLayout}
 Zuvor wurde erläutert, wie die Knotengrößen am besten angepasst werden können, um den gewünschten Abstand bei möglichst guten Kennzahlen zu ermöglichen. Im Anschluss stellt sich die Frage, wie der zweite Layoutschritt durchzuführen ist. Einen Ansatz stellen Lu und Fogarty in ihrer Arbeit zu Cascaded vor~\cite{lu2008cascaded}.  Sie verändern im zweiten Layoutschritt die Platzierung der Knoten nicht, sondern nur die Größen der Knoten.
 
 Die Qualität dieser Strategie wird in der Originalarbeit von Lu und Fogarty nicht separat evaluiert oder mit alternativen Strategien verglichen. Daher soll überprüft werden, ob dieser Ansatz der beste für unsere Anwendung ist oder ob andere Strategien für den zweiten Layoutschritt überlegen sind.
@@ -537,36 +537,41 @@ Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lu und Fogarty, die Knotenp
 
 
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
-Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter an die optimale Fläche anzupassen. 
-Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layoutschritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. Wir vermuten, dass das das Layout schritt für schritt immer etwas besser macht. Wir führen dafür einen neuen Größenanpassungsschritt ein. Dieser Schritt ist ähnlich zu dem relativen Größenanpassungsschritt (siehe Listing \ref{alg:RelativeGrößenanpassung}).
+Die grundlegende Idee dieser Erweiterung besteht darin, das Layout mehrfach zu berechnen und dabei die Flächen der Knoten schrittweise an die jeweils optimale Fläche anzupassen. Nach dem ersten Layoutschritt ist die Vorhersage der neuen Flächen häufig noch ungenau. Zudem können sich sowohl die Reihenfolge der Knoten als auch deren Form verändern. Durch den zweiten Layoutschritt kann sich wie zuvor erläutert (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout}) eine veränderte Platzierung ergeben, wodurch die zuvor prognostizierten Flächen nicht exakt passen. Daher liegt es nahe, die Flächen nochmals zu berechnen und einen weiteren Layoutschritt durchzuführen, um das Ergebnis iterativ zu verbessern.
 
-
-Wir stellen also die Hypthese auf, dass durch mehrfaches berechnen des layouts und das aktualisieren der flächen, alle unsere Kriterien, bis auf die laufzeit, besser werden. 
+Es wird die Hypothese aufgestellt, dass durch mehrfache Berechnung des Layouts und das fortlaufende Aktualisieren der Flächen alle betrachteten Kriterien, mit Ausnahme der Laufzeit, verbessert werden.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
+    \caption[Fehlende Knoten vs. rel. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
     \label{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-Es ist ganz klar in Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} zu erkennen, zwei Layoutschritte dauerhaft bessere Ergebnisse erzielen als mehrere Layoutschritte. Auch alle anderen Kriterien sind entweder gleich oder schlechter. Die Laufzeit ist je nach Anzahl der Layoutschritte um entsprechenden Faktor höher. Es gibt also keinen Grund, warum die mehrfache Berechnung des Layouts sinnvoll sein sollte. Wir vermuten dass das daran liegt, dass Knoten, die besonders viel Abstand hinzubekommen
+Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} zeigt deutlich, dass zwei Layoutschritte dauerhaft bessere Ergebnisse liefern als mehrere Layoutschritte. Auch alle anderen Kriterien fallen bei mehreren Durchläufen entweder gleich oder schlechter aus.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/timeNeededInMs_over_aimedRelativeMargin.png}
+    \caption[Zeitaufwand vs. rel. Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
+    \label{fig:multipleRuns_timeNeededInMs_over_aimedRelativeMargin}
+\end{figure}
+
+Die Laufzeit steigt mit der Anzahl der Layoutschritte nahezu proportional an und erhöht sich um ungefähr 0{,}65 ms pro zusätzlichem Layoutschritt. Es ergibt sich somit kein überzeugender Grund, das Layout in dieser Form mehrfach zu berechnen. Eine plausible Erklärung ist ein aufschaukelnder Effekt: Knoten, die aufgrund des Abstands besonders viel Rand erhalten und dadurch stark verschmälert werden, bekommen im nächsten Layoutschritt tendenziell mehr Fläche. Dies kann wiederum zu sehr schlanken, großflächigen Rechtecken führen und den Effekt weiter verstärken. Genau dieses Verhalten soll durch die im nächsten Abschnitt beschriebene Anpassung verhindert werden.
 
 
 
 
 
 \subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
-Wir haben soeben gesehen, dass die mehrfache Berechnung des Layouts nicht sinnvoll ist, so wie sie implementiert ist. Wir vermuten, dass das daran liegt, 
+Wir haben soeben gesehen, dass die mehrfache Berechnung des Layouts nicht sinnvoll ist, so wie sie implementiert ist. Wir vermuten, dass das an den implementierungs details liegt und nicht an der Idee des mehrfachen Layoutings an sich, weshalb wir hier noch eine weitere Variante des mehrfachen Layoutings vorstellen werden.
 
 Die Grundlegende Idee dieser Erweiterung ist es, das wenn das Layout mehrfach berechnet wird, es besser ist, den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, anstatt ihn von Anfang an auf den finalen Wert fest zu setzen. 
 Warum gehen wir von dieser Annahme aus? 
 Wenn man im ersten Schritt den Abstand auf den finalen Wert setzt, dann werden die Vorhersagen für die neue Fläche der Knoten im zweiten Schritt nicht exakt sein, das ist ja klar. Umso kleiner die Abstände sind, umso kleiner sind auch die Abweichungen dieser Vorhersagen. Dadurch sollten die Wer-Fläche-Relationen im zweiten Schritt besser sein. 
-%zeige das anhand von daten
-Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert vergrößert, dann sind in jedem Schritt die Vorhersagen für die Fläche der Knoten genauer, wodurch die Wert-Fläche-Relationen besser werden. Als Gegenargument könnte man bringen, dass dadurch, dass jedes mal die Abstände größer werden auch jedes mal das Optimale Layout (man kann das optimale layout nicht berechnen, aber wir gehen mal von einem theoreitschen optimalen Layout aus) auch in jedem layout schritt anders sein wird. Dadurch wird erst im letzen Layoutschritt das "wahre" optimale Layout angestrebt, wodurch die vorherigen schritte unnötig waren.
+Die Annahme ist jetzt, dass wenn man jedes mal den Abstand um einen kleinen Wert vergrößert, dann sind in jedem Schritt die Vorhersagen für die Fläche der Knoten genauer, wodurch die Wert-Fläche-Relationen besser werden. Als Gegenargument könnte man bringen, dass dadurch, dass jedes mal die Abstände größer werden auch jedes mal das Optimale Layout auch in jedem layout schritt anders sein wird. Dadurch wird erst im letzen Layoutschritt das "wahre" optimale Layout angestrebt, wodurch die vorherigen schritte unnötig waren.
 
-Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
+Wir überprufen das jetzt die annahme und schauen, welche begründung richtiger ist/welcher effekt mehr gewicht hat. 
 
 \begin{figure}
     \centering
@@ -582,6 +587,8 @@ Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/
     \label{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
+Exemplarisch stellen wir in Abbildungen \ref{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} die Ergebnisse für die Anzahl der fehlenden Knoten und den Varianzkoeffizienten des Flächenverhältnisses für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung dar. Ähnliche Ergebnisse zeigen sich aber auch für andere Wahlen der Anzahl der Layoutschritte. Es ist klar erkennbar dass die iterativen Abstandsvergrößerung die anzahl der fehlenden Knoten über alle Abstände hinweg erhöht. Der Varianzkoeffizient des Wert-Flächen-Verhältnisses ist bei der iterativen Abstandsvergrößerung ähnlich oder leicht schlechter als bei der direkten Abstandsvergrößerung. Auch die anderen Kennzahlen zeigen entweder ähnliche oder schlechtere Werte für die iterative Abstandsvergrößerung. 
+Insgesamt ist also die Annahme, dass die iterativen Abstandsvergrößerung bessere Ergebnisse liefert, nicht korrekt. Beide Varianten der mehrfachen Berechnung des Layouts liefern durchweg schlechtere Ergebnisse als die einfache doppelte Berechnung des Layouts, weshalb wir in dieser Arbeit auf die einfache doppelte Berechnung des Layouts zurückgreifen werden.
 
 
 
