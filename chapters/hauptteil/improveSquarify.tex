@@ -460,83 +460,74 @@ Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutl
 
 
 
-
 \section{Zweiter Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
-Zuvor wurde erläutert wie am besten die Größen der Knoten angepasst werden können, um den Abstand zu berücksichtigen. Nun stellt sich die Frage, wie der zweite Layoutschritt durchgeführt werden soll. 
-Der Algorithmus ihrer Arbeit über Cascaded Treemap von Lu und Fogarty \cite{lu2008cascaded}, wird die Platzierung der Knoten im zweiten Layoutschritt nicht verändert. Im Grunde merken Sie sich in welcher Reihe an welcher Position jeder Knoten platziert ist und behalten diese Platzierung bei. 
+Zuvor wurde erläutert, wie die Knotengrößen am besten angepasst werden können, um den gewünschten Abstand bei möglichst guten Kennzahlen zu ermöglichen. Im Anschluss stellt sich die Frage, wie der zweite Layoutschritt durchzuführen ist. Einen Ansatz stellen Lu und Fogarty in ihrer Arbeit zu Cascaded vor~\cite{lu2008cascaded}.  Sie verändern im zweiten Layoutschritt die Platzierung der Knoten nicht, sondern nur die Größen der Knoten.
 
-Die Qualität dieser Strategie wird leider nicht separat evaluiert oder mit anderen Strategien verglichen.  Deshalb Wir wollen also nachprüfen ob dieser Ansatz wirklich der beste ist, oder ob es nicht vielleicht bessere Strategien für den zweiten Layoutschritt gibt.
+Die Qualität dieser Strategie wird in der Originalarbeit von Lu und Fogarty nicht separat evaluiert oder mit alternativen Strategien verglichen. Daher soll überprüft werden, ob dieser Ansatz der beste für unsere Anwendung ist oder ob andere Strategien für den zweiten Layoutschritt überlegen sind.
 
-Deswegen implementieren wir 3 verschiedene Ansätze:
-\begin{itemize}
-    \item \textbf{Reihenfolge der Knoten nach Größe:} Die Knoten werden in der Reihenfolge ihrer neu berechneten Größe platziert. Wir vermuten, dass dadurch die besten Seitenverhältnisse entstehen, aber die schlechtesten Wert-Fläche-Relationen, weil sich die Seitenverhältnisse im vergleich zum ersten Layoutschritt stark ändern können und dadruch die vorausberechnete Fläche der Knoten nicht mehr passt. Allerdings dürfte hier die Laufzeit am schlechtesten sein, weil die Knoten immer neu sortiert werden müssen.
-    \item \textbf{Reihenfolge der Knoten beibehalten:} Die Knoten werden in der Reihenfolge platziert, in der sie im ersten Layoutschritt platziert wurden (absteigend sortiert). Wir vermuten, dass dadurch im Großen und Ganzen die plazierung der Knoten gleich bleibt, außer es gibt wirklich große Flächen updates, dann kann es passieren, dass die Knoten in andern Reihen platziert werden. Wir vermuten, dass dadurch ein guter mitelweg zwischen dem ersten und dem jetzt folgenden ansatz ist. Die Laufzeit hier sollte mittel gut sein, da die Knoten zwar nicht neu sortiert werden müssen, aber trotzdem der squarify algorithmus komplett laufen muss.
-    \item \textbf{Platzierung der Knoten beibehalten:} Nach dem ersten Layoutschritt wird sich genau die Aufteilung der Knoten in Reihen und die Platzierung der Knoten in den Reihen gemerkt. Wir vermuten, dass dadurch die Form der Knoten im großen und ganzen ähnlich zum ersten Schritt bleibt, wodurch die Wert-Fläche-Relationen besser bleibt, aber die Seitenverhältnisse schlechter werden könnten, die die optimale Reihenfolge der Knoten (aufgrund der neuen werte) nicht mehr berücksichtigt wird. Außerdem sollte die laufzeit am besten sien.
-    \item 
-\end{itemize} 
-Wir stellen auch die hypothese auf, dass das Blat-Flächen verhältnis bei allen drei Strategien ähnlich ausfällt, da im Grunde der selbe abstand realisiert wird, nur auf unterschiedliche arten. Wir testen im folgenden die drei Strategien auf unsere hypothesen anhand der Kennzahlen.
-
+Im Folgenden werden deshalb zwei komplett neue Strategien definiert. Die drei resultierenden Strategien werden dann untereinander verglichen.
+\begin{enumerate}
+    \item \textbf{Reihenfolge der Knoten nach Größe:} Die Knoten werden in der Reihenfolge ihrer neu berechneten Größe platziert. Zu erwarten sind günstige Seitenverhältnisse, jedoch tendenziell schlechtere Wert-Fläche-Relationen, da sich die Seitenverhältnisse im Vergleich zum ersten Layoutschritt deutlich ändern können und damit die zuvor berechneten Flächenzuweisungen nicht mehr ideal passen. Die Laufzeit dürfte hier am höchsten ausfallen, da die Knoten vor dem zweiten Layoutschritt neu sortiert werden müssen.
+    \item \textbf{Reihenfolge der Knoten beibehalten:} Die Knoten werden in derjenigen Reihenfolge platziert, in der sie im ersten Layoutschritt angeordnet wurden, also in absteigender Reihenfolge. Die resultierende Platzierung bleibt im Großen und Ganzen stabil, es sei denn, es treten sehr große Flächenänderungen auf. In diesem Fall kann es vorkommen, dass Knoten in andere Reihen verschoben werden. Diese Strategie ist als Mittelweg zwischen der neuen Sortierung und der vollständigen Beibehaltung der Platzierung zu verstehen. Die Laufzeit sollte zwischen der ersten und der zweiten Stategie sein, da nicht neu sortiert werden muss, der Squarify-Algorithmus jedoch erneut vollständig ausgeführt wird.
+    \item \textbf{Platzierung der Knoten beibehalten:} Nach dem ersten Layoutschritt werden sowohl die Aufteilung der Knoten in Reihen als auch die exakten Positionen innerhalb der Reihen festgehalten. Dadurch bleiben die Formen der Knoten in etwa erhalten, was die Wert-Fläche-Relation begünstigt. Gleichzeitig können die Seitenverhältnisse schlechter werden, weil die optimale Reihenfolge der Knoten mit Blick auf die aktualisierten Werte nicht mehr berücksichtigt wird. Die Laufzeit sollte hier am geringsten sein, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss.
+\end{enumerate}
+Zusätzlich wird die Hypothese aufgestellt, dass die Platznutzung bei allen drei Strategien ähnlich ausfällt, da im Kern derselbe Zielabstand realisiert wird, wenn auch auf unterschiedliche Weise. Im Folgenden werden die drei Strategien anhand der definierten Kennzahlen den formulierten Hypothesen gegenübergestellt.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \caption[Fehlende Knoten vs. rel. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
     \label{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knoten in der Platzierung beizubehalten, die meisten fehlenden Knoten produziert. Die anderen beiden Strategien schneiden deutlich besser ab. In Abbildung \ref{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist genauer zu erkennen, dass die Strategie, die Knoten neu zu sortieren weniger fehlende Knoten produziert als die Strategie, die Reihenfolge der Knoten beizubehalten.
+In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knotenplatzierung beizubehalten, die meisten fehlenden Knoten erzeugt. Die beiden alternativen Strategien schneiden deutlich besser ab. In der Detaildarstellung wird sichtbar, dass die Strategie mit Neusortierung nach Größe weniger fehlende Knoten produziert als die Strategie, welche die Reihenfolge der Knoten beibehält (siehe Abbildung \ref{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin}).
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting2/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die zwei verschiedenen Platzierungsstrategien.}
+    \caption[Fehlende Knoten vs. rel. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die zwei verschiedenen Platzierungsstrategien.}
     \label{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \caption[Varianzkoeffizient vs. Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
     \label{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
-Anders als erwartet, ist in Abbildung \ref{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} zu erkennen, dass alle drei Strategien ähnliche Ergebnisse beim Varianzkoeffizienten des Flächenverhältnisses erzielen und platzierung beibehalten, ab hohen abständen ab 2.5\% sogar schlechter abschneidet als die anderen beiden Strategien.
+Anders als erwartet zeigen die Resultate in Abbildung \ref{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} bei allen drei Strategien sehr ähnliche Werte für den Varianzkoeffizienten des Flächenverhältnisses. Ab höheren Abständen ab 2{,}5\% schneidet die vollständige Beibehaltung der Platzierung sogar schlechter ab als die beiden alternativen Strategien.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \caption[Seitenverhältnis vs. Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
     \label{fig:secondsorting3_averageRatio_over_aimedRelativeMargin}
 \end{figure}
 
-wie erwartet, ist in Abbildung \ref{fig:secondsorting3_averageRatio_over_aimedRelativeMargin} zu erkennen, dass die Strategie, die Knotenplatzierungen bei zu behalten die schlechtesten Seitenverhältnisse produziert. Die anderen beiden Strategien schneiden deutlich besser ab, untereinander verglichen sind sie aber ähnlich.
+Wie erwartet ist in Abbildung \ref{fig:secondsorting3_averageRatio_over_aimedRelativeMargin} zu erkennen, dass die Strategie mit beibehaltenen Knotenplatzierungen die ungünstigsten Seitenverhältnisse erzeugt. Die beiden anderen Strategien schneiden deutlich besser ab und liegen im direkten Vergleich nahe beieinander.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien. Werte näher bei 1 sind besser.}
+    \caption[Platznutzung vs. Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien. Werte näher bei 1 sind besser.}
     \label{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin} ist zu erkennen, dass alle drei Strategien ähnliche Ergebnisse bei der Platznutzung erzielen. so wie erwartet
-
+Die Ergebnisse in Abbildung \ref{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin} zeigen, dass alle drei Strategien eine sehr ähnliche Platznutzung erzielen, was der zuvor formulierten Erwartung entspricht.
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
+    \caption[Zeitaufwand vs. Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
     \label{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin} wird die Erwartung bestätigt, dass die Strategie, die Knotenplatzierungen beizubehalten am wenigsten Zeit benötigt. Da hier der Squarify Algorithmus nur einmal beim ersten Layoutschritt laufen muss. Die anderen beiden Strategien benötigen mehr Zeit, da hier der Squarify Algorithmus zweimal laufen muss. Die Reihenfolge beizubehalten benötigt minimal weniger Zeit (im Schnitt 0,2ms weniger), da hier nur einmal sortiert werden muss. Dies ist aber eine vernachlässigbare Zeitspanne, entspricht aber der Ewartung.
+Abbildung \ref{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin} bestätigt die Erwartung, dass die Strategie mit beibehaltener Knotenplatzierung am wenigsten Zeit benötigt, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss. Die beiden anderen Strategien benötigen mehr Zeit, weil der Squarify-Algorithmus zweimal ausgeführt wird. Das Beibehalten der Reihenfolge ist dabei minimal schneller als die Neusortierung nach Größe, da nur einmal sortiert werden muss. Der Zeitunterschied beträgt im Mittel etwa 0{,}2 ms und ist damit vernachlässigbar, entspricht jedoch der Erwartung.
 
 \smallskip
 
-Alles in allem konnten wir zeigen, dass der Ansatz von Lu und Fogarty \cite{lu2008cascaded}, die Knotenplatzierung beizubehalten, für unsere Daten und Kennzahlen nicht der beste ist. Der Ansatz der neuen Sortierung der Knoten nach Größe schneidet bis auf die Laufzeit in allen Kennzahlen deutlich besser als Lu und Fogartys Ansatz ab und ist entweder gleich oder etwas besser als der Ansatz, die Reihenfolge der Knoten beizubehalten. Wir entscheiden uns in dieser Arbeit dafür, die Knoten im zweiten Layoutschritt nach Größe neu zu sortieren, da wir hier die besten Seitenverhältnisse erzielen und die Anzahl der fehlenden Knoten im vergliech zu den anderen beiden Ansätzen gering bleibt.
-
-
-
-
+Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lu und Fogarty, die Knotenplatzierung beizubehalten, für die vorliegenden Daten und Kennzahlen nicht der beste ist. Die Neusortierung der Knoten nach Größe schneidet mit Ausnahme der Laufzeit in allen Kennzahlen deutlich besser ab als die vollständige Beibehaltung der Platzierung und ist gegenüber dem Beibehalten der Reihenfolge mindestens gleichwertig oder leicht überlegen. In dieser Arbeit wird daher im zweiten Layoutschritt die Neusortierung der Knoten nach Größe verwendet, da damit die besten Seitenverhältnisse erzielt werden und die Anzahl fehlender Knoten im Vergleich zu den beiden Alternativen niedrig bleibt.
 
 
 
@@ -546,8 +537,8 @@ Alles in allem konnten wir zeigen, dass der Ansatz von Lu und Fogarty \cite{lu20
 
 
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
-Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
-Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layoutschritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. Wir führen dafür einen neuen Größenanpassungsschritt ein. Dieser Schritt ist ähnlich zu dem relativen Größenanpassungsschritt (siehe Listing \ref{alg:RelativeGrößenanpassung}).
+Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter an die optimale Fläche anzupassen. 
+Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layoutschritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. Wir vermuten, dass das das Layout schritt für schritt immer etwas besser macht. Wir führen dafür einen neuen Größenanpassungsschritt ein. Dieser Schritt ist ähnlich zu dem relativen Größenanpassungsschritt (siehe Listing \ref{alg:RelativeGrößenanpassung}).
 
 
 Wir stellen also die Hypthese auf, dass durch mehrfaches berechnen des layouts und das aktualisieren der flächen, alle unsere Kriterien, bis auf die laufzeit, besser werden. 
