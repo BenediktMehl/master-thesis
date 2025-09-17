@@ -22,6 +22,17 @@
 	url          = {https://www.systect.de/sowaca.html}
 }
 
+@article{asahi1995using,
+  title={Using treemaps to visualize the analytic hierarchy process},
+  author={Asahi, Toshiyuki and Turo, David and Shneiderman, Ben},
+  journal={Information Systems Research},
+  volume={6},
+  number={4},
+  pages={357--375},
+  year={1995},
+  publisher={INFORMS}
+}
+
 @misc{d3_nested_2023,
 	title        = {Observable},
 	author       = {Bostock, Mike},
@@ -163,8 +174,8 @@
 	title        = {Squarified treemaps},
 	author       = {Bruls, Mark and Huizing, Kees and Van Wijk, Jarke J},
 	year         = 2000,
+	booktitle    = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
 	pages        = {33--42},
-	booktitle   = {Data Visualization 2000: Proceedings of the Joint EUROGRAPHICS and IEEE TCVG Symposium on Visualization in Amsterdam, The Netherlands},
 	organization = {Springer}
 }
 
