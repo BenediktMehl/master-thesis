@@ -208,11 +208,11 @@ In den zentralen Kennzahlen Anzahl der fehlenden Knoten (siehe Abbildung \ref{fi
 
 
 \section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
-Die zentrale Idee dieser Erweiterung besteht darin, die mit Abstand resultierende Knotenfläche über das Layout und die ohne Abstand berechnete Knotenfläche zu approximieren. Dazu erfolgt zunächst ein erster Durchlauf, in dem das Layout ohne Abstand berechnet wird. Anschließend werden die Knotengrößen auf Basis dieses Layouts angepasst, sodass die Größe der Knoten den Abstand explizit berücksichtigt. Darauf folgt ein zweiter Layout-Schritt mit den angepassten Größen, der das finale Layout erzeugt.
+Die zentrale Idee dieser Erweiterung besteht darin, die mit Abstand resultierende Knotenfläche über das Layout und die ohne Abstand berechnete Knotenfläche zu approximieren. Dazu erfolgt zunächst ein erster Durchlauf, in dem das Layout ohne Abstand berechnet wird. Anschließend werden die Knotengrößen auf Basis dieses Layouts angepasst, sodass die Größe der Knoten den Abstand explizit berücksichtigt. Darauf folgt ein zweiter Layoutschritt mit den angepassten Größen, der das finale Layout erzeugt.
 
 Vorab sei darauf hingewiesen, dass diese Erweiterung prinzipbedingt nicht optimal funktionieren kann. Die Anpassung der Knotengrößen beeinflusst das Layout im zweiten Durchlauf, wodurch die zuvor berechneten Größen wiederum nicht exakt passend sind. Genau hierin liegt das grundlegende Problem der Abhängigkeiten zwischen Größe und Anordnung (siehe Abschnitt \ref{sec:Problemstellung}). Die zweifache Berechnung stellt dennoch einen pragmatischen Ansatz dar, um sich dem nicht vollständig lösbaren Treemap-Problem schrittweise zu nähern und zu prüfen, ob sich weitere Forschung in diese Richtung lohnt.
 
-Der grundlegende Algorithmus bleibt weitgehend unverändert. Zwischen erstem und zweitem Durchlauf wird jedoch ein zusätzlicher Schritt \textit{Größenanpassung} eingefügt. Die einzige notwendige Änderung besteht darin, dass Knoten im \textit{Layout-Schritt} nur innerhalb des Elternknotens mit dem definierten Abstand platziert werden und die verfügbare Fläche des Elternknotens um den Abstand reduziert wird. Der Schritt, in dem der Squarify-Algorithmus ausgeführt wird, wird als \textit{Layout-Schritt} bezeichnet, der Schritt zur Anpassung der Knotengrößen als \textit{Größenanpassung}.
+Der grundlegende Algorithmus bleibt weitgehend unverändert. Zwischen erstem und zweitem Durchlauf wird jedoch ein zusätzlicher Schritt \textit{Größenanpassung} eingefügt. Die einzige notwendige Änderung besteht darin, dass Knoten im \textit{Layoutschritt} nur innerhalb des Elternknotens mit dem definierten Abstand platziert werden und die verfügbare Fläche des Elternknotens um den Abstand reduziert wird. Der Schritt, in dem der Squarify-Algorithmus ausgeführt wird, wird als \textit{Layoutschritt} bezeichnet, der Schritt zur Anpassung der Knotengrößen als \textit{Größenanpassung}.
 
 Die Größenanpassung wird im nächsten Abschnitt ausführlich beschrieben (siehe Abschnitt \ref{sec:Größenanpassung}). Die Ergebnisse dieser Erweiterung werden anschließend dem Standard-Squarify-Algorithmus gegenübergestellt, um den generellen Nutzen der zweifachen Berechnung zu bewerten und die wirkungsvollere Variante der Größenanpassung zu identifizieren (siehe Abschnitt \ref{sec:VergleichDerAnsätze}).
 
@@ -298,10 +298,10 @@ Das Problem der absoluten Größenanpassung lässt sich am besten an einem Beisp
 
 In Abbildung \ref{fig:simpleIncreaseMarginOne} ist das Layout mit einem Abstand von 1 zu sehen. Im Folgenden werden zwei Symptome des Treemap-Problems erläutert. Erstens sind die Flächen der Knoten nicht mehr proportional zu den Werten der Knoten, und zweitens wachsen Knoten teilweise über ihre Elternknoten hinaus.
 
-Zum ersten Problem der Unproportionalität: Knoten 10 ist im zweiten Layout-Schritt deutlich schmaler als im ersten Layout-Schritt. Dadurch wird die Fläche, die durch den Abstand eingenommen wird, größer als angenommen, weshalb die Fläche des Knotens nach Abzug kleiner ist als gewünscht. Dementsprechend ist auch die Fläche der Knoten unten links größer als gewünscht, da das Layout der Knoten im zweiten Layout-Schritt quadratischer wird. Knoten 5, der am quadratischsten ist, erscheint am größten. Obwohl Knoten 5 und Knoten 10 denselben Wert haben, ist Knoten 5 etwa 1{,}2 mal größer als Knoten 10. In diesem Beispiel ist der Unterschied gering, aber vorhanden, und in anderen Fällen kann dieser Unterschied deutlich ausfallen.
+Zum ersten Problem der Unproportionalität: Knoten 10 ist im zweiten Layoutschritt deutlich schmaler als im ersten Layoutschritt. Dadurch wird die Fläche, die durch den Abstand eingenommen wird, größer als angenommen, weshalb die Fläche des Knotens nach Abzug kleiner ist als gewünscht. Dementsprechend ist auch die Fläche der Knoten unten links größer als gewünscht, da das Layout der Knoten im zweiten Layoutschritt quadratischer wird. Knoten 5, der am quadratischsten ist, erscheint am größten. Obwohl Knoten 5 und Knoten 10 denselben Wert haben, ist Knoten 5 etwa 1{,}2 mal größer als Knoten 10. In diesem Beispiel ist der Unterschied gering, aber vorhanden, und in anderen Fällen kann dieser Unterschied deutlich ausfallen.
 
 Zum zweiten Problem: Es ist zu erkennen, dass die Knoten auf der linken Seite des Layouts sich außerhalb ihrer Elternknoten erstrecken. Warum passiert das?
-Elternknoten werden im zweiten Layout-Schritt ebenfalls schmaler, wodurch die Fläche, die der innere Abstand einnimmt, ebenfalls größer wird. Dieser Effekt verstärkt sich mit jeder Hierarchieebene nach unten. Dadurch wird die Fläche für die Kindknoten immer kleiner, was dazu führt, dass Knoten teilweise über ihre Elternknoten hinauswachsen.
+Elternknoten werden im zweiten Layoutschritt ebenfalls schmaler, wodurch die Fläche, die der innere Abstand einnimmt, ebenfalls größer wird. Dieser Effekt verstärkt sich mit jeder Hierarchieebene nach unten. Dadurch wird die Fläche für die Kindknoten immer kleiner, was dazu führt, dass Knoten teilweise über ihre Elternknoten hinauswachsen.
 
 \begin{figure}[h]
     \centering
@@ -372,7 +372,7 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 
 
 \subsection{Skalierung der Knoten} \label{sec:ScalingKnoten}
-Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:Treemap}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layout-Schritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
+Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:Treemap}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layoutschritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten entsprechend skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
 Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten sind dadurch nicht mehr proportional zu ihren Werten. Knoten 10 hat zum Beispiel ein Verhältnis von etwa 0{,}5 zu seinem Wert, während Knoten 6 ein Verhältnis von etwa 1{,}4 zu seinem Wert aufweist.
@@ -450,7 +450,7 @@ In Abbildung \ref{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMarg
     \label{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin} ist ersichtlich, dass der Zeitaufwand bei den beiden Erweiterungen dauerhaft höher ist. Teilweise liegt er beim Doppelten, teilweise darunter. Dies ist zu erwarten, da ein zweiter Layout-Schritt durchgeführt wird. Die relative Größenanpassung ist etwas aufwändiger als die absolute Größenanpassung, da zusätzlich die relative Flächenänderung der Kindknoten berechnet werden muss. Der Unterschied ist jedoch moderat. Anzumerken ist, dass das Verschwinden von Knoten keinen Einfluss auf die Laufzeit des d3.js-Squarify-Algorithmus hat, da dort zuerst das Layout berechnet und erst danach der Abstand abgezogen wird. In den angepassten Versionen wird ein Early-Stopping implementiert, sobald die Fläche eines Knotens 0 oder negativ wird, was allerdings nicht so häufig auftritt, dass es einen großen Einfluss auf die Laufzeit hätte.
+In Abbildung \ref{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin} ist ersichtlich, dass der Zeitaufwand bei den beiden Erweiterungen dauerhaft höher ist. Teilweise liegt er beim Doppelten, teilweise darunter. Dies ist zu erwarten, da ein zweiter Layoutschritt durchgeführt wird. Die relative Größenanpassung ist etwas aufwändiger als die absolute Größenanpassung, da zusätzlich die relative Flächenänderung der Kindknoten berechnet werden muss. Der Unterschied ist jedoch moderat. Anzumerken ist, dass das Verschwinden von Knoten keinen Einfluss auf die Laufzeit des d3.js-Squarify-Algorithmus hat, da dort zuerst das Layout berechnet und erst danach der Abstand abgezogen wird. In den angepassten Versionen wird ein Early-Stopping implementiert, sobald die Fläche eines Knotens 0 oder negativ wird, was allerdings nicht so häufig auftritt, dass es einen großen Einfluss auf die Laufzeit hätte.
 
 Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutlich besser ab als der Standard-Squarify-Algorithmus von d3.js. Die absolute Größenanpassung erzielt beim Wert-Flächen-Verhältnis die besseren Ergebnisse, während die relative Größenanpassung bei der Anzahl der fehlenden Knoten überlegen ist. Beide Erweiterungen sind valide und begründbare Alternativen zum Standard-Squarify-Algorithmus von d3.js. Für die weitere Arbeit in dieser Thesis wird die relative Größenanpassung verwendet, da die Anzahl der fehlenden Knoten als wichtigstes Kriterium gewichtet wird.
 
@@ -461,10 +461,10 @@ Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutl
 
 
 
-\section{Platzierung der Knoten nach erstem Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
-Der Algorithmus ihrer Arbeit über Cascaded Treemap von Lu und Fogarty \cite{lu2008cascaded}, wird die Platzierung der Knoten im zweiten Layout-Schritt beibehalten. Im Grunde merken Sie sich in welcher Reihe an welcher Position jeder Knoten platziert ist und behalten diese Platzierung bei. D3.js stellt zu ihrem Squarify Algorithmus auch einen Resquarify Algithmus zu verfügung, der im Grunde diesen zweiten Layout-Schritt mit beibehaltung der Platzierung der Knoten durchführt \cite{d3_treemap_code}. D3.js begründet die existens dieser Strategie anders als Lu und Fogarty, nämlich damit, dass ein erneutes berechnen der Layouts mehr Zeit in anspruch nimmt. Dies macht Sinn weil wenn die Platzierung gleich bleibt, muss ich ja nur noch die Breite der Reihen und die Höhe der Knoten anpassen und nicht noch verschiedene Positionierungen testen und vergleichen.
+\section{Zweiter Layoutschritt} \label{sec:ReihenfolgeKnotenErstesLayout}
+Der Algorithmus ihrer Arbeit über Cascaded Treemap von Lu und Fogarty \cite{lu2008cascaded}, wird die Platzierung der Knoten im zweiten Layoutschritt beibehalten. Im Grunde merken Sie sich in welcher Reihe an welcher Position jeder Knoten platziert ist und behalten diese Platzierung bei. D3.js stellt zu ihrem Squarify Algorithmus auch einen Resquarify Algithmus zu verfügung, der im Grunde diesen zweiten Layoutschritt mit beibehaltung der Platzierung der Knoten durchführt \cite{d3_treemap_code}. D3.js begründet die existens dieser Strategie anders als Lu und Fogarty, nämlich damit, dass ein erneutes berechnen der Layouts mehr Zeit in anspruch nimmt. Dies macht Sinn weil wenn die Platzierung gleich bleibt, muss ich ja nur noch die Breite der Reihen und die Höhe der Knoten anpassen und nicht noch verschiedene Positionierungen testen und vergleichen.
 
-Die Qualität dieser Strategie wird leider nicht separat evaluiert und hinterfragt. Wir stellen die Hypthese auf, dass durch diese Strategie aufgrund der verschiedenen Flächenänderungen schlechtere Seitenverhältnisse entstehen können, da die optimale Reihenfolge der Knoten sich ja durch die Flächenänderung ändern kann. Wir wollen also nachprüfen ob dieser Ansatz wirklich der beste ist, oder ob es nicht vielleicht bessere Strategien für den zweiten Layout-Schritt gibt.
+Die Qualität dieser Strategie wird leider nicht separat evaluiert und hinterfragt. Wir stellen die Hypthese auf, dass durch diese Strategie aufgrund der verschiedenen Flächenänderungen schlechtere Seitenverhältnisse entstehen können, da die optimale Reihenfolge der Knoten sich ja durch die Flächenänderung ändern kann. Wir wollen also nachprüfen ob dieser Ansatz wirklich der beste ist, oder ob es nicht vielleicht bessere Strategien für den zweiten Layoutschritt gibt.
 
 
 
@@ -551,7 +551,7 @@ Alles in allem konnten wir zeigen, dass der Ansatz von Lu und Fogarty \cite{lu20
 
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
 Die Grundlegende Idee dieser Erweiterung ist es, das Layout mehrfach zu berechnen und dabei die Fläche der Knoten immer weiter anzupassen. 
-Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layout-Schritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. Wir führen dafür einen neuen Größenanpassungsschritt ein. Dieser Schritt ist ähnlich zu dem relativen Größenanpassungsschritt (siehe Listing \ref{alg:RelativeGrößenanpassung}).
+Warum glauben wir, dass das gut ist. nach dem ersten update schritt ist die vorhersage der neuen fläche ja oft nicht so gut, und es kann sich noch einiges in der reihenfolge der Knoten ändern oder die Form der Knoten. dadurch ist nach dem zweiten Layoutschritt die platzierung ja anders, dadurch stimmt die vorhergesagte Fläche der Knoten nicht mehr. dann könnte man nochmal her gehene und die fläche neu berechnen und nochmal den layoutschritt machen. Wir führen dafür einen neuen Größenanpassungsschritt ein. Dieser Schritt ist ähnlich zu dem relativen Größenanpassungsschritt (siehe Listing \ref{alg:RelativeGrößenanpassung}).
 
 
 Wir stellen also die Hypthese auf, dass durch mehrfaches berechnen des layouts und das aktualisieren der flächen, alle unsere Kriterien, bis auf die laufzeit, besser werden. 
@@ -559,11 +559,11 @@ Wir stellen also die Hypthese auf, dass durch mehrfaches berechnen des layouts u
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layout-Schritte.}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
     \label{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-Es ist ganz klar in Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} zu erkennen, zwei Layout-Schritte dauerhaft bessere Ergebnisse erzielen als mehrere Layout-Schritte. Auch alle anderen Kriterien sind entweder gleich oder schlechter. Die Laufzeit ist je nach Anzahl der Layout-Schritte um entsprechenden Faktor höher. Es gibt also keinen Grund, warum die mehrfache Berechnung des Layouts sinnvoll sein sollte. Wir vermuten dass das daran liegt, dass Knoten, die besonders viel Abstand hinzubekommen
+Es ist ganz klar in Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} zu erkennen, zwei Layoutschritte dauerhaft bessere Ergebnisse erzielen als mehrere Layoutschritte. Auch alle anderen Kriterien sind entweder gleich oder schlechter. Die Laufzeit ist je nach Anzahl der Layoutschritte um entsprechenden Faktor höher. Es gibt also keinen Grund, warum die mehrfache Berechnung des Layouts sinnvoll sein sollte. Wir vermuten dass das daran liegt, dass Knoten, die besonders viel Abstand hinzubekommen
 
 
 
@@ -584,14 +584,14 @@ Wir überprufen jetzt die annahme und schauen, welche begründung richtiger ist/
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/incrementMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2 Layout-Schritte mit direkter Abstandsvergrößerung und 2 Layout-Schritte mit iterativer Abstandsvergrößerung.}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2 Layoutschritte mit direkter Abstandsvergrößerung und 2 Layoutschritte mit iterativer Abstandsvergrößerung.}
     \label{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/incrementMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für 2 Layout-Schritte mit direkter Abstandsvergrößerung und 2 Layout-Schritte mit iterativer Abstandsvergrößerung.}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für 2 Layoutschritte mit direkter Abstandsvergrößerung und 2 Layoutschritte mit iterativer Abstandsvergrößerung.}
     \label{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
