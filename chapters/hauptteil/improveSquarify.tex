@@ -10,7 +10,7 @@ Nach der Festlegung der Kriterien erfolgt eine Datenanalyse von Open-Source-Proj
 Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarify-Algorithmus beschrieben und evaluiert, um abschließend einen Vorschlag für ein verbessertes Treemap-Layout zu unterbreiten, das für den betrachteten Anwendungsfall besonders gut geeignet ist.
 
 
-\section{Kriterien für Treemap-Layouts} \label{sec:CodeCityLayouts}
+\section{Kennzahlen für Treemap-Layouts} \label{sec:TreemapKennzahlen}
 Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (siehe Abschnitt \ref{sec:MethodikAuswertung}). Diese Kriterien sind nur schwer messbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, warum diese Kennzahlen relevant sind und wie sie bestimmt werden können.
 
 \begin{enumerate}
@@ -25,7 +25,20 @@ Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (sieh
     \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies fördert die Skalierbarkeit und die allgemeine Nutzbarkeit der Visualisierung. Die Messungen wurden auf einem M2 MacBook durchgeführt und die Implementierung erfolgte in TypeScript. Dies ist praxisnah, da viele Werkzeuge in JavaScript beziehungsweise TypeScript implementiert sind und bei Nutzenden lokal gerendert werden~\cite{code_charta_github,sereene_website,codeIsBeautiful}. Die gemessene Zeit bezieht sich ausschließlich auf die Ausführung des Layout-Algorithmus und umfasst nicht die Renderzeit der Visualisierung.
 \end{enumerate}
 
+
+
+
+
+
+
+
 \input{chapters/hauptteil/datenAnalyse}
+
+
+
+
+
+
 
 \section{Abstände zwischen Knoten} \label{sec:AbständeZwischenKnoten}
 Wie zuvor beschrieben (siehe Abschnitt \ref{sec:TreemapProblem}), entsteht das Treemap-Problem durch das Hinzufügen von Abständen zwischen Knoten. Je größer die Abstände sind, desto ausgeprägter wird das Problem. Dadurch entsteht ein Trade-off zwischen der Sichtbarkeit der Softwarestruktur und der Sichtbarkeit aller Knoten.
@@ -187,8 +200,7 @@ In den Abbildungen \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMarg
     \label{fig:sorting_time_over_aimedRelativeMargin}
 \end{figure}
 
-Insgesamt erweist sich die Sortierung der Knoten nach Größe als durchgehend vorteilhaft für das Layout, ohne nennenswerte Nachteile zu verursachen. Aus diesem Grund wird in dieser Arbeit die Sortierung der Knoten nach Größe vor dem ersten Layout-Schritt als Standard verwendet.
-
+In den wichtigsten Kennzahlen, Anzahl der fehlenden Knoten (siehe Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}), der Varianzkoeffizient des Flächenverhältnisses (siehe Abbildung \ref{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und das durchschnittliche Seitenverhältnis (siehe Abbildung \ref{fig:sorting_averageRatio_over_aimedRelativeMargin}) schneidet die Sortierung nach Größe durchweg besser ab, weshalb wir uns dafür entscheiden, die Knoten immer nach Größe zu sortieren.
 
 
 
@@ -241,8 +253,9 @@ Analog entsteht der Abstand zwischen Eltern- und Kindknoten. Alle Elternknoten b
 
 \subsection{Absolute Größenanpassung} \label{sec:AbsoluteGrößenanpassung}
 
-Der erste ansatz ist ähnlich zu dem cascaded ansatz \cite{lu2008cascaded}. Die Fläche der Knoten wird um den Abstand in beiden Richtungen vergrößert. Zusätzlich wird die Fläche der Elternknoten um die Fläche der Kinderknoten vergrößert. wir zeigen genau auf, warum dieser Ansatz große Schwächen hat. bzw Pseudocode für den Algorithmus \ref{alg:EinfacheGrößenanpassung}. Es wird zunächst für jeden Knoten die Fläche die der Abstand in diesem Layout benötigen würde addiert, indem die Fläche aus der neuen Länge (alte Länge + 2 mal den Abstand) und der neuen Breite (alte Breite + 2 mal den Abstand) berechnet wird. Zusätzlich wird für Elternknoten die Flächenvergrößerung aller Kindernkoten addiert. An dieser Stelle ensteht sozusagen das treemap problem, weil nicht klar ist, wie sich die Flächenvergrößerung der Kinderknoten auf die Fläche der Elternknoten auswirkt, da diese Änderung selbst von der Anordnung der Kinderknoten abhängt.
+Der erste ansatz ist ähnlich zu dem cascaded ansatz \cite{lu2008cascaded}. Die Fläche von  BlattKnoten wird um den halben Abstand in beiden Richtungen vergrößert. Die Fläche von nicht-blattknoten um je einen abstand. 
 
+Die neue Fläche eines Knotens wird also aus der alten Fläche plus der Fläche die durch den Abstand eingenommen wird berechnet. Für Blattknoten berechnet sich die abstandfläche links und recht des Knotens durch die länge des Knotens mal den halben Abstand. Das ist ja links und recht. daher länge mal abstand. Das selbe gilt für oben und unten. Zusätzlich wird die ecke oben links, oben rechts, unten links und unten rechts jeweils durch den halben abstand ins quadrat berechnet. wodurch sich abstand mal abstand mal zwei ergibt. Für Elternknoten wird das selbe gemacht, nur dass zusätzlich die flächenvergrößerung aller kinder addiert wird und die abstandfläche mal zwei gerechnet wird, da der abstand ja innen und außen eingenommen wird. Der pseudocode des Algorithmus ist in Algorithmus \ref{alg:EinfacheGrößenanpassung} dargestellt.
 
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
@@ -252,7 +265,7 @@ Der erste ansatz ist ähnlich zu dem cascaded ansatz \cite{lu2008cascaded}. Die 
         \State length $\gets$ node.y1 - node.y0
 
         \If{node.isLeaf}
-        \State valueIncrease $\gets$ width * margin + length * margin + margin * margin * 2
+        \State valueIncrease $\gets$ width * margin + length * margin + margin * margin
         \State node.value += valueIncrease
         \State \Return valueIncrease
         \EndIf
@@ -272,7 +285,13 @@ Der erste ansatz ist ähnlich zu dem cascaded ansatz \cite{lu2008cascaded}. Die 
     \label{alg:EinfacheGrößenanpassung}
 \end{algorithm}
 
-Das Problem des Algorithmuses ist am besten an einem Beispiel zu verdeutlichen. Wir visualieren den ZWITEN AnHANG - auch wieder eine händisch erstellte Map, um das Problem zu verdeutlichen. In Abbildung \ref{fig:zeroMarginSquarifyArtifialTwo} ist das Layout mit einem Abstand von 0 zu sehen. 
+Kleines Rechenbeispiel um den Algorthmus zu verdeutlichen. Wir nehmen ein Setup, wie es in Abbildung \label{fig:AbstandBeispielEltern} zu sehen ist.
+Wir betrachten einen quadratischen Kindknoten mit einer Seitenlänge von 4 Einheiten und seinen Elternknoten. Der Abstand sei 1 Einheit. Die Fläche des Kindknotens beträgt vor der Anpassung $4 \times 4 = 16$ Einheiten. In Abbildung \ref{fig:AbstandBeispielEltern} ist zu erkennen, dass die finale korrekte Seitenlänge des Elternknotens 7 Einheiten beträgt. Die Größenanpassung soll also möglichst nah an diese 7 Einheiten bzw eine Fläche von 49 Einheiten herankommen.
+Die neue Fläche des Elternknotens wird wie folgt berechnet:
+Fläche für die Abstände: $breite \times abstand \times 2 + länge \times abstand \times 2 + abstand \times abstand \times 4 = 4 \times 1 \times 2 + 4 \times 1 \times 2 + 1 \times 1 \times 4 = 8 + 8 + 4 = 20$ Einheiten. Zusätzlich wird die Abstandsfläche des Kindknotens addiert, die wie folgt berechnet wird: $breite \times abstand + länge \times abstand + abstand \times abstand = 4 \times 1 + 4 \times 1 + 1 \times 1 \times 2 = 4 + 4 + 1 = 9$ Einheiten. Insgesamt ergibt sich eine neue Fläche des Elternknotens von $alte Fläche + abstandsfläche eltern + abstandsfläche kinder = 16 + 20 + 9 = 45$ Einheiten. Die neue Seitenlänge des Elternknotens beträgt somit $\sqrt{45} \approx 6{,}71$ Einheiten, was schon recht nah an den korrekten 7 Einheiten liegt.
+
+In Abschnitt \ref{sec:TreemapProblem} wurde bereits erklärt, dass es unmöglich ist das Treemap problem komplett zu lösen. Bei jedem Näherungsansatz zeigt sich das problem auf unterschiedliche weise, da die Schätzung der anpassung der Fläche nie perfekt sein kann und je nach ansatz unterschiedlich ausfällt.
+Das Problem der absoluten Größenanpassung ist am besten an einem Beispiel zu verdeutlichen. Wir visualieren an einer manuell erstellte Map, bei der das Problem besonders stark und gut erkennbar ist. In Abbildung \ref{fig:zeroMarginSquarifyArtifialTwo} ist das Layout mit einem Abstand von 0 zu sehen. 
 
 \begin{figure}[h]
     \centering
@@ -281,8 +300,12 @@ Das Problem des Algorithmuses ist am besten an einem Beispiel zu verdeutlichen. 
     \label{fig:zeroMarginSquarifyArtifialTwo}
 \end{figure}
 
-In Abbildung \ref{fig:simpleIncreaseMarginOne} ist das Layout mit einem Abstand von 1 zu sehen. Es ist zu erkennen, dass die Knoten auf der linken Seite des Layouts sich außerhalb ihrer Elternknoten erstrecken. Warum passiert das? Knoten 10 ist im zweiten Layout-Schritt deutlich schmaler als im ersten Layout-Schritt. Dadurch wird die Fläche die durch den Abstand eingenommen wird größer als angenommen, weshalb die Fläche des Knotens nach abzug des Abstands im letzen Schritt kleiner ist, als gewünscht. Dementsprechend ist auch die Fläche der Knoten unten links größer als gewünscht, da das Layout der Knoten im zweiten Layout-Schritt quadratischer wird. Knoten 5, der Knoten, der am Quadratischsten ist, wird also am größten erscheinen. Obwohl beide den selben wert haben ist Knoten 5 ca. 1,2 mal größer als Knoten 10) In diesem Beispiel erscheint der unterschied kaum merklich, aber es gibt ihn trotzdem und in anderen fällen kann dieser Unterschied merklich werden.
-Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmaler werden, wodurch die fläche, die der innerere abstand einnimm, ebenfalls größer wird und dass sogar immer mehr von ebene zu ebene, wenn man runter geht. Dadurch wird die Fläche für die Kindknoten immer kleiner, was dazu führt, dass Knoten teilweise über ihre Elternknoten hinauswachsen.
+In Abbildung \ref{fig:simpleIncreaseMarginOne} ist das Layout mit einem Abstand von 1 zu sehen. folgend werden zwei Symptome des Treemap Problems erläutert. 1. Sind die Flächen der Knoten nicht mehr proportional zu den Werten der Knoten udn 2. wachsen Knoten teilweise über ihre Elternknoten hinaus.
+
+Das erste Problem unproportionaler Knoten: Knoten 10 zum Beispiel ist im zweiten Layout-Schritt deutlich schmaler als im ersten Layout-Schritt. Dadurch wird die Fläche die durch den Abstand eingenommen wird größer als angenommen, weshalb die Fläche des Knotens nach abzug kleiner ist, als gewünscht. Dementsprechend ist auch die Fläche der Knoten unten links größer als gewünscht, da das Layout der Knoten im zweiten Layout-Schritt quadratischer wird. Knoten 5, der Knoten, der am Quadratischsten ist, wird also am größten erscheinen. Obwohl beide den selben wert haben ist Knoten 5 ca. 1,2 mal größer als Knoten 10) In diesem Beispiel erscheint der unterschied kaum merklich, aber es gibt ihn trotzdem und in anderen fällen kann dieser Unterschied merklich werden.
+
+Das zweite Problem: Es ist zu erkennen, dass die Knoten auf der linken Seite des Layouts sich außerhalb ihrer Elternknoten erstrecken. Warum passiert das? 
+Elternknoten werden im Zweiten layoutschritt ebenfalls schmaler, wodurch die fläche, die der innerere abstand einnimm, ebenfalls größer wird. Dieser effekt wird größer von ebene zu ebene, wenn man die hierarchie runter geht. Dadurch wird die Fläche für die Kindknoten immer kleiner, was dazu führt, dass Knoten teilweise über ihre Elternknoten hinauswachsen.
 
 \begin{figure}[h]
     \centering
@@ -291,13 +314,20 @@ Viel signifikanter ist aber der Effekt, dass Elternknoten ebenfalls immer schmal
     \label{fig:simpleIncreaseMarginOne}
 \end{figure}
 
-Dieser Effekt kann einfach behoben werden, wie wir in Abschnitt \ref{sec:ScalingKnoten} sehen werden.
+Dieses Symptom führt dazu, dass wir kein valides Treemap-Layout mehr haben (vergleiche Definition des Treemap-Layouts in Abschnitt \ref{sec:Treemap}). Dieses Symptom muss also behoben werden, bevor überhaupt die Kennzahlen zum Vergleich der Ansätze berechnet werden können. In Abschnitt Skalierung der Knoten (siehe Abschnitt \ref{sec:ScalingKnoten}) wird beschrieben, wie dieses Symptom auf kosten noch größerer Unproportionalität behoben werden kann. Davor werden wir allerdings einen zweiten Ansatz der Größenanpassung vorstellen, der versucht genauere Vorhersagen zur Größe der Knoten zu treffen.
+
+
+
+
 
 \subsection{Relative Größenanpassung} \label{sec:RelativeGrößenanpassung}
+Bei der absoluten Größenanpasung zuvor wurde einfach die Abstandsfläche eines Elternknotens, auf basis der Kantenlängen des Elternknotens berechnet, ohne die Flächenänderung und somit auch die änderung der Kantenlängen des Elternknotens durch die Kinder zu berücksichtigen, weshalb dieser Ansatz auch absolute Größenanpassung genannt wurde. 
 
-Bei der berechnung zuvor wurde einfach der margin fläche eines Elternknotens berechnet, auf basis der alten Fläche, ohne die Flächenädnerung durch die Kinderknoten zu berücksichtigen. dadurch wird die resultierende Fläche der Elternknoten zu klein sein, da die Fläche der Kinderknoten nicht berücksichtigt wird.
-Wir stellen folgend eine zweite Version der Größenanpassung vor, die versucht die Fläche der Elternknoten durch die Fläche der Kinderknoten zu approximieren. Wir werden dann beide Versionen vergleichen und schauen, welche besser funktioniert.
-Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dafür muss die relative Flächenänderung durch die Kindknoten berechnet werden. und damit dann die Seitenlängen anpassen und dann die margins hinzufügen, um die neue Fläche zu erhalten.
+dadurch wird die resultierende vorhergesagt Fläche der Elternknoten tendenziell zu klein sein, da die Flächenänderung der Kinderknoten nicht vollständig berücksichtigt wird.
+Wir stellen folgend eine zweite Version der Größenanpassung vor, die versucht die neue Fläche der Elternknoten durch die Flächenänderung der Kinderknoten zu approximieren. Wir werden dann beide Versionen vergleichen und schauen, welche besser funktioniert, da obwohl wir vermuten, dass der Ansatz der relativen Größenanpassung besser funktioniert, dies nicht zwangsläufig der Fall sein muss, da beide Ansätze das grundsätzliche Problem des Treemap-Problems nicht lösen können.
+
+Die Idee bei dieser Erweiterung ist es die Änderung der Kinder schon vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. 
+Dafür berechnet werden, wie sich die Kantenlängen des Elternknoten durch die Flächenänderung der Kindknoten ändern, um dann mit diesen neuen Kantenlängen die  hinzufügen, die Abstandsfläche des Elternknotens genauer berechnen zu können. DAs wird gemacht, indem die Flächenänderung der Kindknoten auf die Kantenlänge des Elternknotens übertragen wird. Die Breite des Elternknotens zum Beispiel ändert sich um die Wurzel der Flächenänderung die durch das Hinzufügen des Abstands der Kindknoten entsteht.
 Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:RelativeGrößenanpassung}). 
 
 
@@ -308,7 +338,7 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
         \State length $\gets$ node.y1 - node.y0
         
         \If{node.isLeaf}
-        \State valueIncrease $\gets$ width * margin + length * margin + margin * margin * 2
+        \State valueIncrease $\gets$ width * margin + length * margin + margin * margin
         \State node.value += valueIncrease
         \State \Return valueIncrease
         \EndIf
@@ -320,11 +350,11 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
         \EndFor
         \EndIf
         
-        \State ratioChildrenValueIncrease $\gets$ (node.value + childrenValueIncrease) / node.value
+        \State sideIncreaseFactor $\gets \sqrt{\text{(node.value + childrenValueIncrease)} / \text{node.value}}$
         
         \State valueIncrease $\gets$ 
-        Math.sqrt(ratioChildrenValueIncrease) * width * margin * 2 +
-        Math.sqrt(ratioChildrenValueIncrease) * length * margin * 2 +
+        sideIncreaseFactor * width * margin * 2 +
+        sideIncreaseFactor * length * margin * 2 +
         margin * margin * 4 +
         childrenValueIncrease
         
@@ -336,9 +366,11 @@ Der Algorthmus wird im foldenden als Pseudocode dargestellt (siehe Algorithmus \
     \label{alg:RelativeGrößenanpassung}
 \end{algorithm}
 
-Problem:
-Der Algorithmus in dieser Form zeigt einige Probleme auf. Die Flächenvergrößerung der Kindknoten sagt nichts darüber aus, in welche Richtung sich die Fläche ändert. Es wird davon ausgegangen, dass sich die Fläche gleichmäßig in beide Richtungen ändert (siehe Zeile 13 und 14 in Algorithmus ZEILEN ANPASSEN  \ref{alg:RelativeGrößenanpassung}). 
-es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel platz als auch zu wenig Platz bekommen, jenachdem ob Sie im zweiten schritt quadratischer oder schmaler werden.  Siehe Abbildung \ref{fig:relativeIncreaseMarginOne} für ein Beispiel.
+Ein rechend Beispiel um den Algorithmus zu verdeutlichen wieder an dem Setup aus Abbildung \ref{fig:AbstandBeispielEltern}.
+Wir betrachten wieder den quadratischen Kindknoten mit einer Seitenlänge von 4 Einheiten und seinen Elternknoten. Der Abstand sei wieder 1 Einheit. Die Fläche des Kindknoten ändert sich wie zuvor von 16 Einheiten auf 25 Einheiten, also um 9 Einheiten. Das Verhältnis um das sich durch diese Flächenänderung die Kantenlänge des Elternknotens ändert, beträgt also $\frac{fläche + flächenänderung}{fläche} = \frac{16 + 9}{16} \approx 1{,}56$. Die Kantenlängen die sich daraus ergeben sind also $4 \cdot \sqrt{1{,}56} = 5$ Einheiten, also genau die Größe die auch der Kindknoten nach der Anpassung hat. Die Abstandsfläche des Elternknotens wird jetzt mit diesen neuen Kantenlängen berechnet: $breite \times abstand \times 2 + länge \times abstand \times 2 + abstand \times abstand \times 4 = 5 \times 1 \times 2 + 5 \times 1 \times 2 + 1 \times 1 \times 4 = 10 + 10 + 4 = 24$ Einheiten. Zusätzlich wird die Abstandsfläche des Kindknotens addiert. Insgesamt ergibt sich eine neue Fläche des Elternknotens von $alte Fläche + abstandsfläche + abstandsfläche kinder = 16 + 24 + 9 = 49$ Einheiten. Die neue Seitenlänge des Elternknotens beträgt somit $\sqrt{49} = 7$ Einheiten, was exakt der korrekten Größe entspricht.
+In diesem Fall passt die Vorhersage der neuen Fläche des Elternknotens perfekt zu der tatsächlichen resultierenden Fläche des Elternknotens. Dies ist allerdings nur in diesem speziellen Fall so, da erstens der Elternknoten quadratisch ist und zweitens der Elternknoten nur einen Kindknoten hat. In anderen Fällen wird die Vorhersage nicht exakt stimmen, weshalb es jetzt auch noch nicht klar ist, ob dieser Ansatz besser funktioniert als die absolute Größenanpassung.
+
+Bei diesem ansatz kommt es zu ähnlichen Problem wie davor, die sich auch in ähnlichen Symptomen äußern. es können knoten sowohl zu viel platz als auch zu wenig Platz bekommen, jenachdem ob Sie im zweiten schritt quadratischer oder schmaler werden.  Siehe Abbildung \ref{fig:relativeIncreaseMarginOne} für ein Beispiel.
 
 \begin{figure}[h]
     \centering
@@ -353,9 +385,7 @@ es kommt also zu ähnlichen Problem wie davor. es können knoten sowohl zu viel 
 
 
 \subsection{Skalierung der Knoten} \label{sec:ScalingKnoten}
-Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt die Fläche ist, die der Abstand benötigt. Dadurch können Probleme entstehen.
-
-Wenn die Fläche innnerhalb von Elternknoten immer kleiner wird, kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen, wie in Abbildung \ref{fig:simpleIncreaseMarginOne} zu sehen ist. Es kann genauso passieren, dass die Fläche innerhalb der Knoten größer wird, wie in Abbildung \ref{fig:relativeIncreaseMarginOne} auf der linken seite zu erkennen ist. Dieser Effekt kann trivialer weise behoben werden, indem der zweite Layout-Schritt angepasst wird, sodass die Knoten immer auf die Fläche des Elternknotens skaliert werden. 
+Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesehen werden kann, was wie gesagt auch gar nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:Treemap}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layout-Schritt skaliert, sodass sie genau in die Fläche des Elternknotens passen. 
 Vor jeden Squarify-Schritt wird dafür die wirklich zur verfügung stehende Fläche des Elternknotens berechnet und die Kindknoten entsprechend dieser Änderung skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
 Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten werden dadurch natürlich nicht mehr proportional zu ihren Werten sein. Knoten 10 hat zum beispiel ein Verhältnis von ca. 0.5 zu seinem Wert, während Knoten 6 ein Verhältnis von ca. 1.4 zu seinem Wert hat.
@@ -363,11 +393,11 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOneScale.png}
-    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der einfachen Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
+    \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:simpleIncreaseMarginOneScale}
 \end{figure}
 
-Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlich dieser Effekt aus. Siehe im Vergleich dazu Abbildung \ref{fig:relativeIncreaseMarginOneScale}, da die relative Größenanpassung deutlich genauer ist, ist der Effekt hier auch deutlich geringer. Knoten 10 hat Größe 40 und Knoten 6 hat Größe 41, was fast ähnlich Groß ist.
+Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlich dieser Effekt aus. Siehe im Vergleich dazu Abbildung \ref{fig:relativeIncreaseMarginOneScale}, da die relative Größenanpassung in diesem Beispiel genauer ist, ist der Effekt hier auch geringer. Knoten 10 hat ein Wert-Flächen Verhältnis von ca. 1{,}33 während Knoten 6 zum Beispiel ein Verhältnis von ca. 1{,}37 hat. Der Unterschied ist hier also deutlich geringer als bei der absoluten Größenanpassung.
 
 \begin{figure}[h]
     \centering
@@ -375,8 +405,6 @@ Je genauer die Größenanpassung der Knoten ist, desto geringer fällt natürlic
     \caption{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellen map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:relativeIncreaseMarginOneScale}
 \end{figure}
-
-Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der Knoten gut ist, da sonst eine grundlegende eigenschaft der Darstellung verletzt wird, aber für das hoch skalieren der Knoten könnte man auch sagen, dass es wichtiger ist die Fläche der Knoten proportional zu ihren Werten zu halten, als die \textit{verschwendete} Fläche aufzufüllen. Wir entscheidung uns in dieser Arbeit dafür, dass wir die Knoten immer skalieren, auch nach oben, um die Identität der Darstellung von Treemap-Layouts zu wahren. Dadurch tauschen wir sozusagen Proportionalität der Knoten gegen Platznutzung ein.
 
 
 
@@ -386,8 +414,8 @@ Persönlich würde ich sagen, dass dieser Effekt für das herunter skalieren der
 
 
 \subsection{Vergleich der Ansätze} \label{sec:VergleichDerAnsätze}
-
-Wir vergleichen diese beiden Ansätze jetzt mit dem STandard Squarify nested squarify algorithmus von d3.js, wie er von Mike Bostock implementiert wurde \cite{d3_nested_2023}.
+Aktuell vermuten wir, dass der Ansatz der relativen Größenanpassung besser funktioniert als der der absoluten Größenanpassung und dass beide Ansätze besser funktionieren als der Standard Squarify Algorithmus von d3.js, der einfach nur den Abstand von der Fläche der Knoten abzieht, ohne die Knotenflächen anzupassen.    
+Wir vergleichen diese beiden Ansätze jetzt mit dem STandard Squarify nested squarify algorithmus von d3.js, wie er von Mike Bostock implementiert wurde \cite{d3_nested_2023}, um Unsere Hypothese zu überprüfen. Der Vergleich findet anhand der zuvor definierten Kennzahlen statt (siehe Abschnitt \ref{sec:TreemapKennzahlen}).
 
 
 \begin{figure}
@@ -440,15 +468,6 @@ In Abbildung \ref{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMarg
 In Abbildung \ref{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin} ist zu erkennen, dass der Zeitaufwand bei den beiden Erweiterungen dauerhaft höher ist. Teilweise doppelt so hoch, teilweise weniger. Das ist natürlich zu erwarten, da ja ein zweiter Layout-Schritt durchgeführt wird. Die relative Größenanpassung ist dabei etwas aufwändiger als die absolute Größenanpassung, da hier ja auch die relative Flächenänderung der Kindknoten berechnet werden muss. Allerdings ist der Unterschied hier nicht so groß. Anzumerken ist, dass das verschwinden von Knoten keinen Einfluss auf die Laufzeit des d3.js Squarify Algorithmus hat, da dieser zuerst das Layout berechnet und dann die Abstände abzieht, bei den angepassten Versionen ist. In den angepassten Versionen implementieren wir early stopping, sobald die Fläche eines Knotens 0 oder negativ wird, was aber nicht so oft passiert, dass es einen großen Einfluss auf die Laufzeit hat.
 
 Alles in allem schneiden die beiden Erweiterungen des Squarify Algorithmus deutlich besser ab als der Standard Squarify Algorithmus von d3.js. Die absolute Größenanpassung schneidet dabei beim Wert-Flächen-Verhältnis besser ab, während die relative Größenanpassung bei der Anzahl der fehlenden Knoten besser abschneidet. Beide Erweiterungen sind valide und zu Begründende alternativen zum Standard Squarify Algorithmus von d3.js. Für die weitere Arbeit in dieser Thesis entscheiden wir uns für die relative Größenanpassung, da wir hier die Anzahl der fehlenden Knoten als das wichtigste Kriterium ansehen.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keiner Sortierung.}
-    \label{fig:sorting_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-In den wichtigsten Kriterien, Anzahl der fehlenden Knoten (siehe Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}), der Varianzkoeffizient des Flächenverhältnisses (siehe Abbildung \ref{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und das durchschnittliche Seitenverhältnis (siehe Abbildung \ref{fig:sorting_averageRatio_over_aimedRelativeMargin}) schneidet die Sortierung nach Größe durchweg besser ab, weshalb wir uns dafür entscheiden, die Knoten immer nach Größe zu sortieren.
 
 
 
