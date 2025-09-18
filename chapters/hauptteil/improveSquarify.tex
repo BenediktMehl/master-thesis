@@ -702,7 +702,7 @@ Diese Variante wird im Rahmen der Kriterien wie folgt eingeordnet:
 \begin{itemize}
     \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Zwischen den beiden anderen Varianten einzuordnen. Die Platzausnutzung ist besser als mit Abständen zwischen allen Geschwistern, aber schlechter als ohne Abstände zwischen Geschwistern.
     \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Die Struktur wird klarer, da Ordner durch einen ganzen Abstand getrennt sind und Dateien im selben Ordner ohne Abstand eine visuelle Einheit bilden. Weshalb dieses Kriterium als besser gegenüber den beiden anderen Varianten eingeschätzt wird.
-    \item \textbf{Skalierbarkeit:} Aufgrund der weiterhin benötigten Umrandungen ist wirkt sich diese Variante schlechter als die Variante mit Abständen zwischen sämtlichen Geschwistern ohne Umrandungen auf die Skalierbarkeit aus, ist aber gleich zur Variante ohne Abstände zwischen Geschwistern.
+    \item \textbf{Skalierbarkeit:} Aufgrund der weiterhin benötigten Umrandungen ist wirkt sich diese Variante schlechter als die Variante mit Abständen zwischen sämtlichen Geschwistern ohne Umrandungen auf die Skalierbarkeit aus. Allerdings ist es nur noch nötig Blattknoten zu umranden.
     \item \textbf{Visuelle Metaphern:} Straßen als Metapher bleiben zwischen Ordnern erhalten. Ordner mit zugehörigen Dateien ohne Abstand können als Gebäudeblock ohne Straßeninterpretiert werden, was zur Stadtmetapher passt. Weshalb dieses Kriterium als besser gegenüber den beiden anderen Varianten eingeschätzt wird.
 \end{itemize}
 
@@ -768,67 +768,139 @@ Insgesamt schneidet die Variante mit Abständen nur zwischen Ordnern bei den Kri
 
 
 
-
-
 \section{Beschriftung der Knoten} \label{sec:BeschriftungKnoten}
-Die Beschriftung der Knoten ist ein wichtiger Aspekt der Visualisierung, da sie es dem Nutzer ermöglicht, die Knoten zu identifizieren und zu verstehen, welche Informationen sie repräsentieren. Es gibt verschiedene Ansätze, um die Beschriftung der Knoten zu gestalten. Jeder Ansatz hat seine Vor- und Nachteile. Ein häufig verwendeter Ansatz ist wie zum Beispiel auch beim in Abschmijt VerwandteArbeiten \ref{sec:VerwandteArbeiten} vorgestellten Cascaded Treemap Ansatz \cite{lu2008cascaded}.
-Ordner erhalten eine Zusätzliche horizontale Fläche, entweder unten oder oben, die den Namen des Ordners enthält. 
-Dies nimmt allerdings viel Platz ein und erzeugt die selben schwierigkeiten für den Algorithmus, wie die abstände zwischen den Knoten. Außerdem kann es passieren, dass die Beschriftung zu lang für die breite der Knotens ist, wodurch die Beschriftung entweder abgeschnitten wird oder über den Knoten hinauswächst.
-Hao Lü and James Fogarty schlagen vor dynamisch zu entscheiden, ob die Beschriftung der Knoten angezeigt werden soll oder nicht \cite{lu2008cascaded}. Wenn das Hinzufügen der Beschriftung den Knoten dazu führen würde, dass gar kein Platz mehr für den Knoten selbst übrig bleibt, wird die Beschriftung nicht angezeigt. Der Vorteil dieses Ansatzes ist, dass sicher gegangen wird, dass durch die Beschriftung kein Knoten verschwindet. Der Nachteil ist, dass selbst wenn die Änderung der Knotenfläche zum Knotenwert durch das hinzufügen der Beschriftung riesig wird (wenn die Fläche also super klein wird), die Beschriftung trotzdem hinzugefügt wird. 
+Die Beschriftung der Knoten ist ein zentraler Aspekt der Visualisierung, da sie die Identifikation der Knoten ermöglicht und verdeutlicht, welche Informationen repräsentiert werden. In der Literatur sowie in Werkzeugen existiert eine Vielzahl unterschiedlicher Ansätze zur Gestaltung der Beschriftung. Im Grunde verwendet nahezu jede Implementierung von Treemap-Visualisierungen leicht unterschiedliche Lösungen. Jeder Ansatz bringt spezifische Vor- und Nachteile mit sich. Ein häufig eingesetzter Ansatz, wie auch beim in Abschnitt \ref{sec:VerwandteArbeiten} vorgestellten Cascaded-Treemap-Verfahren, reserviert bereits während des Layouts Fläche für Beschriftungen~\cite{lu2008cascaded}. Ordner erhalten dabei oben oder unten eine zusätzliche horizontale Fläche, die den Ordnernamen aufnimmt. Andere Ansätze platzieren die Beschriftung direkt auf dem Knoten (siehe Abbildung \ref{fig:beschriftungAuf}). Wieder andere nutzen schwebende Beschriftungen über den Blattknoten (siehe Abbildung \ref{fig:beschriftungSchwebend}).
 
-Offensichlich wird das Hinzufügen von Beschriftungen alle unsere Kriterien verschlechtern.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/beschriftungAuf.png}
+    \caption[Beschriftung auf Knoten]{Beispiel für die Platzierung der Beschriftung auf der Treemap \cite{largeHierarchicalRepositories}.}
+    \label{fig:beschriftungAuf}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/floatinglabels.png}
+    \caption[Schwebende Beschriftungen]{Beispiel für schwebende Beschriftungen \cite{code_charta_webdemo}.}
+    \label{fig:beschriftungSchwebend}
+\end{figure}
 
-%daten ja vis nein
+Vorgeschlagen wird ein statischer Ansatz, bei dem ausschließlich die Beschriftungen der Top-N-Ordner angezeigt werden. Für die Beschriftungen wird sowohl bei der Größenanpassung als auch beim Layout explizit Platz reserviert. Am Ende werden die Beschriftungen in diesem Bereich so groß wie möglich platziert. Dieser Ansatz verbraucht jedoch signifikant Fläche und erzeugt ähnliche Herausforderungen für den Algorithmus wie die Abstände zwischen Knoten. Zudem kann die Beschriftung zu lang für die Breite des Knotens ausfallen, wodurch sie entweder abgeschnitten wird oder über den Knoten hinausragt. Es ist folglich zu erwarten, dass das Hinzufügen von Beschriftungen die Kennzahlen insgesamt verschlechtert. Die Größe N der beschrifteten Ordner fungiert als Stellschraube und ist nicht für jede Codebasis identisch. Eine weitere Stellschraube ist die vertikale Beschriftungshöhe, also die Länge des reservierten Bereichs, im Folgenden mit l bezeichnet.
 
-%\cite{largeHierarchicalRepositories}
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/improve/beschriftungAuf.png}
-%     \caption{Beispiel Platzierung der Beschriftung auf der Treemap \cite{largeHierarchicalRepositories}.}
-%     \label{fig:beschriftungAuf}
-% \end{figure}
-
-
-Wir schlagen einen statischen ansatz vor, bei dem nur die Beschriftungen der Top N order angezeigt werden. 
-Die Wahl von N ist nun die Stellschraube für die nicht für jede Codebasis gleich ist. Es ist Stellschraube um zwischen Informationsgehalt und visuelle Komplexität zu balancieren.
+Die Auswirkungen auf die Visualisierungskriterien werden wie folgt eingeordnet:
 \begin{itemize}
-    \item Je höher N ist, desto mehr Informationen (also Ordnernamen) werden angezeigt, was den Informationsgehalt erhöht.
-\item Je niedriger N ist, desto weniger Informationen werden angezeigt, was die visuelle Komplexität reduziert, viele Beschriftungen können schnell ablenken und die Visualisierung unübersichtlich machen.
-\item Außerdem wird die Korrelation mit dem Code verbessert, da ein übertragen von Vsiaulisierung zur codebasis einfacher wird mit höherem N.
-%Beweis, dass große Codebasen auch Tiefer sind als kleine und nicht zwingen mehr kinder haben.
-\item Skalierbarkeit hängt nicht ab von N, da N ja nicht mitwächst, sondern statisch ist, ob noch mehr order und noch mehr tiefe hinzu kommt, macht keinen wirklichen unterschied.
-\item STabi gegen änderungen wenn überhaupt sinkt es, weil änderung vom namen zb. auf einmal sichtbar wird (das ist natürlich gewollt, trotzdem in unserer messung hier erstmal negativ- wenn auch vernachlässigbar) - eventuell werden dadurch in zwei versionen die selben Knoten, die jetzt anders heißen, nicht mehr so einfach als gleich identifiziert, obwohl diese die selbe form haben und ohne die beschriftung vielleicht anhand der form als gleich identifiziert werden würden - zugegeben sehr theoretisch und wahrscheinlich nicht relevant aber trotzdem erwähnenswert.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Mit größeren Werten für N und l wird mehr Platz für Beschriftungen reserviert, was die Platzausnutzung verschlechtert. Gleichzeitig steigt der Informationsgehalt durch die Nennung der Knotennamen.
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Mit wachsendem N erhöht sich die visuelle Komplexität aufgrund der größeren Anzahl an Beschriftungen. Mit größerem l kann die Schrift größer gewählt werden, was die Lesbarkeit verbessert und die kognitive Last reduziert. Zusätzlich werden beschriftete Ordner leichter identifizierbar und besser voneinander unterscheidbar.
+    \item \textbf{Skalierbarkeit:} Höhere Werte von N und l beeinträchtigen die Skalierbarkeit, da mehr Fläche für Beschriftungen reserviert wird. In großen Codebasen mit vielen Knoten werden Texte tendenziell kleiner, und die reduzierte Knotengröße erschwert die Erkennung der Flächen.
+    \item \textbf{Visuelle Metaphern:} In die Stadtmetapher fügen sich Beschriftungen nur bedingt ein. Straßennamen sind zwar nicht unüblich, die Metapher wird insgesamt jedoch weder deutlich gestärkt noch stark beeinträchtigt.
 \end{itemize}
-Mit diesem Ansatz hat man natülich immernoch die gleichen Probleme wie eingangs beschrieben, allerdings sind diese abhängig von dem wert N und außerdem werden diese minimiert, da wirklich nur die Top Knoten beschriftetet werden, wodurch die Fläche der unteren Knoten trotzdem besser vorhergesagt werden kann und sich dieser fehler nicht nach oben propagiert.
 
-%wie genau wirkt sich die wahl von N aus?
+Die Effekte der Beschriftungen auf die Kriterien fallen gemischt aus. Insgesamt überwiegt jedoch der positive Effekt eines höheren Informationsgehalts.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/labels/numberOfZeroAreaNodes_over_labelLength.png}
+    \caption[Fehlende Knoten vs. Länge]{Anzahl der fehlenden Knoten in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
+    \label{fig:labels_numberOfZeroAreaNodes_over_labelLength}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/labels/variationCoefficientOfAreaDifferences_over_labelLength.png}
+    \caption[Flächenverhältnis vs. Länge]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
+    \label{fig:labels_variationCoefficientOfAreaDifferences_over_labelLength}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/labels/averageRatio_over_labelLength.png}
+    \caption[Seitenverhältnis vs. Länge]{Durchschnittliches Seitenverhältnis in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
+    \label{fig:labels_averageRatio_over_labelLength}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/labels/spaceForLeafNodesRatio_over_labelLength.png}
+    \caption[Platznutzung vs. Länge]{Platznutzung in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N. Werte näher bei 1 sind besser.}
+    \label{fig:labels_spaceForLeafNodesRatio_over_labelLength}
+\end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/labels/timeNeededInMs_over_labelLength.png}
+    \caption[Zeitaufwand vs. Länge]{Zeitaufwand in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
+    \label{fig:labels_timeNeededInMs_over_labelLength}
+\end{figure}
 
+In den Abbildungen \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength}, \ref{fig:labels_variationCoefficientOfAreaDifferences_over_labelLength}, \ref{fig:labels_averageRatio_over_labelLength}, \ref{fig:labels_spaceForLeafNodesRatio_over_labelLength} und \ref{fig:labels_timeNeededInMs_over_labelLength} ist zu erkennen, dass sowohl die Wahl von N als auch die Wahl von l deutliche Auswirkungen auf die Kennzahlen haben. Mit steigenden Werten von N und l verschlechtern sich die Kennzahlen erwartungsgemäß, da infolge der Flächenreservierung für Beschriftungen weniger Platz für die Knoten verbleibt und die Schwierigkeit des Treemap-Problems zunimmt. Eine Ausnahme bilden die Seitenverhältnisse, die sich durch beide Parameter kaum verändern. Gleiches gilt weitgehend für die Laufzeit.
 
+\smallskip
+
+Es wurde gezeigt, dass die Wahl von N und l sowohl die Kriterien als auch die Kennzahlen stark beeinflusst. Als praktikable Empfehlung, die Vor- und Nachteile abwägt, bieten sich Werte für N zwischen 2 und 5 an. Da die mittlere Knotentiefe bei 7 liegt, ist es in der Regel nicht notwendig, alle Ordner der oberen Ebenen mit Beschriftungen zu versehen, da andernfalls zu viel Fläche beansprucht würde. Beschriftungen sind notwendig, um der Visualisierung Bedeutung zu geben. Es existieren zahlreiche Möglichkeiten zur Gestaltung von Beschriftungen und erhebliches Entwicklungspotenzial in diese Richtung. Die hier vorgestellte Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Anstoß und Orientierung für weitere Ansätze und Verbesserungen dienen.
 
 \section{Fazit}
-Wir haben in diesem Kapitel verschiedene Erweiterungen und Anpassungen des Squarify Algorithmus für unsere Anforderungen vorgestellt und evaluiert. Dabei haben wir verschiedene bestehende Ansätze aus der Literatur getestet, sowie einige komplett neue Ansätze entwickelt, die bisher soweit wir wissen noch nie in dieser Form vorgestellt wurden. Außerdem konnten wir zeigen, dass Ansätze aus der Literatur, wie die von Lu und Fogarty \cite{lu2008cascaded}, nicht immer die besten Ergebnisse für unsere Anforderungen liefern, was die Notwendigkeit zeigt, solche Ansätze immer wieder zu hinterfragen und auf die eigenen Anforderungen anzupassen und auszuwerten.
-Der einzige Ansatz der glaube ich nicht weiter verfolgt werden muss ist die Mehrfache Berechnung des Layouts, ich hatte nicht dass gefühlt, dass man hier noch anpassungen an dieser Idee vornehmen könnte, die zu besseren Ergebnissen führen.
-Außerdem können die verwendeten Ansätze selbst noch weiter verbessert werden. Die hier verwendeten Ansätze sind zum großteil komplett neu und in noch keiner anderen Arbeit vorgestellt. Diese Ansätze sind V1 versionen und können sicherlich noch weiter verbessert werden. 
+In diesem Kapitel wurden verschiedene Erweiterungen und Anpassungen des Squarify-Algorithmus für die vorliegenden Anforderungen vorgestellt und evaluiert. Dabei kamen sowohl etablierte Ansätze aus der Literatur als auch neue, in dieser Form bislang nicht publizierte Strategien zum Einsatz. Zudem zeigt sich, dass Literaturansätze wie der von Lu und Fogarty nicht in jedem Kontext die besten Ergebnisse liefern, was die Notwendigkeit unterstreicht, solche Verfahren regelmäßig zu hinterfragen, anzupassen und anhand eigener Kriterien auszuwerten~\cite{lu2008cascaded}.
 
-Das Treemap problem ist durch unseren Ansatz für unsere anwendung stark verbessert worden, allerdings ist es immernoch ein NP-Hartes Problem, weshalb es keine perfekte Lösung gibt. Es gibt sicherlich noch unzählige Ideen, um unseren Ansatz zu verbessern, wie zum Beispiel: Anstatt feste Abstände. Dynamische Abstände die sich an Tiefe oder Anzahl der Geschwister orient. Oder andere Größenanpassungen, die auf anderen Heuristiken basieren. Oder andere Sortier- und Platzierungsstrategien. Oder andere Ansätze um die Knoten zu beschriften. Oder oder oder... 
+Der einzige Ansatz, der nicht weiterverfolgt werden muss, ist die mehrfache Berechnung des Layouts. Es ergab sich kein Hinweis darauf, dass zusätzliche Anpassungen an dieser Idee zu besseren Ergebnissen führen würden. Gleichzeitig lassen sich die verwendeten Ansätze weiter verbessern. Ein Großteil der hier eingesetzten Verfahren ist neu und in dieser Form bislang nicht beschrieben. Es handelt sich um erste Versionen, die voraussichtlich weiter optimiert werden können.
 
-Alles in allem Empfehlen wir folgende Einstellungen für den Algorithmus:
+Das Treemap-Problem wurde für die betrachtete Anwendung durch den vorgestellten Ansatz deutlich verbessert. Es bleibt jedoch ein NP-hartes Problem, weshalb keine perfekte Lösung existiert. Es bieten sich zahlreiche Ideen zur weiteren Verbesserung an, etwa die Verwendung dynamischer statt fester Abstände, die Berücksichtigung der Tiefe oder der Anzahl der Geschwister, alternative Größenanpassungen auf Basis anderer Heuristiken, abweichende Sortier- und Platzierungsstrategien oder neue Ansätze für die Integration von Beschriftungen in die Knoten.
+
+Empfohlen werden folgende Einstellungen für den Algorithmus:
 \begin{itemize}
-    \item \textbf{Abstände zwischen Knoten:} Manuelle Wahl zwischen 0,5\% und 3\% relativem Abstand je nach Software und Ziel der Visualisierung (siehe Abschnitt \ref{sec:AbständeGeschwister})
-    \item \textbf{Angestrebtes Seitenverhältnis:} 1,05 (siehe Abschnitt \ref{sec:Seitenverhältnis})
-    \item \textbf{Reihenfolge der Knoten:} Absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnoten})
-    \item \textbf{Größenanpassung:} Relative Größenanpassung (siehe Abschnitt \ref{sec:GrößenanpassungKnoten})
-    \item \textbf{Zweiter Layoutschritt:} Neue Sortierung absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout})
-    \item \textbf{Mehrfache Berechnung:} Nein (siehe Abschnitt \ref{sec:MehrfacheBerechnung})
-    \item \textbf{Optimierung von Ordnerketten:} Ja (siehe Abschnitt \ref{sec:OrderKettenOptimierung})
-    \item \textbf{Abstände zwischen Geschwistern:} Nur zwischen Ordnern (siehe Abschnitt \ref{sec:AbständeGeschwister})
-    \item \textbf{Beschriftung der Knoten:} Manuelle Wahl zwischen x und y (siehe Abschnitt \ref{sec:BeschriftungKnoten})
+    \item \textbf{Abstände zwischen Knoten:} Manuelle Wahl zwischen 0{,}5\% und 3\% relativem Abstand je nach Software und Ziel der Visualisierung (siehe Abschnitt \ref{sec:AbständeGeschwister}).
+    \item \textbf{Angestrebtes Seitenverhältnis:} 1{,}05 (siehe Abschnitt \ref{sec:Seitenverhältnis}).
+    \item \textbf{Reihenfolge der Knoten:} Absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnoten}).
+    \item \textbf{Größenanpassung:} Relative Größenanpassung (siehe Abschnitt \ref{sec:RelativeGrößenanpassung}).
+    \item \textbf{Zweiter Layoutschritt:} Neusortierung absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout}).
+    \item \textbf{Mehrfache Berechnung:} Nicht verwenden (siehe Abschnitt \ref{sec:MehrfacheBerechnung}).
+    \item \textbf{Optimierung von Ordnerketten:} Verwenden (siehe Abschnitt \ref{sec:OrderKettenOptimierung}).
+    \item \textbf{Abstände zwischen Geschwistern:} Nur zwischen Ordnern (siehe Abschnitt \ref{sec:AbständeGeschwister}).
+    \item \textbf{Beschriftung der Knoten:} Manuelle Wahl von Anzahl und Größe der Beschriftungen (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
 \end{itemize}
 
-Wir werden exakt diese Einstellungen verwenden, um die Visualisierungen für die Umfrage im nächsten Kapitel zu erstellen.
+Ein letztes Mal wird der verbesserte Algorithmus dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit drei Labels der Länge 20.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
+    \caption[Fehlende Knoten im Vergleich]{Median der Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
+    \label{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
+\end{figure}
+
+Um den Faktor 4 verbessert.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin_median.png}
+    \caption[Flächenverhältnis im Vergleich]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
+    \label{fig:finalCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
+\end{figure}
+
+Um faktor 3 verbessert.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/averageRatio_over_aimedRelativeMargin_median.png}
+    \caption[Seitenverhältnis im Vergleich]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
+    \label{fig:finalCompare_averageRatio_over_aimedRelativeMargin}
+\end{figure}
+
+Um faktor 1,5 verbessert.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/spaceForLeafNodesRatio_over_aimedRelativeMargin_median.png}
+    \caption[Platznutzung im Vergleich]{Platznutzung in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus. Werte näher bei 1 sind besser.}
+    \label{fig:finalCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin}
+\end{figure}
+
+Um 0,2 Prozentpunkte verbessert.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/timeNeededInMs_over_aimedRelativeMargin_median.png}
+    \caption[Zeitaufwand im Vergleich]{Zeitaufwand in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
+    \label{fig:finalCompare_timeNeededInMs_over_aimedRelativeMargin}
+\end{figure}
+
+In allen Abbildungen ist zu erkennen, dass der verbesserte Squarify-Algorithmus in sämtlichen Kennzahlen deutlich besser abschneidet als der d3.js Nested-Algorithmus, mit Ausnahme der Laufzeit, die um ungefähr 50\% höher liegt (siehe Abbildungen \ref{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}, \ref{fig:finalCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}, \ref{fig:finalCompare_averageRatio_over_aimedRelativeMargin}, \ref{fig:finalCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin} und \ref{fig:finalCompare_timeNeededInMs_over_aimedRelativeMargin}). Demgegenüber sind die resultierenden Treemaps in allen anderen visuell erkennbaren Kennzahlen durchweg überlegen. Diese Verbesserungen sind signifikant und Ausschlaggeben, wenn zum Beispiel statt 20 fehlenden Knoten nur noch 5 Knoten fehlen oder das durchschnittliche Seitenverhältnis von 4,5 auf 2,5 sinkt. Insgesamt wird das Treemap-Problem für die vorliegende Anwendung durch den verbesserten Squarify-Algorithmus deutlich entschärft.
