@@ -664,55 +664,112 @@ Die Daten zeigen in allen betrachteten Aspekten eine Verbesserung oder zumindest
 
 
 \section{Abstände zwischen Geschwister Knoten} \label{sec:AbständeGeschwister}
-Abstände zwischen Geschwister Knoten sind eine wichtige Entscheidung. Im Ursprünglichen Squarify Algorithmus Paper \cite{bruls2000squarified} wird der Nested Ansatz mit Abständen vorgestellt, jedoch ohne Abstände zwischen Geschwistern. Viele Tools, verwenden jedoch Abstände auch zwischen Geschwisterknoten \cite{codeCity1, code_charta_webdemo, sereene_website}.
-Was sind die Vor- und Nachteile von Abständen zwischen Geschwistern?
-\begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verschlechtert, da jeder Knoten mit geschwistern mehr Platz benötigt. 
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Wird verbessert, da die Knoten besser voneinander getrennt werden und somit die Struktur besser erkennbar ist. Allerdings muss das nicht der Fall sein, man könnte zum Beispiel die Kanten der Knoten mit einer anderen Farbe einfärben, um die Knoten besser voneinander zu trennen.
-    \item \textbf{Skalierbarkeit:} Eigentlich wenig auswirkung auf skalierbarkeit, weder die laufzeit ändert sich signifikant (in unsrem algorithmus werden die abstände erzeugt, indem am ende alle knoten um den abstand verkleinert werden - also im grunde kommt laufzeit von N hinzu, wo N die Anzahl der Knoten ist, das ist aber nicht ausschlaggebend). Also wenn wird die Skalierbarkeit minimal schlechter.
-    \item \textbf{Korrelation mit dem Code:} Keine auswirkung
-    \item \textbf{Stabilität gegenüber Änderungen:} Auch nicht wirklich
-\end{itemize}
 
-Die Anpassung, die Knoten mit Kanten zu versehen, natürlich stark abhängig von der gewählten Farbgebung (auch Schattierung, Struktur oder Transparenz). Wie in der Problemstellung definiert (siehe Abschnitt \ref{sec:Problemstellung}) sollte das Layout so gestaltet sein, dass es möglich ist, weitere Metriken durch Farbgebung zu visualisieren. Die Kanten widersprechen dieser Einschränkung nur in Aussahme fällen. Die meisten Visualisierungen in der Praxis verwenden einfache Einfärbungen \cite{codeCity1, code_charta_webdemo, sereene_website}, was bedeutet, dass man einfach Schwarz oder eine Komplementärfarbe als Kantenfarbe nutzen kann, ohne dass es zu Konflikten mit der Farbgebung kommt. Die einzige Ausnahme, die mir bekannt ist, ist wäre die Nutzung von Linien, Schachbrettmuster oder ähnlichen Strukturen, durch die eine Kante nicht mehr als solche erkennbar wäre. Dies könnte zum Beispiel bei dem Ansatz aus dem paper \textit{E-Quality} von Ural Erdemir et al. \cite{eQuality} der Fall sein, da hier zum Beispiel ein Gittermuster verwendet wird, um einen Mangel an Kohäsion zu visualisieren, eine Kante, selbst in anderer Farbe, würde hier eher stören oder in dem Muster untergehen. 
+Alle bisher beschriebenen Treemap und Code City Visualisierungen haben Abstände zwischen Geschwisterknoten (zu erkennen in Abbildung \ref{fig:codeCity, fig:nestedTreemap, fig:sereene, fig:codeChartaTreemap} oder in den Quellen \cite{codeCity1, code_charta_webdemo, sereene_website}) und auch der Nested-Treemap-Algorithmus von d3.js erzeugt Abstände zwischen Geschwistern. Aus diesem Grund wurde in den bisherigen Abschnitten stets davon ausgegangen, dass Abstände zwischen Geschwisterknoten dargestellt werden.
+Im ursprünglichen Squarify Algorithmus Paper~\cite{bruls2000squarified} wird der Nested Ansatz jedoch ohne Abstände zwischen Geschwistern vorgestellt (siehe Abbildung \ref{fig:originalNested}).
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für Abstände zwischen Geschwistern und keine Abstände zwischen Geschwistern.}
+    \includegraphics[width=0.8\textwidth]{images/improve/originalNested.png}
+    \caption[Nested-Treemap aus Squarify Arbeit]{Nested-Treemap aus der Squarify Treemaps Arbeit \cite{bruls2000squarified}. Wir haben hier mit einem roten Oval gekennzeichnet, wo zu erkennen ist dass keine Abstände zwischen Geschwisterknoten gibt.}
+    \label{fig:originalNested}
+\end{figure}
+
+Wir wollen im Folgenden untersuchen, ob Abstände zwischen Geschwistern für unsere Anwendung sinnvoll sind oder ob es Vorteile bringt, diese Abstände zu entfernen. Dazu werden die Auswirkungen auf die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen sowie die messbaren Kennzahlen betrachtet.
+Wenn es keine Abstände mehr zwischen Geschwistern gibt, muss man die Knoten auf andere Visuelle Weise voneinander trennen. Eine Möglichkeit, die häufig dafür verwendet wird sind cushion Treemap~\cite{cushionTreemaps}, also Schattierungen. Diese möglichkeit macht für uns keinen sinn, da wir ja im nächsten schritt in 2.5D extrudieren wollen, wobei sich die Schattierung nicht mehr sinnvoll darstellen lässt. Wir schlagen also Umrandungen der Knoten vor, um die Knoten voneinander zu trennen. In Abbildung \ref{fig:umrandungBeispiel} sind zwei Beispiele von Treemaps mit Umrandung der Knoten dargestellt, links mit Abständen zwischen Geschwistern, rechts ohne Abstände zwischen Geschwistern.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/umrandungBeispiel.png}
+    \caption[Treemaps mit Umrandung]{Beispielhafte Treemaps mit Umrandung der Knoten. Links mit Abständen zwischen Geschwistern, rechts ohne Abstände zwischen Geschwistern. Mit dem roten Oval sind zwei Blattknoten markiert, bei denen aufgrund der Umrandung die Farbe nicht mehr erkennbar ist.}
+    \label{fig:umrandungBeispiel}
+\end{figure}
+
+Im Folgenden betrachten wir die Auswirkungen auf die Kriterien guter Visualisierungen, wenn wir Abstände zwischen Geschwistern entfernen und stattdessen Umrandungen der Knoten verwenden, um die Knoten visuell voneinander zu trennen.
+\begin{itemize}
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Wird verbessert, da durch das Entfernen der Abstände zwischen Geschwistern weniger Platz für Abstände benötigt wird und somit mehr Platz für die Knoten zur Verfügung steht. 
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Zum einen kann man argumentieren, dass dadurch Geschwisterknoten enger beieinander liegen und somit die Struktur der Daten klarer wird. Zum anderen könnte man aber auch argumentieren, dass das gesamte Layout unübersichtlicher wird, da die Knoten enger beieinander liegen und nur noch durch eine dünne Linie getrennt sind. ist also schwer zu sagen, ob es besser oder schlechter wird.
+    \item \textbf{Skalierbarkeit:} Ein Argument, welches generell gegen Umrandungen spricht, ist dass dadurch die Farbe der Knoten teilweise verdeckt werden kann, wenn Blattknoten zu klein werden (siehe Abbildung \ref{fig:umrandungBeispiel}). Da bei der darstellung ohne geschwister abstand umrandungen zwingend notwendig sind, macht das die Skalierbarkeit schlechter, da bei großen Codebasen tendenziell mehr kleine Knoten entstehen.
+    \item \textbf{Visuelle Metaphern:} Minimale auswirkung vielleicht, da davor die Abstände zwischen Geschwistern als Straßen interpretiert werden konnten, was jetzt nicht mehr der Fall ist. Jetzt ist die Stadt eben etwas dichter bebaut. also genrell vllt etwas schlechter.
+\end{itemize}
+
+Informationsgehalt wird besser, Komplexität kann man nicht wirklich sagen, der REst wird aber schlechter. Weil das so gemischt ist testen wir eine dritte Variante, die bisher nach unserem wissen noch nie so umgesetzt wurde. Undzwar ist die Variante diese, dass abstände nur zwischen Geschwister-Knoten existieren, die keine Blattknoten sind. Also nur zwischen Ordnern und nicht zwischen Dateien. Dadurch hat man so ein mittelding. Wie das dann aussieht ist in Abbildung \ref{fig:AbstandOrdnerBeispiel} dargestellt. Dadurch entsteht jetzt folgender Effekt. zwischen zwei Geschwisterordnern ist der immer ein ganzer Abstand, was die Struktur der Daten klarer macht. Zwischen einem Ordner und einer Datei, die im selben ordner nebeneinander liegen, ist ein halber Abstand. zwisschen zwei geschwisterDateien ist kein abstand. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/onlyLeafNoMargin.png}
+    \caption[Treemaps mit Abstand nur zwischen Ordnern]{Treemap mit Geschwisterabständen nur bei Ordnern.}
+    \label{fig:AbstandOrdnerBeispiel}
+\end{figure}
+
+Wir bewerten diese Variante wie folgt:
+\begin{itemize}
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Ist zwischen beiden anderen Varianten einzuordnen. Weil Platz besser genutzt wird als bei Abständen zwischen Geschwistern, aber schlechter als wenn es gar keine Abstände zwischen Geschwistern gibt.
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Ist besser als beide anderen Varianten. Weil die Struktur der Daten klarer wird, da Ordner immer durch einen ganzen Abstand getrennt sind. Und Dateien, die im selben Ordner liegen, nicht durch einen Abstand getrennt sind, was die Zusammengehörigkeit der Dateien klarer macht. Durch beide Effekte wird die Struktur der Daten klarer.
+    \item \textbf{Skalierbarkeit:} Ist Aufgrund der Umrandungen schlechter als die Variante mit Abständen zwischen Geschwistern ohne Umrandungen. Also gleich zur Varienta ohne Abstände zwischen Geschwistern.
+    \item \textbf{Visuelle Metaphern:} Ist eigentlich gleich gut oder sogar besser als die Variante mit Abständen zwischen Geschwistern. Weil dadurch dass immer noch Abstände da sind, Straßen in der Stadtmetapher interpretiert werden können. Aber Order mit Dateien, die dann keinen Abstand haben als Gebäude Blöcke interpretiert werden können, was gut zur Stadtmetapher passt.
+\end{itemize}
+
+
+Jetzt testen wir alle drei Varianten gegeneinander und messen die Auswirkungen auf die Kennzahlen. 
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
     \label{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
+Die Version ohne Abstände zwischen Geschwistern schneidet bei den fehlenden Knoten am besten ab, die anderen beiden Varianten sind ähnlich (siehe Abbildung \ref{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin}). Jedoch fällt auch auf, dass die Werte inzwischen durch die ganzen optimierungen zuvor sehr niedrig sind, wodurch die zahlen nicht mehr so belastbar sind, zwischen 0 und 6 fehlenden Knoten im Median, weshalb wird uns auch noch den Durchschnitt anschauen, wo das Verhältnis etwas deutlicher wird (siehe Abbildung \ref{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin_average}). Die Variante ohne Abstände zwischen Geschwistern schneidet immernoch durchgehend deutlich besser ab als die anderen beiden Varianten. Die Variante mit Abständen nur zwischen Ordnern schneidet etwas besser ab als die Variante mit Abständen zwischen Geschwistern.
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für Abstände zwischen Geschwistern und keine Abstände zwischen Geschwistern.}
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin_average.png}
+    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
+    \label{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin_average}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin_median.png}
+    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
     \label{fig:margin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
+Der Varianzkoeffizient des Flächenverhältnisses ist bei der Version mit Abständen nur zwischen Ordern-Geschwistern am besten, gefolgt von der Version ohne Abstände zwischen Geschwistern. Die Version mit Abständen zwischen Geschwistern schneidet am schlechtesten ab (siehe Abbildung \ref{fig:margin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}). Eigentlich hatten wir erwartet, dass die Version ohne Abstände zwischen Geschwistern am besten abschneidet, weil dadurch Ordnerknoten weniger Platz für Abstände verlieren und dadurch näher an ihrer eigentlichen Fläche liegen. 
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für Abstände zwischen Geschwistern und keine Abstände zwischen Geschwistern.}
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/averageRatio_over_aimedRelativeMargin_median.png}
+    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
     \label{fig:margin_averageRatio_over_aimedRelativeMargin}
 \end{figure}
 
+Die Werte für das durchschnittliche Seitenverhältnis sind bei allen Versionen sehr ähnlich (siehe Abbildung \ref{fig:margin_averageRatio_over_aimedRelativeMargin}). Die Version mit Abständen nur zwischen Ordnern schneidet minimal besser ab als die anderen beiden Versionen, die wiederum sehr ähnlich sind.
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für Abstände zwischen Geschwistern und keine Abstände zwischen Geschwistern. Werte näher bei 1 sind besser.}
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/spaceForLeafNodesRatio_over_aimedRelativeMargin_median.png}
+    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern. Werte näher bei 1 sind besser.}
     \label{fig:margin_spaceForLeafNodesRatio_over_aimedRelativeMargin}
 \end{figure}
 
+Logicherweise ist die Platznutzung bei der Version ohne Abstände zwischen Geschwistern am besten, gefolgt von der Version mit Abständen nur zwischen Ordnern. Die Version mit Abständen zwischen Geschwistern schneidet am schlechtesten ab (siehe Abbildung \ref{fig:margin_spaceForLeafNodesRatio_over_aimedRelativeMargin}).
+
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für Abstände zwischen Geschwistern und keine Abstände zwischen Geschwistern.}
+    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/timeNeededInMs_over_aimedRelativeMargin_median.png}
+    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
     \label{fig:margin_timeNeededInMs_over_aimedRelativeMargin}
 \end{figure}
 
+Bei der Laufzeit gibt es praktisch keinen Unterschied zwischen den drei Versionen (siehe Abbildung \ref{fig:margin_timeNeededInMs_over_aimedRelativeMargin}).
 
+\smallskip
 
+Alles in allem schneidet die Version nur mit Abständen zwischen Ordnern bei den Kriterien guter Visualisierungen am besten ab und bei den Kennzahlen für Treemaps meist im mittleren Bereich. Die Version komplett ohne Abstände zwischen Geschwistern schneidet bei den Kriterien schlechter ab, bei den Kennzahlen aber meist am besten, was ja auch zu erwarten war. Die Version mit Abständen zwischen Geschwistern schneidet bei den Kriterien so mittel ab und bei den Kennzahlen meist am schlechtesten. Wir entscheiden uns für die Version mit Abständen nur zwischen Ordnern, da sie bei den Kriterien am besten abschneidet und bei den Kennzahlen mittelmäßig gut abschneidet.
 
 
 
@@ -769,6 +826,7 @@ Außerdem können die verwendeten Ansätze selbst noch weiter verbessert werden.
 
 Das Treemap problem ist durch unseren Ansatz stark verbessert worden, allerdings ist es immernoch ein NP-Hartes Problem, weshalb es keine perfekte Lösung gibt. Es gibt sicherlich noch unzählige Ideen, um unseren Ansatz zu verbessern, wie zum Beispiel: Anstatt feste Abstände. Dynamische Abstände die sich an Tiefe oder Anzahl der Geschwister orient. Oder andere Größenanpassungen, die auf anderen Heuristiken basieren. Oder andere Sortier- und Platzierungsstrategien. Oder andere Ansätze um die Knoten zu beschriften. Oder oder oder... 
 
+%es sind super neue ideen präsentiert worden, die teilweise revolutionär sind und auch noch gut funktionieren.
 
 Alles in allem Empfehlen wir folgende Einstellungen für den Algorithmus:
 \begin{itemize}
