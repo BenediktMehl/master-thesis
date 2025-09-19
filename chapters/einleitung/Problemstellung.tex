@@ -1,7 +1,8 @@
-\chapter{Problemstellung} \label{sec:Problemstellung}
-In diesem Kapitel werden Problemstellung und Forschungsfragen präzise definiert. Zunächst werden der Hauptproblemkontext, der Anwendungsfall und die dieser Arbeit zugrunde liegenden Anforderungen im Detail beschrieben. Anschließend wird ein zentrales Problem des Treemap-Layouts erläutert. Dieses Problem ist zu lösen, um den Treemap-Algorithmus für eine 2{,}5D-Softwarevisualisierung optimal nutzbar zu machen.
+\chapter{Problemanalyse} \label{sec:Problemanalyse}
+In diesem Kapitel werden Problemstellung und Forschungsfragen präzise definiert. Es werden der Problemkontext, der Anwendungsfall und die dieser Arbeit zugrunde liegenden Anforderungen im Detail beschrieben.
 
-\section{Hauptproblem} \label{sec:Hauptproblem}
+\section{Problemstellung und Forschungsfragen} \label{sec:Problemstellung}
+
 Ausgangspunkt ist die Anforderung, Softwarequalität für Personen ohne Programmierkenntnisse oder ohne Vertrautheit mit der konkreten Codebasis nachvollziehbar und belastbar zu begründen. In der Praxis müssen Entscheidungen über Anpassungen oder Veränderungen am aktuellen Systemzustand mit Argumenten untermauert werden. Softwareanalysen und Empfehlungen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden, dabei können visuelle Darstellungen von Code-Qualitätsmetriken diese Aufgabe erleichtern.
 Daraus ergibt sich die Frage, welche Visualisierungsform diese Aufgabe am besten unterstützt.
 Im Zentrum steht folgende Forschungsfrage:
@@ -14,15 +15,12 @@ Eine vollständige Beantwortung dieser Frage ist nicht möglich, da nicht alle d
 
 Aus der Leitfrage werden zwei konkret beantwortbare Forschungsfragen abgeleitet:
 
-\begin{quote}
-    Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
-\end{quote}
+\begin{enumerate}
+    \item Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
+    \item Welche dieser Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Hinblick auf den definierten Anwendungsfall?
+\end{enumerate}
 
-\begin{quote}
-    Welche dieser Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Hinblick auf den definierten Anwendungsfall?
-\end{quote}
-
-Die Bewertung der Visualisierungen erfolgt anhand in der Literatur etablierter Kriterien und durch eine empirische Studie mit Teilnehmenden, die keine oder nur geringe Kenntnisse der Codebasis und Programmierung besitzen.
+\section{Anwendungsfall und Anforderungen} \label{sec:Anwendungsfall}
 
 Zur klaren Bestimmung des Anwendungsfalls und der Anforderungen an die angestrebten Visualisierungen werden die fünf Dimensionen der Softwarevisualisierung nach Marcus et al. herangezogen~\cite[2]{3dsoftwareMarcus}:
 \begin{itemize}
@@ -58,75 +56,21 @@ Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschi
 \subsection*{5. Wie erfolgt die Darstellung?}
 Betrachtet werden 2.5D- und 3D-Visualisierungen, die in der Literatur und in bestehenden Tools zur Darstellung von Code-Qualitätsmetriken genutzt werden. Dazu gehören einfache 2.5D-Visualisierungen nach dem CodeCity-Prinzip~\cite{codeCity1} ebenso wie komplexere 3D-Visualisierungen, beispielsweise Sonnensystem-Metaphern~\cite{solarSystem}. Voraussetzung ist, dass sowohl Metriken als auch die hierarchische Softwarestruktur abgebildet werden können. Interaktive Visualisierungen (z. B. mit Zoom oder Rotation) werden nicht betrachtet. Dies entspricht der Praxis, in der aus Gründen der Reduktion von Komplexität häufig statische Ansichten bevorzugt werden, um den Nutzenden keine zusätzliche Steuerung oder Navigation aufzuerlegen. Entsprechend werden 3D-Visualisierungen als statische Ansichten in Form ausgewählter Renderings bzw. Bilder präsentiert.
 
-\section{Treemap-Problem} \label{sec:TreemapProblem}
-Die Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) zeigt, dass Treemaps die am weitesten verbreitete Visualisierung für Code-Qualitätsmetriken sind und dennoch Verbesserungspotenzial besteht. Ein spezifisches, von Lü und Fogarty identifiziertes Problem betrifft die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. Da in dieser Arbeit die hierarchische Struktur der Software mit dargestellt werden soll, wird in diesem Abschnitt dieses Problem präzisiert und seine Ursachen erläutert.
+\section{Lösungs- und Bewertungsansatz} \label{sec:Bewertungsansatz}
+Leitfrage 1 wird durch eine systematische Literaturrecherche und die Analyse bestehender Tools beantwortet. Dabei werden Visualisierungen identifiziert, die in der Literatur und in der Praxis als besonders geeignet für den Anwendungsfall erscheinen. 
 
-Shneiderman und Johnson schlagen vor, Abstände zwischen Rechtecken einzuführen, um Hierarchieebenen zu verdeutlichen~\cite{johnson1991tree}. Shneiderman und Johnson weisen nicht explizit auf ein zentrales Problem hin: Der notwendige Abstand zwischen Rechtecken wird meist realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche häufig nicht mehr proportional zu den zugehörigen Werten. Sehr kleine oder langgestreckte Rechtecke können im Extremfall vollständig verschwinden. Dies verletzt die Eigenschaft der strikten Proportionalität. In praktischen Anwendungsfällen, etwa wenn die Rechtecksfläche eine Kennzahl wie \textit{Lines of Code} repräsentiert, können kleine Dateien oder Knoten durch die Ränder vollständig verloren gehen. Dies ist besonders kritisch, wenn eine zusätzliche Dimension (z. B. Testabdeckung) diese Elemente hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
+Leitfrage 2 wird durch die Bewertung der durch Leitfrage 1 identifizierten Visualisierungen beantwortet. Diese Bewertung der Visualisierungen erfolgt anhand einer Umfrage (siehe Abschnitt \ref{sec:Umfrage}) und einer direkten Bewertung der Visualisierungen anhand definierter Kriterien. Diese Kriterien werden aus den in Abschnitt \ref{sec:SoftwareVisualisierung} beschriebenen Merkmalen guter Softwarevisualisierungen abgeleitet und auf den Anwendungsfall dieser Arbeit übertragen:
 
-Das Grundproblem bei der Erstellung von Treemaps, nämlich das Aufteilen eines Rechtecks in kleinere Rechtecke entsprechend deren Werte, ist bereits ohne Abstände NP-schwer~\cite[3]{bruls2000squarified}. Zusätzliche Abstände verschärfen die Problematik. Zentrale Schwierigkeiten bei der Integration von Abständen in das Layout sind:
 \begin{itemize}
-    \item Durch die für Abstände abgezogenen Flächen ist die verbleibende Knotenfläche nicht mehr proportional zum Wert des Knotens. Dies ist in bestimmten Fällen grundsätzlich nicht erfüllbar: Ein Ordner mit genau einem Kindknoten kann nicht gleichzeitig eine Fläche proportional zu seinem Wert besitzen, während sein Kindknoten ebenfalls proportional abgebildet wird. Der Ordner benötigt durch die Abstände zwangsläufig eine größere Fläche als sein Kindknoten, obwohl beide den gleichen Wert aufweisen.
-    \item Bei kleinen Knoten können aufgrund von Minimalabständen einzelne Knoten vollständig verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand ist. Knoten sind somit nicht nur zu klein, sondern werden tatsächlich auf eine Fläche von 0 reduziert.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden. Für die Übersichtlichkeit ist insbesondere relevant, dass die Struktur der Hierarchie erkennbar wird. Außerdem steigt die Verständlichkeit einer Analyse, wenn diese durch viele relevante Informationen gestützt wird.
+    \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Das Layout muss klar und intuitiv lesbar bleiben, um Verständnis zu erhöhen.
+    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Dieser Aspekt ist relevant, da Softwarevisualisierung insbesondere dann sinnvoll wird, wenn die Codebasis ohne Unterstützung nicht mehr überblickt werden kann. \enquote{Representations suitable for the presentation of small data sets do not automagically scale to larger data sets.}\cite[161]{johnson1993treemapsPhd}
+    \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell und steigert im Optimialfall sowohl Übersichtlichkeit als auch Verständlichkeit. \enquote{The research being described in this paper has tried to harness natural perceptual skills in this way, through the use of a very strong real world metaphor.}\cite[2]{virtualButVisibleMunro}
 \end{itemize}
 
-Die Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} zeigen Treemap-Layouts, die mit dem Squarify-Algorithmus erzeugt wurden (siehe Abschnitt \ref{sec:Squarify}). Die zugrundeliegenden Strukturen und Metriken wurden händisch erstellt, um typische Probleme bei Flächenproportionalität und Sichtbarkeit zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}). In späteren Abschnitten wird gezeigt, dass diese Probleme auch in realen Anwendungsfällen auftreten. Für die klare Demonstration werden hier künstliche Beispiele verwendet.
-
-In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Alle Knoten sind sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten. Dadurch liegt exakte Flächenproportionalität zwischen Wert und Darstellung vor.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/zeroMarginArtificialMap.png}
-    \caption[Treemap mit Abstand 0]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 0).}
-    \label{fig:zeroMarginArtificialMap}
-\end{figure}
-
-In Abbildung \ref{fig:fiveMarginArtificialMap} ist ein Abstand zwischen Knoten und Ordnern eingefügt. Zwar bleibt jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten. Beispielsweise ist die Fläche des großen Knotens 3 aufgrund der Abstände geringer, das Verhältnis von Wert zu abgebildeter Fläche beträgt ungefähr 0,9. Problematisch ist die fehlende Gleichförmigkeit: Der kleine Knoten oben links (Knoten 5) ist relativ deutlich stärker betroffen und weist nur noch ein Wert-Fläche-Verhältnis von etwa 0,2 auf. Obwohl Knoten 2 den gleichen Wert wie Knoten 5 besitzt, ist seine Fläche deutlich größer. Dies verdeutlicht, dass Abstände die Flächenproportionalität erheblich beeinträchtigen.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
-    \caption[Treemap mit Abstand 5]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 5).}
-    \label{fig:fiveMarginArtificialMap}
-\end{figure}
-
-In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem größeren Abstand, werden einige Knoten, beispielsweise der zuvor oben links gelegene Knoten 5, nicht mehr dargestellt, da ihre effektive Breite kleiner als der vorgegebene Abstand ist und damit die resultierende Breite 0 wird. Relevante Informationen gehen verloren, Rechtecke verschwinden vollständig.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
-    \caption[Treemap mit Abstand 10]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
-    \label{fig:tenMarginArtificialMap}
-\end{figure}
-
-Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf Proportionalität und Lesbarkeit von Treemaps.
-
-Es folgt ein reales Beispiel: Verwendet wird das in der Visualisierungsbibliothek D3.js bekannte Beispiel \textit{flare}~\cite{d3_treemap_github, flare_d3js}. In Abbildung \ref{fig:flareZero} ist das Treemap-Layout des Flare-Beispiels ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flare48Missing} ist das gleiche Layout mit Abstand dargestellt. Hier fehlen 48 Knoten. Oben links fehlen beispielsweise die Knoten 79 und 82, und oben rechts existiert ein Ordner ohne dargestellte Kindknoten, da Knoten 220 fehlt. Zudem sind die Flächen nicht mehr proportional zu den Werten.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/problemstellung/flarezero.png}
-    \caption[Flare: Abstand 0]{Treemap-Layout des Flare-Beispiels mit Abstand 0. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. Schwarze Kanten erhöhen die Sichtbarkeit der Knoten.}
-    \label{fig:flareZero}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/problemstellung/flare48Missing.png}
-    \caption[Flare: Abstand, 48 Knoten fehlen]{Treemap-Layout des Flare-Beispiels mit Abstand. 48 Knoten fehlen.}
-    \label{fig:flare48Missing}
-\end{figure}
-
-\smallskip
-
-Das zentrale Dilemma entsteht dadurch, dass eine Kernannahme der Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wie viel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive Belegungsfläche hängt wesentlich von der jeweiligen Anordnung der Knoten ab.
-
-Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit einem umlaufenden Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \times 4$) oder länglich (z. B. $2 \times 8$) sind. Die zusätzliche Fläche für Abstände variiert somit erheblich.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/marginArea.png}
-    \caption[Abstandsfläche je Seitenverhältnis]{Zwei Rechtecke der Fläche 16 (dunkelgrau) mit umlaufendem Abstand 1 (hellgrau): links ($4 \times 4$) Gesamtfläche 25 ($5 \times 5$), rechts ($2 \times 8$) 40 ($4 \times 10$).}
-    \label{fig:marginAreaDifference}
-\end{figure}
-
-Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche inklusive Abständen bekannt ist. Diese hängt jedoch wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb in dieser Arbeit verschiedene Ansätze zur Lösung dieses Problems untersucht werden (siehe Abschnitt \ref{sec:VerbesserungSquarify}).
+Vier Merkmale guter Softwarevisualisierungen werden in dieser Arbeit nicht bewertet: 
+\begin{itemize}
+    \item \textbf{Stabilität gegenüber Änderungen:} Eine Visualisierung sollte bei kleinen Änderungen der Datenquelle möglichst stabil bleiben, um die Orientierung zu erleichtern. Dieser Aspekt ist für den Anwendungsfall, den aktuellen Stand der Software zu kommunizieren und Maßnahmen zu begründen, nachrangig.
+    \item \textbf{Korrelation mit dem Code und Automatisierung}: Diese beiden Aspekte werden vorausgesetzt und werden durch alle modernen Visualisierungen, die in dieser Arbeit betrachtet werden erfüllt. 
+    \item \textbf{Navigation:} Um den Vergleich zu erleichtern und den Fokus auf die Visualisierung selbst zu legen, wird auf den Aspekt der Navigation verzichtet. Dies könnte Gegenstand zukünftiger Arbeiten sein.
+\end{itemize}

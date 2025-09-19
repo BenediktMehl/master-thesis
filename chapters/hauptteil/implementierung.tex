@@ -1,5 +1,14 @@
 \chapter{Implementierung} \label{sec:Implementierung}
-Dieses Kapitel beschreibt zunächst die Implementierung sowie die gemeinsamen Grundlagen aller Visualisierungen. Anschließend wird die Implementierung der einzelnen Visualisierungstypen erläutert.
+Um eine faire Vergleichbarkeit in der Umfrage zwischen den Visualisierungen zu gewährleisten, werden die Visualisierungen für diese Arbeit einheitlich implementiert. Dieses Kapitel beschreibt zunächst die Implementierung sowie die gemeinsamen Grundlagen aller Visualisierungen. Anschließend wird die Implementierung der einzelnen Visualisierungstypen erläutert.
+
+Für die Implementierung und die Bewertung in der Umfrage werden die fünf bestplatzierten Visualisierungen ausgewählt ohne einen Visualisierungstypen doppelt auszuwählen. Die Auswahl lautet:
+\begin{enumerate}
+    \item \textbf{Treemap}
+    \item \textbf{Streetmap}
+    \item \textbf{Code City}
+    \item \textbf{Sunburst}
+    \item \textbf{Circlular Treemap}
+\end{enumerate}
 
 \section{Gemeinsamkeiten und Architektur} \label{sec:Architektur}
 
@@ -32,8 +41,8 @@ Da der Fokus dieser Arbeit auf dem Vergleich von Visualisierungstypen liegt, sin
 
 Für die Umfrage werden diese Einstellungen je nach Visualisierung und Szenario so gewählt, dass die Analyse optimal unterstützt und das jeweilige Szenario adäquat abgebildet wird. Zusätzlich erlaubt eine Texteingabe das gezielte Markieren bestimmter Ordner oder Dateien in blau, um in der Umfrage für spezielle Szenarien relevante Elemente hervorzuheben.
 
-\section{Treemap} \label{sec:TreemapImplementation}
-Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:Treemap}). Es handelt sich um eine platzfüllende, rekursive Visualisierung, die häufig zur Darstellung hierarchischer Daten eingesetzt wird.
+\section{Treemap} \label{sec:TreemapGrundlagenImplementation}
+Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Es handelt sich um eine platzfüllende, rekursive Visualisierung, die häufig zur Darstellung hierarchischer Daten eingesetzt wird.
 
 \begin{figure}[h]
     \centering
@@ -107,7 +116,7 @@ Das Circle-Packing-Layout entspricht in seiner hierarchischen Anordnung einer Tr
 \end{figure}
 
 \subsection*{Layoutschritt}
-Der Layoutschritt basiert auf dem von d3.js bereitgestellten Circle-Packing-Algorithmus~\cite{d3_treemap_code}. Dessen Output wird in das hier definierte Schema überführt. Dabei geben x und y die Position des Kreiszentrums an und die Breite den Durchmesser des Kreises. Die Länge wird nicht verwendet.
+Der Layoutschritt basiert auf dem von d3.js bereitgestellten Circle-Packing-Algorithmus~\cite{d3_treemap_doku}. Dessen Output wird in das hier definierte Schema überführt. Dabei geben x und y die Position des Kreiszentrums an und die Breite den Durchmesser des Kreises. Die Länge wird nicht verwendet.
 
 \subsection*{Visualisierungs-Schritt}
 Der Visualisierungs-Schritt entspricht weitgehend dem der Treemap. Der Unterschied liegt in der Geometrie. Knoten sind Kreise und werden zu Zylindern extrudiert. Dateien werden anhand der Höhenmetrik extrudiert und gemäß der Farbmetrik eingefärbt. Ordner erhalten eine feste Extrusionshöhe. Die Platzierung der Beschriftungen ist anspruchsvoller. Es wird im Layoutschritt kein separater Platz reserviert. Stattdessen werden die Beschriftungen, ähnlich wie bei Code City, in freien Bereichen der Kreise platziert. Beschriftungen können aus dem eigenen Knoten herausragen, sofern sie keine anderen Knoten schneiden. Dafür werden mehrere Positionen innerhalb des Kreises geprüft, um eine geeignete Lage zu finden. Die Schriftgröße wird so gewählt, dass der Text keine Überschneidungen mit anderen Knoten erzeugt. Eine maximale Schriftgröße begrenzt die Darstellung, wenn sehr viel Platz im Kreis zur Verfügung steht.

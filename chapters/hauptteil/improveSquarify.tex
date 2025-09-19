@@ -10,7 +10,99 @@ Nach der Festlegung der Kriterien erfolgt eine Datenanalyse von Open-Source-Proj
 Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarify-Algorithmus beschrieben und evaluiert, um abschließend einen Vorschlag für ein verbessertes Treemap-Layout zu unterbreiten, das für den betrachteten Anwendungsfall besonders gut geeignet ist.
 
 
-\section{Kennzahlen für Treemap-Layouts} \label{sec:TreemapKennzahlen}
+
+
+
+
+
+
+
+\section{Treemap-Problem} \label{sec:TreemapProblem}
+Die Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) zeigt, dass Treemaps die am weitesten verbreitete Visualisierung für Code-Qualitätsmetriken sind und dennoch Verbesserungspotenzial besteht. Ein spezifisches, von Lü und Fogarty identifiziertes Problem betrifft die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. Da in dieser Arbeit die hierarchische Struktur der Software mit dargestellt werden soll, wird in diesem Abschnitt dieses Problem präzisiert und seine Ursachen erläutert.
+
+Shneiderman und Johnson schlagen vor, Abstände zwischen Rechtecken einzuführen, um Hierarchieebenen zu verdeutlichen~\cite{johnson1991tree}. Shneiderman und Johnson weisen nicht explizit auf ein zentrales Problem hin: Der notwendige Abstand zwischen Rechtecken wird meist realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. Dadurch ist die resultierende Fläche häufig nicht mehr proportional zu den zugehörigen Werten. Sehr kleine oder langgestreckte Rechtecke können im Extremfall vollständig verschwinden. Dies verletzt die Eigenschaft der strikten Proportionalität. In praktischen Anwendungsfällen, etwa wenn die Rechtecksfläche eine Kennzahl wie \textit{Lines of Code} repräsentiert, können kleine Dateien oder Knoten durch die Ränder vollständig verloren gehen. Dies ist besonders kritisch, wenn eine zusätzliche Dimension (z. B. Testabdeckung) diese Elemente hervorheben sollte, sie aber infolge der Skalierung durch Randabzug nicht mehr sichtbar sind.
+
+Das Grundproblem bei der Erstellung von Treemaps, nämlich das Aufteilen eines Rechtecks in kleinere Rechtecke entsprechend deren Werte, ist bereits ohne Abstände NP-schwer~\cite[3]{bruls2000squarified}. Zusätzliche Abstände verschärfen die Problematik. Zentrale Schwierigkeiten bei der Integration von Abständen in das Layout sind:
+\begin{itemize}
+    \item Durch die für Abstände abgezogenen Flächen ist die verbleibende Knotenfläche nicht mehr proportional zum Wert des Knotens. Dies ist in bestimmten Fällen grundsätzlich nicht erfüllbar: Ein Ordner mit genau einem Kindknoten kann nicht gleichzeitig eine Fläche proportional zu seinem Wert besitzen, während sein Kindknoten ebenfalls proportional abgebildet wird. Der Ordner benötigt durch die Abstände zwangsläufig eine größere Fläche als sein Kindknoten, obwohl beide den gleichen Wert aufweisen.
+    \item Bei kleinen Knoten können aufgrund von Minimalabständen einzelne Knoten vollständig verschwinden, wenn ihre minimale Länge oder Breite kleiner als der geforderte Abstand ist. Knoten sind somit nicht nur zu klein, sondern werden tatsächlich auf eine Fläche von 0 reduziert.
+\end{itemize}
+
+Die Abbildungen \ref{fig:zeroMarginArtificialMap}, \ref{fig:fiveMarginArtificialMap} und \ref{fig:tenMarginArtificialMap} zeigen Treemap-Layouts, die mit dem Squarify-Algorithmus erzeugt wurden (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Die zugrundeliegenden Strukturen und Metriken wurden händisch erstellt, um typische Probleme bei Flächenproportionalität und Sichtbarkeit zu verdeutlichen (siehe Anhang \ref{lst:artificial.cc.json}). In späteren Abschnitten wird gezeigt, dass diese Probleme auch in realen Anwendungsfällen auftreten. Für die klare Demonstration werden hier künstliche Beispiele verwendet.
+
+In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Alle Knoten sind sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten. Dadurch liegt exakte Flächenproportionalität zwischen Wert und Darstellung vor.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/zeroMarginArtificialMap.png}
+    \caption[Treemap mit Abstand 0]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 0).}
+    \label{fig:zeroMarginArtificialMap}
+\end{figure}
+
+In Abbildung \ref{fig:fiveMarginArtificialMap} ist ein Abstand zwischen Knoten und Ordnern eingefügt. Zwar bleibt jeder Knoten sichtbar, jedoch sind die Flächen nicht mehr exakt proportional zu den Werten. Beispielsweise ist die Fläche des großen Knotens 3 aufgrund der Abstände geringer, das Verhältnis von Wert zu abgebildeter Fläche beträgt ungefähr 0,9. Problematisch ist die fehlende Gleichförmigkeit: Der kleine Knoten oben links (Knoten 5) ist relativ deutlich stärker betroffen und weist nur noch ein Wert-Fläche-Verhältnis von etwa 0,2 auf. Obwohl Knoten 2 den gleichen Wert wie Knoten 5 besitzt, ist seine Fläche deutlich größer. Dies verdeutlicht, dass Abstände die Flächenproportionalität erheblich beeinträchtigen.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
+    \caption[Treemap mit Abstand 5]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 5).}
+    \label{fig:fiveMarginArtificialMap}
+\end{figure}
+
+In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem größeren Abstand, werden einige Knoten, beispielsweise der zuvor oben links gelegene Knoten 5, nicht mehr dargestellt, da ihre effektive Breite kleiner als der vorgegebene Abstand ist und damit die resultierende Breite 0 wird. Relevante Informationen gehen verloren, Rechtecke verschwinden vollständig.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
+    \caption[Treemap mit Abstand 10]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
+    \label{fig:tenMarginArtificialMap}
+\end{figure}
+
+Diese Beispiele verdeutlichen die Auswirkungen gewählter Abstandsparameter auf Proportionalität und Lesbarkeit von Treemaps.
+
+Es folgt ein reales Beispiel: Verwendet wird das in der Visualisierungsbibliothek D3.js bekannte Beispiel \textit{flare}~\cite{d3_treemap_github, flare_d3js}. In Abbildung \ref{fig:flareZero} ist das Treemap-Layout des Flare-Beispiels ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flare48Missing} ist das gleiche Layout mit Abstand dargestellt. Hier fehlen 48 Knoten. Oben links fehlen beispielsweise die Knoten 79 und 82, und oben rechts existiert ein Ordner ohne dargestellte Kindknoten, da Knoten 220 fehlt. Zudem sind die Flächen nicht mehr proportional zu den Werten.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/problemstellung/flarezero.png}
+    \caption[Flare: Abstand 0]{Treemap-Layout des Flare-Beispiels mit Abstand 0. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. Schwarze Kanten erhöhen die Sichtbarkeit der Knoten.}
+    \label{fig:flareZero}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/problemstellung/flare48Missing.png}
+    \caption[Flare: Abstand, 48 Knoten fehlen]{Treemap-Layout des Flare-Beispiels mit Abstand. 48 Knoten fehlen.}
+    \label{fig:flare48Missing}
+\end{figure}
+
+\smallskip
+
+Das zentrale Dilemma entsteht dadurch, dass eine Kernannahme der Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wie viel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive Belegungsfläche hängt wesentlich von der jeweiligen Anordnung der Knoten ab.
+
+Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit einem umlaufenden Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \times 4$) oder länglich (z. B. $2 \times 8$) sind. Die zusätzliche Fläche für Abstände variiert somit erheblich.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/marginArea.png}
+    \caption[Abstandsfläche je Seitenverhältnis]{Zwei Rechtecke der Fläche 16 (dunkelgrau) mit umlaufendem Abstand 1 (hellgrau): links ($4 \times 4$) Gesamtfläche 25 ($5 \times 5$), rechts ($2 \times 8$) 40 ($4 \times 10$).}
+    \label{fig:marginAreaDifference}
+\end{figure}
+
+Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche inklusive Abständen bekannt ist. Diese hängt jedoch wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb in dieser Arbeit verschiedene Ansätze zur Lösung dieses Problems untersucht werden (siehe Abschnitt \ref{sec:VerbesserungSquarify}).
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Kennzahlen für Treemap-Layouts} \label{sec:TreemapGrundlagenKennzahlen}
 Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (siehe Abschnitt \ref{sec:MethodikAuswertung}). Diese Kriterien sind nur schwer messbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, warum diese Kennzahlen relevant sind und wie sie bestimmt werden können.
 
 \begin{enumerate}
@@ -100,8 +192,21 @@ Insgesamt empfiehlt sich ein Abstand zwischen 0,5\% und 3\%, abhängig von der j
 
 
 
-\section{Angestrebtes Seitenverhältnis} \label{sec:Seitenverhältnis}
-Wie bereits in den Grundlagen erläutert (siehe Abschnitt \ref{sec:Squarify}), muss der angestrebte Zielwert für das Seitenverhältnis nicht zwingend 1 sein. Die bekannte d3.js-Implementierung des Squarify-Algorithmus nutzt beispielsweise den Goldenen Schnitt mit 1{,}618 als Zielwert für das Seitenverhältnis~\cite{d3_treemap_code}. Dieser Zielwert geht als Faktor in die Bedingung des Algorithmus ein, die bestimmt, wann eine Reihe abgeschlossen wird. Damit ist 1 nicht das optimale Seitenverhältnis, sondern der jeweils angestrebte Wert. Die Frage, ob 1 oder der Goldene Schnitt zu ansprechenderen und übersichtlicheren Layouts führt, ist zweitrangig. Entscheidend ist, dass diese Zielwerte häufig nicht erreicht werden, wie bereits am Ende von Abschnitt \ref{sec:Squarify} anhand zweier Beispiele gezeigt wurde: Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}42, und ein Ziel-Seitenverhältnis von 5 ergibt einen Durchschnitt von 2{,}79 (siehe Abbildungen \ref{fig:squarifyRatio1} und \ref{fig:squarifyRatio5}). Umso tiefer die Hierarchien verschachtelt sind, desto schwerer können die Ziel-Seitenverhältnisse erreicht werden. Da Softwareprojekte oft tief verschachtelte Strukturen von bis zu 13 Ebenen aufweisen (siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}), ist daher fraglich, ob der Goldene Schnitt als Zielwert für das Seitenverhältnis tatsächlich die besten Ergebnisse liefert. Dies wird im Folgenden untersucht.
+\section{Seitenverhältnisse} \label{sec:Seitenverhältnis}
+Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor allem das Seitenverhältnis 1 als Idealwert betrachtet, erlauben viele Implementierungen, wie auch die der d3.js-Bibliothek~\cite{d3_treemap_doku}, die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt~\cite{goldenRatio}. Dieser Zielwert geht als Faktor in die Bedingung des Algorithmus ein, die bestimmt, wann eine Reihe abgeschlossen wird und wann eine neue Reihe begonnen wird. In Abbildung~\ref{fig:squarifyRatio} sind Beispiele dargestellt, die die Auswirkungen verschiedener Ziel-Seitenverhältnisse auf das resultierende Layout verdeutlichen.
+
+\begin{figure}[h]
+    \centering
+    \subfloat[Seitenverhältnis 1 (resultierendes Seitenverhältnis 1{,}7)\label{fig:squarifyRatio1}]{
+        \includegraphics[width=0.5\textwidth]{images/improve/edgeRatioAim1Real17.png}}
+    \hfill
+    \subfloat[Seitenverhältnis 5 (resultierendes Seitenverhältnis 3{,}8)\label{fig:squarifyRatio5}]{
+        \includegraphics[width=0.5\textwidth]{images/improve/edgeRatioAim5Real38.png}}
+    \caption[Squarify mit verschiedenen Ziel-Seitenverhältnissen]{Ergebnisse des Squarify-Algorithmus mit unterschiedlichen Ziel-Seitenverhältnissen.}
+    \label{fig:squarifyRatio}
+\end{figure}
+
+In dieser Abbildung ist aber auch zu erkennen, dass das angestrebte Seitenverhältnis nicht dem tatsächlich erreichten Seitenverhältnis entspricht. Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}7, und ein Ziel-Seitenverhältnis von 5 ergibt ein durchschnittliches Seitenverhältnis von 3{,}8. Im folgenden wird untersucht, wie sich das angestrebte Seitenverhältnis auf das tatsächlich erreichte Seitenverhältnis auswirkt und welcher Zielwert die besten Ergebnisse liefert.
 
 \begin{figure}
     \centering
@@ -133,7 +238,9 @@ Abbildung \ref{fig:aimedRatioZuRatio} stellt den Zusammenhang zwischen angestreb
     \label{tab:seitenverhaeltnis_um_1}
 \end{table}
 
-Anders als erwartet liefert ein angestrebtes Seitenverhältnis von 1 nicht das beste Ergebnis. Ein Zielwert von 1{,}05 schneidet am besten ab. Der Vorteil beträgt zwar nur 5 Prozent, ist aber dennoch vorhanden. Warum dies der Fall ist, lässt sich nicht eindeutig erklären. Eine mögliche Ursache könnte sein, dass leicht schlechtere Seitenverhältnisse auf höheren Ebenen zu besseren Seitenverhältnissen auf tieferen Ebenen führen. Dies bleibt eine Hypothese. In dieser Arbeit wird ein Zielwert von 1{,}05 für das Seitenverhältnis verwendet, da dieser Wert die besten Ergebnisse für die vorliegenden Softwaremetrik-Daten liefert.
+Anders als erwartet liefert ein angestrebtes Seitenverhältnis von 1 nicht das niedrigste realisierte Seitenverhältnis. Ein Zielwert von 1{,}05 resultiert in den niedrigsten Werten. Der Vorteil beträgt zwar nur 5 Prozent, ist aber dennoch vorhanden. Warum dies der Fall ist, lässt sich nicht eindeutig erklären und könnte Gegenstand vertiefender Forschung sein.
+Für die Darstellung von Softwaremetrikendaten stellt sich also die Frage gar nicht, ob ein Seitenverhältnis von 1 oder zum beispiel der Goldene Schnitt besser ist, da diese Seitenverhältnisse ohnehin nicht erreicht werden. Vielmehr sollte ein Zielwert gewählt werden, der das tatsächlich erreichte Seitenverhältnis minimiert.
+In dieser Arbeit wird also der Zielwert von 1{,}05 für das Seitenverhältnis verwendet.
 
 
 
@@ -159,7 +266,7 @@ Erfolgt das Sortieren hingegen in 18er-Gruppen, also ordnerweise, mit näherungs
 T_2 = m \cdot \bigl(k \cdot \log_2(k)\bigr) = 235 \cdot \bigl(18 \cdot \log_2(18)\bigr) \approx 17639
 \]
 
-Die d3.js-Referenzimplementierung sieht diese Sortierung nicht im Standard-Algorithmus vor. In der Dokumentation des Squarify-Algorithmus wird jedoch explizit empfohlen, die Hierarchie vor der Layout-Berechnung zu sortieren~\cite{d3_treemap_code}.
+Die d3.js-Referenzimplementierung sieht diese Sortierung nicht im Standard-Algorithmus vor. In der Dokumentation des Squarify-Algorithmus wird jedoch explizit empfohlen, die Hierarchie vor der Layout-Berechnung zu sortieren~\cite{d3_treemap_doku}.
 
 Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch für die verwendeten Daten die besten Ergebnisse liefert und inwieweit sich dies auf weitere Kriterien neben dem Seitenverhältnis auswirkt. 
 
@@ -292,7 +399,7 @@ Das Problem der absoluten Größenanpassung lässt sich am besten an einem Beisp
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/zeroMarginSquarifyArtifialTwo.png}
-    \caption[Squarify mit 0 Abstand]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 0 und der einfachen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
+    \caption[Squarify mit 0 Abstand]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 0 und der einfachen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:zeroMarginSquarifyArtifialTwo}
 \end{figure}
 
@@ -306,11 +413,11 @@ Elternknoten werden im zweiten Layoutschritt ebenfalls schmaler, wodurch die Fl�
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOne.png}
-    \caption[Absolut: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
+    \caption[Absolut: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:simpleIncreaseMarginOne}
 \end{figure}
 
-Dieses Symptom führt dazu, dass kein valides Treemap-Layout mehr vorliegt (vergleiche Definition des Treemap-Layouts in Abschnitt \ref{sec:Treemap}). Dieses Symptom muss also behoben werden, bevor überhaupt die Kennzahlen zum Vergleich der Ansätze berechnet werden können. In Abschnitt \textit{Skalierung der Knoten} wird beschrieben, wie dieses Symptom auf Kosten noch größerer Unproportionalität behoben werden kann (siehe Abschnitt \ref{sec:ScalingKnoten}). Zuvor wird ein zweiter Ansatz der Größenanpassung vorgestellt, der genauere Vorhersagen zur Größe der Knoten anstrebt.
+Dieses Symptom führt dazu, dass kein valides Treemap-Layout mehr vorliegt (vergleiche Definition des Treemap-Layouts in Abschnitt \ref{sec:TreemapGrundlagen}). Dieses Symptom muss also behoben werden, bevor überhaupt die Kennzahlen zum Vergleich der Ansätze berechnet werden können. In Abschnitt \textit{Skalierung der Knoten} wird beschrieben, wie dieses Symptom auf Kosten noch größerer Unproportionalität behoben werden kann (siehe Abschnitt \ref{sec:ScalingKnoten}). Zuvor wird ein zweiter Ansatz der Größenanpassung vorgestellt, der genauere Vorhersagen zur Größe der Knoten anstrebt.
 
 
 
@@ -362,7 +469,7 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/increaseMarginOne.png}
-    \caption[Relativ: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
+    \caption[Relativ: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:relativeIncreaseMarginOne}
 \end{figure}
 
@@ -372,7 +479,7 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 
 
 \subsection{Skalierung der Knoten} \label{sec:ScalingKnoten}
-Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:Treemap}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layoutschritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
+Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:TreemapGrundlagen}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layoutschritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten entsprechend skaliert, sodass sie genau in die Fläche des Elternknotens passen.
 
 Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten sind dadurch nicht mehr proportional zu ihren Werten. Knoten 10 hat zum Beispiel ein Verhältnis von etwa 0{,}5 zu seinem Wert, während Knoten 6 ein Verhältnis von etwa 1{,}4 zu seinem Wert aufweist.
@@ -380,7 +487,7 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOneScale.png}
-    \caption[Absolut+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
+    \caption[Absolut+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:simpleIncreaseMarginOneScale}
 \end{figure}
 
@@ -389,7 +496,7 @@ Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{images/increaseMarginOneScale.png}
-    \caption[Relativ+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:Squarify} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
+    \caption[Relativ+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:relativeIncreaseMarginOneScale}
 \end{figure}
 
@@ -402,7 +509,7 @@ Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser
 
 \subsection{Vergleich der Ansätze} \label{sec:VergleichDerAnsätze}
 Vermutlich funktioniert der Ansatz der relativen Größenanpassung besser als die absolute Größenanpassung und vermutlich funktionieren beide Ansätze besser als der Standard-Squarify-Algorithmus von d3.js, der den Abstand lediglich von der Fläche der Knoten abzieht, ohne die Knotenflächen anzupassen.
-Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorithmus von d3.js in der Implementierung von Mike Bostock~\cite{d3_nested_2023} verglichen, um diese Hypothesen zu prüfen. Der Vergleich erfolgt anhand der zuvor definierten Kennzahlen (siehe Abschnitt \ref{sec:TreemapKennzahlen}).
+Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorithmus von d3.js in der Implementierung von Mike Bostock~\cite{d3_nested_2023} verglichen, um diese Hypothesen zu prüfen. Der Vergleich erfolgt anhand der zuvor definierten Kennzahlen (siehe Abschnitt \ref{sec:TreemapGrundlagenKennzahlen}).
 
 \begin{figure}
     \centering

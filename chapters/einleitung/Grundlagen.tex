@@ -3,11 +3,7 @@ In diesem Kapitel werden die grundlegenden Konzepte und Begriffe erläutert, die
 
 \section{Software-Qualitätsmetriken} \label{sec:SoftwareQualitaetsmetriken}
 
-Software-Qualitätsmetriken sind zentrale Instrumente zur Messung und Bewertung der Qualität von Software. Sie ermöglichen die objektive Analyse verschiedener Eigenschaften anhand von Kennzahlen. Eine \textit{Softwaremetrik} wird in der Regel als mathematische Funktion verstanden, die eine spezifische Eigenschaft von Software in einen Zahlenwert (Maßzahl) überführt:
-
-\begin{quote}
-    Eine Softwaremetrik, oder kurz Metrik, ist eine (meist mathematische) Funktion, die eine Eigenschaft von Software in einen Zahlenwert, auch Maßzahl genannt, abbildet. Hierdurch werden formale Vergleichs- und Bewertungsmöglichkeiten geschaffen.~\cite{wikipedia_softwaremetrik}
-\end{quote}
+Software-Qualitätsmetriken sind zentrale Instrumente zur Messung und Bewertung der Qualität von Software. Sie ermöglichen die objektive Analyse einzelner Eigenschaften anhand von Kennzahlen. Eine \textit{Softwaremetrik} wird in der Regel mit einer mathematischen Funktion berechnet, die eine spezifische Eigenschaft der Software in eine Kennzahl überführt~\cite{wikipedia_softwaremetrik, def_qual_metric}.
 
 Weitere Definitionen betonen die zentrale Rolle von Metriken:
 
@@ -15,21 +11,15 @@ Weitere Definitionen betonen die zentrale Rolle von Metriken:
     Softwaremetrik ist ein quantitatives Maß, das verwendet wird, um die Eigenschaften eines Softwareproduktes oder des Softwareentwicklungsprozesses zu bewerten.~\cite{softwaremetriken_2019}
 \end{quote}
 
-\begin{quote}
-    Eine Softwarequalitätsmetrik ist eine Funktion, die eine Software-Einheit in einen Zahlenwert abbildet, welcher als Erfüllungsgrad einer Qualitätseigenschaft der Software-Einheit interpretierbar ist.~\cite{def_qual_metric}
-\end{quote}
-
-Metriken erfassen stets nur einzelne Aspekte der Software. Sie erlauben daher keine umfassende Qualitätsbewertung, sondern liefern Indikatoren für jeweils spezifische Eigenschaften. Um die Aussagekraft zu erhöhen, empfiehlt sich die gemeinsame Interpretation verschiedener Metriken:
-
-\begin{quote}
-    Eine Metrik alleine kann nie eine vollständige Aussage über die Qualität der Software treffen. Metriken sollten immer in Kombination bewertet werden. Die Güte und Reife von Software kann nur in Kombination mit statischer Code Analyse, Code Reviews und funktionalen Tests final beurteilt werden.~\cite{schmitz_2019}
-\end{quote}
+Es ist wichtig zu erkennen, dass Metriken stets nur einzelne Aspekte der Software erfassen. Sie erlauben daher keine umfassende Qualitätsbewertung, sondern liefern Indikatoren für jeweils spezifische Eigenschaften. Um die Aussagekraft zu erhöhen, empfiehlt sich die gemeinsame Interpretation verschiedener Metriken und qualitätssichernder Maßnahmen~\cite{schmitz_2019}.
 
 Da Qualitätsziele kontextabhängig sind, existiert keine universelle Metrik, die Softwarequalität vollständig beschreibt. Stattdessen sollten Metriken so ausgewählt werden, dass sie die Qualität einer Software im Hinblick auf die jeweiligen Ziele abbilden~\cite{hall1994implementing}. Zudem ist zu berücksichtigen, dass die Erhebung und Auswertung von Metriken zusätzlichen Aufwand verursacht.
 
-Kritische Anmerkungen zu Softwaremetriken betreffen unter anderem die mangelnde wissenschaftliche Fundierung vieler Metriken sowie die teilweise unklare Nachweisbarkeit ihres Nutzens~\cite{voas_kuhn_2017}. Es besteht zudem die Gefahr, dass bei ungeeigneten Kennzahlen lediglich die Metrikwerte optimiert werden, ohne dass sich die Gesamtqualität tatsächlich verbessert. Entwickler könnten ihr Handeln stärker auf das Erreichen guter Metrikwerte als auf die eigentlichen Ziele der Software ausrichten~\cite{worst_gitclear_2025}. Viele Metriken sind kontextabhängig und ersetzen keine Code Reviews oder softwarepraktischen Tests. Sie liefern lediglich Hinweise, die stets im jeweiligen Kontext zu interpretieren sind. Klassische Beispiele wie \enquote{Lines of Code} oder die Anzahl der Commits werden häufig fehlinterpretiert und bilden beispielsweise Komplexität oder tatsächlichen Arbeitsaufwand nicht ab~\cite{worst_gitclear_2025}.
+Kritische Anmerkungen zu Softwaremetriken betreffen unter anderem die mangelnde wissenschaftliche Fundierung vieler Metriken sowie die teilweise unklare Nachweisbarkeit ihres Nutzens~\cite{voas_kuhn_2017}. Es besteht zudem die Gefahr, dass bei ungeeigneten Kennzahlen lediglich die Metrikwerte optimiert werden, ohne dass sich die Gesamtqualität tatsächlich verbessert. Entwickler könnten ihr Handeln stärker auf das Erreichen guter Metrikwerte als auf die eigentlichen Ziele der Software ausrichten~\cite{worst_gitclear_2025}. Klassische Beispiele wie \enquote{Lines of Code} oder die Anzahl der Commits werden häufig fehlinterpretiert und bilden beispielsweise Komplexität oder tatsächlichen Arbeitsaufwand nicht ab~\cite{worst_gitclear_2025}.
 
 Einfache Metriken sind zudem nicht in der Lage, komplexe Qualitätsprobleme zu identifizieren~\cite{voas_kuhn_2017} und sind abhängig von Programmiersprache und individuellem Stil.
+
+Aus den genannten Gründen sollten Metriken stets kritisch hinterfragt werden. Softwarequalitätsanalysen sollten sich nie ausschließlich auf Metriken stützen, sondern durch fundierte Analysen und Expertenwissen ergänzt werden.
 
 \smallskip
 
@@ -45,7 +35,7 @@ Für die Ursachenanalyse von Qualitätsproblemen reicht die ausschließliche Bet
 
 Software-Qualitätsmetriken beziehen sich in der Regel auf spezifische Softwareeinheiten, etwa Dateien, Module oder Klassen. Diese Einheiten sind meist hierarchisch, beispielsweise entlang von Datei- und Ordnerstrukturen, organisiert. Die Messwerte werden häufig auf Ebene einzelner Dateien erhoben und anschließend auf höhere Ebenen, wie Ordner oder Module, aggregiert, sodass eine baumartige Hierarchie entsteht.
 
-Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrikdaten sind nicht ausschließlich auf Softwaremetriken beschränkt, sondern lassen sich auch auf andere Anwendungsfälle übertragen. Dennoch weist die Struktur von Softwareeinheiten und deren Metrikdaten spezifische Besonderheiten auf, die die Gestaltung der Visualisierungen beeinflussen können (siehe Abschnitt~\ref{sec:datenAnalyse}).
+Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrikdaten sind nicht ausschließlich auf Softwaremetriken beschränkt, sondern lassen sich auch auf andere Anwendungsfälle übertragen. Dennoch weist die Struktur von Softwareeinheiten und deren Metrikdaten spezifische Besonderheiten auf, die die Gestaltung der Visualisierungen beeinflussen können (siehe Abschnitt~\ref{sec:strukturVonSoftwareprojekten}).
 
 \section{Software-Visualisierung} \label{sec:SoftwareVisualisierung} 
 
@@ -61,7 +51,7 @@ Despite the proven usefulness of 2D visualizations, they do not allow the viewer
 
 Zusätzlich wird zwischen echter 3D-Visualisierung und sogenannten 2.5D-Visualisierungen unterschieden. Eine 2.5D-Visualisierung nutzt zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet~\cite{wikipedia2.5D}. 2.5D-Visualisierungen entstehen durch ein 2D-Layout, das um eine dritte Dimension erweitert wird. Beispielsweise stellt ein 2D-Raum-Layout, das nach oben extrudiert wird, eine 2.5D-Visualisierung dar. Echte 3D-Visualisierungen hingegen nutzen alle drei Dimensionen vollständig, indem Objekte frei im dreidimensionalen Raum positioniert werden können. Beispielsweise stellt ein Modell des Sonnensystems, bei dem die Planeten frei im Raum positioniert sind, eine echte 3D-Visualisierung dar.
 
-Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Verbindungen, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}).
+Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Programm-Code, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}), was diese Visualisierungen für nicht-technische Stakeholder weniger zugänglich macht.
 
 \begin{figure}[h]
     \centering
@@ -89,7 +79,7 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
 \section{CodeCity: Grundstein für Stadtmetapher}
 \label{sec:CodeCity}
 
-Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken stellt das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza dar~\cite{codeCity1}. Erstmals wurde ein Ansatz vorgestellt, der die Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 2.5D-Visualisierung zu generieren. Softwareeinheiten werden dabei als Quader dargestellt. Wie von Young und Munro~\cite{visSoftwareVR} gefordert, wird eine einprägsame visuelle Metapher verwendet: die Stadtmetapher. Sie ist zentrales Gestaltungselement von CodeCity: Klassen erscheinen als Gebäude, Pakete als Stadtbezirke. Den Objekten werden verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet, was eine intuitive und greifbare Darstellung ermöglicht (siehe Abbildung~\ref{fig:codeCity}).
+Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken stellt das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza dar~\cite{codeCity1}. Erstmals wurde ein Ansatz vorgestellt, der die Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 2.5D-Visualisierung zu generieren. Softwareeinheiten werden dabei als Quader dargestellt. Wie von Young und Munro~\cite{visSoftwareVR} gefordert, wird eine einprägsame visuelle Metapher verwendet: die Stadtmetapher. Sie ist zentrales Gestaltungselement von CodeCity: Klassen erscheinen als Gebäude, die als Quader dargestellt werden und Pakete als Stadtbezirke, die als flache Bereiche visualisiert werden (siehe Abbildung~\ref{fig:codeCity}). Den Objekten können verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet werden, was eine intuitive und greifbare Darstellung von Metriken ermöglicht.
 
 \begin{figure}[h]
     \centering
@@ -98,81 +88,49 @@ Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und
     \label{fig:codeCity}
 \end{figure}
 
-Obwohl die Autoren von CodeCity von 3D-Visualisierung sprechen, handelt es sich tatsächlich um sogenannte 2.5D-Visualisierungen~\cite{johnson1993treemapsPhd}. Nach Wikipedia~\cite{wikipedia2.5D} nutzen solche Darstellungen zwar drei Dimensionen, die dritte Dimension wird jedoch nur eingeschränkt verwendet. Bei CodeCity beispielsweise dient die dritte Dimension zur Extrusion der Rechtecke zu Quadern, nicht jedoch zur Positionierung der Quader im 3D-Raum, was eine deutliche Einschränkung darstellt. Aus diesem Grund wird diese Art der Visualisierung in dieser Arbeit als 2.5D-Visualisierung bezeichnet.
-
 Während frühere Arbeiten, wie die von Marcus et al.~\cite{3dsoftwareMarcus}, auf sehr feingranulare Codebestandteile wie Attribute und Methoden fokussierten, bietet CodeCity eine abstrahierende Sicht auf Klassen, Pakete und deren Struktur. Dadurch ist die Visualisierung insbesondere für nicht-technische Stakeholder verständlicher und leichter zu überblicken.
+Der Grundriss (im Folgenden Layout genannt) der Städte basiert auf einer Variante der Treemap-Algorithmen, die im nächsten Abschnitt erklärt werden. 
 
-Der Grundriss (im Folgenden Layout genannt) der Städte basiert auf einer Variante der Treemap-Algorithmen (siehe Abschnitt~\ref{sec:Treemap}). Es ist erkennbar, dass größere Gebäude im unteren linken Bereich, kleinere weiter oben rechts angeordnet sind. Gebäude (Module) und Viertel (Pakete) sind stets quadratisch, wodurch viel ungenutzte \textit{leere} Fläche verbleibt.
-
-Das Originalverfahren des CodeCity-Algorithmus ist nicht öffentlich verfügbar. Für vergleichende Analysen wird in dieser Arbeit daher eine eigene Implementierung verwendet, sodass Abweichungen zur Originalvisualisierung möglich sind (außer wenn anders gekennzeichnet).
-
-\section{Treemap-Layouts} \label{sec:Treemap}
+\section{Treemap-Layouts} \label{sec:TreemapGrundlagen}
 
 Hierarchische Daten werden häufig als Bäume dargestellt. Klassische Darstellungen wie Baumdiagramme oder Venn-Diagramme erweisen sich jedoch insbesondere bei großen Datenmengen als ineffizient hinsichtlich der Flächennutzung und als unübersichtlich~\cite{johnson1991tree}. Für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an ihre Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können.
 
 Zur Lösung dieser Herausforderungen entwickelten Shneiderman und Johnson 1991 das Konzept der \textit{Treemap} zur effizienten Darstellung hierarchischer Strukturen~\cite{johnson1991tree}. Das zentrale Prinzip von Treemaps besteht darin, jedem Knoten eines gewichteten Baums ein Rechteck zuzuweisen, dessen Fläche proportional zum Gewicht (beispielsweise Datenmenge, Marktwert o. ä.) ist. Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus, sodass die Gesamtfläche der Kindknoten exakt der Fläche ihres Elternrechtecks entspricht. Mathematisch liegt der Visualisierung ein gewichteter Baum zugrunde, wobei insbesondere die Blattknoten jeweils einen numerischen Wert besitzen.
 
-Shneiderman und Johnson definieren für gelungene Treemaps folgende Schlüsselziele:
-\begin{itemize}
-    \item \textbf{Effiziente Platznutzung:} Maximale Informationsdichte auf minimalem Raum.
-    \item \textbf{Verständlichkeit:} Einfache Erfassbarkeit der dargestellten Hierarchie und Werte mit geringem kognitiven Aufwand. Die Struktur soll möglichst schnell erkennbar sein.
-    \item \textbf{Ästhetik:} Ansprechende und übersichtliche Anordnung der Rechtecke.
-\end{itemize}
+Shneiderman und Johnson betonen, dass die Schlüsselziele von Treemaps Effiziente Platznutztung und Verständlichkeit sind. Es soll eine maximale Informationsdichte auf minimalem Raum erreicht werden und gleichzeitig die dargestellte Hierarchie und Werte mit geringem kognitiven Aufwand erfassbar sein.
 
-Frühere Ansätze wie Listen, klassische Baumdiagramme (Abbildung~\ref{fig:baumdiagramm}) oder Venn-Diagramme (Abbildung~\ref{fig:venndiagram}) können diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}~\cite[5]{johnson1991tree}
+Frühere Ansätze wie Listen, klassische Baumdiagramme oder Venn-Diagramme können diese Anforderungen nicht erfüllen. Sie leiden unter Problemen wie ineffizienter Flächenausnutzung und fehlender Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite[3]{johnson1991tree}. Venn-Diagramme sind insbesondere aus Platzgründen für größere Strukturen ungeeignet: \enquote{The space required between regions would certainly preclude this Venn diagram representation from serious consideration for larger structures.}~\cite[5]{johnson1991tree}
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/treediagram.png}
-    \caption[Baumdiagramm]{Beispiel für ein Baumdiagramm \cite{johnson1991tree}}
-    \label{fig:baumdiagramm}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/verdiagram.png}
-    \caption[Venn-Diagramm]{Beispiel für ein Venn-Diagramm \cite{johnson1991tree}}
-    \label{fig:venndiagram}
-\end{figure}
-
-Zur Lösung der genannten Schwierigkeiten formulieren Shneiderman und Johnson vier grundlegende Eigenschaften für Treemap-Layouts:
-\begin{itemize}
+Shneiderman und Johnson definieren vier Grundlegende Eigenschaften von Treemap-Layouts:
+\begin{enumerate}
     \item Ist Knoten 1 Vorfahre von Knoten 2, liegt die Fläche von Knoten 2 vollständig in der von Knoten 1.
     \item Flächen schneiden sich genau dann, wenn eine Vorfahr-Nachfahr-Relation vorliegt.
     \item Jede Fläche ist strikt proportional zum Gewicht.
-    \item Das Gewicht eines Knotens ist so groß wie die Summe der Kinder, beziehungsweise mindestens so groß wie die Summe der Kinder, wie in Abschnitt~\ref{sec:Problemstellung} erläutert wird.
-\end{itemize}
+    \item Das Gewicht eines Knotens ist so groß wie die Summe der Gewichte der Kinder.
+\end{enumerate}
 
-Sie präsentieren einen einfachen, rekursiven Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung erfolgt von der Wurzel bis zu den Blättern und hat eine Laufzeit von $O(n)$. Ein Beispiel für eine mit diesem Algorithmus erstellte Treemap ist in Abbildung~\ref{fig:nestedTreemap} dargestellt.
+Sie präsentieren einen einfachen Algorithmus, der diese Bedingungen erfüllt: Der verfügbare Raum wird abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt. Die Berechnung läuft der Algorithmus rekursiv von der Wurzel bis zu den Blättern. 
+Ein Problem dieses einfachen Algorithmuses besteht darin, dass die rekursive Unterteilung zu länglichen oder stark verzerrten Rechtecksformen führen kann~\cite[1]{bruls2000squarified}, wodurch die Struktur der Daten kaum mehr erkennbar ist und die Vergleichbarkeit der Flächen erschwert wird. Dieses Problem wird bei \textit{Squarified Treemaps} von Bruls et al. addressiert~\cite{bruls2000squarified}.
+
+Sie stellen einen Squarify-Treemap-Algorithmus vor. Dieser ist ein Verfahren zur Anordnung von Rechtecken in Treemaps, bei dem die Seitenverhältnisse der Rechtecke möglichst ausgeglichen gestaltet werden. Ziel ist es, annähernd quadratische Rechtecke zu erzeugen. Rechtecke mit möglichst ähnlichen Seitenlängen sind leichter wahrzunehmen, zu vergleichen und in ihrer Größe intuitiv abschätzbar. Ein Beispiel für eine mit dem Squarify-Algorithmus generierte Treemap ist in Abbildung~\ref{fig:treemapExample} dargestellt.
+
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/nestedTreemapDiagramm.png}
-    \caption[Treemap]{Beispiel für eine Treemap \cite{johnson1991tree}}
-    \label{fig:nestedTreemap}
+    \includegraphics[width=0.7\textwidth]{images/grundlagen/treemapExampled3.png}
+    \caption[Beispiel Treemap]{Beispiel für eine Treemap generiert mit Hilfe des Squarify-Algorithmus \cite{d3_treemap_doku}}
+    \label{fig:treemapExample}
 \end{figure}
-
-Ein ästhetischer Nachteil besteht darin, dass die rekursive Unterteilung zu länglichen oder stark verzerrten Rechtecksformen führen kann. Dies widerspricht dem Anspruch einer übersichtlichen und ansprechenden Visualisierung. Verschiedene Verbesserungsansätze, wie etwa \textit{Squarified Treemaps}, adressieren dieses Problem und werden im Folgenden diskutiert (siehe Abschnitt~\ref{sec:Squarify}).
-
-\smallskip
-
-Eine 3D-Treemap ist die rekursive Unterteilung eines Würfels (oder Quaders) in kleinere Volumina, wobei das Volumen und nicht mehr die Fläche zum Wertvergleich herangezogen wird~\cite{johnson1993treemapsPhd}. Gegenstand der vorliegenden Arbeit sind jedoch sogenannte \textit{2.5D-Treemaps}, bei denen ein klassisches 2D-Treemap-Layout um eine zusätzliche dritte Dimension (beispielsweise durch Extrusion nach oben) erweitert wird.
-
-\subsection{Squarify-Algorithmus} \label{sec:Squarify}
-
-Der Squarify-Algorithmus ist ein Verfahren zur Anordnung von Rechtecken in Treemaps, bei dem die Seitenverhältnisse der Rechtecke möglichst ausgeglichen gestaltet werden. Ziel ist es, annähernd quadratische Rechtecke zu erzeugen, um die Nachteile herkömmlicher Treemap-Layouts zu überwinden, bei denen häufig sehr schmale und langgezogene Rechtecke entstehen. Bruls et al. betonen hierzu: \enquote{another problem of standard treemaps [is] the emergence of thin, elongated rectangles}~\cite[1]{bruls2000squarified}. Rechtecke mit möglichst ähnlichen Seitenlängen sind leichter wahrzunehmen, zu vergleichen und in ihrer Größe intuitiv abschätzbar.
 
 Der Squarify-Algorithmus arbeitet rekursiv, indem er die zu verteilende Fläche schrittweise in Rechtecke aufteilt. Dabei wird stets angestrebt, das Verhältnis von Breite zu Länge der Rechtecke so nah wie möglich an einen Zielwert (idealerweise $1$) zu bringen. Wie viele andere Treemap-Algorithmen erfolgt die Aufteilung vom Wurzelknoten her, indem die Fläche sukzessive in kleinere Teilflächen untergliedert wird, bis auf Blattknotenebene.
 
-Im Folgenden wird der Algorithmus anhand eines Beispiels aus dem Originalartikel von Bruls et al.~\cite[5]{bruls2000squarified} erläutert, wobei die Erklärung näher an einer praktischen Implementierung aus der d3-Bibliothek~\cite{d3_treemap_code} orientiert ist.
-
 Der Algorithmus füllt die zur Verfügung stehende Fläche stets in Reihen, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt iterativ: Das erste Rechteck wird eingefügt, dann wird das aktuelle Seitenverhältnis des Rechtecks berechnet. Anschließend wird das nächste Rechteck eingefügt. Verschlechtert sich durch das Einfügen das schlechteste Seitenverhältnis eines Rechtecks in der Reihe, wird eine neue Reihe begonnen.
 
-In dieser Arbeit wird (abweichend von einigen Publikationen) die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente (Höhe im dreidimensionalen Raum) zu vermeiden.
+In dieser Arbeit wird die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente (Höhe im dreidimensionalen Raum) zu vermeiden.
 
 \smallskip
 
-Im Folgenden wird der Algorithmus zur Anordnung von Rechtecken anhand eines konkreten Beispiels erläutert. Es sollen Rechtecke mit den Werten $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ eingefügt werden.
+Im Folgenden wird der Algorithmus anhand eines Beispiels aus der Originalarbeit von Bruls et al.~\cite[5]{bruls2000squarified} erläutert, wobei die Erklärung selbst näher an einer praktischen Implementierung aus der d3-Bibliothek~\cite{d3_treemap_doku} orientiert ist. Es sollen Rechtecke mit den Werten $6$, $6$, $4$, $3$, $2$, $2$, $1$ in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ eingefügt werden. 
 
 Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird so lange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
 
@@ -194,9 +152,9 @@ Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten
 
 Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe Abbildung~\ref{fig:squarify_example_2}). Das durch die zuvor erstellte Reihe verbliebene, zu füllende Rechteck hat die Abmessungen $3 \times 4$ (3 Einheiten breit und 4 Einheiten lang). Da die Reihe länger als breit ist, wird das nächste Rechteck eingefügt. Durch das Einfügen des Rechtecks entsteht ein schlechtestes Seitenverhältnis von $3 : 1,33 \approx 2,25$. Das Einfügen des nächsten Rechtecks mit der Fläche 3 Einheiten verbessert das schlechteste Seitenverhältnis auf $2,33 : 1,29 \approx 1,8$ und ist damit besser als das vorherige. Das Einfügen des nächsten Rechtecks mit der Fläche 2 verschlechtert das schlechteste Seitenverhältnis auf $3 : 0,67 \approx 4,5$, sodass die Reihe abgeschlossen wird (Schritt 8).
 
-Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/images/squarify_example.gif}{Link}~\cite{squarify_video_link} ein Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus zeigt. Es ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
-
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
+
+Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/images/squarify_example.gif}{Link}~\cite{squarify_video_link} ein kurzes Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus zeigt. Es ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
 
 \begin{figure}[h]
     \centering
@@ -247,25 +205,6 @@ Analog gilt $ \frac{l_i}{w_i} = \frac{sV^2}{V_i \cdot w^2} $. Es genügt daher, 
 
 Während der Füllung einer Reihe bleibt $w$ konstant und muss daher nur einmal berechnet werden. $sV$ wird bei jedem neuen Rechteck in der Reihe aktualisiert.
 
-Zur weiteren Veranschaulichung wird im Folgenden der Code des Algorithmus in TypeScript aufgeführt, der als Grundlage für die Erweiterungen in dieser Arbeit dient. Die Implementierung orientiert sich an der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}.
+Zur weiteren Veranschaulichung wird im Folgenden der Code des Algorithmus in TypeScript aufgeführt, der als Grundlage für die Erweiterungen in dieser Arbeit dient. Alle Code Beispiele in dieser Arbeit werden in Typescript aufgeführt, da die gesamte Implementierung aller Visualierungen in Typescript erfolgt und weil Typescript als High-Level-Programmiersprache auch für Personen ohne spezielles Typescript Wissen gut verständlich ist. Die Implementierung orientiert sich an der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}.
 
 \input{chapters/einleitung/squarify_algorithm.tex}
-
-\smallskip
-
-Obwohl das ursprüngliche Paper von Bruls et al.~\cite{bruls2000squarified} vor allem das Seitenverhältnis $1$ als Idealwert betrachtet, erlauben viele Implementierungen, wie auch die der d3.js-Bibliothek~\cite{d3_treemap_code}, die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt~\cite{goldenRatio}. 
-In Abbildung~\ref{fig:squarifyRatio1} ist ein Beispiel für ein Layout zu sehen, das durch den Squarify-Algorithmus generiert wurde, wobei die Rechtecke möglichst quadratisch angeordnet werden. In Abbildung~\ref{fig:squarifyRatio5} sind die gleichen Werte dargestellt, jedoch wurde das Layout so berechnet, dass die Rechtecke ein Seitenverhältnis von 5 anstreben. Der Unterschied in der Darstellung ist deutlich: Die Rechtecke sind wesentlich langgestreckter als im ersten Beispiel.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/oneSquarify.png}
-    \caption[Squarify: quadratische Rechtecke]{Beispiel für ein Squarify-Layout mit Annäherung an quadratische Rechtecke (durchschnittliches Seitenverhältnis 1,42)}
-    \label{fig:squarifyRatio1}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{images/fiveSquarify.png}
-    \caption[Squarify: längliche Rechtecke]{Beispiel für ein Squarify-Layout mit Annäherung an den Wert 5 (durchschnittliches Seitenverhältnis 2,79)}
-    \label{fig:squarifyRatio5}
-\end{figure}
