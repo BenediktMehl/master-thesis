@@ -64,7 +64,7 @@ Verbleibende Layouts werden dann mit Hilfe der zuvor definierten Kriterien (sieh
 \section{Ergebnisse der Suche und Auswertung} \label{sec:Ergebnisse}
 Dieser Abschnitt berichtet über die Ergebnisse der Suche unter Anwendung der Inklusions- und Exklusionskriterien und stellt die Auswertung der gefundenen Arbeiten anhand der zuvor formulierten Anforderungen vor.
 
-\subsection{Ergebnisse der ersten Google-Scholar-Suche}
+\subsection{Erste Google-Scholar-Suche}
 
 In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics}~\cite{voronoiTree} wird ein spezielles Voronoi-Treemap-Layout vorgestellt. Ziel ist es, das aus klassischen Treemaps bekannte Problem der schwer erkennbaren Hierarchiestruktur zu adressieren. Die Eingabedaten entsprechen denen klassischer Treemaps, die Anforderung an die Eingabedaten ist damit erfüllt. Verwendet werden Polygone als Zellen, die so positioniert werden, dass Kanten möglichst nicht ineinander laufen. 
 \begin{quote}
@@ -184,7 +184,7 @@ Mehrere visuelle Variablen erlauben mehr als vier Metriken. Gleichzeitig bleibt 
 \end{figure}
 Nur eine Dateimetrik wird direkt kodiert und die Schachtelung fehlt vollständig. Damit bleiben Informationsgehalt und Flächeneffizienz gering. Sie werden mit 1 bewertet. Das Bild ist reduziert und klar, doch lokale Kontraste, etwa kleine Hügel neben großen, erschweren die Höhenbeurteilung. Die visuelle Komplexität wird daher mit 4 eingestuft. Bei großen Codebasen rücken viele Hügel dicht zusammen, wodurch Höhenvergleiche und Strukturverständnis leiden. Unter diesen Bedingungen wird die Skalierbarkeit mit 3 bewertet. Die Metapher ist geläufig und intuitiv. Die Metaphernqualität erhält die Bewertung 5.
 
-\subsection{Ergebnisse der zweiten Google-Scholar-Suche}
+\subsection{Zweite Google-Scholar-Suche}
 
 \textit{Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs}~\cite{exploringRelations} nutzt auf oberer Ebene das Energy-Model von Noack und Lewerentz zur Graphlayoutierung. Der Graph kann mehrere Hierarchieebenen auf Dateiebene visualisieren und erfüllt damit die Anforderung. Farben unterstützen die Unterscheidung von Paketen und Ordnern. Jeder Knoten enthält intern eine Treemap, die seine Struktur zeigt (siehe Abbildung \ref{fig:exploringRelations}). Interaktion mittels Zoom ist erforderlich.
 \begin{figure}[h]
@@ -238,7 +238,7 @@ Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, äh
 \end{figure}
 Es wird nur eine Metrik kodiert und große Flächen bleiben leer. Damit sind Informationsgehalt und Flächeneffizienz sehr gering und werden mit 1 bewertet. Die Darstellung ist prinzipiell einfach, doch die Vielzahl an Kanten erzeugt schnell visuelles Durcheinander. Unter dieser Abwägung wird die visuelle Komplexität mit 3 angesetzt. Mit wachsender Hierarchie treten Kantenüberschneidungen und Unübersichtlichkeit auf, wie es für Node-Link-Diagramme typisch ist. Die Skalierbarkeit wird deshalb mit 1 bewertet. Eine Metapher ist nicht intendiert. Die Metaphernqualität liegt bei 1.
 
-\subsection{Ergebnisse der IEEE-Suche} \label{sec:ieeeSuche}
+\subsection{IEEE-Suche} \label{sec:ieeeSuche}
 
 \textit{Metrics-based 3D visualization of large object-oriented programs}~\cite{metricsBased3DVisualization} stellt eine 3D-Spherical-Graph-Visualisierung vor, in der Elemente auf einer Kugeloberfläche platziert werden. Metriken werden über Größe und Farbe kodiert. Klassen werden als Kugeln oder Würfel im 3D-Raum dargestellt und je nach Beziehungsmetrik verbunden. Die Anordnung folgt einem Similarity-Score, der vielfältig definiert werden kann, etwa durch Dateistruktur oder Kohäsion (siehe Abbildung \ref{fig:metricsBased3DVisualization}). Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt.
 \begin{figure}[h]
