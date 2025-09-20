@@ -44,7 +44,7 @@ Für die Umfrage werden diese Einstellungen je nach Visualisierung und Szenario 
 \section{Treemap} \label{sec:TreemapGrundlagenImplementation}
 Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Es handelt sich um eine platzfüllende, rekursive Visualisierung, die häufig zur Darstellung hierarchischer Daten eingesetzt wird.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/treemap/dreierKombi.png}
     \caption[Beispiel für Treemap-Implementierung]{Beispiel für Treemap-Implementierung, wie sie auch in der Umfrage verwendet wird.}
@@ -52,7 +52,7 @@ Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt 
 \end{figure}
 
 \subsection*{Layoutschritt}
-Da das Treemap-Layout für die Visualisierung von Softwarequalitätsmetriken zentral ist, wird die Implementierung des 2D-Treemap-Layouts gesondert beschrieben und optimiert. Dazu existiert ein eigenes Kapitel \ref{sec:Layoutschritt}, in dem das Layout nach Kriterien optimiert wird, die für Software-Visualisierungen relevant sind. In diesem Kapitel wird daher ausschließlich der Visualisierungs-Schritt behandelt. Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x und y Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird bei dieser Visualisierung festgelegt, wie viele Beschriftungen angezeigt werden, da dies die Position und Größe von Knoten bereits im Layoutschritt beeinflusst (siehe Abschnitt \ref{sec:BeschriftungKnoten}). Dies ist eine zusätzliche manuelle Einstellmöglichkeit, die neben den allgemeinen Einstellungen in der Umfrage je nach Szenario angepasst wird.
+Da das Treemap-Layout für die Visualisierung von Softwarequalitätsmetriken zentral ist, wird die Implementierung des 2D-Treemap-Layouts gesondert beschrieben und optimiert. Dazu existiert ein eigenes Kapitel \ref{sec:VerbesserungSquarify}, in dem das Layout nach Kriterien optimiert wird, die für Software-Visualisierungen relevant sind. In diesem Kapitel wird daher ausschließlich der Visualisierungs-Schritt behandelt. Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x und y Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird bei dieser Visualisierung festgelegt, wie viele Beschriftungen angezeigt werden, da dies die Position und Größe von Knoten bereits im Layoutschritt beeinflusst (siehe Abschnitt \ref{sec:BeschriftungKnoten}). Dies ist eine zusätzliche manuelle Einstellmöglichkeit, die neben den allgemeinen Einstellungen in der Umfrage je nach Szenario angepasst wird.
 
 \subsection*{Visualisierungs-Schritt}
 Der Visualisierungs-Schritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Metrik, die in der Höhe kodiert wird. Die z-Position eines Knotens liegt stets auf dem Elternknoten. Sie ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layout reserviert. Die Beschriftungen werden so gerendert, dass die Schriftgröße genau in den dafür reservierten Platz passt und diesen weder horizontal noch vertikal überschreitet.
@@ -60,7 +60,7 @@ Der Visualisierungs-Schritt extrudiert alle Nicht-Blattknoten um einen festen We
 \section{Streetmap}
 Das Streetmap-Layout stellt Ordner als Straßen dar. Diese Straßen verlaufen entweder vertikal oder horizontal. Entlang der Straßen sind Dateien als Quadrate angeordnet, und Unterordner gehen als Querstraßen im rechten Winkel von der Straße ab. Dadurch entsteht ein Straßennetz, das die Struktur der Software abbildet (siehe Abbildung \ref{fig:streetmapBeispielImplementierung}).
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/streetmap/dreierKombi.png}
     \caption[Beispiel für Streetmap-Implementierung]{Beispiel für Streetmap-Implementierung, wie sie auch in der Umfrage verwendet wird.}
@@ -76,7 +76,7 @@ Der Output des Layoutschritts entspricht dem der Treemap, sodass ein ähnlicher 
 \section{Code City}
 Das Code-City-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:CodeCity}). Es ähnelt dem Treemap-Layout, verwendet jedoch stets quadratische Knoten. Die Anordnung ist nicht platzfüllend, da Abstände zwischen den Knoten berücksichtigt werden (siehe Abbildung \ref{fig:codecityBeispielImplementierung}).
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/codecity/dreierKombi.png}
     \caption[Beispiel für Code-City-Implementierung]{Beispiel für Code-City-Implementierung, wie sie auch in der Umfrage verwendet wird.}
@@ -92,7 +92,7 @@ Da der Output des Layoutschritts dem des Treemap-Layoutschritts entspricht, wird
 \section{Sunburst}
 Die Sunburst-Visualisierung ist kreisförmig. Sie bildet die hierarchische Struktur in konzentrischen Ringen ab. Der oberste Knoten ist ein Kreis im Zentrum. Alle Kinder dieses Knotens bilden Segmente um diesen Kreis. Jeweils die Kinder eines Knotens befinden sich im nächst äußeren Ring. Die Größe eines Segments wird durch eine Metrik kodiert. Die Kinder eines Knotens erscheinen in der nächst äußeren Ebene an denselben Winkelpositionen wie ihr Elternknoten. Dadurch entsteht eine radial angeordnete Baumstruktur von innen nach außen (siehe Abbildung \ref{fig:sunburstBeispielImplementierung}).
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/sunburst/dreierKombi.png}
     \caption[Beispiel für Sunburst-Implementierung]{Beispiel für Sunburst-Implementierung, wie sie auch in der Umfrage verwendet wird.}
@@ -108,7 +108,7 @@ Der Visualisierungs-Schritt rendert die Knoten als Kreissegmente. Die Winkelbrei
 \section{Circular Treemap}
 Das Circular-Treemap-Layout entspricht in seiner hierarchischen Anordnung einer Treemap, verwendet jedoch Kreise anstelle von Rechtecken. Dadurch entstehen Lücken zwischen den Knoten, ähnlich wie bei Code City (siehe Abbildung \ref{fig:circlepackingBeispielImplementierung}).
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/circlepacking/dreierKombi.png}
     \caption[Beispiel für Circle-Packing-Implementierung]{Beispiel für Circle-Packing-Implementierung, wie sie auch in der Umfrage verwendet wird.}

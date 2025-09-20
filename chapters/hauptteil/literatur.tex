@@ -71,7 +71,7 @@ In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics
     these polygons are clearly distinguishable because of their irregular shapes~\cite[6]{voronoiTree}.
 \end{quote}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/voronoi.png}
     \caption[Voronoi-Treemap-Layout]{Voronoi-Treemap-Layout, das die Hierarchie durch polygonale Zellen und Kanten hervorhebt~\cite[6]{voronoiTree}.}
@@ -83,7 +83,7 @@ Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke 
 \smallskip
 
 In der Arbeit \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge} wird eine Visualisierung vorgestellt, bei der pro Datei ein Quader gezeichnet wird, der mehrere Metriken repräsentiert. Die Quader besitzen eine einheitliche Grundfläche. Metriken werden über Höhe, Farbe und Rotation im Bereich 0 bis 90 Grad kodiert (siehe Abbildung \ref{fig:visbasedlarge}). Der Fokus liegt auf der Platzierung, nicht auf variablen Grundflächen. Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt, auch wenn diese mit Paketen und Klassen in diesem Beispiel nur zwei Ebenen umfasst.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/visbasedlarge.png}
     \caption[Beispiel aus visbasedlarge]{Oben modifizierte Treemap, unten modifizierter Sunburst. Beide repräsentieren PCGEN, ein Tool zur Charaktererstellung in RPG (1129 Klassen)~\cite[5]{visbasedlarge}.}
@@ -94,18 +94,18 @@ Die Arbeit spricht vom Treemap-Layout. Die Ausprägung entspricht jedoch eher ei
 \smallskip
 
 In \textit{A solar system metaphor for 3D visualisation of object oriented software metrics}~\cite{solarSystem} wird kritisiert, dass die Stadtmetapher nicht voll 3D sei und komplexe Zusammenhänge nur eingeschränkt darstellbar seien. Als Alternative wird eine Solar-System-Metapher eingeführt (siehe Abbildung \ref{fg:solarSystem}).
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{images/literatur/solarSystemMethaphorSharpenedFixed.png}
     \caption[Solar-System-Metapher]{Solar-System-Metapher für 3D-Visualisierung. Die Farben des Bildes sind invertiert, um die Lesbarkeit im Ausdruck zu verbessern~\cite[4]{solarSystem}. Das original Bild wurde nachträglich für dieses Paper mit Hilfe von AI geschärft.}
     \label{fg:solarSystem}
 \end{figure}
-Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen wie Vererbungen erscheinen als Linien. Die Farbe kennzeichnet den Klassentyp, beispielsweise Interface oder Abstract. Pakete fungieren als zentrale Sterne. Die Eingabedaten sind geeignet, da eine Hierarchie vorliegt. Die hierarchische Tiefe wird über die Distanz der Umlaufbahnen zum Zentrum repräsentiert. Zwischen den Planeten bleibt viel Fläche frei. Größe und optional Farbe kodieren Klassenmetriken, Verbindungen erlauben Beziehungsmetriken. Da damit nur ein bis zwei Dateimetriken verfügbar sind und die Fläche großteils ungenutzt bleibt, werden Informationsgehalt und Flächeneffizienz mit 2 bewertet. Die Anordnung ist einfach und die Objekte sind klar separiert. Dadurch entsteht ein sehr ruhiges Bild. Die visuelle Komplexität fällt folglich mit 5 aus. In realen Projekten treten Hierarchietiefen bis etwa 13 auf (siehe Abschnitt \ref{sec:datenAnalyse}), während die Beispiele eine Tiefe von 3 zeigen . Mit wachsender Tiefe und Paketgröße ist Okklusion zu erwarten. Die Skalierbarkeit wird deshalb mit 1 bewertet. Die Solar-System-Metapher ist unmittelbar verständlich. Entsprechend erhält die Metapher die Bewertung 5.
+Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen wie Vererbungen erscheinen als Linien. Die Farbe kennzeichnet den Klassentyp, beispielsweise Interface oder Abstract. Pakete fungieren als zentrale Sterne. Die Eingabedaten sind geeignet, da eine Hierarchie vorliegt. Die hierarchische Tiefe wird über die Distanz der Umlaufbahnen zum Zentrum repräsentiert. Zwischen den Planeten bleibt viel Fläche frei. Größe und optional Farbe kodieren Klassenmetriken, Verbindungen erlauben Beziehungsmetriken. Da damit nur ein bis zwei Dateimetriken verfügbar sind und die Fläche großteils ungenutzt bleibt, werden Informationsgehalt und Flächeneffizienz mit 2 bewertet. Die Anordnung ist einfach und die Objekte sind klar separiert. Dadurch entsteht ein sehr ruhiges Bild. Die visuelle Komplexität fällt folglich mit 5 aus. In realen Projekten treten Hierarchietiefen bis etwa Tiefe 11 auf (siehe Abschnitt \ref{sec:Bewertungsgrundlage}), während die Beispiele eine Tiefe von 3 zeigen . Mit wachsender Tiefe und Paketgröße ist Okklusion zu erwarten. Die Skalierbarkeit wird deshalb mit 1 bewertet. Die Solar-System-Metapher ist unmittelbar verständlich. Entsprechend erhält die Metapher die Bewertung 5.
 
 \smallskip
 
 In \textit{Visualization of the static aspects of software: A survey} werden verschiedene Visualisierungen systematisch dargestellt~\cite{staticSurvey}. Die erste Anforderung erfüllen Treemap, Sunburst, Voronoi und Circle Packing. Zudem werden verschiedene Ausprägungen der Stadtmetapher beschrieben, darunter eine klassische Code City sowie eine Inselmetapher, bei der die oberste Hierarchieebene in mehrere Inseln segmentiert wird, zwischen denen Verbindungen visualisiert werden können (siehe Abbildung \ref{fig:islandMetaphor}). Metriken können über Fläche, Höhe, Farbe, Typ und Symbole kodiert werden. Zwischen Ordnern sind Beziehungsmetriken darstellbar. 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/islandMetaphor.png}
     \caption[Insel-Metapher]{Insel-Metapher: Pakete als Inseln, Klassen als Gebäude~\cite[9]{staticSurvey}.}
@@ -118,7 +118,7 @@ Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung b
 \smallskip
 
 In \textit{Visual realism for the visualization of software metrics}~\cite{visRealism} wird die Paketstruktur verwendet, typischerweise mit bis zu drei Ebenen. Dies ist kompatibel mit der Eingabeanforderung. Es kommen klassische Cushion-Treemaps zum Einsatz. Cushion-Treemap ist in dieser Form nicht extrudierbar, da die Schattierungen nur in 2D funktionieren. Dieser Aspekt wird deshalb hier nicht berücksichtigt. Kodiert werden Metriken über Fläche, Farbe und Textur (siehe Abbildung \ref{fig:structureTreemap}). Bei Extrusion in 2.5D wäre zusätzlich Höhe möglich.  
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/structureTreemap.png}
     \caption[Cushion-Treemap mit Textur]{Cushion-Treemap, die sowohl über Farbe als auch über Textur Metriken kodiert~\cite[6]{visRealism}.}
@@ -129,7 +129,7 @@ Die vollständige Flächennutzung gepaart mit bis zu vier visuellen Variablen er
 \smallskip
 
 \textit{CityVR: Gameful software visualization}~\cite{cityVR} verwendet hierarchische Eingabedaten und eine Stadtmetapher in VR. Das Layout ähnelt Code City und ist damit eine 2.5D-Variante, die die Anforderung erfüllt.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/vrCodeCity.png}
     \caption[CityVR mit Code City]{Code-City-Visualisierung wie sie in CityVR verwendet wird~\cite[1]{cityVR}.}
@@ -140,21 +140,21 @@ Höhe, Grundfläche und Farbe erlauben drei Metriken. Zwischen Gebäuden bleibt 
 \smallskip
 
 \textit{EvoSpaces: 3D Visualization of Software Architecture}~\cite{EvoSpaces} untersucht unterschiedliche Darstellungsformen, von einfachen Quadern bis zu komplexeren Hausmetaphern. Metriken werden über Transparenz, Höhe, Grundfläche, Textur und weitere Aspekte kodiert. Gebäude repräsentieren Klassen oder Dateien. Verbindungen erscheinen als Röhren beziehungsweise gebogene Strahlen (siehe Abbildung \ref{fig:evoSpaces}). Die Eingabedaten sind geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaces.png}
     \caption[EvoSpaces-Beispiel]{EvoSpaces-Visualisierung. Gebäude repräsentieren Klassen. Je nach Metrikwert erfolgt eine Kategorisierung, etwa bis 50 LOC Wohnhaus und 51 bis 200 LOC Apartmentblock~\cite[3]{EvoSpaces}.}
     \label{fig:evoSpaces}
 \end{figure}
 Vorgestellt werden zwei Layouts, die primär die Gebäude anordnen, jedoch deren Größe nicht ändern (siehe Abbildung \ref{fig:evoSpaceLayout}).
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/evoSpaceLayout.png}
     \caption[Zwei EvoSpaces-Layouts]{Die zwei Layouts in EvoSpaces. Links konzentrisch, rechts schachbrettartig~\cite[3]{EvoSpaces}.}
     \label{fig:evoSpaceLayout}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/evoCity.png}
     \caption[EvoSpaces-Schachbrettlayout]{EvoSpaces mit Schachbrett-Layout~\cite[5]{EvoSpaces}.}
@@ -166,7 +166,7 @@ Mehrere visuelle Variablen erlauben mehr als vier Metriken. Gleichzeitig bleibt 
 \smallskip
 
 \textit{3D representations for software visualization}~\cite{3dsoftwareMarcus} erweitert 2D Pixel Bars in die dritte Dimension, um zusätzliche Metriken und Verbindungen darzustellen. Die Basis sind Metriken auf Zeilenebene. Die Darstellung ist sehr detailliert, da einzelne Codezeilen visualisiert werden. Okklusion wird über Transparenz adressiert. Das Layout orientiert sich an Zeilenfolgen. Eine hierarchische Struktur wird nicht abgebildet (siehe Abbildung \ref{fig:3dsoftwareMarcus}). Die Eingabedaten sind damit zu detailliert und nicht konsistent über Dateien hinweg. Die definierte Eingabeanforderung wird nicht erfüllt.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/marcus.png}
     \caption[3D Pixel Bars nach Marcus]{3D Pixel Bars. Für jede Datei eine Visualisierung auf Zeilenebene~\cite[7]{3dsoftwareMarcus}.}
@@ -176,7 +176,7 @@ Mehrere visuelle Variablen erlauben mehr als vier Metriken. Gleichzeitig bleibt 
 \smallskip
 
 \textit{Software cartography: Thematic software visualization with consistent layout}~\cite{softwareCartography} nutzt eine topographische Kartenmetapher (siehe Abbildung \ref{fig:softwareCartography}). Dateien werden als Hügel dargestellt. Die Höhe kodiert eine Metrik wie LOC. Die Grundfläche ergibt sich dann aus der Höhe. Das Layout wird mit einem speziellen MDS-Algorithmus (HiT-MDS) erzeugt, der als Stresswert die lexikalische Distanz zwischen Dateinamen verwendet. Die Hierarchie wird nicht abgebildet. Die Struktur wird ausschließlich über lexikalische Nähe dargestellt, die in Form von Distanzen zwischen Hügeln erscheint. Die Eingabedaten sind dennoch geeignet, da sie anhand der Dateinamen in eine hierarchische Struktur überführt werden können.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartography.png}
     \caption[Software Cartography]{Topographische Kartenmetapher. Hügel repräsentieren Dateien. Die Höhe kodiert eine Metrik wie LOC~\cite{softwareCartography}.}
@@ -187,7 +187,7 @@ Nur eine Dateimetrik wird direkt kodiert und die Schachtelung fehlt vollständig
 \subsection{Zweite Google-Scholar-Suche}
 
 \textit{Exploring Relations within Software Systems Using Treemap Enhanced Hierarchical Graphs}~\cite{exploringRelations} nutzt auf oberer Ebene das Energy-Model von Noack und Lewerentz zur Graphlayoutierung. Der Graph kann mehrere Hierarchieebenen auf Dateiebene visualisieren und erfüllt damit die Anforderung. Farben unterstützen die Unterscheidung von Paketen und Ordnern. Jeder Knoten enthält intern eine Treemap, die seine Struktur zeigt (siehe Abbildung \ref{fig:exploringRelations}). Interaktion mittels Zoom ist erforderlich.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/expoloringRelations.png}
     \caption[Treemap in Graphknoten]{Treemap-unterstützte hierarchische Graphen. Oben Beziehungen zwischen Paketen. Innen Treemaps je Paket~\cite[5]{exploringRelations}.}
@@ -199,7 +199,7 @@ Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualis
 \smallskip
 
 \textit{Visualizing Software Metrics in a Software System Hierarchy}~\cite{visSoftwareMetricsBook} entspricht im Kern einem Link-Tree-Diagramm. Sogenannte \textit{Metric Stripes} kodieren über Breite und Farbe verschiedene Metriken (siehe Abbildung \ref{fig:visHierarchy}). Die Eingabe hierarchischer Daten ist geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/vishierarchy.png}
     \caption[Link-Tree mit Metric Stripes]{Link-Tree-Diagramm mit \textit{Metric Stripes} zur Metrikkodierung~\cite[740]{visSoftwareMetricsBook}.}
@@ -214,7 +214,7 @@ Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings 
 \smallskip
 
 \textit{Visualizing Program Quality - A Topological Taxonomy of Features}~\cite{visualizingProgramQuality} schlägt die Bubble-Treemap vor, die erstmals in \cite{Goertler2017BubbleTreemapsUncertainty} beschrieben wurde (siehe Abbildung \ref{fig:bubbleTreemap}). Sie verhält sich zu Circle Packing ähnlich wie Treemap zu Code City, da weniger Platz verschwendet wird und eine Kante-an-Kante-Anordnung angestrebt ist. Aufgrund der hierarchischen Struktur auf Dateiebene ist die Anforderung erfüllt.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/bubbleTreemap.png}
     \caption[Bubble-Treemap]{Beispiel für eine Bubble-Treemap~\cite[7]{Goertler2017BubbleTreemapsUncertainty}.}
@@ -230,7 +230,7 @@ Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, äh
 \smallskip
 
 \textit{Visualization and evolution of software architectures}~\cite{visualizationEvolution} stellt verschiedene Visualisierungen vor. Für die erste Anforderung passend sind Treemap, Sunburst, Voronoi, Circle Treemap und Street Map. Diese werden oder wurden in diesem Abschnitt bereits beschrieben. Entsprechend wird für diese Visualisierungen die identische Bewertung angesetzt. Zusätzlich wird ein Icicle Plot vorgestellt, der dem Stack-Layout in \textit{code-is-beautiful} entspricht. Auch hierfür wird die entsprechende Bewertung übernommen. Neu hinzu kommt der Hyperbolic Tree (siehe Abbildung \ref{fig:hyperbolictree}). Er ähnelt einem Node-Link-Diagramm in kreisförmiger Anordnung und kodiert eine Metrik pro Datei. 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/hyperbolictree.png}
     \caption[Hyperbolic Tree]{Hyperbolic Tree~\cite[4]{visualizationEvolution}.}
@@ -241,7 +241,7 @@ Es wird nur eine Metrik kodiert und große Flächen bleiben leer. Damit sind Inf
 \subsection{IEEE-Suche} \label{sec:ieeeSuche}
 
 \textit{Metrics-based 3D visualization of large object-oriented programs}~\cite{metricsBased3DVisualization} stellt eine 3D-Spherical-Graph-Visualisierung vor, in der Elemente auf einer Kugeloberfläche platziert werden. Metriken werden über Größe und Farbe kodiert. Klassen werden als Kugeln oder Würfel im 3D-Raum dargestellt und je nach Beziehungsmetrik verbunden. Die Anordnung folgt einem Similarity-Score, der vielfältig definiert werden kann, etwa durch Dateistruktur oder Kohäsion (siehe Abbildung \ref{fig:metricsBased3DVisualization}). Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/metricsBased3DVisualization.png}
     \caption[Spherical Graph]{Spherical Graph~\cite[5]{metricsBased3DVisualization}.}
@@ -256,7 +256,7 @@ Zwei Datei- und eine Beziehungsmetrik werden kodiert, die Struktur entsteht übe
 \smallskip
 
 \textit{E-Quality: A graph based object oriented software quality visualization tool}~\cite{eQuality} stellt eine graphbasierte Visualisierung für objektorientierte Softwarequalität vor. Pakete werden kreisförmig angeordnet. Metriken beeinflussen Muster, Größe, Farbe und Form (siehe Abbildung \ref{fig:eQuality}). Die Eingabedaten sind geeignet, da eine hierarchische Struktur vorliegt und auf Klassenebene dargestellt wird.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/equality.png}
     \caption[E-Quality als Graph]{E-Quality: Graphbasierte Visualisierung objektorientierter Softwarequalität~\cite[5]{eQuality}.}
@@ -272,7 +272,7 @@ Durch die Vielfalt der visuellen Variablen lassen sich viele Metriken darstellen
 \smallskip
 
 \textit{QScored: An Open Platform for Code Quality Ranking and Visualization}~\cite{QScored} beschreibt eine Plattform und nutzt bekannte Visualisierungen wie Treemaps und Sunbursts, die wie üblich bewertet werden. Zusätzlich wird ein Dependency-Graph eingesetzt. Dieser ist zwar nicht hierarchisch, arbeitet jedoch auf Datei- und Metrikebene und erfüllt damit die Anforderung hinsichtlich der Datenebene.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/qScored.png}
     \caption[Dependency-Graph in QScored]{Dependency-Graph in QScored~\cite[3]{QScored}.}
@@ -283,7 +283,7 @@ Drei Dateimetriken plus eine Beziehungsmetrik sind darstellbar, doch bleiben gro
 \smallskip
 
 \textit{Using the City Metaphor for Visualizing Test-Related Metrics}~\cite{citMetaphorTestMetrics} setzt die Stadtmetapher in einem Sandbox-Spiel (\textit{Minecraft}) um (siehe Abbildung \ref{fig:minecraft}). Gebäude sind detailliert und bilden Methoden, Attribute, Metriken und Interfaces ab. Das Layout ist spielerisch und schwer zu normieren. Die Eingabedaten erfüllen die Anforderung.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/minecraft.png}
     \caption[Stadtmetapher in Minecraft]{Stadtmetapher in Minecraft~\cite[5]{citMetaphorTestMetrics}.}
@@ -294,7 +294,7 @@ Die Einbindung von Quelltextdetails neben zahlreichen Metriken macht die Darstel
 \smallskip
 
 \textit{Visual Analytics of Software Structure and Metrics}~\cite{visAnaSoftStructure} nutzt den City View von eCITY~\cite{ecity} (siehe Abbildung \ref{fig:colorStreetmap}). Die Eingabe hierarchischer Daten ist geeignet. Es wird die Stadtmetapher verwendet, jedoch mit einem anderen Anordnungsalgorithmus. Die Straßenstruktur bildet die Schachtelung ab. Jede Hierarchieebene erzeugt eine Abzweigung. Metriken werden über Fläche und Farbe kodiert.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/colorStreetmap.png}
     \caption[Streetmap-Layout in eCITY]{Streetmap-Layout~\cite[6]{visAnaSoftStructure}.}
@@ -305,7 +305,7 @@ Die Flächen werden durch Straßen aufgeteilt, wodurch gegenüber zum Beispiel T
 \subsection{Google-Suche} \label{sec:GoogleSuche}
 
 Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisualisierung, häufig mit Stadtmetapher (siehe Abbildung \ref{fig:sereene})~\cite{hassoPlattner}. Das zugehörige Tool, auf das die wissenschaftlichen Arbeiten zur Stadtmetapher ausgerichtet sind, nennt sich Sereene. Zudem werden alternative Visualisierungen wie \textit{Software Forest} vorgestellt, die der Softwarekartographie ähnelt (siehe Abbildung \ref{fig:softwareForest}). Die Eingabedaten sind hierarchisch auf Dateiebene und damit geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/sereene.png}
     \caption[HPI: Stadtmetapher]{Stadtmetapher in Arbeiten des Hasso-Plattner-Instituts~\cite{scheibel2020survey}.}
@@ -314,7 +314,7 @@ Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisu
 
 Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe und Farbe dar. Da die gesamte Fläche genutzt und zugleich mehrere Metriken sichtbar werden, werden Informationsgehalt und Flächeneffizienz mit 4 bewertet. Die Formen bleiben einfach, die Struktur ist klar. Dadurch ist die kognitive Last gering. Die visuelle Komplexität wird mit 5 eingestuft. Auch große Systeme können abgebildet werden, kleine Elemente verlieren jedoch an Lesbarkeit. Unter dieser Prämisse wird die Skalierbarkeit mit 4 bewertet. Die Metapher ist präsent, bleibt aber abstrakt, da typische Stadtstrukturen wie Straßen fehlen. Die Metapher wird daher mit 3 bewertet.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/softwareForest.png}
     \caption[Software Forest]{Software Forest~\cite[3]{softwareForest}.}
@@ -326,13 +326,13 @@ Der Software Forest ist ein hügeliger Wald. Jeder Baum repräsentiert eine Date
 \smallskip
 
 Das Open-Source-Projekt \textit{CodeCharta}~\cite{code_charta_github} ist besonders relevant, da die verwendeten Algorithmen offenliegen. Eingesetzt werden der d3.js-Treemap-Algorithmus (siehe Abbildung \ref{fig:codeChartaTreemap}) sowie ein eigener Algorithmus zur Erzeugung von Streetmap-Layouts (siehe Abbildung \ref{fig:codeChartaStreetMap}). Beide nutzen hierarchische Metrikdaten auf Dateiebene und sind damit geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codeChartaTreemap.png}
     \caption[CodeCharta Treemap]{CodeCharta Treemap-Layout~\cite{code_charta_webdemo}.}
     \label{fig:codeChartaTreemap}
 \end{figure}
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codeChartaStreetMap.png}
     \caption[CodeCharta Streetmap]{CodeCharta Streetmap-Layout~\cite{code_charta_webdemo}.}
@@ -347,7 +347,7 @@ Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\c
 \smallskip
 
 An der University of Groningen (Scientific Visualization and Computer Graphics) wird UML als Layout verwendet und mit 3D-Metrikrepräsentationen verbunden (siehe Abbildung \ref{fig:umlMetrics})~\cite{and_2025}. Die Eingabe umfasst UML-Strukturen auf Klassenebene mit zusätzlichen Metrikwerten. Diese Daten sind geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/umlMetrics.png}
     \caption[UML und 3D-Metriken]{Verbindung aus UML-Visualisierung und 3D-Metriken~\cite{and_2025}.}
@@ -358,7 +358,7 @@ UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreic
 \smallskip
 
 \textit{code-is-beautiful}~\cite{codeIsBeautiful} bietet Code-City-Visualisierungen. Die entsprechende Bewertung wurde oben bereits vorgenommen und gilt hier ebenfalls. Das Sunburst-Layout entspricht einem Kreisdiagramm, das die Ordnerstruktur von innen nach außen zeigt. Größe als Sektorfläche und Farbe kodieren Metriken (siehe Abbildung \ref{fig:sunburst}). Eine 2.5D-Extrusion ist möglich.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/sunburst.png}
     \caption[Sunburst-Layout]{Sunburst-Layout~\cite{codeIsBeautiful}.}
@@ -367,7 +367,7 @@ UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreic
 In Sunburst wird ein zentraler Bereich für Ordner benötigt, der zum Beispiel bei Treemaps entfällt. Bei gleicher Metrikzahl sinkt dadurch die Flächeneffizienz leicht. Informationsgehalt und Flächenausnutzung werden also mit 3 bewertet. Die verschachtelte Struktur ist visuell sehr klar und einfach zu verfolgen. Die visuelle Komplexität wird mit 5 eingestuft. Mit zunehmender Elementzahl leidet die Lesbarkeit kleiner Sektoren, insgesamt bleibt die Darstellung jedoch gut lesbar. Die Skalierbarkeit wird daher mit 4 bewertet. Eine Metapher ist nicht vorgesehen, aber wie der Name schon sagt, kann es als Sonne interpretiert werden, von der Sonnenstrahlen ausgehen, weshalb Wert 2 für die Metapher vergeben wird.
 
 Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2.5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert (siehe Abbildung \ref{fig:stack}).
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/stack.png}
     \caption[Stack-Layout]{Stack-Layout~\cite{codeIsBeautiful}.}
@@ -382,7 +382,7 @@ Die oberen Hierarchieebenen nehmen vergleichsweise viel Platz ein, mehr als bei 
 \smallskip
 
 \textit{CodeScene}~\cite{codescene_2025} nutzt 2D-Kreisdiagramme und Circular Treemaps, die als Circle Packing bezeichnet werden (siehe Abbildung \ref{fig:circlePacking}). Die Eingaben sind hierarchische Metrikdaten auf Dateiebene und damit geeignet.
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codescene.png}
     \caption[Circular Treemap in CodeScene]{Circular Treemap in CodeScene~\cite{codescene_2025}.}

@@ -35,7 +35,7 @@ Für die Ursachenanalyse von Qualitätsproblemen reicht die ausschließliche Bet
 
 Software-Qualitätsmetriken beziehen sich in der Regel auf spezifische Softwareeinheiten, etwa Dateien, Module oder Klassen. Diese Einheiten sind meist hierarchisch, beispielsweise entlang von Datei- und Ordnerstrukturen, organisiert. Die Messwerte werden häufig auf Ebene einzelner Dateien erhoben und anschließend auf höhere Ebenen, wie Ordner oder Module, aggregiert, sodass eine baumartige Hierarchie entsteht.
 
-Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrikdaten sind nicht ausschließlich auf Softwaremetriken beschränkt, sondern lassen sich auch auf andere Anwendungsfälle übertragen. Dennoch weist die Struktur von Softwareeinheiten und deren Metrikdaten spezifische Besonderheiten auf, die die Gestaltung der Visualisierungen beeinflussen können (siehe Abschnitt~\ref{sec:strukturVonSoftwareprojekten}).
+Die im Folgenden vorgestellten Ansätze zur Visualisierung hierarchischer Metrikdaten sind nicht ausschließlich auf Softwaremetriken beschränkt, sondern lassen sich auch auf andere Anwendungsfälle übertragen. Dennoch weist die Struktur von Softwareeinheiten und deren Metrikdaten spezifische Besonderheiten auf, die die Gestaltung der Visualisierungen beeinflussen können (siehe Abschnitt~\ref{sec:Bewertungsgrundlage}).
 
 \section{Software-Visualisierung} \label{sec:SoftwareVisualisierung} 
 
@@ -53,7 +53,7 @@ Zusätzlich wird zwischen echter 3D-Visualisierung und sogenannten 2.5D-Visualis
 
 Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei meist die Darstellung von Architektur und Programm-Code, weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}), was diese Visualisierungen für nicht-technische Stakeholder weniger zugänglich macht.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{images/grundlagen/visVRExample.png}
     \caption[3D-Visualisierung von Young und Munro]{Beispiel für eine 3D-Visualisierung von Young und Munro~\cite[6]{visSoftwareVR}}
@@ -81,7 +81,7 @@ Für die Visualisierung von Softwarequalitätsmetriken lassen sich aus der Liter
 
 Eine grundlegende Arbeit für die 2.5D-Visualisierung von Softwarestrukturen und -metriken stellt das Konzept \textit{CodeCity} von Richard Wettel und Michele Lanza dar~\cite{codeCity1}. Erstmals wurde ein Ansatz vorgestellt, der die Software-Struktur auf Modulebene nutzt, um den Grundriss für eine 2.5D-Visualisierung zu generieren. Softwareeinheiten werden dabei als Quader dargestellt. Wie von Young und Munro~\cite{visSoftwareVR} gefordert, wird eine einprägsame visuelle Metapher verwendet: die Stadtmetapher. Sie ist zentrales Gestaltungselement von CodeCity: Klassen erscheinen als Gebäude, die als Quader dargestellt werden und Pakete als Stadtbezirke, die als flache Bereiche visualisiert werden (siehe Abbildung~\ref{fig:codeCity}). Den Objekten können verschiedene Attribute (Dimensionen, Positionen, Farben, Farbsättigung, Transparenz) zugeordnet werden, was eine intuitive und greifbare Darstellung von Metriken ermöglicht.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{images/grundlagen/codeCityExample.png}
     \caption[Originale CodeCity-Visualisierung]{Beispiel für eine originale CodeCity-Visualisierung~\cite[2]{codeCity1}}
@@ -115,7 +115,7 @@ Ein Problem dieses einfachen Algorithmuses besteht darin, dass die rekursive Unt
 Sie stellen einen Squarify-Treemap-Algorithmus vor. Dieser ist ein Verfahren zur Anordnung von Rechtecken in Treemaps, bei dem die Seitenverhältnisse der Rechtecke möglichst ausgeglichen gestaltet werden. Ziel ist es, annähernd quadratische Rechtecke zu erzeugen. Rechtecke mit möglichst ähnlichen Seitenlängen sind leichter wahrzunehmen, zu vergleichen und in ihrer Größe intuitiv abschätzbar. Ein Beispiel für eine mit dem Squarify-Algorithmus generierte Treemap ist in Abbildung~\ref{fig:treemapExample} dargestellt.
 
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/grundlagen/treemapExampled3.png}
     \caption[Beispiel Treemap]{Beispiel für eine Treemap generiert mit Hilfe des Squarify-Algorithmus \cite{d3_treemap_doku}}
@@ -134,7 +134,7 @@ Im Folgenden wird der Algorithmus anhand eines Beispiels aus der Originalarbeit 
 
 Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Höhe 4 und kann nach rechts in der Breite variieren (siehe das linke große Rechteck in Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird so lange ergänzt, bis das schlechteste Seitenverhältnis (also das ungünstigste der enthaltenen Rechtecke) schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{images/grundlagen/squarify_example_1.png}
     \caption[Erste Reihe im Squarify-Beispiel]{Beispiel für die erste Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
@@ -143,7 +143,7 @@ Da das Rechteck, in das eingefügt wird, breiter als hoch ist (Breite 6, Höhe 4
 
 Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten in die noch leere Reihe eingefügt. Das Seitenverhältnis dieses Rechtecks beträgt $1,5 \times 4$ (1,5 Einheiten breit und 4 Einheiten lang). Das schlechteste Seitenverhältnis aller Rechtecke in der aktuellen Reihe ist in diesem Fall $4 : 1,5 \approx 2,67$ (es wird stets der größere Wert durch den kleineren geteilt, wobei 1 der optimale Wert ist). In Schritt 2 wird das nächste Rechteck mit einer Fläche von 6 Einheiten in die Reihe \textit{von oben} über das erste Rechteck eingefügt. Dadurch wird die Reihe und auch das erste Rechteck breiter. In diesem Fall haben beide Rechtecke das gleiche Seitenverhältnis von $3 \times 2$ (3 Einheiten breit und 2 Einheiten lang). Das schlechteste Seitenverhältnis in der Reihe beträgt nun $3 : 2 = 1,5$. Das neue schlechteste Seitenverhältnis ist besser als das vorherige, sodass die Reihe weiter gefüllt werden kann. Im nächsten Schritt soll ein Rechteck mit einer Fläche von 4 Einheiten eingefügt werden. Das Hinzufügen dieses Rechtecks macht die Reihe erneut breiter. Es entsteht ein neues schlechtestes Seitenverhältnis von $4 : 1 = 4$. Da das Verhältnis nun schlechter ist als das vorherige, wird die Reihe, wie sie zuvor war, als abgeschlossen betrachtet. Das zuletzt eingefügte Rechteck (mit Fläche 4) wird daher nicht mehr in dieser Reihe, sondern in einer neuen Reihe einsortiert (siehe Schritt 4).
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/grundlagen/squarify_example_2.png}
     \caption[Zweite Reihe im Squarify-Beispiel]{Beispiel für die zweite Reihe des Squarify-Algorithmus. Die Reihe ist im linken großen Rechteck in hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Höhe noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Höhe neu festgelegt wurde.}
@@ -156,7 +156,7 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (
 
 Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/anhang/squarify_example.mp4}{Link}~\cite{squarify_video_link} ein kurzes Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus zeigt. Es ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \begin{minipage}{1\textwidth}
         \centering
