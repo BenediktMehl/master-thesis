@@ -75,12 +75,12 @@ In Abbildung \ref{fig:flareZeroMargin} ist das Treemap-Layout generiert mit dem 
 
 Das zentrale Dilemma entsteht dadurch, dass eine Kernanforderung der Daten für Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wie viel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive Belegungsfläche hängt wesentlich von der jeweiligen Anordnung der Knoten ab.
 
-Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit einem umlaufenden Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \times 4$) oder länglich (z. B. $2 \times 8$) sind. Die zusätzliche Fläche für Abstände variiert somit erheblich.
+Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit einem umlaufenden Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \cdot 4$) oder länglich (z. B. $2 \cdot 8$) sind. Die zusätzliche Fläche für Abstände variiert somit erheblich.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/problem/marginArea.png}
-    \caption[Abstandsfläche je Seitenverhältnis]{Zwei Rechtecke der Fläche 16 (dunkelgrau) mit umlaufendem Abstand 1 (hellgrau): links ($4 \times 4$) Gesamtfläche 25 ($5 \times 5$), rechts ($2 \times 8$) 40 ($4 \times 10$).}
+    \caption[Abstandsfläche je Seitenverhältnis]{Zwei Rechtecke der Fläche 16 (dunkelgrau) mit umlaufendem Abstand 1 (hellgrau): links ($4 \cdot 4$) Gesamtfläche 25 ($5 \cdot 5$), rechts ($2 \cdot 8$) 40 ($4 \cdot 10$).}
     \label{fig:marginAreaDifference}
 \end{figure}
 
@@ -91,7 +91,7 @@ Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden
 
 
 
-\section{Treemap-Problem-Verwandte Arbeiten} \label{sec:TreemapProblem-VerwandteArbeiten}
+\section{Lösungsansatz des Treemap-Problems} \label{sec:TreemapProblem-VerwandteArbeiten}
 Eine explizite Behandlung des Treemap-Problems oder zumindest die Erwähnung der Problematik in der Literatur ist selten. Selbst die Autoren und Erfinder der Treemap-Layouts mit Abständen erwähnen das Problem nicht~\cite{johnson1991tree}.
 Eine explizite Behandlung dieses Problems findet sich anscheinend nur in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
 
@@ -314,7 +314,7 @@ Die Größenanpassung wird im nächsten Abschnitt ausführlich beschrieben (sieh
 \section{Größenanpassung} \label{sec:Größenanpassung}
 Für die Größenanpassung existieren verschiedene Ansätze. Ziel ist es, die Flächen der Knoten so zu modifizieren, dass der gewünschte Abstand zwischen den Knoten über eine geeignete Vergrößerung der Knotenflächen möglichst gut approximiert wird. Im Folgenden werden zwei Ideen betrachtet, die in ihrer Grundidee ähnlich sind, sich jedoch in wichtigen Details unterscheiden.
 
-In diesem Abschnitt bezeichnet der Begriff Abstand stets den absoluten Abstand, also den Abstandseingabewert. Dieser Wert wird in \textit{Einheiten} angegeben, wobei eine Einheit einer Einheit in der gewählten Flächenmetrik entspricht. Besitzt ein Knoten den metrischen Wert 16 für die Anzahl der Zeilen und Seitenlängen von $4 \times 4$ Einheiten, dann ergibt sich bei einem Abstand von beispielsweise einer Einheit eine angepasste Größe von $(4 + 1) \times (4 + 1) = 25$ Einheiten. Der Abstand von einer Einheit wird in beide Richtungen addiert. Der Knoten erhält somit nach oben, unten, links und rechts jeweils eine Vergrößerung von einer halben Einheit. Dies ist mit zwei Knoten bildlich dargestellt (siehe Abbildung \ref{fig:AbstandBeispiel}). Der Abstand von einer Einheit, markiert durch die rote gestrichelte Linie, entsteht dadurch, dass beide Knoten einen Abstand von einer halben Einheit zur jeweiligen Seite aufweisen, markiert durch die schwarzen gestrichelten Linien.
+In diesem Abschnitt bezeichnet der Begriff Abstand stets den absoluten Abstand, also den Abstandseingabewert. Dieser Wert wird in \textit{Einheiten} angegeben, wobei eine Einheit einer Einheit in der gewählten Flächenmetrik entspricht. Besitzt ein Knoten den metrischen Wert 16 für die Anzahl der Zeilen und Seitenlängen von $4 \cdot 4$ Einheiten, dann ergibt sich bei einem Abstand von beispielsweise einer Einheit eine angepasste Größe von $(4 + 1) \cdot (4 + 1) = 25$ Einheiten. Der Abstand von einer Einheit wird in beide Richtungen addiert. Der Knoten erhält somit nach oben, unten, links und rechts jeweils eine Vergrößerung von einer halben Einheit. Dies ist mit zwei Knoten bildlich dargestellt (siehe Abbildung \ref{fig:AbstandBeispiel}). Der Abstand von einer Einheit, markiert durch die rote gestrichelte Linie, entsteht dadurch, dass beide Knoten einen Abstand von einer halben Einheit zur jeweiligen Seite aufweisen, markiert durch die schwarzen gestrichelten Linien.
 
 \begin{figure}[htbp]
     \centering
@@ -344,64 +344,66 @@ Analog entsteht der Abstand zwischen Eltern- und Kindknoten. Alle Elternknoten b
 \subsection{Absolute Größenanpassung} \label{sec:AbsoluteGrößenanpassung}
 Der Ansatz der absoluten Größenanpassung ist dem Cascaded-Ansatz ähnlich~\cite{lu2008cascaded}. Die Fläche von Blattknoten wird um den halben Abstand in alle vier Richtungen vergrößert. Die Fläche von Nicht-Blattknoten wird um jeweils einen Abstand erweitert.
 
-Die neue Fläche eines Knotens ergibt sich aus der alten Fläche plus der Fläche, die durch den Abstand eingenommen wird. Für Blattknoten berechnet sich die Abstandsfläche links und rechts des Knotens durch die Länge des Knotens mal den halben Abstand. Da dies links und rechts anfällt, ergibt sich Länge mal Abstand. Dasselbe gilt für oben und unten. Zusätzlich entsteht an jeder Ecke oben links, oben rechts, unten links und unten rechts eine kleine Fläche, die durch den halben Abstand im Quadrat berechnet wird, was zusammengefasst Abstand mal Abstand mal zwei ergibt. Für Elternknoten wird entsprechend verfahren, nur dass zusätzlich die Flächenvergrößerung aller Kinder addiert wird und die Abstandsfläche mit dem Faktor zwei berücksichtigt wird, da der Abstand innen und außen eingenommen wird. Der Pseudocode des Algorithmus ist in Algorithmus \ref{alg:EinfacheGrößenanpassung} dargestellt.
+Die neue Fläche eines Knotens ergibt sich aus der alten Fläche plus der Fläche, die durch den Abstand eingenommen wird. Für Blattknoten berechnet sich die Abstandsfläche links und rechts des Knotens durch die Länge des Knotens mal den halben Abstand. Da dies links und rechts anfällt, ergibt sich Länge mal Abstand. Dasselbe gilt für oben und unten. Zusätzlich entsteht an jeder Ecke oben links, oben rechts, unten links und unten rechts eine kleine Fläche, die durch den halben Abstand im Quadrat berechnet wird, was zusammengefasst Abstand mal Abstand mal zwei ergibt. Für Elternknoten wird entsprechend verfahren, nur dass zusätzlich die Flächenvergrößerung aller Kinder addiert wird und die Abstandsfläche mit dem Faktor zwei berücksichtigt wird, da der Abstand innen und außen eingenommen wird. Der Algorithmus ist in Listing \ref{lst:absolute_value_increase} dargestellt.
 
-\begin{algorithm}[htbp]
-    \begin{algorithmic}[1]
-        \Function{absoluteValueIncrease}{node: SquarifyNode, margin: number}
-        \State width $\gets$ node.x1 - node.x0
-        \State length $\gets$ node.y1 - node.y0
-        \If{node.isLeaf}
-            \State valueIncrease $\gets$ width * margin + length * margin + margin * margin
-            \State node.value += valueIncrease
-            \State \Return valueIncrease
-        \EndIf
-        \State childrenValueIncrease $\gets$ 0
-        \If{node.children}
-            \For{child in node.children}
-                \State childrenValueIncrease += absoluteValueIncrease(child, margin)
-            \EndFor
-        \EndIf
-        \State valueIncrease $\gets$ width * margin * 2 + length * margin * 2 + margin * margin * 4 + childrenValueIncrease
-        \State node.value += valueIncrease
-        \State \Return valueIncrease
-        \EndFunction
-    \end{algorithmic}
-    \caption[Absolute Größenanpassung]{Absolute Größenanpassung}
-    \label{alg:EinfacheGrößenanpassung}
-\end{algorithm}
 
-Folgendes Rechenbeispiel verdeutlicht den Algorithmus. Betrachtet wird ein Szenario wie in Abbildung \ref{fig:AbstandBeispielEltern}. Ein quadratischer Kindknoten mit einer Seitenlänge von 4 Einheiten und sein Elternknoten. Der Abstand sei eine Einheit. Die Fläche des Kindknotens beträgt vor der Anpassung $4 \times 4 = 16$ Einheiten. In Abbildung \ref{fig:AbstandBeispielEltern} ist zu erkennen, dass die finale korrekte Seitenlänge des Elternknotens 7 Einheiten beträgt. Die Größenanpassung soll also möglichst nah an diese 7 Einheiten beziehungsweise an eine Fläche von 49 Einheiten herankommen.
+\begin{lstlisting}[language=typescript, caption={TypeScript-Implementierung der absoluten Größenanpassung}, label={lst:absolute_value_increase}]
+    function absoluteValueIncrease(node: SquarifyNode, margin: number) {
+        const width = node.x1 - node.x0
+        const length = node.y1 - node.y0
+    
+        if (node.isLeaf) {
+            const valueIncrease = width * margin + length * margin + margin * margin
+            node.value += valueIncrease
+            return valueIncrease
+        }
+    
+        let childrenValueIncrease = 0
+        if (node.children) {
+            for (const child of node.children) {
+                childrenValueIncrease += absoluteValueIncrease(child, margin)
+            }
+        }
+    
+        const valueIncrease = 
+            width * margin * 2 +
+            length * margin * 2 +
+            margin * margin * 4 +
+            childrenValueIncrease
+    
+        node.value += valueIncrease
+        return valueIncrease
+    }
+\end{lstlisting}
+
+
+Folgendes Rechenbeispiel verdeutlicht den Algorithmus. Betrachtet wird ein Szenario wie in Abbildung \ref{fig:AbstandBeispielEltern}. Ein quadratischer Kindknoten mit einer Seitenlänge von 4 Einheiten und sein Elternknoten. Der Abstand sei eine Einheit. Die Fläche des Kindknotens beträgt vor der Anpassung $4 \cdot 4 = 16$ Einheiten. In Abbildung \ref{fig:AbstandBeispielEltern} ist zu erkennen, dass die finale korrekte Seitenlänge des Elternknotens 7 Einheiten beträgt. Die Größenanpassung soll also möglichst nah an diese 7 Einheiten beziehungsweise an eine Fläche von 49 Einheiten herankommen.
 Die neue Fläche des Elternknotens wird wie folgt berechnet:
 Fläche für die Abstände:
-\[
-\text{breite} \times \text{abstand} \times 2 
-+ \text{länge} \times \text{abstand} \times 2 
-+ \text{abstand} \times \text{abstand} \times 4 
-= 4 \times 1 \times 2 + 4 \times 1 \times 2 + 1 \times 1 \times 4 
-= 8 + 8 + 4 = 20 \text{Einheiten}.
-\]
-
+\begin{align*}
+& \text{Breite} \cdot \text{Abstand} \cdot 2 
++ \text{Länge} \cdot \text{Abstand} \cdot 2 
++ \text{Abstand} \cdot \text{Abstand} \cdot 4  \\
+& = 4 \cdot 1 \cdot 2 + 4 \cdot 1 \cdot 2 + 1 \cdot 1 \cdot 4  \\
+& = 8 + 8 + 4  \\
+& = 20 \text{ Einheiten} \\
+\end{align*}
 Zusätzlich wird die Abstandsfläche des Kindknotens addiert, die wie folgt berechnet wird:
-\[
-\text{breite} \times \text{abstand} 
-+ \text{länge} \times \text{abstand} 
-+ \text{abstand} \times \text{abstand} 
-= 4 \times 1 + 4 \times 1 + 1 \times 1 
-= 4 + 4 + 1 = 9 \text{Einheiten}.
-\]
-
+\begin{align*}
+& \text{Breite} \cdot \text{Abstand} 
++ \text{Länge} \cdot \text{Abstand} 
++ \text{Abstand} \cdot \text{Abstand} \\
+& = 4 \cdot 1 + 4 \cdot 1 + 1 \cdot 1 \\
+& = 4 + 4 + 1 \\
+& = 9 \text{ Einheiten}
+\end{align*}
 Insgesamt ergibt sich eine neue Fläche des Elternknotens von
-\[
-\text{alte Fläche} + \text{abstandsfläche eltern} + \text{abstandsfläche kinder} 
-= 16 + 20 + 9 = 45 \text{Einheiten}.
-\]
-
-Die neue Seitenlänge des Elternknotens beträgt somit
-\[
-\sqrt{45} \approx 6,71 \text{Einheiten},
-\]
-was bereits recht nah an den korrekten $7$ Einheiten liegt.
+\begin{align*}
+& \text{Alte Fläche} + \text{Abstandsfläche} + \text{Abstandsfläche Kinder} \\
+& = 16 + 20 + 9 \\
+& = 45 \text{ Einheiten}\\
+\end{align*}
+Die neue Seitenlänge des Elternknotens beträgt somit etwa 6{,}71 Einheiten, was bereits recht nah an den korrekten 7 Einheiten liegt.
 
 In Abschnitt \ref{sec:TreemapProblem} wurde bereits erläutert, dass es unmöglich ist, das Treemap-Problem vollständig zu lösen. Bei jedem Näherungsansatz zeigt sich das Problem auf unterschiedliche Weise, da die Schätzung der Anpassung der Fläche nie perfekt sein kann und je nach Ansatz verschieden ausfällt.
 Das Problem der absoluten Größenanpassung lässt sich am besten an einem Beispiel verdeutlichen. Visualisiert wird eine manuell erstellte Map, bei der das Problem besonders ausgeprägt und gut erkennbar ist. In Abbildung \ref{fig:zeroMarginSquarifyArtifialTwo} ist das Layout mit einem Abstand von 0 zu sehen.
@@ -440,88 +442,79 @@ Bei der absoluten Größenanpassung wurde zuvor die Abstandsfläche eines Eltern
 
 Dadurch wird die vorhergesagte resultierende Fläche der Elternknoten tendenziell zu klein ausfallen, da die Flächenänderung der Kinderknoten nicht vollständig berücksichtigt wird. Im Folgenden wird eine zweite Version der Größenanpassung eingeführt, die versucht, die neue Fläche der Elternknoten über die Flächenänderung der Kinderknoten zu approximieren. Anschließend werden beide Versionen verglichen, um zu beurteilen, welche besser funktioniert. Obwohl zu erwarten ist, dass der Ansatz der relativen Größenanpassung Vorteile bietet, ist dies nicht zwingend, da beide Ansätze das grundsätzliche Treemap-Problem nicht lösen können.
 
-Die Idee besteht darin, die Änderung der Kinder bereits vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dazu wird abgeschätzt, wie sich die Kantenlängen des Elternknotens durch die Flächenänderung der Kindknoten verändern, um anschließend mit diesen neuen Kantenlängen die Abstandsfläche des Elternknotens genauer zu berechnen. Dies erfolgt, indem die Flächenänderung der Kindknoten auf die Kantenlängen des Elternknotens übertragen wird. Die Breite des Elternknotens ändert sich beispielsweise im Verhältnis der Quadratwurzel aus der durch das Hinzufügen des Abstands der Kindknoten verursachten Flächenänderung. Der Algorithmus ist im Folgenden als Pseudocode dargestellt (siehe Algorithmus \ref{alg:RelativeGrößenanpassung}).
+Die Idee besteht darin, die Änderung der Kinder bereits vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dazu wird abgeschätzt, wie sich die Kantenlängen des Elternknotens durch die Flächenänderung der Kindknoten verändern, um anschließend mit diesen neuen Kantenlängen die Abstandsfläche des Elternknotens genauer zu berechnen. Dies erfolgt, indem die Flächenänderung der Kindknoten auf die Kantenlängen des Elternknotens übertragen wird. Die Breite des Elternknotens ändert sich beispielsweise im Verhältnis der Quadratwurzel aus der durch das Hinzufügen des Abstands der Kindknoten verursachten Flächenänderung. Der Algorithmus ist im Folgenden dargestellt (siehe Listing \ref{lst:relative_value_increase}).
 
-\begin{algorithm}[htbp]
-    \begin{algorithmic}[1]
-        \Function{relativeValueIncrease}{node: SquarifyNode, margin: number}
-        \State width $\gets$ node.x1 - node.x0
-        \State length $\gets$ node.y1 - node.y0
-        \If{node.isLeaf}
-            \State valueIncrease $\gets$ width * margin + length * margin + margin * margin
-            \State node.value += valueIncrease
-            \State \Return valueIncrease
-        \EndIf
-        \State childrenValueIncrease $\gets$ 0
-        \If{node.children}
-            \For{child in node.children}
-                \State childrenValueIncrease += relativeValueIncrease(child, margin)
-            \EndFor
-        \EndIf
-        \State sideIncreaseFactor $\gets \sqrt{\text{(node.value + childrenValueIncrease)} / \text{node.value}}$
-        \State valueIncrease $\gets$
-        sideIncreaseFactor * width * margin * 2 +
-        sideIncreaseFactor * length * margin * 2 +
-        margin * margin * 4 +
-        childrenValueIncrease
-        \State node.value += valueIncrease
-        \State \Return valueIncrease
-        \EndFunction
-    \end{algorithmic}
-    \caption[Relative Größenanpassung]{Relative Größenanpassung}
-    \label{alg:RelativeGrößenanpassung}
-\end{algorithm}
+\begin{lstlisting}[language=typescript, caption={TypeScript-Implementierung der relativen Größenanpassung}, label={lst:relative_value_increase}]
+    function relativeValueIncrease(node: SquarifyNode, margin: number) {
+        const width = node.x1 - node.x0
+        const length = node.y1 - node.y0
+    
+        if (node.isLeaf) {
+            const valueIncrease = width * margin + length * margin + margin * margin
+            node.value += valueIncrease
+            return valueIncrease
+        }
+    
+        let childrenValueIncrease = 0
+        if (node.children) {
+            for (const child of node.children) {
+                childrenValueIncrease += relativeValueIncrease(child, margin)
+            }
+        }
+    
+        const sideIncreaseFactor = Math.sqrt((node.value + childrenValueIncrease) / node.value)
+    
+        const valueIncrease =
+            sideIncreaseFactor * width * margin * 2 +
+            sideIncreaseFactor * length * margin * 2 +
+            margin * margin * 4 +
+            childrenValueIncrease
+    
+        node.value += valueIncrease
+        return valueIncrease
+    }
+\end{lstlisting}
+    
 
 Folgendes Rechenbeispiel verdeutlicht den Algorithmus erneut anhand des Szenarios aus Abbildung \ref{fig:AbstandBeispielEltern}.
 
 Betrachtet wird wieder ein quadratischer Kindknoten mit einer Seitenlänge von 4 Einheiten und sein Elternknoten. Der Abstand sei erneut eine Einheit. 
 
-Die Fläche des Kindknotens ändert sich wie zuvor von $16$ Einheiten auf $25$ Einheiten, also um $9$ Einheiten.  
+Die Fläche des Kindknotens ändert sich wie zuvor von 16 Einheiten auf 25 Einheiten, also um 9 Einheiten.  
 
-Das Verhältnis, um das sich durch diese Flächenänderung die Kantenlänge des Elternknotens ändert, beträgt
+Das Verhältnis, um das sich durch diese Flächenänderung die Kantenlänge des Elternknotens ändert, wird wie folgt berechnet:
 \[
-\frac{\text{fläche} + \text{flächenänderung}}{\text{fläche}}
-= \frac{16 + 9}{16} \approx 1,56.
+\frac{\text{Fläche} + \text{Flächenänderung}}{\text{Fläche}} = \frac{16 + 9}{16} \approx 1,56
 \]
 
-Die daraus resultierenden Kantenlängen sind
+Die daraus resultierenden Kantenlängen berechnet sich wie folgt:
 \[
-4 \cdot \sqrt{1,56} \approx 5 \text{Einheiten},
+4 \cdot \sqrt{1,56} = 5 \text{ Einheiten} 
 \]
-also genau die Größe, die auch der Kindknoten nach der Anpassung hat.  
-
+Dies entspricht genau der Größe, die auch der Kindknoten nach der Anpassung hat. 
 Die Abstandsfläche des Elternknotens wird nun mit diesen neuen Kantenlängen berechnet:
-\[
-\text{breite} \times \text{abstand} \times 2 
-+ \text{länge} \times \text{abstand} \times 2 
-+ \text{abstand} \times \text{abstand} \times 4
-= 5 \times 1 \times 2 + 5 \times 1 \times 2 + 1 \times 1 \times 4
-= 10 + 10 + 4 = 24 \text{Einheiten}.
-\]
+\begin{align*}
+    &\text{Breite} \cdot \text{Abstand} \cdot 2 
+    + \text{Länge} \cdot \text{Abstand} \cdot 2 
+    + \text{Abstand} \cdot \text{Abstand} \cdot 4\\
+    & = 5 \cdot 1 \cdot 2 + 5 \cdot 1 \cdot 2 + 1 \cdot 1 \cdot 4\\
+    & = 10 + 10 + 4 \\
+    & = 24 \text{ Einheiten}\\
+\end{align*}
 
-Zusätzlich wird die Abstandsfläche des Kindknotens addiert.  
+Die neue Fläche des Elternknotens wird somit wie folgt berechnet:
+\begin{align*}
+& \text{Alte Fläche} + \text{Abstandsfläche} + \text{Abstandsfläche Kinder} \\
+& = 16 + 24 + 9 = 49 \text{ Einheiten}
+\end{align*}
 
-Insgesamt ergibt sich eine neue Fläche des Elternknotens von
-\[
-\text{alte Fläche} + \text{abstandsfläche} + \text{abstandsfläche kinder}
-= 16 + 24 + 9 = 49 \text{Einheiten}.
-\]
-
-Die neue Seitenlänge des Elternknotens beträgt somit
-\[
-\sqrt{49} = 7 \text{Einheiten},
-\]
-was exakt der korrekten Größe entspricht.
-
-
-In diesem Fall passt die Vorhersage der neuen Fläche des Elternknotens perfekt zur tatsächlichen resultierenden Fläche des Elternknotens. Dies gilt allerdings nur in diesem speziellen Fall, da erstens der Elternknoten quadratisch ist und zweitens der Elternknoten nur einen Kindknoten hat. In anderen Fällen wird die Vorhersage nicht exakt stimmen, weshalb noch nicht klar ist, ob dieser Ansatz besser funktioniert als die absolute Größenanpassung.
+Die neue Seitenlänge des Elternknotens beträgt somit exakt 7 Einheiten, was der korrekten Größe entspricht. Dies gilt allerdings nur in diesem speziellen Fall, da erstens der Elternknoten quadratisch ist und zweitens der Elternknoten nur einen Kindknoten hat. In anderen Fällen wird die Vorhersage nicht exakt stimmen, weshalb noch nicht klar ist, ob dieser Ansatz besser funktioniert als die absolute Größenanpassung.
 
 Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in vergleichbaren Symptomen äußern. Knoten können sowohl zu viel als auch zu wenig Platz erhalten, je nachdem, ob sie im zweiten Schritt quadratischer oder schmaler werden. Ein Beispiel zeigt Abbildung \ref{fig:relativeIncreaseMarginOne}.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOne.png
-}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOne.png}
     \caption[Relativ: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:relativeIncreaseMarginOne}
 \end{figure}
@@ -539,8 +532,7 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOneScale.png
-}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOneScale.png}
     \caption[Absolut+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:simpleIncreaseMarginOneScale}
 \end{figure}
@@ -549,8 +541,7 @@ Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOneScale.png
-}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOneScale.png}
     \caption[Relativ+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:relativeIncreaseMarginOneScale}
 \end{figure}
@@ -721,11 +712,9 @@ Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} 
 
 Die Laufzeit steigt mit der Anzahl der Layoutschritte nahezu proportional an und erhöht sich um ungefähr 0{,}65 ms pro zusätzlichem Layoutschritt. Es ergibt sich somit kein überzeugender Grund, das Layout in dieser Form mehrfach zu berechnen. Eine plausible Erklärung ist ein aufschaukelnder Effekt: Knoten, die aufgrund des Abstands besonders viel Rand erhalten und dadurch stark verschmälert werden, bekommen im nächsten Layoutschritt tendenziell mehr Fläche. Dies kann wiederum zu sehr schlanken, großflächigen Rechtecken führen und den Effekt weiter verstärken. Genau dieses Verhalten soll durch die im nächsten Abschnitt beschriebene Anpassung verhindert werden.
 
+\bigskip
 
-
-
-\subsection{Iterative Abstandsvergrößerung} \label{sec:IterativeAbstandsvergrößerung}
-Zuvor wurde gezeigt, dass die mehrfache Berechnung des Layouts in der vorliegenden Implementierung nicht sinnvoll ist. Naheliegend ist die Vermutung, dass dies auf Implementierungsdetails zurückzuführen ist und nicht die Grundidee des mehrfachen Layouts in Frage stellt. Aus diesem Grund wird im Folgenden eine weitere Variante des mehrfachen Layouts vorgestellt.
+Die mehrfache Berechnung des Layouts in der vorliegenden Implementierung ist nicht sinnvoll. Naheliegend ist die Vermutung, dass dies auf Implementierungsdetails zurückzuführen ist und nicht die Grundidee des mehrfachen Layouts in Frage stellt. Aus diesem Grund wird im Folgenden eine weitere Variante des mehrfachen Layouts vorgestellt.
 
 Die grundlegende Idee dieser Erweiterung besteht darin, bei mehrfacher Berechnung des Layouts den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, statt ihn bereits zu Beginn auf den Zielwert festzusetzen. Setzt man den Abstand im ersten Schritt direkt auf den finalen Wert, sind die Vorhersagen der neuen Flächen der Knoten im zweiten Schritt erwartungsgemäß nicht exakt. Je kleiner die Abstände gewählt werden, desto geringer fallen die Abweichungen dieser Vorhersagen aus. Daraus folgt die Erwartung, dass die Wert-Fläche-Relationen im zweiten Schritt günstiger sind. Die Annahme lautet daher, dass bei schrittweiser, kleiner Erhöhung des Abstands in jedem Schritt genauere Flächenschätzungen entstehen, was die Wert-Fläche-Relationen verbessern sollte. Als Gegenargument ist anzuführen, dass sich mit jedem größer werdenden Abstand auch das jeweils optimale Layout verändern kann. Das tatsächlich optimale Layout wird dann erst im letzten Schritt angestrebt, wodurch die vorangehenden Schritte wenig beitragen könnten.
 
