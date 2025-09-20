@@ -1,4 +1,4 @@
-\chapter{Erweiterung der Treemap-Visualisierung} \label{sec:VerbesserungSquarify}
+\chapter{Treemap-Layout Implementierung} \label{sec:VerbesserungSquarify}
 Da die Treemap-Visualisierung die verbreitetste Methode zur Darstellung von Software-Qualitätsmetriken ist und in der Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) sehr gut abgeschnitten hat. Zudem wurde in der Auswertung der Literaturrecherche gefolgert, dass die Qualität von Treemap-Visualisierungen stark schwanken kann und je nach Anwendungsfall gezielt optimiert werden sollte, weshalb ein besonderer Fokus auf diese Visualisierung und deren Verbesserung sinnvoll erscheint.
 
 In der Literatur existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. In der Literatur zeigt jedoch der Squarify-Algorithmus hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt einen sehr vielversprechenden Ansatz zur Erstellung von gut übersichtlichen Treemap-Layouts dar~\cite{bruls2000squarified}. Er wird außerdem von den meisten der zuvor vorgestellten Tools zur Visualisierungen von Softwaremetriken verwendet~\cite{code_charta_github,sereene_website,codeCity1}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Grundlage für die Treemap-Visualisierung verwendet.
@@ -11,6 +11,71 @@ Anschließend werden die verschiedenen Erweiterungen und Anpassungen des Squarif
 
 
 
+
+
+
+
+
+\section{Treemap-Problem}
+
+Wie in Abschnitt \ref{sec:TreemapProblem} beschrieben, erschwert ein zentrales Treemap-Problem die Wahrnehmung der zugrunde liegenden Hierarchiestruktur. Dieses Problem gilt auch in anderen Arbeiten als eine der größten Herausforderungen algorithmischer Treemap-Layouts. Verschiedene Ansätze adressieren diese Problematik.
+
+Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln in einer späteren Arbeit \textit{Cushion Treemaps}~\cite{cushionTreemaps}. Jedem Knoten wird dabei ein Innenraumschatten zugewiesen, der über Schattierungseffekte die hierarchische Struktur hervorhebt, während das klassische Layout erhalten bleibt (siehe Abbildung \ref{fig:cushion}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/cushionTreemap.png
+}
+    \caption[Cushion Treemap]{Beispiel für eine Cushion Treemap~\cite[4]{cushionTreemaps}.}
+    \label{fig:cushion}
+\end{figure}
+
+Demian und Fruchter schlagen als alternativen Ansatz unterschiedlich dicke Umrisslinien vor, um Zugehörigkeit und Tiefe von Knoten in der Hierarchie hervorzuheben~\cite{largeHierarchicalRepositories}. Kong et al. analysieren ebenfalls Vor- und Nachteile verschiedener Umrissstärken zur Darstellung der Knotenstruktur~\cite{2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/lineThickness2.png
+}
+    \caption[Outlines mit variabler Dicke]{Beispiel für eine Treemap mit unterschiedlich dicken Outlines zur Verdeutlichung der Hierarchiestruktur der Knoten~\cite[1]{2010-perception-treemaps}.}
+    \label{fig:thickOutline}
+\end{figure}
+
+Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch für 2.5D- oder 3D-Anwendungen weniger geeignet, da Schatten und Outlines bei Extrusionen nicht konsistent und flächenübergreifend darstellbar sind. Insbesondere bei 3D-Treemaps (Extrusion ohne zusätzliche Farbgebung) ist die hierarchische Struktur schwer zu erkennen. Es besteht daher Bedarf an Layout-Algorithmen, die explizit räumliche Abstände zwischen Hierarchieebenen erzeugen. Klassische Treemap-Layouts verzichten in der Regel auf solche Abstände, was die Lesbarkeit der Hierarchie in extrudierten Darstellungen weiter erschwert~\cite{wood2008spatially, shneiderman2001ordered, hu2014squarified}.
+
+Eine explizite Behandlung dieses Problems findet sich in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
+
+Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor. Im \textit{Cascaded Treemap}-Ansatz werden Kindknoten nicht direkt innerhalb, sondern leicht versetzt über ihren Elternknoten dargestellt, wodurch ein subtiler 3D-Effekt entsteht und der Platzverlust im Vergleich zur klassischen Verschachtelung reduziert wird (siehe Abbildung \ref{fig:cascaded}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/cascaded.png
+}
+    \caption[Nested vs. Cascaded Treemap]{Links: Nested-Treemap-Ansatz mit vollständiger Verschachtelung. Rechts: Cascaded-Treemap-Ansatz nach~\cite[3]{lu2008cascaded} mit versetzten Kindknoten.}
+    \label{fig:cascaded}
+\end{figure}
+
+Ein zentrales Problem dieses Verfahrens (wie auch klassischer Nested-Layouts) besteht darin, dass Knoten vollständig verschwinden können, wenn nicht ausreichend Platz für Abstände und Beschriftungen vorhanden ist. Lü und Fogarty schlagen zur Abmilderung einen zweistufigen Prozess vor: Zunächst erfolgt die Flächenaufteilung mittels Squarified-Treemap~\cite{bruls2000squarified}. Anschließend werden Abstände und Beschriftungsflächen je Knoten neu berechnet, wobei die Knotengrößen, nicht jedoch deren Positionen angepasst werden. Das Verschwinden von Knoten bleibt möglich, wenn für Beschriftung und Abstand nicht genügend Raum vorhanden ist. Pseudocode geben die Autoren nicht an, was Nachvollziehbarkeit und quantitativen Vergleich erschwert.
+
+Das Verfahren wird wie folgt beschrieben:
+\begin{quote}
+    The function then computes how much vertical space is needed for offsets [...]. The remaining space is for the content of the treemap, and so the layout function gives each side of the split the space computed as necessary for [...] offsets as well as a portion of the remaining content space based on the relative weights of nodes on each side of the split. The layout procedure is then ready to recurse on both sides of the split, as it knows how much space will be used by [...] offsets and has ensured that the remaining space is appropriately divided by node weight~\cite[6]{lu2008cascaded}.
+\end{quote}
+
+Für jeden Knoten wird die verfügbare Fläche neu bestimmt. An jeder Teilungskante (horizontal oder vertikal) wird die für Abstände benötigte Fläche berechnet. Die Berechnung betrachtet jeweils eine Reihe entlang der Teilungskante. Zunächst wird der Platzbedarf für Abstände entlang dieser Kante bestimmt. Anschließend wird der verbleibende Raum für die eigentlichen Knoten berechnet, indem die Abstandsfläche von der Gesamtfläche subtrahiert wird. So ist auf jeder Teilungsebene Platz für die erforderlichen Abstände eingeplant und die Knoten sind entsprechend ihrer Gewichtung skaliert.
+
+Ein grundlegendes Problem bleibt bestehen: Knoten können vollständig verschwinden, wenn der für Abstände erforderliche Platz größer ist als die verbleibende Fläche für die Knoten. Das zuvor beschriebene Problem (siehe Abschnitt \ref{sec:TreemapProblem}) wird damit abgemildert, jedoch nicht vollständig gelöst.
+
+Obwohl kein Quellcode vorliegt, lässt sich aus der Beschreibung ein weiterer Nachteil ableiten: An jeder betrachteten Reihen-Kante wird nur der Raum für Abstände entlang der Richtung berücksichtigt, die senkrecht zu dieser Kante steht. Abbildung \ref{fig:cascadedBadExample} illustriert, dass der Algorithmus oberhalb und unterhalb der Trennlinie jeweils die gleiche Menge an Abstandsfläche vorsieht, da ausschließlich die senkrechte Richtung zur Kante betrachtet wird. In der gezeigten Konstellation weisen die roten Rechtecke zusammen einen größeren Abstandsbedarf auf als das gelbe Rechteck alleine. Der Algorithmus differenziert nicht zwischen diesen Fällen, was zu einer ineffizienten Allokation von Abstandsflächen führen kann.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/cascadedBadExample.png
+}
+    \caption[Ungünstige Aufteilung im Cascaded-Layout]{Illustration einer für den Cascaded-Treemap-Algorithmus ungünstigen Flächenaufteilung. Die Teilungskante ist blau markiert. Senkrecht zu dieser Kante werden die benötigten Flächen neu berechnet. Für die roten Rechtecke wird zu viel, für das gelbe Rechteck vergleichsweise wenig Abstand berücksichtigt.}
+    \label{fig:cascadedBadExample}
+\end{figure}
+
+Lü und Fogarty berichten, dass mit dem Verfahren keine Verbesserung im Verhältnis von Knoten-Gewicht zu Knotengröße festgestellt werden konnte. Verbesserungen traten lediglich bei sehr kleinen Knoten auf, da konstante Abstände bei kleinen Flächen proportional stärker ins Gewicht fallen als bei größeren. Als Ursache wird der spezifische Ansatz benannt, und es wird weiterführende Forschung angeregt, was unter anderem in dieser Arbeit verfolgt wird. Zudem wird vermutet, dass die Abweichung zwischen Größen- und Gewichtsverhältnis in tiefen Hierarchien weiter zunimmt.
 
 
 
@@ -34,7 +99,8 @@ In Abbildung \ref{fig:zeroMarginArtificialMap} ist ein Treemap-Layout ohne Abst�
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/zeroMarginArtificialMap.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/zeroMarginArtificialMap.png
+}
     \caption[Treemap mit Abstand 0]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 0).}
     \label{fig:zeroMarginArtificialMap}
 \end{figure}
@@ -43,7 +109,8 @@ In Abbildung \ref{fig:fiveMarginArtificialMap} ist ein Abstand zwischen Knoten u
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/fiveMarginArtifialMap.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/fiveMarginArtifialMap.png
+}
     \caption[Treemap mit Abstand 5]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 5).}
     \label{fig:fiveMarginArtificialMap}
 \end{figure}
@@ -52,7 +119,8 @@ In Abbildung \ref{fig:tenMarginArtificialMap}, bei einem größeren Abstand, wer
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/tenMarginArtifialMap.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/tenMarginArtifialMap.png
+}
     \caption[Treemap mit Abstand 10]{Treemap-Layout, generiert mit dem Squarify-Algorithmus (Abstand 10).}
     \label{fig:tenMarginArtificialMap}
 \end{figure}
@@ -83,7 +151,8 @@ Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Re
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/marginArea.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/marginArea.png
+}
     \caption[Abstandsfläche je Seitenverhältnis]{Zwei Rechtecke der Fläche 16 (dunkelgrau) mit umlaufendem Abstand 1 (hellgrau): links ($4 \times 4$) Gesamtfläche 25 ($5 \times 5$), rechts ($2 \times 8$) 40 ($4 \times 10$).}
     \label{fig:marginAreaDifference}
 \end{figure}
@@ -124,7 +193,47 @@ Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (sieh
 
 
 
-\input{chapters/hauptteil/datenAnalyse}
+\section{Auswahl der Softwareprojekte} \label{sec:auswahlDerProjekte}
+Für die Evaluation des Algorithmus wird eine breite, repräsentative Auswahl an Softwareprojekten benötigt. Als Quelle für diese Daten dient GitHub, da dort eine große Zahl an Open-Source-Projekten vorliegt und die Daten gut zugänglich sind. Die Projektauswahl wird breit gefächert angelegt, um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen. Eine reine Zufallsauswahl von GitHub würde zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen, da es deutlich mehr kleine Projekte auf GitHub gibt. Die Projekte sind gleichmäßg bis 1,5 GB verteilt und decken verschiedene Programmiersprachen mit verschiedenen Paradigmen ab. 
+Die vollständige Liste der 70 ausgewählten Softwareprojekte ist über diesen \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link} \cite{anhaenge_github} erreichbar. 
+
+
+\section{Analyse der Softwareprojekte} \label{sec:strukturVonSoftwareprojekten}
+Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschließende Analyse mit dem Analyse Tool \textit{CodeCharta Analysis}~\cite{code_charta_wiki_ana} gewonnen.
+Im Folgenden werden Grenzen und typische Eigenschaften hierarchischer Strukturen aufgezeigt, um Algorithmen und Visualisierungen dieser Arbeit gezielt auf diese Strukturen zu optimieren.
+
+Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner. 95\% der Repositories haben weniger als 15.000 Dateien und 3000 Ordner.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/breite.png}
+    \caption[Kinder pro Ordner]{Kinderzahlen pro Ordner.}
+    \label{fig:anzahlKindZuOrdner} 
+\end{figure}
+
+In Abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben und generell die Anzahl der Kinder pro Ordner eher niedrig ist.
+Das 95\%-Quantil liegt bei 18 Kindern.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/tiefe.png}
+    \caption[Verteilung der Tiefe]{Verteilung der Tiefe. Die meisten Knoten liegen in mittleren Tiefen von 3 bis 11. Sehr tiefe Knoten sind selten.}
+    \label{fig:tiefeAufteilung}
+\end{figure}
+
+Abbildung \ref{fig:tiefeAufteilung} zeigt die Verteilung der Tiefe aller Knoten. Die meisten Knoten liegen in mittleren Tiefen von 3 bis 11. Das 95\%-Quantil liegt bei Tiefe 13.
+
+Es liegt die Vermutung nahe, dass die hohe Tiefe (insbesondere in Java) und die Tatsache, dass die meisten Ordner nur ein Kind haben, aus Ordnerketten resultiert. Als Ordnerkette wird eine Folge von Ordnern bezeichnet, in der jeder Ordner genau ein Kind besitzt. Diese Ketten können sehr lang werden und in Visualisierungen viel Platz einnehmen, ohne viele Informationen zu vermitteln. Das folgende Beispiel ist eine Ordnerkette mit länge sechs aus dem Open-Source-Projekt CodeCharta~\cite{code_charta_github}:
+\path{.../main/kotlin/de/maibornwolff/codecharta/analysers/analyserinterface/...}
+Abbildungen \ref{fig:kettentiefe} zeigt, dass die meisten Ketten nur eine Ordnerstufe umfassen. Längere Ketten, die in der Visualisierung mehr Platz einnehmen, treten jedoch ebenfalls häufig auf.
+Die Anzahl an Ordnern in Ordnerketten liegt bei etwa 7\% bei Java ist das besonders hoch bei über 50\%.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/datenanalyse/kettentiefe.png}
+    \caption[Verteilung Kettenlängen]{Verteilung der Kettenlängen. Viele Ketten sind kurz. Ketten der Länge 4 treten ebenfalls häufig auf.}
+    \label{fig:kettentiefe}
+\end{figure}
 
 
 
@@ -198,10 +307,10 @@ Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor
 \begin{figure}[h]
     \centering
     \subfloat[Seitenverhältnis 1 (resultierendes Seitenverhältnis 1{,}7)\label{fig:squarifyRatio1}]{
-        \includegraphics[width=0.5\textwidth]{images/improve/edgeRatioAim1Real17.png}}
+        \includegraphics[width=0.48\textwidth]{images/improve/edgeRatioAim1Real17.png}}
     \hfill
     \subfloat[Seitenverhältnis 5 (resultierendes Seitenverhältnis 3{,}8)\label{fig:squarifyRatio5}]{
-        \includegraphics[width=0.5\textwidth]{images/improve/edgeRatioAim5Real38.png}}
+        \includegraphics[width=0.48\textwidth]{images/improve/edgeRatioAim5Real38.png}}
     \caption[Squarify mit verschiedenen Ziel-Seitenverhältnissen]{Ergebnisse des Squarify-Algorithmus mit unterschiedlichen Ziel-Seitenverhältnissen.}
     \label{fig:squarifyRatio}
 \end{figure}
@@ -398,7 +507,8 @@ Das Problem der absoluten Größenanpassung lässt sich am besten an einem Beisp
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/zeroMarginSquarifyArtifialTwo.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/zeroMarginSquarifyArtifialTwo.png
+}
     \caption[Squarify mit 0 Abstand]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 0 und der einfachen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:zeroMarginSquarifyArtifialTwo}
 \end{figure}
@@ -412,7 +522,8 @@ Elternknoten werden im zweiten Layoutschritt ebenfalls schmaler, wodurch die Fl�
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOne.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOne.png
+}
     \caption[Absolut: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:simpleIncreaseMarginOne}
 \end{figure}
@@ -468,7 +579,8 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/increaseMarginOne.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOne.png
+}
     \caption[Relativ: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:relativeIncreaseMarginOne}
 \end{figure}
@@ -486,7 +598,8 @@ Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneSca
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/simpleIncreaseMarginOneScale.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOneScale.png
+}
     \caption[Absolut+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:simpleIncreaseMarginOneScale}
 \end{figure}
@@ -495,7 +608,8 @@ Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/increaseMarginOneScale.png}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOneScale.png
+}
     \caption[Relativ+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
     \label{fig:relativeIncreaseMarginOneScale}
 \end{figure}
@@ -701,7 +815,7 @@ Insgesamt erweist sich die Annahme, dass die iterative Abstandsvergrößerung be
 
 
 \section{Optimierung von Ordnerketten} \label{sec:OrderKettenOptimierung}
-Bei der Datenanalyse zeigt sich, dass häufig Ordner nur ein einziges Kind besitzen und dass es sogar ganze \textit{Ketten} solcher Ordner gibt, in denen jeweils nur ein Ordner als Kind vorhanden ist. Viele dieser Ketten sind nicht nur wenige Ebenen tief, sondern reichen bis zu 12 Ordner in die Tiefe (siehe Abschnitt \ref{sec:OrdnerKetten}). Dies verbraucht durch die Verschachtelung erheblich Platz für Abstände, da in der Tiefe jeweils zusätzlicher Rand anfällt, obwohl diese Strukturierung inhaltlich oft keinen zusätzlichen Informationsgewinn liefert. Viele IDEs, etwa IntelliJ IDEA oder VS Code, verbergen derartige Strukturen automatisch, indem Ordnerketten als ein Ordner mit zusammengefügtem Namen dargestellt werden, beispielsweise \textit{main/kotlin/de/maibornwolff/codecharta/analysers}. In der Praxis sind solche Ordnerketten nicht unüblich und gelten häufig als Best Practice, um Namensräume von Paketen abzubilden.
+Bei der Datenanalyse zeigt sich, dass häufig Ordner nur ein einziges Kind besitzen und dass es sogar ganze \textit{Ketten} solcher Ordner gibt, in denen jeweils nur ein Ordner als Kind vorhanden ist. Viele dieser Ketten sind nicht nur wenige Ebenen tief, sondern reichen bis zu 12 Ordner in die Tiefe (siehe Abschnitt \ref{sec:strukturVonSoftwareprojekten}). Dies verbraucht durch die Verschachtelung erheblich Platz für Abstände, da in der Tiefe jeweils zusätzlicher Rand anfällt, obwohl diese Strukturierung inhaltlich oft keinen zusätzlichen Informationsgewinn liefert. Viele IDEs, etwa IntelliJ IDEA oder VS Code, verbergen derartige Strukturen automatisch, indem Ordnerketten als ein Ordner mit zusammengefügtem Namen dargestellt werden, beispielsweise \textit{main/kotlin/de/maibornwolff/codecharta/analysers}. In der Praxis sind solche Ordnerketten nicht unüblich und gelten häufig als Best Practice, um Namensräume von Paketen abzubilden.
 
 Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerketten zu einem Ordner zusammengefasst werden. Da es sich hierbei nicht nur um eine algorithmische Änderung handelt, sondern auch um einen Eingriff in die Darstellung, werden im Folgenden sowohl die Auswirkungen auf die messbaren Kennzahlen als auch die Implikationen für die allgemeinen Kriterien guter Visualisierungen betrachtet, wie in Abschnitt \ref{sec:MethodikAuswertung} definiert. Daraus ergeben sich folgende Effekte auf die Ziele der Visualisierung:
 \begin{itemize}
@@ -712,6 +826,17 @@ Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerk
 \end{itemize}
 
 Die positiven Effekte überwiegen damit zunächst. Im Folgenden werden Datenlage und Kennzahlen betrachtet, um zu beurteilen, ob die Faltung von Ordnerketten auch aus dieser Perspektive sinnvoll ist.
+
+\begin{figure}[h]
+    \centering
+    \subfloat[Keine Ordnerkettenfaltung\label{fig:notCollapsed}]{
+        \includegraphics[width=0.48\textwidth]{images/improve/codeChartaAnaNotCollapsed.png}}
+    \hfill
+    \subfloat[Mit Ordnerkettenfaltung\label{fig:collapsed}]{
+        \includegraphics[width=0.48\textwidth]{images/improve/codeChartaAnaCollapsed.png}}
+    \caption[Ordnerkettenfaltung Beispiel]{Beispielhafte Visualisierung der Codebasis \textit{CodeCharta Analysis}~\cite{code_charta_github}}
+    \label{fig:foldingChains_example}
+\end{figure}
 
 Im Median werden etwa 12 Ordner pro Codebasis gefaltet. Bei rund 242 Knoten im Median entspricht dies ungefähr 5\% der Knoten, die durch die Faltung entfallen.
 
@@ -781,10 +906,15 @@ Viele bestehende Treemap- und Code-City-Visualisierungen weisen Abstände zwisch
 
 Im Folgenden wird untersucht, ob Abstände zwischen Geschwistern für die vorliegende Anwendung sinnvoll sind oder ob das Entfernen dieser Abstände Vorteile bietet. Dazu werden die Auswirkungen auf die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen sowie auf die messbaren Kennzahlen betrachtet. Entfallen die Abstände zwischen Geschwistern, müssen Knoten visuell anders voneinander getrennt werden. Häufig werden dafür Cushion Treemaps, also Schattierungen, genutzt~\cite{cushionTreemaps}. Diese Option ist hier jedoch ungeeignet, da das Layout in 2.5D extrudiert werden soll, wodurch Schattierungen nicht mehr sinnvoll darstellbar sind. Stattdessen werden Umrandungen der Knoten vorgeschlagen, um diese voneinander abzugrenzen. Abbildung \ref{fig:umrandungBeispiel} zeigt zwei Beispiel-Treemaps mit Umrandung, links mit Abständen zwischen Geschwistern und rechts ohne solche Abstände.
 
-\begin{figure}
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/umrandungBeispiel.png}
-    \caption[Treemaps mit Umrandung]{Beispielhafte Treemaps mit Umrandung der Knoten. Links mit Abständen zwischen Geschwistern, rechts ohne Abstände zwischen Geschwistern. Mit rotem Oval sind zwei Blattknoten markiert, bei denen die Farbe durch die Umrandung nicht mehr erkennbar ist.}
+    \subfloat[Mit Abstand zwischen Geschwistern\label{fig:siblingMargin}]{
+        \includegraphics[width=0.48\textwidth]{images/improve/geschwisterAbstand.png}}
+    \hfill
+    \subfloat[Ohne Abstand zwischen Geschwistern\label{fig:noSiblingMargin}]{
+        \includegraphics[width=0.48\textwidth]{images/improve/keinGeschwisterAbstand.png}}
+    \caption[Treemaps mit und ohne Geschwisterabstände]{CodeCharta Analysis Softwareprojekt~\cite{code_charta_github} visualisiert als Treemap mit und ohne Abstände zwischen Geschwistern.}
     \label{fig:umrandungBeispiel}
 \end{figure}
 
@@ -792,7 +922,7 @@ Im Hinblick auf die Kriterien guter Visualisierungen ergeben sich beim Entfernen
 \begin{itemize}
     \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Da weniger Platz für Abstände benötigt wird und somit mehr Fläche für die Knoten zur Verfügung steht, wird dieses Kriterium verbessert. 
     \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Einerseits liegen Geschwisterknoten enger beieinander, was die Struktur betonen kann. Andererseits kann das Layout insgesamt dichter und damit potenziell unübersichtlicher wirken, da die Trennung nur noch durch dünne Linien erfolgt. Die Anpassung hat also sowohl positive als auch negative Aspekte.
-    \item \textbf{Skalierbarkeit:} Umrandungen können bei kleinen Blattknoten die Farbflächen überdecken (siehe Abbildung \ref{fig:umrandungBeispiel}), wodurch die Metrikwerte nicht mehr erkannt werden können. Da Umrandungen ohne Geschwisterabstände zwingend erforderlich sind, verschlechtert sich die Skalierbarkeit tendenziell, insbesondere bei großen Codebasen mit vielen kleinen Knoten.
+    \item \textbf{Skalierbarkeit:} Umrandungen können bei kleinen Blattknoten die Farbflächen überdecken (siehe rotes Oval in Abbildung \ref{fig:siblingMargin}), wodurch die Metrikwerte nicht mehr erkannt werden können. Da Umrandungen ohne Geschwisterabstände zwingend erforderlich sind, verschlechtert sich die Skalierbarkeit tendenziell, insbesondere bei großen Codebasen mit vielen kleinen Knoten.
     \item \textbf{Visuelle Metaphern:} Zuvor konnten Abstände zwischen Geschwistern als Straßen interpretiert werden. Ohne Abstände wirkt die Stadt dichter bebaut, was die Metapher geringfügig schwächt.
 \end{itemize}
 

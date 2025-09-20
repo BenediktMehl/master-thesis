@@ -1,8 +1,8 @@
 \chapter{Verwandte Arbeiten} \label{sec:VerwandteArbeiten}
 
-Im Folgenden werden Forschungsarbeiten vorgestellt, die Fragestellungen adressieren, die den zuvor beschriebenen Problemstellungen ähneln (siehe Abschnitt \ref{sec:Problemstellung}). Zunächst folgt ein Überblick über Arbeiten zum Vergleich und zur Einordnung mehrerer Visualisierungstechniken. Anschließend werden Arbeiten behandelt, die explizit das Treemap-Problem, insbesondere das Verschwinden von Knoten, adressieren.
+Im Folgenden werden Forschungsarbeiten vorgestellt, die Fragestellungen adressieren, die der zuvor beschriebenen Problemstellungen ähneln (siehe Abschnitt \ref{sec:Problemstellung}).
 
-\section{Vergleich von Visualisierungstechniken} \label{sec:VergleichVisualisierungstechniken}
+\bigskip
 
 Pacione et al. vergleichen in \textit{A comparative evaluation of dynamic visualisation tools}~\cite{pacione2003comparative} fünf dynamische Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung, obwohl sie für die Analyse komplexer Softwaresysteme hohes Potenzial besitzen. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls betrachtet wird.
 
@@ -63,60 +63,3 @@ Weiterhin unterscheiden die Autoren Layout-Formen (z.B. rechteckig, kreisförmig
 Die analysierten Arbeiten zeigen eine große Vielfalt an Visualisierungsansätzen für Softwaresysteme. Diese Vielfalt unterstreicht die Notwendigkeit eines vergleichenden Ansatzes, um die Stärken und Schwächen unterschiedlicher Techniken systematisch herauszuarbeiten. Zugleich wird eine Diskrepanz zwischen in der Forschung entwickelten Konzepten und deren praktischem Einsatz festgestellt, da viele Ansätze prototypisch oder stark theoretisch ausgerichtet sind~\cite{overview3D, staticSurvey}.
 
 Zudem mangelt es an umfassenden empirischen Studien zur Evaluation dieser Ansätze. Mehrere Arbeiten beschreiben neue Visualisierungsmethoden, ohne deren Wirksamkeit im Vergleich zu etablierten Methoden systematisch zu untersuchen~\cite{overview3D, scheibel2020survey, visualizationEvolution}. Zur Erhöhung der Praxisrelevanz werden daher existierende, in realen Kontexten eingesetzte Werkzeuge berücksichtigt und die Bedürfnisse von Endnutzern und Stakeholdern besonders fokussiert, die bislang häufig nur unzureichend adressiert wurden~\cite{bassil2001software, pacione2003comparative}.
-
-\section{Treemap-Problem}
-
-Wie in Abschnitt \ref{sec:TreemapProblem} beschrieben, erschwert ein zentrales Treemap-Problem die Wahrnehmung der zugrunde liegenden Hierarchiestruktur. Dieses Problem gilt auch in anderen Arbeiten als eine der größten Herausforderungen algorithmischer Treemap-Layouts. Verschiedene Ansätze adressieren diese Problematik.
-
-Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln in einer späteren Arbeit \textit{Cushion Treemaps}~\cite{cushionTreemaps}. Jedem Knoten wird dabei ein Innenraumschatten zugewiesen, der über Schattierungseffekte die hierarchische Struktur hervorhebt, während das klassische Layout erhalten bleibt (siehe Abbildung \ref{fig:cushion}).
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/cushionTreemap.png}
-    \caption[Cushion Treemap]{Beispiel für eine Cushion Treemap~\cite[4]{cushionTreemaps}.}
-    \label{fig:cushion}
-\end{figure}
-
-Demian und Fruchter schlagen als alternativen Ansatz unterschiedlich dicke Umrisslinien vor, um Zugehörigkeit und Tiefe von Knoten in der Hierarchie hervorzuheben~\cite{largeHierarchicalRepositories}. Kong et al. analysieren ebenfalls Vor- und Nachteile verschiedener Umrissstärken zur Darstellung der Knotenstruktur~\cite{2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}).
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/lineThickness2.png}
-    \caption[Outlines mit variabler Dicke]{Beispiel für eine Treemap mit unterschiedlich dicken Outlines zur Verdeutlichung der Hierarchiestruktur der Knoten~\cite[1]{2010-perception-treemaps}.}
-    \label{fig:thickOutline}
-\end{figure}
-
-Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch für 2.5D- oder 3D-Anwendungen weniger geeignet, da Schatten und Outlines bei Extrusionen nicht konsistent und flächenübergreifend darstellbar sind. Insbesondere bei 3D-Treemaps (Extrusion ohne zusätzliche Farbgebung) ist die hierarchische Struktur schwer zu erkennen. Es besteht daher Bedarf an Layout-Algorithmen, die explizit räumliche Abstände zwischen Hierarchieebenen erzeugen. Klassische Treemap-Layouts verzichten in der Regel auf solche Abstände, was die Lesbarkeit der Hierarchie in extrudierten Darstellungen weiter erschwert~\cite{wood2008spatially, shneiderman2001ordered, hu2014squarified}.
-
-Eine explizite Behandlung dieses Problems findet sich in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
-
-Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor. Im \textit{Cascaded Treemap}-Ansatz werden Kindknoten nicht direkt innerhalb, sondern leicht versetzt über ihren Elternknoten dargestellt, wodurch ein subtiler 3D-Effekt entsteht und der Platzverlust im Vergleich zur klassischen Verschachtelung reduziert wird (siehe Abbildung \ref{fig:cascaded}).
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/cascaded.png}
-    \caption[Nested vs. Cascaded Treemap]{Links: Nested-Treemap-Ansatz mit vollständiger Verschachtelung. Rechts: Cascaded-Treemap-Ansatz nach~\cite[3]{lu2008cascaded} mit versetzten Kindknoten.}
-    \label{fig:cascaded}
-\end{figure}
-
-Ein zentrales Problem dieses Verfahrens (wie auch klassischer Nested-Layouts) besteht darin, dass Knoten vollständig verschwinden können, wenn nicht ausreichend Platz für Abstände und Beschriftungen vorhanden ist. Lü und Fogarty schlagen zur Abmilderung einen zweistufigen Prozess vor: Zunächst erfolgt die Flächenaufteilung mittels Squarified-Treemap~\cite{bruls2000squarified}. Anschließend werden Abstände und Beschriftungsflächen je Knoten neu berechnet, wobei die Knotengrößen, nicht jedoch deren Positionen angepasst werden. Das Verschwinden von Knoten bleibt möglich, wenn für Beschriftung und Abstand nicht genügend Raum vorhanden ist. Pseudocode geben die Autoren nicht an, was Nachvollziehbarkeit und quantitativen Vergleich erschwert.
-
-Das Verfahren wird wie folgt beschrieben:
-\begin{quote}
-    The function then computes how much vertical space is needed for offsets [...]. The remaining space is for the content of the treemap, and so the layout function gives each side of the split the space computed as necessary for [...] offsets as well as a portion of the remaining content space based on the relative weights of nodes on each side of the split. The layout procedure is then ready to recurse on both sides of the split, as it knows how much space will be used by [...] offsets and has ensured that the remaining space is appropriately divided by node weight~\cite[6]{lu2008cascaded}.
-\end{quote}
-
-Für jeden Knoten wird die verfügbare Fläche neu bestimmt. An jeder Teilungskante (horizontal oder vertikal) wird die für Abstände benötigte Fläche berechnet. Die Berechnung betrachtet jeweils eine Reihe entlang der Teilungskante. Zunächst wird der Platzbedarf für Abstände entlang dieser Kante bestimmt. Anschließend wird der verbleibende Raum für die eigentlichen Knoten berechnet, indem die Abstandsfläche von der Gesamtfläche subtrahiert wird. So ist auf jeder Teilungsebene Platz für die erforderlichen Abstände eingeplant und die Knoten sind entsprechend ihrer Gewichtung skaliert.
-
-Ein grundlegendes Problem bleibt bestehen: Knoten können vollständig verschwinden, wenn der für Abstände erforderliche Platz größer ist als die verbleibende Fläche für die Knoten. Das zuvor beschriebene Problem (siehe Abschnitt \ref{sec:TreemapProblem}) wird damit abgemildert, jedoch nicht vollständig gelöst.
-
-Obwohl kein Quellcode vorliegt, lässt sich aus der Beschreibung ein weiterer Nachteil ableiten: An jeder betrachteten Reihen-Kante wird nur der Raum für Abstände entlang der Richtung berücksichtigt, die senkrecht zu dieser Kante steht. Abbildung \ref{fig:cascadedBadExample} illustriert, dass der Algorithmus oberhalb und unterhalb der Trennlinie jeweils die gleiche Menge an Abstandsfläche vorsieht, da ausschließlich die senkrechte Richtung zur Kante betrachtet wird. In der gezeigten Konstellation weisen die roten Rechtecke zusammen einen größeren Abstandsbedarf auf als das gelbe Rechteck alleine. Der Algorithmus differenziert nicht zwischen diesen Fällen, was zu einer ineffizienten Allokation von Abstandsflächen führen kann.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/cascadedBadExample.png}
-    \caption[Ungünstige Aufteilung im Cascaded-Layout]{Illustration einer für den Cascaded-Treemap-Algorithmus ungünstigen Flächenaufteilung. Die Teilungskante ist blau markiert. Senkrecht zu dieser Kante werden die benötigten Flächen neu berechnet. Für die roten Rechtecke wird zu viel, für das gelbe Rechteck vergleichsweise wenig Abstand berücksichtigt.}
-    \label{fig:cascadedBadExample}
-\end{figure}
-
-Lü und Fogarty berichten, dass mit dem Verfahren keine Verbesserung im Verhältnis von Knoten-Gewicht zu Knotengröße festgestellt werden konnte. Verbesserungen traten lediglich bei sehr kleinen Knoten auf, da konstante Abstände bei kleinen Flächen proportional stärker ins Gewicht fallen als bei größeren. Als Ursache wird der spezifische Ansatz benannt, und es wird weiterführende Forschung angeregt, was unter anderem in dieser Arbeit verfolgt wird. Zudem wird vermutet, dass die Abweichung zwischen Größen- und Gewichtsverhältnis in tiefen Hierarchien weiter zunimmt.
