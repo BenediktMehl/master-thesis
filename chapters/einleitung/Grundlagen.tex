@@ -120,7 +120,7 @@ Da das Rechteck, in das eingefügt wird, breiter als lang ist (Breite 6, Länge 
 
 Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten in die noch leere Reihe eingefügt. Die Dimensionen dieses Rechtecks betragen $1{,}5 \times 4$ (1{,}5 Einheiten breit und 4 Einheiten lang). Das schlechteste Seitenverhältnis aller Rechtecke in der aktuellen Reihe ist in diesem Fall $4 : 1{,}5 \approx 2{,}67$; es wird stets der größere Wert durch den kleineren geteilt. In Schritt 2 wird das nächste Rechteck mit einer Fläche von 6 Einheiten in die Reihe \textit{von oben} über das erste Rechteck eingefügt. Dadurch wird die Reihe und auch das erste Rechteck breiter. In diesem Fall haben beide Rechtecke die gleichen Dimensionen von $3 \times 2$. Das schlechteste Seitenverhältnis in der Reihe beträgt nun $3 : 2 = 1{,}5$. Das neue schlechteste Seitenverhältnis ist besser als das vorherige, sodass die Reihe weiter gefüllt werden kann. Im nächsten Schritt soll ein Rechteck mit einer Fläche von 4 Einheiten eingefügt werden. Das Hinzufügen dieses Rechtecks macht die Reihe erneut breiter. Es entsteht ein neues schlechtestes Seitenverhältnis von $4 : 1 = 4$. Da das Verhältnis nun schlechter ist als das vorherige und damit weiter vom Optimalwert 1 entfernt, wird die Reihe, wie sie zuvor war, als abgeschlossen betrachtet (siehe Schritt 4). Das zuletzt eingefügte Rechteck mit Fläche 4 wird daher nicht mehr in dieser Reihe, sondern in einer neuen Reihe einsortiert (siehe Schritt 5 in Abbildung \ref{fig:squarify_example_2}).
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \includegraphics[width=0.5\textwidth]{images/grundlagen/squarify_example_2.png}
     \caption[Squarify-Beispiel: Reihe 2]{Die zweite Reihe des Squarify-Algorithmus-Beispiels. Die Reihe ist im linken großen Rechteck in Hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Länge neu festgelegt wurde.}
@@ -131,7 +131,7 @@ Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe
 
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke in Reihen einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
 
-\begin{figure}[htbp]
+\begin{figure}[htb]
     \centering
     \subfloat[Reihe 3]{
         \includegraphics[width=\textwidth]{images/grundlagen/squarify_example_3.png}}
