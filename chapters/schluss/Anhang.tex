@@ -1,4 +1,8 @@
-\begin{lstlisting}[language=typescript, caption={Vereinfachte und kommentierte Grundlage für den Algorithmus der in dieser Arbeit hauptsächlich verwendet wird}, label={lst:squarify_code}]
+\chapter{Anhang} \label{chap:anhang}
+
+Die Implementierung orientiert sich an der Implementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Die Implementierung integriert einige Optimierungen für eine leistungsfähigere Berechnung, entspricht also nicht exakt der Beschreibung in den Grundlagen.
+
+\begin{lstlisting}[language=typescript, caption={Vereinfachter und kommentierter Squarify-Algorithmus}, label={lst:squarify_code}]
 function squarifyNode(parent: SquarifyNode) {
     // nodes sind die einzusortierenden Knoten
     const nodes: SquarifyNode[] = parent.children
@@ -63,7 +67,6 @@ function squarifyNode(parent: SquarifyNode) {
             }
             minRatio = newRatio
         }
-
         // Fülle die Reihe mit den ausgewählten Knoten und berechne deren Position und Größe
         row = { name: parent.name, value: sumValue, dice: width < length, children: nodes.slice(i, j) }
         if (row.dice) {
@@ -71,7 +74,6 @@ function squarifyNode(parent: SquarifyNode) {
         } else {
             treemapSlice(row, x0, y0, value ? (x0 += (width * sumValue) / value) : x0, parent.y1)
         }
-
         // Der noch zu belegende Bereich wird um die Größe der aktuellen Reihe verkleinert
         value -= sumValue
         i = j

@@ -4,7 +4,7 @@ Da die Treemap-Visualisierung die verbreitetste Methode zur Darstellung von Soft
 In diesem Kapitel werden zunächst diese Probleme detailliert beschrieben und analysiert (siehe Abschnitt \ref{sec:TreemapProblem}). Anschließend werden verwandte Arbeiten vorgestellt, die sich mit ähnlichen Problemen beschäftigen (siehe Abschnitt \ref{sec:TreemapProblem-VerwandteArbeiten}). Um zu beurteilen, welche Anpassungen der Treemap-Layouts für unseren Anwendungsfall sinnvoll sind, werden Kriterien für die Qualität der Treemap-Visualisierung formuliert und eine Datengrundlage für die Evaluation geschaffen (siehe Abschnitt \ref{sec:Bewertungsgrundlage}). Abschließend werden verschiedene Anpassungen und Erweiterungen des Squarify-Algorithmus beschrieben und evaluiert, um dann am Ende dieses Kapitels einen Vorschlag für ein verbessertes Treemap-Layout zu unterbreiten und die Qualitätsverbesserung zu quantifizieren.
 
 
-
+%die ausgangslage für den algorithmus ist in anhang 
 
 \section{Treemap-Problem} \label{sec:TreemapProblem}
 In der Literatur existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt einen sehr vielversprechenden Ansatz zur Erstellung von gut übersichtlichen Treemap-Layouts dar~\cite{bruls2000squarified}. Er wird außerdem von den meisten der zuvor vorgestellten Tools zur Visualisierungen von Softwaremetriken verwendet~\cite{code_charta_github,sereene_website,codeCity1}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Grundlage für die Treemap-Visualisierung verwendet.
