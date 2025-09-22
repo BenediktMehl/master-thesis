@@ -4,25 +4,23 @@ In diesem Kapitel werden Problemstellung und Forschungsfragen präzise definiert
 
 \section{Problemstellung und Forschungsfragen} \label{sec:Problemstellung}
 
-Ausgangspunkt ist die Anforderung, Softwarequalität für Personen ohne Programmierkenntnisse oder ohne Vertrautheit mit der konkreten Codebasis nachvollziehbar und belastbar zu begründen. In der Praxis müssen Entscheidungen über Anpassungen oder Veränderungen am aktuellen Systemzustand mit Argumenten untermauert werden. Softwareanalysen und Empfehlungen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden, dabei können visuelle Darstellungen von Code-Qualitätsmetriken diese Aufgabe erleichtern.
-Daraus ergibt sich die Frage, welche Visualisierungsform diese Aufgabe am besten unterstützt.
-Im Zentrum steht folgende Forschungsfrage:
+Durch die Motivation (siehe Abschnitt \ref{sec:Motivation}) wurde der Bedarf begründet, Softwarequalität für Personen ohne Programmierkenntnisse bzw. ohne Vertrautheit mit der Codebasis nachvollziehbar und belastbar darzustellen. Softwareanalysen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden, dabei können visuelle Darstellungen von Code-Qualitätsmetriken diese Aufgabe unterstützen.
+Hieraus ergibt sich folgende Leitfrage:
 
 \begin{quote}
-    Welche 3D-Visualisierung eignet sich am besten zur Darstellung von Code-Qualitätsmetriken für Personen ohne Kenntnisse der Codebasis oder ohne Programmierkenntnisse?
+    Welche 3D-Visualisierung eignet sich am besten zur Darstellung von Code-Qualitätsmetriken für Personen ohne Programmierkenntnisse oder Vertrautheit mit der Codebasis?
 \end{quote}
 
-Eine vollständige Beantwortung dieser Frage ist nicht möglich, da nicht alle denkbaren Visualisierungen empirisch getestet und verglichen werden können. Der Fokus liegt daher auf Visualisierungen, die in der Literatur und in bestehenden Tools als besonders geeignet für den vorliegenden Anwendungsfall erscheinen und dort häufig Verwendung finden.
-
-Aus der Leitfrage werden zwei konkret beantwortbare Forschungsfragen abgeleitet:
-
+Eine vollständige Beantwortung dieser Frage ist nicht möglich, da nicht alle denkbaren Visualisierungen empirisch getestet und verglichen werden können. Der Fokus liegt daher auf Visualisierungen, die in der Literatur und in bestehenden Tools als besonders geeignet für den vorliegenden Anwendungsfall erscheinen.
+Es ergeben sich daher zwei konkret beantwortbare Forschungsfragen, die in dieser Arbeit untersucht werden:
 \begin{enumerate}
-    \item Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
-    \item Welche dieser Visualisierungen optimiert die Übersichtlichkeit der Struktur und Verständlichkeit der Qualität speziell im Hinblick auf den definierten Anwendungsfall?
+    \item Welche 3D-Visualisierungen von Code-Qualitätsmetriken lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
+    \item Welche dieser Visualisierungen optimiert die Übersichtlichkeit der Struktur und die Verständlichkeit der Qualität speziell im Hinblick auf den definierten Anwendungsfall?
 \end{enumerate}
 
 \section{Anwendungsfall und Anforderungen} \label{sec:Anwendungsfall}
 
+Um das Ziel der Visualisierungen zu konkretisieren, wird der Anwendungsfall beschrieben, in dem die Visualisierungen eingesetzt werden könnten.
 Zur klaren Bestimmung des Anwendungsfalls und der Anforderungen an die angestrebten Visualisierungen werden die fünf Dimensionen der Softwarevisualisierung nach Marcus et al. herangezogen~\cite[2]{3dsoftwareMarcus}:
 \begin{itemize}
     \item \textbf{Tasks}: Warum wird die Visualisierung benötigt?
@@ -36,41 +34,32 @@ Zur klaren Bestimmung des Anwendungsfalls und der Anforderungen an die angestreb
 Die Visualisierung von Code-Qualitätsmetriken ermöglicht die Bewertung und das bessere Verständnis der Softwarequalität. Sie unterstützt die rasche Orientierung in komplexen Codebasen, die Identifikation von Hotspots und das Einleiten vertiefender Analysen. Zusammenhänge zwischen Metriken werden unmittelbar sichtbar, was in rein tabellarischer oder isolierter Darstellung kaum erreichbar ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität anschaulich darzustellen, fachliche Bewertungen zu stützen und die Ergebnisse adressatengerecht zu kommunizieren.
 
 \subsection*{2. Wer ist die Zielgruppe der Visualisierung?}
-Adressaten sind primär Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse, etwa Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder, die Entscheidungen über die Softwareentwicklung treffen. Darüber hinaus profitieren Entwickler, die neu in ein Projekt einsteigen, sowie Teams, die systematisch die Softwarequalität verbessern möchten, da die Visualisierung die Kommunikation erleichtert. Ziel ist eine Darstellung, die technische Informationen für ein breites Publikum verständlich und zugänglich macht.
+Adressaten sind primär Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse, etwa Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder, die Entscheidungen über die Softwareentwicklung treffen. Darüber hinaus profitieren Entwickler, die neu in ein Projekt einsteigen, sowie Teams, die systematisch die Softwarequalität verbessern möchten, da die Visualisierung die Kommunikation untereinander erleichtert. Ziel ist eine Darstellung, die technische Informationen für ein breites Publikum verständlich und zugänglich macht.
 
 \subsection*{3. Was ist die Datenquelle?}
-Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene (File-Basis) erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie besitzt einen Namen und entweder eine Liste von Kindknoten oder eine Liste von Werten, die die Metriken repräsentiert (siehe Listing \ref{lst:nodeSchema}).
+Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie besitzt einen Namen und entweder eine Liste von Kindknoten oder eine Liste von Werten, die die Metriken repräsentiert (siehe Listing \ref{lst:nodeSchema}).
 
-\begin{lstlisting}[language=json, caption={Schema eines Knotens}, label={lst:nodeSchema}]
+\begin{lstlisting}[language=json, caption={Knotenschema}, label={lst:nodeSchema}]
     "node": {
         "name": string,
         "children": List[Node] | "values": number[n]
     }
 \end{lstlisting}
 
-Die Definition ermöglicht es, Metriken nicht nur auf Datei- und Ordnerebene, sondern auch auf allen anderen hierarchischen Strukturen wie Modulen, Paketen oder Klassen darzustellen. Folglich werden auch Visualisierungen untersucht, die auf alternativen hierarchischen Strukturen basieren.
-
 \subsection*{4. In welchem Medium soll die Visualisierung erfolgen?}
 Die Visualisierung ist für die digitale Darstellung auf herkömmlichen Bildschirmmedien konzipiert, vorrangig für Desktop-Computer und Laptops.
 
 \subsection*{5. Wie erfolgt die Darstellung?}
-Betrachtet werden 2.5D- und 3D-Visualisierungen, die in der Literatur und in bestehenden Tools zur Darstellung von Code-Qualitätsmetriken genutzt werden. Dazu gehören einfache 2.5D-Visualisierungen nach dem CodeCity-Prinzip~\cite{codeCity1} ebenso wie komplexere 3D-Visualisierungen, beispielsweise Sonnensystem-Metaphern~\cite{solarSystem}. Voraussetzung ist, dass sowohl Metriken als auch die hierarchische Softwarestruktur abgebildet werden können. Interaktive Visualisierungen (z. B. mit Zoom oder Rotation) werden nicht betrachtet. Dies entspricht der Praxis, in der aus Gründen der Reduktion von Komplexität häufig statische Ansichten bevorzugt werden, um den Nutzenden keine zusätzliche Steuerung oder Navigation aufzuerlegen. Entsprechend werden 3D-Visualisierungen als statische Ansichten in Form ausgewählter Renderings bzw. Bilder präsentiert.
+Betrachtet werden 2.5D- und 3D-Visualisierungen, die in der Literatur und in bestehenden Tools zur Darstellung von Code-Qualitätsmetriken genutzt werden. Dazu gehören einfache 2.5D-Visualisierungen nach dem CodeCity-Prinzip~\cite{codeCity1} ebenso wie komplexere 3D-Visualisierungen, beispielsweise Sonnensystem-Metaphern~\cite{solarSystem}. Voraussetzung ist, dass sowohl Metriken als auch die hierarchische Softwarestruktur abgebildet werden können. Interaktive Visualisierungen, etwa mit Zoom oder Rotation, werden nicht betrachtet. Dies entspricht der Praxis, in der aus Gründen der Reduktion von Komplexität statische Ansichten bevorzugt werden, um den Nutzenden keine zusätzliche Steuerung oder Navigation aufzubürden. Entsprechend werden 3D-Visualisierungen als statische Ansichten in Form ausgewählter Renderings präsentiert.
 
 \section{Lösungs- und Bewertungsansatz} \label{sec:Bewertungsansatz}
-Leitfrage 1 wird durch eine systematische Literaturrecherche und die Analyse bestehender Tools beantwortet. Dabei werden Visualisierungen identifiziert, die in der Literatur und in der Praxis als besonders geeignet für den Anwendungsfall erscheinen. 
 
-Leitfrage 2 wird durch die Bewertung der durch Leitfrage 1 identifizierten Visualisierungen beantwortet. Diese Bewertung der Visualisierungen erfolgt anhand einer Umfrage (siehe Abschnitt \ref{sec:Umfrage}) und einer direkten Bewertung der Visualisierungen anhand definierter Kriterien. Diese Kriterien werden aus den in Abschnitt \ref{sec:SoftwareVisualisierung} beschriebenen Merkmalen guter Softwarevisualisierungen abgeleitet und auf den Anwendungsfall dieser Arbeit übertragen:
+Die erste Forschungsfrage wird durch eine systematische Literaturrecherche und die Analyse bestehender Software-Visualisierungs-Tools beantwortet. Dabei werden Visualisierungen identifiziert, die in der Literatur und in der Praxis als besonders geeignet für den Anwendungsfall erscheinen.
 
+Die zweite Forschungsfrage wird durch die Bewertung der durch die erste Frage identifizierten Visualisierungen beantwortet. Die Bewertung der Visualisierungen erfolgt anhand einer Umfrage (siehe Abschnitt \ref{sec:Umfrage}) und anhand definierter Kriterien. Diese Kriterien sind aus den beschriebenen Merkmalen guter Softwarevisualisierungen abgeleitet und auf den Anwendungsfall dieser Arbeit übertragen (siehe Abschnitt \ref{sec:SoftwareVisualisierung}):
 \begin{itemize}
     \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Es soll möglichst viel relevante Information bei minimalem Flächenverbrauch dargestellt werden. Für die Übersichtlichkeit ist insbesondere relevant, dass die Struktur der Hierarchie erkennbar wird. Außerdem steigt die Verständlichkeit einer Analyse, wenn diese durch viele relevante Informationen gestützt wird.
     \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Das Layout muss klar und intuitiv lesbar bleiben, um Verständnis zu erhöhen.
-    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Dieser Aspekt ist relevant, da Softwarevisualisierung insbesondere dann sinnvoll wird, wenn die Codebasis ohne Unterstützung nicht mehr überblickt werden kann. \enquote{Representations suitable for the presentation of small data sets do not automagically scale to larger data sets.}\cite[161]{johnson1993treemapsPhd}
-    \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell und steigert im Optimialfall sowohl Übersichtlichkeit als auch Verständlichkeit. \enquote{The research being described in this paper has tried to harness natural perceptual skills in this way, through the use of a very strong real world metaphor.}\cite[2]{virtualButVisibleMunro}
-\end{itemize}
-
-Vier Merkmale guter Softwarevisualisierungen werden in dieser Arbeit nicht bewertet: 
-\begin{itemize}
-    \item \textbf{Stabilität gegenüber Änderungen:} Eine Visualisierung sollte bei kleinen Änderungen der Datenquelle möglichst stabil bleiben, um die Orientierung zu erleichtern. Dieser Aspekt ist für den Anwendungsfall, den aktuellen Stand der Software zu kommunizieren und Maßnahmen zu begründen, nachrangig.
-    \item \textbf{Korrelation mit dem Code und Automatisierung}: Diese beiden Aspekte werden vorausgesetzt und werden durch alle modernen Visualisierungen, die in dieser Arbeit betrachtet werden erfüllt. 
-    \item \textbf{Navigation:} Um den Vergleich zu erleichtern und den Fokus auf die Visualisierung selbst zu legen, wird auf den Aspekt der Navigation verzichtet. Dies könnte Gegenstand zukünftiger Arbeiten sein.
+    \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Dieser Aspekt ist relevant, da Softwarevisualisierung insbesondere dann sinnvoll wird, wenn die Codebasis ohne Unterstützung nicht mehr überblickt werden kann. \enquote{Representations suitable for the presentation of small data sets do not automagically scale to larger data sets.}~\cite[161]{johnson1993treemapsPhd}
+    \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell und steigert im Optimalfall sowohl Übersichtlichkeit als auch Verständlichkeit. \enquote{The research being described in this paper has tried to harness natural perceptual skills in this way, through the use of a very strong real world metaphor.}~\cite[2]{virtualButVisibleMunro}
 \end{itemize}
