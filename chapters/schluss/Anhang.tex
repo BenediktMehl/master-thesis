@@ -2,7 +2,7 @@
 
 Die Implementierung orientiert sich an der Implementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Die Implementierung integriert einige Optimierungen für eine leistungsfähigere Berechnung, entspricht also nicht exakt der Beschreibung in den Grundlagen.
 
-\begin{lstlisting}[language=typescript, caption={Vereinfachter und kommentierter Squarify-Algorithmus}, label={lst:squarify_code}]
+\begin{lstlisting}[language=typescript, caption={Vereinfachter Squarify-Algorithmus}, label={lst:squarify_code}]
 function squarifyNode(parent: SquarifyNode) {
     // nodes sind die einzusortierenden Knoten
     const nodes: SquarifyNode[] = parent.children

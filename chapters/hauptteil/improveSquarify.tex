@@ -324,7 +324,7 @@ Der Ansatz der absoluten Größenanpassung ist dem Cascaded-Ansatz ähnlich~\cit
 Die neue Fläche eines Knotens ergibt sich aus der alten Fläche plus der Fläche, die durch den Abstand eingenommen wird. Für Blattknoten berechnet sich die Abstandsfläche links und rechts des Knotens durch die Länge des Knotens mal den halben Abstand. Da dies links und rechts anfällt, ergibt sich Länge mal Abstand. Dasselbe gilt für oben und unten. Zusätzlich entsteht an jeder Ecke oben links, oben rechts, unten links und unten rechts eine kleine Fläche, die durch den halben Abstand im Quadrat berechnet wird, was zusammengefasst Abstand mal Abstand mal zwei ergibt. Für Elternknoten wird entsprechend verfahren, nur dass zusätzlich die Flächenvergrößerung aller Kinder addiert wird und die Abstandsfläche mit dem Faktor zwei berücksichtigt wird, da der Abstand innen und außen eingenommen wird. Der Algorithmus ist in Listing \ref{lst:absolute_value_increase} dargestellt.
 
 
-\begin{lstlisting}[language=typescript, caption={TypeScript-Implementierung der absoluten Größenanpassung}, label={lst:absolute_value_increase}]
+\begin{lstlisting}[language=typescript, caption={Implementierung der absoluten Größenanpassung}, label={lst:absolute_value_increase}]
     function absoluteValueIncrease(node: SquarifyNode, margin: number) {
         const width = node.x1 - node.x0
         const length = node.y1 - node.y0
@@ -419,7 +419,7 @@ Dadurch wird die vorhergesagte resultierende Fläche der Elternknoten tendenziel
 
 Die Idee besteht darin, die Änderung der Kinder bereits vor dem Hinzufügen der Abstandsfläche zu berücksichtigen. Dazu wird abgeschätzt, wie sich die Kantenlängen des Elternknotens durch die Flächenänderung der Kindknoten verändern, um anschließend mit diesen neuen Kantenlängen die Abstandsfläche des Elternknotens genauer zu berechnen. Dies erfolgt, indem die Flächenänderung der Kindknoten auf die Kantenlängen des Elternknotens übertragen wird. Die Breite des Elternknotens ändert sich beispielsweise im Verhältnis der Quadratwurzel aus der durch das Hinzufügen des Abstands der Kindknoten verursachten Flächenänderung. Der Algorithmus ist im Folgenden dargestellt (siehe Listing \ref{lst:relative_value_increase}).
 
-\begin{lstlisting}[language=typescript, caption={TypeScript-Implementierung der relativen Größenanpassung}, label={lst:relative_value_increase}]
+\begin{lstlisting}[language=typescript, caption={Implementierung der relativen Größenanpassung}, label={lst:relative_value_increase}]
     function relativeValueIncrease(node: SquarifyNode, margin: number) {
         const width = node.x1 - node.x0
         const length = node.y1 - node.y0
