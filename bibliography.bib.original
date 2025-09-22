@@ -7,6 +7,15 @@
     url     = {https://community.sap.com/t5/welcome-corner-blog-posts/i-have-a-dream-code-visualization/bc-p/13485189/highlight/true},
 }
 
+@misc{sonarqube_2025,
+    url     = {https://www.sonarsource.com/sem/products/sonarqube/?s_campaign=SQ-EMEA-East-DACH-Brand&s_content=SonarQubeServer&s_term=sonarqube&s_category=Paid&s_source=Paid%20Search&s_origin=Google&cq_src=google_ads&cq_cmp=19274189926&cq_con=147504963074&cq_term=sonarqube&cq_med=&cq_plac=&cq_net=g&cq_pos=&cq_plt=gp&gad_source=1&gad_campaignid=19274189926&gbraid=0AAAAAC0fKmon080g-g9e-tmW_kQnpWDDq&gclid=Cj0KCQjw58PGBhCkARIsADbDilwcwNfPEP91fxF--VaTysPwfJ6svyyQ6sDMoJTzwpf4Oss_XpzY0bUaAjL5EALw_wcB},
+    journal = {Sonarsource.com},
+    year    = {2025},
+    note    = {[Online; besucht 22-September-2025]},
+}
+
+‌
+
 @misc{seaborngalery,
     year    = 2024,
     journal = {Pydata.org},
@@ -649,14 +658,13 @@
 
 ‌
 @misc{cushion_treemap_2025,
-    url     = {https://www.theusrus.de/blog/understanding-tree-maps/},
+    year    = 2025,
     journal = {Theusrus.de},
-    year    = {2025},
-	note    = {[Online; besucht 20-September-2025]},
+    url     = {https://www.theusrus.de/blog/understanding-tree-maps/},
+    note    = {[Online; besucht 20-September-2025]},
 }
 
 ‌
-
 @misc{squarify_video_link,
     title  = {Squarify Algorithm Example Video},
     author = {Benedikt Mehl},
@@ -673,7 +681,7 @@
 
 ‌
 @misc{anhaenge_github,
-    title  = {Anhänge zur Masterarbeit},
+    title  = {Anh\"{a}nge zur Masterarbeit},
     author = {Benedikt Mehl},
     year   = 2025,
     url    = {https://github.com/BenediktMehl/master-thesis/tree/main/anhang},
