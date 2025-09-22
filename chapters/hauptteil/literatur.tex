@@ -104,7 +104,7 @@ Planeten repräsentieren Klassen. Ihre Größe kodiert eine Metrik, Verbindungen
 
 \smallskip
 
-In \textit{Visualization of the static aspects of software: A survey} werden verschiedene Visualisierungen systematisch dargestellt~\cite{staticSurvey}. Die erste Anforderung erfüllen Treemap, Sunburst, Voronoi und Circle Packing. Zudem werden verschiedene Ausprägungen der Stadtmetapher beschrieben, darunter eine klassische CodeCity sowie eine Inselmetapher, bei der die oberste Hierarchieebene in mehrere Inseln segmentiert wird, zwischen denen Verbindungen visualisiert werden können (siehe Abbildung \ref{fig:islandMetaphor}). Metriken können über Fläche, Höhe, Farbe, Typ und Symbole kodiert werden. Zwischen Ordnern sind Beziehungsmetriken darstellbar. 
+In \textit{Visualization of the static aspects of software: A survey} werden verschiedene Visualisierungen systematisch dargestellt~\cite{staticSurvey}. Die erste Anforderung erfüllen Treemap, Sunburst, Voronoi und Circular Treemap. Zudem werden verschiedene Ausprägungen der Stadtmetapher beschrieben, darunter eine klassische CodeCity sowie eine Inselmetapher, bei der die oberste Hierarchieebene in mehrere Inseln segmentiert wird, zwischen denen Verbindungen visualisiert werden können (siehe Abbildung \ref{fig:islandMetaphor}). Metriken können über Fläche, Höhe, Farbe, Typ und Symbole kodiert werden. Zwischen Ordnern sind Beziehungsmetriken darstellbar. 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/islandMetaphor.png}
@@ -113,7 +113,7 @@ In \textit{Visualization of the static aspects of software: A survey} werden ver
 \end{figure}
 Die Kombination vieler visueller Variablen ermöglicht eine reiche Metrikdarstellung. Gleichzeitig geht zwischen Inseln Fläche verloren. Aus sehr hoher Informationsfülle und einigen Lücken resultiert für Informationsgehalt und Flächeneffizienz die Bewertung 4. Die Vielzahl an Symbolen und Farben erfordert eine genaue Legende und erhöht die kognitive Last. Daher wird die visuelle Komplexität mit 2 bewertet. Zusätzliche Details und größere Abstände verschlechtern gegenüber klassischen CodeCity Ansätzen die Darstellung großer Systeme. Die Skalierbarkeit wird deshalb mit 2 angesetzt. Die Inselmetapher ist anschaulich und in der Regel schnell zugänglich. Ungewöhnliche Gebäudeformen schmälern die Eindeutigkeit. Die Metaphernqualität wird deshalb mit 4 bewertet.
 
-Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung basierend auf dem Circle Packing Layout, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert (siehe Abbildung \ref{fig:hierarchicalNet3D}). Die Halbkugeln betonen die Gruppierung und damit die Struktur, nehmen aber die Höhenmetrik, da Höhe an den Durchmesser gebunden ist. Aus dieser Einschränkung bei konstanter Flächennutzung ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 3. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität erhält daher 1. Visuelle Komplexität und Skalierbarkeit entsprechen Circle Packing und werden mit 5 beziehungsweise 3 bewertet.
+Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung basierend auf dem Circular-Treemap-Layout, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert (siehe Abbildung \ref{fig:hierarchicalNet3D}). Die Halbkugeln betonen die Gruppierung und damit die Struktur, nehmen aber die Höhenmetrik, da Höhe an den Durchmesser gebunden ist. Aus dieser Einschränkung bei konstanter Flächennutzung ergibt sich für Informationsgehalt und Flächeneffizienz die Bewertung 3. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität erhält daher 1. Visuelle Komplexität und Skalierbarkeit entsprechen Circular-Treemaps und werden mit 5 beziehungsweise 3 bewertet.
 
 \smallskip
 
@@ -213,7 +213,7 @@ Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings 
 
 \smallskip
 
-\textit{Visualizing Program Quality - A Topological Taxonomy of Features}~\cite{visualizingProgramQuality} schlägt die Bubble-Treemap vor, die erstmals in \cite{Goertler2017BubbleTreemapsUncertainty} beschrieben wurde (siehe Abbildung \ref{fig:bubbleTreemap}). Sie verhält sich zu Circle Packing ähnlich wie Treemap zu CodeCity, da weniger Platz verschwendet wird und eine Kante-an-Kante-Anordnung angestrebt ist. Aufgrund der hierarchischen Struktur auf Dateiebene ist die Anforderung erfüllt.
+\textit{Visualizing Program Quality - A Topological Taxonomy of Features}~\cite{visualizingProgramQuality} schlägt die Bubble-Treemap vor, die erstmals in \cite{Goertler2017BubbleTreemapsUncertainty} beschrieben wurde (siehe Abbildung \ref{fig:bubbleTreemap}). Sie verhält sich zu Circular-Treemaps ähnlich wie Treemap zu CodeCity, da weniger Platz verschwendet wird und eine Kante-an-Kante-Anordnung angestrebt ist. Aufgrund der hierarchischen Struktur auf Dateiebene ist die Anforderung erfüllt.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/bubbleTreemap.png}
@@ -381,12 +381,12 @@ Die oberen Hierarchieebenen nehmen vergleichsweise viel Platz ein, mehr als bei 
 
 \smallskip
 
-\textit{CodeScene}~\cite{codescene_2025} nutzt 2D-Kreisdiagramme und Circular Treemaps, die als Circle Packing bezeichnet werden (siehe Abbildung \ref{fig:circlePacking}). Die Eingaben sind hierarchische Metrikdaten auf Dateiebene und damit geeignet.
+\textit{CodeScene}~\cite{codescene_2025} nutzt 2D-Kreisdiagramme und Circular Treemaps, die mit einem Circle Packing Algorithmus berechnet werden (siehe Abbildung \ref{fig:circularTreemapx}). Die Eingaben sind hierarchische Metrikdaten auf Dateiebene und damit geeignet.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/codescene.png}
     \caption[Circular Treemap in CodeScene]{Circular Treemap in CodeScene~\cite{codescene_2025}.}
-    \label{fig:circlePacking}
+    \label{fig:circularTreemapx}
 \end{figure}
 
 Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die einzelnen Kreise in 2.5D extrudiert werden, also zu Zylindern. Gegenüber zum Beispiel Bubble-Treemaps geht zwischen Kreisen etwas mehr Fläche verloren, die Metrikzahl bleibt jedoch gleich. Deshalb werden Informationsgehalt und Flächeneffizienz eine Stufe niedriger bewertet und erhalten 3. Die Kreisform und klare Abstände unterstützen die Wahrnehmung der Struktur stark. Die visuelle Komplexität wird mit 5 bewertet. Durch zusätzliche Abstände werden kleine Elemente bei großen Systemen etwas schwerer erkennbar. Die Skalierbarkeit wird daher mit 3 eingestuft. Der Anbieter dieser Visualisierung schlägt eine Tatortmetapher vor, die roten Kreise sind als Blutflecken zu interpretieren. Diese Assoziation ist abstrakt und ergibt in 2.5D nur wenig Sinn. Die Metapher wird daher mit 2 bewertet.
