@@ -1,22 +1,26 @@
 \chapter{Implementierung} \label{sec:Implementierung}
+
 Um eine faire Vergleichbarkeit in der Umfrage zwischen den Visualisierungen zu gewährleisten, werden die Visualisierungen für diese Arbeit einheitlich implementiert. Dieses Kapitel beschreibt zunächst die Implementierung sowie die gemeinsamen Grundlagen aller Visualisierungen. Anschließend wird die Implementierung der einzelnen Visualisierungstypen erläutert.
 
-Für die Implementierung und die Bewertung in der Umfrage werden die fünf bestplatzierten Visualisierungen ausgewählt ohne einen Visualisierungstypen doppelt auszuwählen. Die Auswahl lautet:
+Es werden die fünf bestplatzierten Visualisierungen aus dem Vergleich der Visualisierungen implementiert (siehe Tabelle \ref{tab:visEval_full}). Dabei wird kein Visualisierungstypen doppelt ausgewählt. Die Auswahl lautet:
 \begin{enumerate}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \setlength{\parsep}{0pt}
     \item \textbf{Treemap}
     \item \textbf{Streetmap}
-    \item \textbf{Code City}
+    \item \textbf{CodeCity}
     \item \textbf{Sunburst}
     \item \textbf{Circlular Treemap}
 \end{enumerate}
 
 \section{Gemeinsamkeiten und Architektur} \label{sec:Architektur}
 
-Alle der zuvor ausgewählten Darstellungen sind 2.5D-Visualisierungen  (siehe Abschnitt \ref{sec:LiteraturErgebnisse}). Die gemeinsame Grundlage besteht in einem zweidimensionalen Layout, das in die dritte Dimension extrudiert wird. Jede Visualisierung kodiert exakt drei Metriken. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
+Alle der ausgewählten Visualisierungen sind 2.5D-Visualisierungen. Jede Visualisierung besitzt ein eigenes Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
 
-Das zweidimensionale Layout kann hinsichtlich Form, Platzierung und Abständen flexibel gestaltet werden, basiert jedoch stets auf einem einheitlichen Schema, welches hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema \ref{lst:nodeSchema} sind die Attribute x, y, width und length hinzugekommen. Diese Attribute definieren je nach geometrischer Form die Position und Ausdehnung des Knotens im zweidimensionalen Raum. Die Fläche, die Höhe und die Farbe kodieren jeweils eine Metrik. Die Koordinaten x und y bezeichnen je nach Layout entweder die linke untere Ecke eines Rechtecks oder das Zentrum eines Kreises. Die Breite gibt bei rechteckigen Layouts die Ausdehnung in x-Richtung an und die Länge die Ausdehnung in y-Richtung. Bei kreisförmigen Layouts zum Beispiel wird die Breite als Kreisdurchmesser interpretiert und die Länge ignoriert.
+Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basiert jedoch alle auf einem einheitlichen Schema, welches hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema \ref{lst:nodeSchema} aus Abschnitt \ref{sec:Anwendungsfall} sind die Attribute x, y, width und length hinzugekommen, welche das Layout eindeutig beschreiben.
 
-\begin{lstlisting}[language=json, caption={Schema eines Knotens}, label={lst:nodeLayoutSchema}]
+\begin{lstlisting}[language=json, caption={Layout-Knotenschema}, label={lst:nodeLayoutSchema}]
     "node": {
         "name": string,
         "x": number,
@@ -27,22 +31,35 @@ Das zweidimensionale Layout kann hinsichtlich Form, Platzierung und Abständen f
     }
 \end{lstlisting}
 
-Dieses Schema ermöglicht eine eindeutige Festlegung von Position und Größe jedes Knotens im zweidimensionalen Raum. Die dritte Dimension wird durch Extrusion einer zusätzlichen Metrik erzeugt.
-
 Die Implementierung ist bei jeder Visualisierung in zwei Schritte getrennt:
-\begin{itemize}
+\begin{enumerate}
     \item \textbf{Layoutschritt:} In diesem Schritt wird das 2D-Layout basierend auf den Eingabedaten erzeugt. Dabei wird das Layout-Schema \ref{lst:nodeLayoutSchema} befüllt.
-    \item \textbf{Visualisierungs-Schritt:} In diesem Schritt wird das generierte 2D-Layout in eine 2.5D-Visualisierung überführt. Die Elemente des Layouts werden zu geometrischen Formen aufgebaut und die dritte Dimension durch Extrusion hinzugefügt. Der Extrusionsschritt variiert je nach Visualisierung.
-\end{itemize}
+    \item \textbf{Visualisierungs-Schritt:} In diesem Schritt wird das generierte 2D-Layout in eine 2.5D-Visualisierung auf Basis einer Metrik in die Höhe extrudiert.
+\end{enumerate}
 
 Die Implementierung erfolgt in TypeScript mit der 3D-Rendering-Bibliothek \textit{three.js}~\cite{threejs}.
 
-Da der Fokus dieser Arbeit auf dem Vergleich von Visualisierungstypen liegt, sind alle Visualisierungen möglichst einheitlich umgesetzt, um den Einfluss von Implementierungsdetails und -entscheidungen so gering wie möglich zu halten. Alle Visualisierungen verwenden dieselben Kameras, Lichtquellen, Schattierungen, Farben, sonstige Renderparameter und vergleichbare Perspektiven. Die Darstellungen sind bewusst einfach gehalten, da abstrakte Visualisierungen laut Literaturrecherche im Anwendungskontext vorteilhaft sind (siehe Abschnitt \ref{sec:LiteraturErgebnisse}). Die Farbgebung folgt einer linearen Skala mit drei Farben von grün für gute Werte über gelb für mittlere Werte bis rot für schlechte Werte. Alle Knoten erhalten eine dünne schwarze Kontur, um Kanten zu betonen. Abstände zwischen den Knoten erhöhen die strukturelle Lesbarkeit. Die Größe der Abstände variiert aber je nach Visualisierung. Für alle Visualisierungstypen stehen identische Einstellungen zur Verfügung. Dazu zählen die Zuordnung der Metriken zu den visuellen Kanälen Fläche, Höhe und Farbe, der Skalierungsfaktor für die Höhe, die Abstände zwischen Knoten sowie die Parametrisierung der Farbskala, also die Schwellenwerte für grün, gelb und rot. Ordner werden nicht anhand von Metriken extrudiert oder eingefärbt. Stattdessen werden sie mit einer festen Extrusionshöhe versehen und gemäß ihrer Hierarchietiefe eingefärbt. Der oberste Knoten ist schwarz, der tiefste Knoten hellgrau. Alle übrigen Ordner werden linear dazwischen eingefärbt. 
+Alle Visualisierungen haben die gleichen Einstellmöglichkeiten, was Farben, Höhen, Perspektiven und Metriken betrifft.
+Die Farbgebung folgt einer kontinuierlichen Skala über die Farben grün für gute Werte, gelb für mittlere Werte und rot für schlechte Werte. 
+Ordner werden grau eingefärbt und erhalten umso tiefer sie sind hellere grau Töne. Dadurch können Ordner klar von Dateien ab.
+Ordner werden zudem mit einer festen Extrusionshöhe versehen.
 
-Für die Umfrage werden diese Einstellungen je nach Visualisierung und Szenario so gewählt, dass die Analyse optimal unterstützt und das jeweilige Szenario adäquat abgebildet wird. Zusätzlich erlaubt eine Texteingabe das gezielte Markieren bestimmter Ordner oder Dateien in blau, um in der Umfrage für spezielle Szenarien relevante Elemente hervorzuheben.
+
+
+
 
 \section{Treemap} \label{sec:TreemapImplementierung}
-Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Es handelt sich um eine platzfüllende, rekursive Visualisierung, die häufig zur Darstellung hierarchischer Daten eingesetzt wird.
+
+\subsection*{Layoutschritt}
+Das Treemap-Layout wird für die Visualisierung von Softwarequalitätsmetriken am häufigsten verwendet. Zudem ist es die Grundlage für alle CodeCity-Visualisierungen und hat im Vergleich der Visualisierungen am besten abgeschnitten (siehe Tabelle \ref{tab:visEval_full}). Trotzdem hat das klassische Treemap-Layout einige Nachteile und Probleme, wie in Abschnitt \ref{sec:TreemapProbleme} gezeigt werden wird. 
+Aus diesen Gründen wird das Treemap-Layout in dieser Arbeit exemplarisch nicht nur implementiert, sondern auch optimiert, um zu zeigen, dass die generelle Optimierung von Layout-Algorithmen für das spezifische Anwendungsgebiet dieser Arbeit sinnvoll ist und zu besseren Ergebnissen führen kann. 
+In Abschnitt \ref{sec:VerbesserungenTreemap} werden die vorgenommenen Verbesserungen beschrieben und evaluiert.
+
+Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x und y Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird bei dieser Visualisierung Platz für Beschriftungen reserviert (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
+
+\subsection*{Visualisierungs-Schritt}
+Der Visualisierungs-Schritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Höhen-Metrik. Die z-Position jedes Knotens ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layoutschritt reserviert worden. Die Beschriftungen werden zentral auf diesen Flächen positioniert und so skaliert, dass die Schriftgröße genau in den dafür reservierten Platz passt, ohne diesen horizontal oder vertikal zuüberschreiten. 
+Ein Beispiel ist in Abbildung \ref{fig:treemapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -51,14 +68,19 @@ Das Treemap-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt 
     \label{fig:treemapBeispielImplementierung}
 \end{figure}
 
-\subsection*{Layoutschritt}
-Da das Treemap-Layout für die Visualisierung von Softwarequalitätsmetriken zentral ist, wird die Implementierung des 2D-Treemap-Layouts gesondert beschrieben und optimiert. Dazu existiert ein eigenes Kapitel \ref{sec:VerbesserungSquarify}, in dem das Layout nach Kriterien optimiert wird, die für Software-Visualisierungen relevant sind. In diesem Kapitel wird daher ausschließlich der Visualisierungs-Schritt behandelt. Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x und y Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird bei dieser Visualisierung festgelegt, wie viele Beschriftungen angezeigt werden, da dies die Position und Größe von Knoten bereits im Layoutschritt beeinflusst (siehe Abschnitt \ref{sec:BeschriftungKnoten}). Dies ist eine zusätzliche manuelle Einstellmöglichkeit, die neben den allgemeinen Einstellungen in der Umfrage je nach Szenario angepasst wird.
 
-\subsection*{Visualisierungs-Schritt}
-Der Visualisierungs-Schritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Metrik, die in der Höhe kodiert wird. Die z-Position eines Knotens liegt stets auf dem Elternknoten. Sie ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layout reserviert. Die Beschriftungen werden so gerendert, dass die Schriftgröße genau in den dafür reservierten Platz passt und diesen weder horizontal noch vertikal überschreitet.
+
+
+
 
 \section{Streetmap}
-Das Streetmap-Layout stellt Ordner als Straßen dar. Diese Straßen verlaufen entweder vertikal oder horizontal. Entlang der Straßen sind Dateien als Quadrate angeordnet, und Unterordner gehen als Querstraßen im rechten Winkel von der Straße ab. Dadurch entsteht ein Straßennetz, das die Struktur der Software abbildet (siehe Abbildung \ref{fig:streetmapBeispielImplementierung}).
+
+\subsection*{Layoutschritt}
+Als Streetmap-Layout-Algorithmus wird der Algorithmus von dem Open Source Tool \textit{CodeCharta} verwendet~\cite{code_charta_github}. Der Algorithmus ist ein Packing-Algorithmus, der die Knoten beginnend mit den tiefsten Knoten der Struktur platziert. Dadurch resultieren, gleiche Strukturen immer in den gleichen Layouts unabhängig von deren Platzierung.
+
+\subsection*{Visualisierungs-Schritt}
+Der Output des Layoutschritts entspricht dem der Treemap, sodass ein ähnlicher Visualisierungs-Schritt eingesetzt werden kann. Der Unterschied ist, dass alle Knoten auf der Höhe von Null liegen. Die Bezeichnungen der Ordner werden mittig in der Straße platziert und so groß wie möglich gerendert, ohne andere Knoten zu schneiden. 
+Ein Beispiel ist in Abbildung \ref{fig:streetmapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -67,56 +89,64 @@ Das Streetmap-Layout stellt Ordner als Straßen dar. Diese Straßen verlaufen en
     \label{fig:streetmapBeispielImplementierung}
 \end{figure}
 
+
+
+
+
+
+\section{CodeCity}
+
 \subsection*{Layoutschritt}
-Das Streetmap-Layout wird Bottom-up berechnet. Zunächst werden die Knoten in den tiefsten Ebenen platziert und anschließend die darüberliegenden Ebenen. Änderungen in höheren Ebenen oder in Geschwisterordnern beeinflussen die Positionen in tieferen Ebenen nicht, wodurch das Layout insgesamt stabil bleibt. Zuerst werden also die Ordner gelayoutet, die am tiefsten verschachtelt sind. Die Dateien dieser Ordner werden in je zwei annähernd gleich große Hälften unterteilt. Eine Hälfte wird oberhalb beziehungsweise links der Straße platziert, die andere unterhalb beziehungsweise rechts (abhängig von der Orientierung der Straße). Dabei werden Abstände sowohl zwischen den Dateien als auch zwischen Datei und Straße eingehalten. Im nächsten Schritt wird der Elternknoten dieser Straße rekursiv analog gelayoutet. Auf höheren Ebenen sind dann neben Dateien auch Ordner als Kinder vorhanden, deren Breite aufgrund der bereits berechneten Layouts feststeht.
+Eine offene Implementierung des CodeCity-Layouts liegt nicht vor. Die Implementierung orientiert sich daher an der Beschreibung in der Originalarbeit~\cite{codeCity1}. Der Algorithmus ist ein Packing-Algorithmus, der die Knoten anders als der Splitting-Algorithmus des Treemap-Layouts, beginnend mit den tiefsten Knoten der Struktur platziert. Dadurch resultieren, wie beim Streetmap-Layout auch, gleiche Strukturen immer in den gleichen Layouts unabhängig von deren Platzierung. Die Knoten sind alle Quadrate, die von groß nach klein möglichst weit unten links positioniert werden. Bei der Platzierung wird darauf geachtet, dass die Elterknoten eine möglichst kleine Fläche haben. Dazu werden mehrere geeignete Positionen geprüft und die beste Position ausgewählt.
 
 \subsection*{Visualisierungs-Schritt}
-Der Output des Layoutschritts entspricht dem der Treemap, sodass ein ähnlicher Visualisierungs-Schritt eingesetzt werden kann. Im Visualisierungs-Schritt werden die Blattknoten, also die Gebäudequadrate, entsprechend der Höhenmetrik zu Quadern extrudiert und anhand der Farbmetrik eingefärbt. Ordner erhalten eine feste Extrusionshöhe. Alle Knoten, Ordner wie Dateien, liegen auf derselben z-Grundhöhe. Anders als beim Treemap-Layout befinden sich somit alle Elemente auf gleicher Höhe, ähnlich wie in realen Straßensystemen. Die Bezeichnungen der Ordner werden mittig in der Straße platziert und so groß wie möglich gerendert, ohne andere Knoten zu schneiden.
-
-\section{Code City}
-Das Code-City-Layout wurde bereits in den Grundlagen beschrieben (siehe Abschnitt \ref{sec:CodeCity}). Es ähnelt dem Treemap-Layout, verwendet jedoch stets quadratische Knoten. Die Anordnung ist nicht platzfüllend, da Abstände zwischen den Knoten berücksichtigt werden (siehe Abbildung \ref{fig:codecityBeispielImplementierung}).
+Da der Output des Layoutschritts dem des Treemap-Layoutschritts entspricht, wird derselbe Visualisierungs-Schritt verwendet. Ein Unterschied besteht in der Beschriftung, für die im Layoutschritt kein eigener Platz reserviert wurde. Stattdessen werden die Beschriftungen in die ohnehin vorhandenen freien Flächen im rechten oberen Teil der Knoten gesetzt und so groß wie möglich skaliert, ohne andere Knoten zu schneiden oder über die Knotenfläche hinauszuragen.
+Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}\cite{anhaenge_github} verfügbar.
+Ein Beispiel ist in Abbildung \ref{fig:codecityBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/codecity/dreierKombi.png}
-    \caption[Beispiel für Code-City-Implementierung]{Beispiel für Code-City-Implementierung, wie sie auch in der Umfrage verwendet wird.}
+    \caption[CodeCity-Visualisierung dieser Arbeit]{CodeCity-Visualisierung dieser Arbeit}
     \label{fig:codecityBeispielImplementierung}
 \end{figure}
 
-\subsection*{Layoutschritt}
-Eine offene Implementierung des Code-City-Layouts liegt nicht vor. Die Implementierung orientiert sich daher an der Beschreibung in der Originalarbeit~\cite{codeCity1}. Der Algorithmus platziert die Quadrate Bottom-up, also beginnend mit den tiefsten Elementen der Struktur. Die Fläche der Knoten ist vorgegeben, die Seitenlänge ergibt sich als Quadratwurzel der Metrik, die über die Fläche kodiert wird. Es wird ein Packing-Algorithmus realisiert. Die Elemente werden von groß nach klein möglichst weit unten links positioniert, sodass der quadratische Elternknoten, der alle Geschwister umfasst, eine möglichst geringe Fläche aufweist. Dazu werden mehrere geeignete Positionen geprüft und die beste Position ausgewählt.
 
-\subsection*{Visualisierungs-Schritt}
-Da der Output des Layoutschritts dem des Treemap-Layoutschritts entspricht, wird derselbe Visualisierungs-Schritt verwendet. Ein Unterschied besteht in der Beschriftung. Hier wird im Layoutschritt kein eigener Platz reserviert. Stattdessen werden die Beschriftungen in die ohnehin vorhandenen freien Flächen der Knoten gesetzt. Die Beschriftungen werden oben rechts im Knoten platziert und so groß wie möglich gerendert, ohne andere Knoten zu schneiden oder über die Knotenfläche hinauszuragen. Dabei gibt es sowohl eine maximale Schriftgröße als auch eine minimale Schriftgröße, um die Lesbarkeit zu gewährleisten.
+
 
 \section{Sunburst}
-Die Sunburst-Visualisierung ist kreisförmig. Sie bildet die hierarchische Struktur in konzentrischen Ringen ab. Der oberste Knoten ist ein Kreis im Zentrum. Alle Kinder dieses Knotens bilden Segmente um diesen Kreis. Jeweils die Kinder eines Knotens befinden sich im nächst äußeren Ring. Die Größe eines Segments wird durch eine Metrik kodiert. Die Kinder eines Knotens erscheinen in der nächst äußeren Ebene an denselben Winkelpositionen wie ihr Elternknoten. Dadurch entsteht eine radial angeordnete Baumstruktur von innen nach außen (siehe Abbildung \ref{fig:sunburstBeispielImplementierung}).
+
+\subsection*{Layoutschritt}
+Zunächst werden die 360 Grad des Wurzelknotens proportional anhand der Werte der Kindknoten verteilt. Jeder Knoten erhält einen x-Wert als Startwinkel im Kreis sowie einen Breitenwert als Winkelbreite des Segments. Dieser Prozess wird rekursiv auf die Kindknoten angewendet, wobei jeweils Winkelbreite des Elternknotens auf die Kinder verteilt wird. Die y-Position und die Länge werden für dieses Layout nicht benötigt. Sie ergeben sich implizit aus der Hierarchietiefe, die den Ring bestimmt.
+
+\subsection*{Visualisierungs-Schritt}
+Der Visualisierungs-Schritt rendert die Knoten als Kreissegmente. Die z-Position resultiert aus der Hierarchietiefe. Der Radius jedes Levels also die Dicke der Segmete ist fest vorgegeben. Die Beschriftungen werden mittig im Segment mit fester Schriftgröße platziert. Die Beschriftungen können über die Segmentkanten hinausragen. Ob ein Ordner eine Beschriftung erhält, hängt von seiner effektiven Breite ab. Diese ergibt sich aus der Größe des Winkelabschnitts und aus der Position im Kreis.
+Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}\cite{anhaenge_github} verfügbar.
+Ein Beispiel ist in Abbildung \ref{fig:sunburstBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/sunburst/dreierKombi.png}
-    \caption[Beispiel für Sunburst-Implementierung]{Beispiel für Sunburst-Implementierung, wie sie auch in der Umfrage verwendet wird.}
+    \caption[Sunburst-Implementierung]{Sunburst-Visualisierung dieser Arbeit}
     \label{fig:sunburstBeispielImplementierung}
 \end{figure}
 
-\subsection*{Layoutschritt}
-Zunächst werden die Werte der Elternknoten als Summe der Werte ihrer Kinder bestimmt. Anschließend erfolgt ein Top-down-Durchlauf. Zunächst werden die 360 Grad des Wurzelknotens relativ anhand der Werte der Kindknoten verteilt. Jeder Knoten erhält einen x-Wert als Startwinkel im Kreis sowie einen Breitenwert als Winkelbreite des Segments. Dieser Prozess wird rekursiv auf die Kindknoten angewendet, wobei dann eben nicht die 360 Grad, sondern die Grad des Elternknotens auf die Kinder verteilt weden. Die y-Position und die Länge werden für dieses Layout nicht benötigt. Sie ergeben sich implizit aus der Hierarchietiefe, die den Ring bestimmt.
 
-\subsection*{Visualisierungs-Schritt}
-Der Visualisierungs-Schritt rendert die Knoten als Kreissegmente. Die Winkelbreite des Segments bestimmt sich aus dem jeweiligen Breitenwert. Die z-Position resultiert aus der Hierarchietiefe. Ordner erhalten eine feste Extrusionshöhe. Dateien werden gemäß der Höhenmetrik extrudiert und gemäß der Farbmetrik eingefärbt. Der Radius jedes Levels  also die Dicke der Segmete ist fest vorgegeben. Die Beschriftung wird mittig im Segment mit fester Schriftgröße gerendert. Sie kann über die Segmentkanten hinausragen. Ob ein Ordner eine Beschriftung erhält, hängt von seiner effektiven Breite ab. Diese ergibt sich aus zwei Faktoren. Erstens aus der Größe des Winkelabschnitts und zweitens aus der Position im Kreis. Bei Knoten, die eher seitlich liegen, dominiert der Radialabschnitt die Breite. Liegt ein Knoten eher oben oder unten, wird die Breite stärker durch den Winkelabschnitt bestimmt. In diesem Fall ist die Segmentgröße entscheidend.
+
 
 \section{Circular Treemap}
-Das Circular-Treemap-Layout entspricht in seiner hierarchischen Anordnung einer Treemap, verwendet jedoch Kreise anstelle von Rechtecken. Dadurch entstehen Lücken zwischen den Knoten, ähnlich wie bei Code City (siehe Abbildung \ref{fig:circlepackingBeispielImplementierung}).
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.7\textwidth]{images/umfrage/circlepacking/dreierKombi.png}
-    \caption[Beispiel für Circle-Packing-Implementierung]{Beispiel für Circle-Packing-Implementierung, wie sie auch in der Umfrage verwendet wird.}
-    \label{fig:circlepackingBeispielImplementierung}
-\end{figure}
 
 \subsection*{Layoutschritt}
 Der Layoutschritt basiert auf dem von d3.js bereitgestellten Circle-Packing-Algorithmus~\cite{d3_treemap_doku}. Dessen Output wird in das hier definierte Schema überführt. Dabei geben x und y die Position des Kreiszentrums an und die Breite den Durchmesser des Kreises. Die Länge wird nicht verwendet.
 
 \subsection*{Visualisierungs-Schritt}
-Der Visualisierungs-Schritt entspricht weitgehend dem der Treemap. Der Unterschied liegt in der Geometrie. Knoten sind Kreise und werden zu Zylindern extrudiert. Dateien werden anhand der Höhenmetrik extrudiert und gemäß der Farbmetrik eingefärbt. Ordner erhalten eine feste Extrusionshöhe. Die Platzierung der Beschriftungen ist anspruchsvoller. Es wird im Layoutschritt kein separater Platz reserviert. Stattdessen werden die Beschriftungen, ähnlich wie bei Code City, in freien Bereichen der Kreise platziert. Beschriftungen können aus dem eigenen Knoten herausragen, sofern sie keine anderen Knoten schneiden. Dafür werden mehrere Positionen innerhalb des Kreises geprüft, um eine geeignete Lage zu finden. Die Schriftgröße wird so gewählt, dass der Text keine Überschneidungen mit anderen Knoten erzeugt. Eine maximale Schriftgröße begrenzt die Darstellung, wenn sehr viel Platz im Kreis zur Verfügung steht.
+Der Visualisierungs-Schritt entspricht weitgehend dem der Treemap. Der Unterschied liegt in der Geometrie. Knoten sind Kreise und werden zu Zylindern extrudiert. Im Layoutschritt wird kein Platz für Beschriftungen reserviert. Stattdessen werden die Beschriftungen, ähnlich wie bei CodeCity, in freien Bereichen der Kreise platziert. Beschriftungen können aus dem eigenen Knoten herausragen, sofern sie keine anderen Knoten schneiden. Dafür werden mehrere Positionen innerhalb des Kreises geprüft, um eine geeignete Lage zu finden. Die Schriftgröße wird so gewählt, dass der Text keine Überschneidungen mit anderen Knoten erzeugt.
+Ein Beispiel ist in Abbildung \ref{fig:circlepackingBeispielImplementierung} dargestellt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/umfrage/circlepacking/dreierKombi.png}
+    \caption[Circle-Packing-Implementierung]{Circle-Packing-Visualisierung dieser Arbeit}
+    \label{fig:circlepackingBeispielImplementierung}
+\end{figure}
