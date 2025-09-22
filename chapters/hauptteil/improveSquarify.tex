@@ -115,8 +115,8 @@ Für jeden Knoten wird die verfügbare Fläche neu bestimmt. An jeder Teilungska
 
 Ein grundlegendes Problem bleibt bestehen: Knoten können vollständig verschwinden, wenn der für Abstände erforderliche Platz größer ist als die verbleibende Fläche für die Knoten. Das Treemap-Problem wird damit abgemildert, jedoch nicht vollständig gelöst.
 
-Lü und Fogarty berichten, dass mit dem Verfahren keine Verbesserung im Verhältnis von Knoten-Gewicht zu Knotengröße festgestellt werden konnte. Verbesserungen traten lediglich bei sehr kleinen Knoten auf, da konstante Abstände bei kleinen Flächen proportional stärker ins Gewicht fallen als bei größeren.
-Trotzdem vermuten wir, dass der Ansatz von Lü und Fogarty eine gute Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarify-Algorithmus darstellt, was in den folgenden Abschnitten untersucht wird.
+
+Der Ansatz von Lü und Fogarty bietet eine gute Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarify-Algorithmus. Im folgenden wird ihr zweistufiger Ansatz im Kontext des in dieser Arbeit betrachteten Anwendungsfalls evaluiert und weiterentwickelt. 
 
 
 
@@ -129,7 +129,7 @@ Trotzdem vermuten wir, dass der Ansatz von Lü und Fogarty eine gute Grundlage f
 
 
 \section{Bewertungsgrundlage} \label{sec:Bewertungsgrundlage}
-Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (siehe Abschnitt \ref{sec:Bewertungsansatz}). Diese Kriterien sind nur schwer messbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, wie sich diese Kennzahlen auf die vier Kriterien auswirken.
+Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (siehe Abschnitt \ref{sec:Bewertungsansatz}). Diese Kriterien sind nur schwer berechenbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, wie sich diese Kennzahlen auf die vier Kriterien auswirken.
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} Es sollten keine Knoten existieren, die aufgrund von Abständen oder anderen Ursachen nicht sichtbar sind. Dieses Ziel adressiert das in Abschnitt \ref{sec:TreemapProblem} beschriebene Treemap-Problem. \enquote{Missing nodes are not addressed in the existing treemap literature.}~\cite[5]{lu2008cascaded} Dieser Wert wird ermittelt, indem alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium ist unter den genannten als das wichtigste anzusehen, da für den vorliegenden Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies gilt insbesondere, wenn ein 2D-Layout in 2.5D extrudiert wird. Auch Knoten mit sehr kleiner Fläche können eine große Höhe oder eine auffällige beziehungsweise unvorteilhafte Farbe aufweisen, weshalb ihre Sichtbarkeit dennoch von Bedeutung ist.
@@ -154,7 +154,7 @@ Die vollständige Liste der 70 ausgewählten Softwareprojekte ist über diesen \
 Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschließende Analyse mit dem Analyse Tool \textit{CodeCharta Analysis}~\cite{code_charta_wiki_ana} gewonnen.
 Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner. 95\% der Repositories haben weniger als 15.000 Dateien und 3000 Ordner.
 In Abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben und generell die Anzahl der Kinder pro Ordner eher niedrig ist.
-Das 95\%-Quantil liegt bei 18 Kindern. 95\% der Knoten liegen in den Tiefen von 3 bis 11.
+Das 95\%-Quantil liegt bei 18 Kindern. 95\% der Knoten liegen in den Tiefen von 3 bis 11, wobei die mittlere Tiefe bei 7 liegt.
 
 \begin{figure}[htbp]
     \centering
@@ -249,7 +249,6 @@ In dieser Arbeit wird also der Zielwert von 1{,}05 für das Seitenverhältnis ve
 
 \section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
 Die Reihenfolge, in der die Knoten in das Layout eingefügt werden, hat einen maßgeblichen Einfluss auf das resultierende Layout. In früheren Arbeiten wurde gezeigt, dass die Ergebnisse am besten ausfallen, wenn die Knoten in absteigender Reihenfolge ihrer Größe eingefügt werden. Begründet wird dies mit insgesamt günstigeren Seitenverhältnissen der Rechtecke~\cite{johnson1991tree}.
-Im Schnitt müssen immer nur 5 Knoten auf einmal sortiert werden (siehe Abschnitt \ref{sec:Bewertungsgrundlage}), wodurch der Aufwand für die Sortierung auch geringer ist, als wenn alle Knoten auf einmal sortieren werden müssten.
 Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch für die verwendeten Daten die besten Ergebnisse liefert und inwieweit sich dies auf weitere Kriterien neben dem Seitenverhältnis auswirkt. 
 
 \begin{figure}[htbp]
@@ -259,37 +258,15 @@ Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch f�
     \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenvarianz vs. Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keine Sortierung}
-    \label{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist zu erkennen, dass fehlende Knoten bei sortierter Einfügung erst ab einem relativen Abstand von über 1\% auftreten, während bei unsortierter Einfügung dies bereits früher der Fall ist. Insgesamt fehlen bei sortierter Einfügung deutlich weniger Knoten.
+    \item \textbf{Flächengröße:} Im Schnitt ist der Varianzkoeffizient des Flächen-Wert-Verhältnisses bei sortierter Einfügung um 0,5 Prozentpunkte niedriger als bei unsortierter Einfügung.
+    \item \textbf{Seitenverhältnis:} Das Seitenverhältnis ohne Sortierung liegt im Schnitt bei etwa 5. Bei sortierter Einfügung sinkt das Seitenverhältnis auf etwa 2,5 ab.
+    \item \textbf{Platznutzung:} Die Platznutzung ist bei beiden Varianten ähnlich.
+    \item \textbf{Zeitaufwand:} Der Zeitaufwand für die Layoutberechnung mit Sortierung ist nur minimal höher als ohne Sortierung. Dies ist zu erwarten, da die Sortierung nur einen geringen Mehraufwand darstellt. Der Aufwand für die Sortierung beträgt im Schnitt $O(\text{Anzahl Ordner} \cdot \text{Anzahl Knoten pro Ordner} \cdot \log(\text{Anzahl Knoten pro Ordner}))$, wobei die Anzahl der Knoten pro Ordner im Schnitt bei nur 5 liegt (siehe Abschnitt \ref{sec:Bewertungsgrundlage}).
+\end{enumerate}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis vs. Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keine Sortierung}
-    \label{fig:sorting_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-In den Abbildungen \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}, \ref{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}, \ref{fig:sorting_averageRatio_over_aimedRelativeMargin} und \ref{fig:sorting_spaceForLeafNodesRatio_over_aimedRelativeMargin} sind die Unterschiede zwischen Sortierung und keiner Sortierung ersichtlich. Es wurde jeweils eine Variante mit Sortierung und eine ohne Sortierung verglichen. Deutlich erkennbar ist, dass die Anzahl fehlender Knoten, das Flächenverhältnis und das Seitenverhältnis durch die Sortierung unabhängig vom gewählten Abstand konsistent verbessert werden. Lediglich das Verhältnis der Blattknotenfläche zur Wurzelfläche fällt ab einem relativen Abstand von etwa 1{,}5\% bei sortierter Einfügung geringfügig schlechter aus als ohne Sortierung. In Abbildung \ref{fig:sorting_time_over_aimedRelativeMargin} zeigt sich zudem, dass die Sortierung der Knoten nach Größe nur einen minimalen und vernachlässigbaren Einfluss auf die Laufzeit besitzt, was durch die obige Aufwandsschätzung zu erwarten war.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung vs. Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keine Sortierung, Werte näher bei 1 sind besser}
-    \label{fig:sorting_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/sorting/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand vs. Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für Sortierung nach Größe und keine Sortierung}
-    \label{fig:sorting_time_over_aimedRelativeMargin}
-\end{figure}
-
-In den zentralen Kennzahlen Anzahl der fehlenden Knoten (siehe Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}), Varianzkoeffizient des Flächenverhältnisses (siehe Abbildung \ref{fig:sorting_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und durchschnittliches Seitenverhältnis (siehe Abbildung \ref{fig:sorting_averageRatio_over_aimedRelativeMargin}) erzielt die Sortierung nach Größe konsistent bessere Ergebnisse. Daher wird im Folgenden die Knotensortierung nach Größe angewendet.
+In den zentralen Kennzahlen erzielt die Sortierung nach Größe konsistent bessere Ergebnisse. Daher wird die Knotensortierung nach Größe für den Anwendungsfall dieser Arbeit als optimal angesehen und als Standard übernommen.
 
 
 
@@ -410,8 +387,7 @@ Das Problem der absoluten Größenanpassung lässt sich am besten an einem Beisp
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/zeroMarginSquarifyArtifialTwo.png
-}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/zeroMarginSquarifyArtifialTwo.png}
     \caption[Squarify mit 0 Abstand]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 0 und der einfachen Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:zeroMarginSquarifyArtifialTwo}
 \end{figure}
@@ -425,8 +401,7 @@ Elternknoten werden im zweiten Layoutschritt ebenfalls schmaler, wodurch die Fl�
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOne.png
-}
+    \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOne.png}
     \caption[Absolut: Abstand 1]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang).}
     \label{fig:simpleIncreaseMarginOne}
 \end{figure}
@@ -526,25 +501,18 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 
 \subsection{Skalierung der Knoten} \label{sec:ScalingKnoten}
 Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:TreemapGrundlagen}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layoutschritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
-Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten entsprechend skaliert, sodass sie genau in die Fläche des Elternknotens passen.
-
-Der Nachteil dieser Methode ist in Abbildung \ref{fig:simpleIncreaseMarginOneScale} zu erkennen. Die Knoten sind dadurch nicht mehr proportional zu ihren Werten. Knoten 10 hat zum Beispiel ein Verhältnis von etwa 0{,}5 zu seinem Wert, während Knoten 6 ein Verhältnis von etwa 1{,}4 zu seinem Wert aufweist.
+Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten entsprechend skaliert, sodass sie genau in die Fläche des Elternknotens passen. Das resultierende Layout aus Anwendung von Skalierung auf das Ergebnis der relative Größenanpassung (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) ist in Abbildung \ref{fig:absoluteIncreaseMarginOneScale} dargestellt. Die zu großen Knoten wurden verkleinert, sodass sie genau in die Fläche des Elternknotens passen, wodurch das Problem der überstehenden Knoten behoben wurde, aber auf Kosten der Proportionalität der Knotenflächen. Knoten 10 ist kleiner als Knoten 5, obwohl beide denselben Wert haben.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/problem/simpleIncreaseMarginOneScale.png}
-    \caption[Absolut+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der absoluten Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
-    \label{fig:simpleIncreaseMarginOneScale}
+    \caption[Absolute Größenanpassung mit Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus mit der absoluten Größenanpassung und Skalierung.}
+    \label{fig:absoluteIncreaseMarginOneScale}
 \end{figure}
 
-Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser Effekt. Zum Vergleich siehe Abbildung \ref{fig:relativeIncreaseMarginOneScale}. Da die relative Größenanpassung in diesem Beispiel genauer ist, fällt die Abweichung geringer aus. Knoten 10 hat ein Wert-Flächen-Verhältnis von etwa 1{,}33, während Knoten 6 beispielsweise ein Verhältnis von etwa 1{,}37 aufweist. Der Unterschied ist hier deutlich geringer als bei der absoluten Größenanpassung.
+Die Knoten sind dadurch nicht mehr proportional zu ihren Werten. Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser Effekt.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/problem/increaseMarginOneScale.png}
-    \caption[Relativ+Skalierung]{Treemap Layout generiert mit dem Squarify Algorithmus nach Abschnitt \ref{sec:TreemapGrundlagen} mit einem Abstand von 1 und der relativen Größenanpassung auf der händisch erstellten Map (siehe Anhang) und der Skalierung der Knoten.}
-    \label{fig:relativeIncreaseMarginOneScale}
-\end{figure}
+
 
 
 
@@ -554,8 +522,7 @@ Je genauer die Größenanpassung der Knoten ausfällt, desto geringer ist dieser
 
 
 \subsection{Vergleich der Ansätze} \label{sec:VergleichDerAnsätze}
-Vermutlich funktioniert der Ansatz der relativen Größenanpassung besser als die absolute Größenanpassung und vermutlich funktionieren beide Ansätze besser als der Standard-Squarify-Algorithmus von d3.js, der den Abstand lediglich von der Fläche der Knoten abzieht, ohne die Knotenflächen anzupassen.
-Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorithmus von d3.js in der Implementierung von Mike Bostock~\cite{d3_nested_2023} verglichen, um diese Hypothesen zu prüfen. Der Vergleich erfolgt anhand der zuvor definierten Kennzahlen (siehe Abschnitt \ref{sec:Bewertungsgrundlage}).
+Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorithmus von d3.js in der Implementierung von Mike Bostock~\cite{d3_nested_2023} verglichen.
 
 \begin{figure}[htbp]
     \centering
@@ -564,10 +531,6 @@ Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorit
     \label{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar erkennbar, dass beide Erweiterungen des Squarify-Algorithmus deutlich weniger fehlende Knoten aufweisen als der Standard-Squarify-Algorithmus von d3.js. Es zeigt sich eine sehr starke Verbesserung, die bei größeren Abständen noch deutlicher wird. Während der Standard-Squarify-Algorithmus bei einem Abstand von 1\% im Mittel ungefähr 600 fehlende Knoten aufweist, verzeichnen die beiden Erweiterungen nahezu keine fehlenden Knoten.
-Zudem ist zu erkennen, dass die absolute Größenanpassung bis 2{,}5\% etwas mehr fehlende Knoten aufweist als die relative Größenanpassung.
-Außerdem bleibt die relative Größenanpassung auch bei größeren Abständen konstanter und weist weniger fehlende Knoten auf, während die absolute Größenanpassung bei Abständen über 2{,}5\% höhere Werte erzielt.
-
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
@@ -575,37 +538,18 @@ Außerdem bleibt die relative Größenanpassung auch bei größeren Abständen k
     \label{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
 \end{figure}
 
-Bei allen drei Algorithmen steigt der Varianzkoeffizient des Flächenverhältnisses mit zunehmendem Abstand an (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}). Das bedeutet, dass die Fläche der Knoten mit zunehmendem Abstand immer unproportionaler zu ihren Werten wird.
-Klar zu erkennen ist, dass die ungünstigsten Ergebnisse durch den d3.js-Squarify-Algorithmus erzielt werden. Das zweitbeste Ergebnis liefert die relative Größenanpassung, und das beste Ergebnis die absolute Größenanpassung (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}).
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar erkennbar, dass beide Erweiterungen des Squarify-Algorithmus deutlich weniger fehlende Knoten aufweisen als der Standard-Squarify-Algorithmus von d3.js. Es zeigt sich eine sehr starke Verbesserung, die bei größeren Abständen noch deutlicher wird. Während der Standard-Squarify-Algorithmus bei einem Abstand von 1\% im Mittel ungefähr 600 fehlende Knoten aufweist, verzeichnen die beiden Erweiterungen nahezu keine fehlenden Knoten. 
+    Zudem ist zu erkennen, dass die absolute Größenanpassung bis 2{,}5\% etwas mehr fehlende Knoten aufweist als die relative Größenanpassung.
+    \item \textbf{Flächengröße:} Bei allen drei Algorithmen steigt der Varianzkoeffizient des Flächenverhältnisses mit zunehmendem Abstand an (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und bewegt sich zwischen 0 und 3{,}5\%.
+    Klar zu erkennen ist, dass die ungünstigsten Ergebnisse durch den d3.js-Squarify-Algorithmus erzielt werden. Dieser ist im Schnitt einen Prozentpunkt schlechter als die relative Größenanpassung, die das zweitbeste Ergebnis liefert. Die besten Werte entstehen durch die absolute Größenanpassung.
+    \item \textbf{Seitenverhältnis:} Der Nested-Algorithmus erzeugt ab einem relativen Abstand von etwa 0{,}5\% Seitenverhältnisse von 4{,}5 bis 5. Die beiden Erweiterungen des Squarify-Algorithmus erzeugen unabhängig vom Abstand Seitenverhältnisse von im Schnitt etwa 2,5.
+    \item \textbf{Platznutzung:} Die Platznutzung bei den beiden Erweiterungen ist ähnlich, sinkt aber bei einem Abstand von 3\% auf etwa 30\% ab. Theoretisch wäre zu erwarten, dass alle drei Varianten ähnliche Werte produzieren, wenn der relative Abstand identisch ist. Allerdings fehlen beim Nested-Algorithmus mehr Blatt-Knoten, wodurch die belegte Fläche der Blatt-Knoten geringer ausfällt, als bei den beiden Erweiterungen, was sich auch in den Werten widerspiegelt, die im Schnitt etwa 20 Prozentpunkte niedriger sind als bei den beiden Erweiterungen.
+    \item \textbf{Zeitaufwand:} Der Zeitaufwand für die Layoutberechnung ist bei den beiden Erweiterungen um etwa 50\% höher als beim Nested-Algorithmus, was auch zu erwarten ist, da der Größenanpassungsschritt und der zweiter Layoutschritt durchgeführt werden. Der Grund, warum die beiden Erweiterungen nicht doppelt so lange brauchen wie der Nested-Algorithmus, liegt darin, dass die Layoutberechnung bei fehlenden Knoten früher abgebrochen wird.
+\end{enumerate}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
-    \label{fig:basicCompare_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-In Abbildung \ref{fig:basicCompare_averageRatio_over_aimedRelativeMargin} ist zu erkennen, dass d3.js ab etwa 0{,}5\% Abstand Seitenverhältnisse von 4{,}5 bis 5 erzielt, während die beiden Erweiterungen des Squarify-Algorithmus deutlich günstigere Werte liefern.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen. Werte näher bei 1 sind besser.}
-    \label{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-In Abbildung \ref{fig:basicCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin} ist zu erkennen, dass die Platznutzung bei den beiden Erweiterungen dauerhaft näher an 1 liegt. Theoretisch wäre zu erwarten, dass alle drei Varianten ähnliche Werte produzieren, da der relative Abstand identisch ist. Dies lässt sich dadurch erklären, dass beim Standardverfahren mehr Knoten fehlen, wodurch die effektiv belegte Fläche der Knoten geringer ausfällt.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/basicCompare/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Größenanpassungen.}
-    \label{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-In Abbildung \ref{fig:basicCompare_timeNeededInMs_over_aimedRelativeMargin} ist ersichtlich, dass der Zeitaufwand bei den beiden Erweiterungen dauerhaft höher ist. Teilweise liegt er beim Doppelten, teilweise darunter. Dies ist zu erwarten, da ein zweiter Layoutschritt durchgeführt wird. Die relative Größenanpassung ist etwas aufwändiger als die absolute Größenanpassung, da zusätzlich die relative Flächenänderung der Kindknoten berechnet werden muss. Der Unterschied ist jedoch moderat. Anzumerken ist, dass das Verschwinden von Knoten keinen Einfluss auf die Laufzeit des d3.js-Squarify-Algorithmus hat, da dort zuerst das Layout berechnet und erst danach der Abstand abgezogen wird. In den angepassten Versionen wird ein Early-Stopping implementiert, sobald die Fläche eines Knotens 0 oder negativ wird, was allerdings nicht so häufig auftritt, dass es einen großen Einfluss auf die Laufzeit hätte.
-
-Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutlich besser ab als der Standard-Squarify-Algorithmus von d3.js. Die absolute Größenanpassung erzielt beim Wert-Flächen-Verhältnis die besseren Ergebnisse, während die relative Größenanpassung bei der Anzahl der fehlenden Knoten überlegen ist. Beide Erweiterungen sind valide und begründbare Alternativen zum Standard-Squarify-Algorithmus von d3.js. Für die weitere Arbeit in dieser Thesis wird die relative Größenanpassung verwendet, da die Anzahl der fehlenden Knoten als wichtigstes Kriterium gewichtet wird.
+Alles in allem schneiden die beiden Erweiterungen des Squarify-Algorithmus deutlich besser ab als der Standard-Squarify-Algorithmus von d3.js. Die absolute Größenanpassung erzielt beim Wert-Flächen-Verhältnis die besseren Ergebnisse, während die relative Größenanpassung bei der Anzahl der fehlenden Knoten überlegen ist. Beide Erweiterungen sind valide und begründbare Alternativen zum Standard-Squarify-Algorithmus von d3.js. 
+Für den Anwendungsfall dieser Arbeit ist die Sichtbarkeit der Knoten das wichtigste Kriterium, weshalb die relative Größenanpassung als die bessere Variante angesehen wird und daher für die weitere Arbeit verwendet wird.
 
 
 
@@ -619,12 +563,13 @@ Zuvor wurde erläutert, wie die Knotengrößen am besten angepasst werden könne
 Die Qualität dieser Strategie wird in der Originalarbeit von Lü und Fogarty nicht separat evaluiert oder mit alternativen Strategien verglichen. Daher soll überprüft werden, ob dieser Ansatz der beste für unsere Anwendung ist oder ob andere Strategien für den zweiten Layoutschritt überlegen sind.
 
 Im Folgenden werden deshalb zwei komplett neue Strategien definiert. Die drei resultierenden Strategien werden dann untereinander verglichen.
-\begin{enumerate}
+\begin{itemize}
     \item \textbf{Reihenfolge der Knoten nach Größe:} Die Knoten werden in der Reihenfolge ihrer neu berechneten Größe platziert. Zu erwarten sind günstige Seitenverhältnisse, jedoch tendenziell schlechtere Wert-Fläche-Relationen, da sich die Seitenverhältnisse im Vergleich zum ersten Layoutschritt deutlich ändern können und damit die zuvor berechneten Flächenzuweisungen nicht mehr ideal passen. Die Laufzeit dürfte hier am höchsten ausfallen, da die Knoten vor dem zweiten Layoutschritt neu sortiert werden müssen.
     \item \textbf{Reihenfolge der Knoten beibehalten:} Die Knoten werden in derjenigen Reihenfolge platziert, in der sie im ersten Layoutschritt angeordnet wurden, also in absteigender Reihenfolge. Die resultierende Platzierung bleibt im Großen und Ganzen stabil, es sei denn, es treten sehr große Flächenänderungen auf. In diesem Fall kann es vorkommen, dass Knoten in andere Reihen verschoben werden. Diese Strategie ist als Mittelweg zwischen der neuen Sortierung und der vollständigen Beibehaltung der Platzierung zu verstehen. Die Laufzeit sollte zwischen der ersten und der zweiten Stategie sein, da nicht neu sortiert werden muss, der Squarify-Algorithmus jedoch erneut vollständig ausgeführt wird.
     \item \textbf{Platzierung der Knoten beibehalten:} Nach dem ersten Layoutschritt werden sowohl die Aufteilung der Knoten in Reihen als auch die exakten Positionen innerhalb der Reihen festgehalten. Dadurch bleiben die Formen der Knoten in etwa erhalten, was die Wert-Fläche-Relation begünstigt. Gleichzeitig können die Seitenverhältnisse schlechter werden, weil die optimale Reihenfolge der Knoten mit Blick auf die aktualisierten Werte nicht mehr berücksichtigt wird. Die Laufzeit sollte hier am geringsten sein, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss.
-\end{enumerate}
-Zusätzlich wird die Hypothese aufgestellt, dass die Platznutzung bei allen drei Strategien ähnlich ausfällt, da im Kern derselbe Zielabstand realisiert wird, wenn auch auf unterschiedliche Weise. Im Folgenden werden die drei Strategien anhand der definierten Kennzahlen den formulierten Hypothesen gegenübergestellt.
+\end{itemize}
+
+Im Folgenden werden die drei Strategien anhand der definierten Kennzahlen den formulierten Hypothesen gegenübergestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -633,54 +578,17 @@ Zusätzlich wird die Hypothese aufgestellt, dass die Platznutzung bei allen drei
     \label{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knotenplatzierung beizubehalten, die meisten fehlenden Knoten erzeugt. Die beiden alternativen Strategien schneiden deutlich besser ab. In der Detaildarstellung wird sichtbar, dass die Strategie mit Neusortierung nach Größe weniger fehlende Knoten produziert als die Strategie, welche die Reihenfolge der Knoten beibehält (siehe Abbildung \ref{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin}).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting2/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten vs. rel. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die zwei verschiedenen Platzierungsstrategien.}
-    \label{fig:secondsorting2_numberOfZeroAreaNodes_over_aimedRelativeMargin}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Varianzkoeffizient vs. Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
-    \label{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
-
-Anders als erwartet zeigen die Resultate in Abbildung \ref{fig:secondsorting3_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} bei allen drei Strategien sehr ähnliche Werte für den Varianzkoeffizienten des Flächenverhältnisses. Ab höheren Abständen ab 2{,}5\% schneidet die vollständige Beibehaltung der Platzierung sogar schlechter ab als die beiden alternativen Strategien.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis vs. Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
-    \label{fig:secondsorting3_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Wie erwartet ist in Abbildung \ref{fig:secondsorting3_averageRatio_over_aimedRelativeMargin} zu erkennen, dass die Strategie mit beibehaltenen Knotenplatzierungen die ungünstigsten Seitenverhältnisse erzeugt. Die beiden anderen Strategien schneiden deutlich besser ab und liegen im direkten Vergleich nahe beieinander.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung vs. Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien. Werte näher bei 1 sind besser.}
-    \label{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Die Ergebnisse in Abbildung \ref{fig:secondsorting3_spaceForLeafNodesRatio_over_aimedRelativeMargin} zeigen, dass alle drei Strategien eine sehr ähnliche Platznutzung erzielen, was der zuvor formulierten Erwartung entspricht.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/secondsorting3/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand vs. Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für die drei verschiedenen Platzierungsstrategien.}
-    \label{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-Abbildung \ref{fig:secondsorting3_timeNeededInMs_over_aimedRelativeMargin} bestätigt die Erwartung, dass die Strategie mit beibehaltener Knotenplatzierung am wenigsten Zeit benötigt, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss. Die beiden anderen Strategien benötigen mehr Zeit, weil der Squarify-Algorithmus zweimal ausgeführt wird. Das Beibehalten der Reihenfolge ist dabei minimal schneller als die Neusortierung nach Größe, da nur einmal sortiert werden muss. Der Zeitunterschied beträgt im Mittel etwa 0{,}2 ms und ist damit vernachlässigbar, entspricht jedoch der Erwartung.
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knotenplatzierung beizubehalten, die meisten fehlenden Knoten erzeugt. Die beiden alternativen Strategien schneiden deutlich besser ab. Die Strategie mit Neusortierung nach Größe führt je nach Abstand zu 1 bis 5 weniger fehlenden Knoten als die Strategie, welche die Reihenfolge der Knoten beibehält. Insgesamt produziert die Neusortierung nach Größe bei allen Abständen die besten Ergebnisse. 
+    \item \textbf{Flächengröße:} Anders als erwartet sind die Ergebnisse bei allen drei Strategien sehr ähnliche Werte für den Varianzkoeffizienten. Ab höheren Abständen ab 2{,}5\% schneidet die vollständige Beibehaltung der Platzierung sogar schlechter ab als die beiden alternativen Strategien.
+    \item \textbf{Seitenverhältnis:} Das Seitenverhältnis ist bei der Beibehaltung der Knotenplatzierung erwartungsgemäß am ungünstigsten. Es scheint sogar exponentiell mit dem Abstand anzusteigen, so dass bei einem Abstand von 3\% im Median ein Seitenverhältnis von etwa 7 erreicht wird. Die beiden anderen Strategien schneiden deutlich besser ab und erzielen beide ähnliche Werte zwischen 2 und 3. 
+    \item \textbf{Platznutzung:} Alle drei Strategien erzielen eine ähnliche Platzausnutzung.
+    \item \textbf{Zeitaufwand:} Die Strategie mit beibehaltener Knotenplatzierung benötigt wie erwartet am wenigsten Zeit, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss. Die beiden anderen Strategien benötigen etwa 50\% mehr Zeit, weil der Squarify-Algorithmus zweimal ausgeführt wird. Das Beibehalten der Reihenfolge ist dabei minimal schneller als die Neusortierung nach Größe, da nur einmal beim ersten Layoutschritt sortiert werden muss.
+\end{enumerate}
 
 \smallskip
 
-Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lü und Fogarty, die Knotenplatzierung beizubehalten, für die vorliegenden Daten und Kennzahlen nicht der beste ist. Die Neusortierung der Knoten nach Größe schneidet mit Ausnahme der Laufzeit in allen Kennzahlen deutlich besser ab als die vollständige Beibehaltung der Platzierung und ist gegenüber dem Beibehalten der Reihenfolge mindestens gleichwertig oder leicht überlegen. In dieser Arbeit wird daher im zweiten Layoutschritt die Neusortierung der Knoten nach Größe verwendet, da damit die besten Seitenverhältnisse erzielt werden und die Anzahl fehlender Knoten im Vergleich zu den beiden Alternativen niedrig bleibt.
+Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lü und Fogarty, die Knotenplatzierung beizubehalten, für die vorliegenden Daten und Kennzahlen nicht der beste ist. Die Neusortierung der Knoten nach Größe schneidet mit Ausnahme der Laufzeit in allen Kennzahlen deutlich besser ab als die vollständige Beibehaltung der Platzierung und ist gegenüber dem Beibehalten der Reihenfolge mindestens gleichwertig oder überlegen. In dieser Arbeit wird daher im zweiten Layoutschritt die Neusortierung der Knoten nach Größe verwendet, da damit die besten Seitenverhältnisse erzielt werden und die Anzahl fehlender Knoten im Vergleich zu den beiden Alternativen niedrig bleibt.
 
 
 
@@ -693,30 +601,8 @@ Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lü und Fogarty, die Knoten
 Die grundlegende Idee dieser Erweiterung besteht darin, das Layout mehrfach zu berechnen und dabei die Flächen der Knoten schrittweise an die jeweils optimale Fläche anzupassen. Nach dem ersten Layoutschritt ist die Vorhersage der neuen Flächen häufig noch ungenau. Zudem können sich sowohl die Reihenfolge der Knoten als auch deren Form verändern. Durch den zweiten Layoutschritt kann sich wie zuvor erläutert (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout}) eine veränderte Platzierung ergeben, wodurch die zuvor prognostizierten Flächen nicht exakt passen. Daher liegt es nahe, die Flächen nochmals zu berechnen und einen weiteren Layoutschritt durchzuführen, um das Ergebnis iterativ zu verbessern.
 
 Es wird die Hypothese aufgestellt, dass durch mehrfache Berechnung des Layouts und das fortlaufende Aktualisieren der Flächen alle betrachteten Kriterien, mit Ausnahme der Laufzeit, verbessert werden.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten vs. rel. Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
-    \label{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin}
-\end{figure}
-
-Abbildung \ref{fig:multipleRuns_numberOfZeroAreaNodes_over_aimedRelativeMargin} zeigt deutlich, dass zwei Layoutschritte dauerhaft bessere Ergebnisse liefern als mehrere Layoutschritte. Auch alle anderen Kriterien fallen bei mehreren Durchläufen entweder gleich oder schlechter aus.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/multipleRuns/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand vs. rel. Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für 2, 4, 6, 8, 10 Layoutschritte.}
-    \label{fig:multipleRuns_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-Die Laufzeit steigt mit der Anzahl der Layoutschritte nahezu proportional an und erhöht sich um ungefähr 0{,}65 ms pro zusätzlichem Layoutschritt. Es ergibt sich somit kein überzeugender Grund, das Layout in dieser Form mehrfach zu berechnen. Eine plausible Erklärung ist ein aufschaukelnder Effekt: Knoten, die aufgrund des Abstands besonders viel Rand erhalten und dadurch stark verschmälert werden, bekommen im nächsten Layoutschritt tendenziell mehr Fläche. Dies kann wiederum zu sehr schlanken, großflächigen Rechtecken führen und den Effekt weiter verstärken. Genau dieses Verhalten soll durch die im nächsten Abschnitt beschriebene Anpassung verhindert werden.
-
-\bigskip
-
-Die mehrfache Berechnung des Layouts in der vorliegenden Implementierung ist nicht sinnvoll. Naheliegend ist die Vermutung, dass dies auf Implementierungsdetails zurückzuführen ist und nicht die Grundidee des mehrfachen Layouts in Frage stellt. Aus diesem Grund wird im Folgenden eine weitere Variante des mehrfachen Layouts vorgestellt.
-
-Die grundlegende Idee dieser Erweiterung besteht darin, bei mehrfacher Berechnung des Layouts den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, statt ihn bereits zu Beginn auf den Zielwert festzusetzen. Setzt man den Abstand im ersten Schritt direkt auf den finalen Wert, sind die Vorhersagen der neuen Flächen der Knoten im zweiten Schritt erwartungsgemäß nicht exakt. Je kleiner die Abstände gewählt werden, desto geringer fallen die Abweichungen dieser Vorhersagen aus. Daraus folgt die Erwartung, dass die Wert-Fläche-Relationen im zweiten Schritt günstiger sind. Die Annahme lautet daher, dass bei schrittweiser, kleiner Erhöhung des Abstands in jedem Schritt genauere Flächenschätzungen entstehen, was die Wert-Fläche-Relationen verbessern sollte. Als Gegenargument ist anzuführen, dass sich mit jedem größer werdenden Abstand auch das jeweils optimale Layout verändern kann. Das tatsächlich optimale Layout wird dann erst im letzten Schritt angestrebt, wodurch die vorangehenden Schritte wenig beitragen könnten.
+Die mehrfache Berechnung kann sich in bestimmten Fällen jedoch auch negativ auswirken. Wenn zum Beispiel ein Knoten schmal ist und dadurch im Größenanpassungsschritt viel Fläche zugewiesen bekommt und der Knoten dadurch noch schmaler wird, wird dieser Effekt im nächsten Layout- und Größenanpassungsschritt noch verstärkt. Dieses Verhalten könnte sich in jedem Layoutschritt fortsetzen und multiplizieren, was für manche Knoten zu immer schlechteren Ergebnissen führen kann, was sich auf das gesamte Layout und die Kennzahlen auswirkt.
+Aus diesem Grund wird noch eine Anpassung an der Mehrfachberechnung vorstellt. Die grundlegende Idee dieser Anpassung besteht darin, bei mehrfacher Berechnung des Layouts den Abstand zwischen den Knoten iterativ von Schritt zu Schritt zu vergrößern, statt ihn bereits zu Beginn auf den Zielwert festzusetzen. Setzt man den Abstand im ersten Schritt direkt auf den finalen Wert, sind die Vorhersagen der neuen Flächen der Knoten im zweiten Schritt erwartungsgemäß nicht exakt. Je kleiner die Abstände gewählt werden, desto geringer fallen die Abweichungen dieser Vorhersagen aus. Daraus folgt die Erwartung, dass die Wert-Fläche-Relationen im zweiten Schritt günstiger sind. Die Annahme lautet daher, dass bei schrittweiser, kleiner Erhöhung des Abstands in jedem Schritt genauere Flächenschätzungen entstehen, was die Wert-Fläche-Relationen verbessern sollte. Als Gegenargument ist anzuführen, dass sich mit jedem größer werdenden Abstand auch das jeweils optimale Layout verändern kann. Das tatsächlich optimale Layout wird dann erst im letzten Schritt angestrebt, wodurch die vorangehenden Schritte wenig beitragen könnten.
 
 Diese Annahmen werden im Folgenden überprüft, um festzustellen, welcher Effekt überwiegt.
 
@@ -727,16 +613,13 @@ Diese Annahmen werden im Folgenden überprüft, um festzustellen, welcher Effekt
     \label{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/incrementMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis vs. Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung.}
-    \label{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
+Exemplarisch werden in Abbildungen \ref{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin} die Ergebnisse für die Anzahl der fehlenden Knoten für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung dargestellt. Es zeigen sich allerdings ähnliche Ergebnisse für andere Anzahlen von Layoutschritten mit und ohne iterative Abstandsvergrößerung.
+Es ist klar erkennbar, dass die iterative Abstandsvergrößerung die Anzahl der fehlenden Knoten erhöht. Auch die übrigen Kennzahlen zeigen entweder vergleichbare oder schlechtere Werte für die iterative Abstandsvergrößerung. Die iterative Abstandsvergrößerung schneidet in allen Kennzahlen schlechter ab als die direkte Abstandsvergrößerung.
 
-Exemplarisch werden in Abbildungen \ref{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:incrementMargin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin} die Ergebnisse für die Anzahl der fehlenden Knoten sowie den Varianzkoeffizienten des Flächenverhältnisses für 10 Layoutschritte mit direkter Abstandsvergrößerung und 10 Layoutschritte mit iterativer Abstandsvergrößerung dargestellt. Ähnliche Ergebnisse zeigen sich auch für andere Anzahlen von Layoutschritten. Es ist klar erkennbar, dass die iterative Abstandsvergrößerung die Anzahl der fehlenden Knoten über alle Abstände hinweg erhöht. Der Varianzkoeffizient des Wert-Fläche-Verhältnisses fällt bei der iterativen Abstandsvergrößerung ähnlich oder leicht schlechter aus als bei der direkten Abstandsvergrößerung. Auch die übrigen Kennzahlen zeigen entweder vergleichbare oder schlechtere Werte für die iterative Abstandsvergrößerung.
+Außerdem ist zu erkennen, dass die zweifache Berechnung des Layouts besser als beide Varianten der mehrfachen Berechnung abschneidet. Dies ist insbesondere bei der Anzahl der fehlenden Knoten der Fall, aber auch bei den übrigen Kennzahlen zeigen sich ähnliche Ergebnisse. Zudem ist die Laufzeit der mehrfachen Berechnung linear zur Anzahl der Layoutschritte, weshalb die zweifache Berechnung auch in dieser Hinsicht überlegen ist.
 
-Insgesamt erweist sich die Annahme, dass die iterative Abstandsvergrößerung bessere Ergebnisse liefert, als nicht zutreffend. Beide Varianten der mehrfachen Berechnung des Layouts schneiden durchweg schlechter ab als die einfache doppelte Berechnung des Layouts. Daher wird in dieser Arbeit auf die einfache doppelte Berechnung des Layouts zurückgegriffen.
+Insgesamt erweist sich die Annahme, dass die mehrfache Berechung bessere Ergebnisse liefert, als nicht zutreffend. Beide Varianten der mehrfachen Berechnung schneiden schlechter ab als die zweifache Berechnung. Aus diesem Grund wird in dieser Arbeit auf die einfache doppelte Berechnung des Layouts zurückgegriffen. 
+Die Ergebnisse erweisen sich nicht als ausreichend vielversprechend, um weiterführende Forschung in dieser Richtung zu rechtfertigen.
 
 
 
@@ -783,52 +666,19 @@ Die positiven Effekte überwiegen damit zunächst. Im Folgenden werden Datenlage
 
 Im Median werden etwa 12 Ordner pro Codebasis gefaltet. Bei rund 242 Knoten im Median entspricht dies ungefähr 5\% der Knoten, die durch die Faltung entfallen.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/folding/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten über relativen Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten.}
-    \label{fig:foldingChains_numberOfZeroAreaNodes_over_aimedRelativeMargin}
-\end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/folding/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin.png}
-    \caption[Flächenverhältnis über relativen Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten.}
-    \label{fig:foldingChains_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} Im Schnitt fehlen mit Ordnerkettenfaltung 10 mal weniger Knoten, wobei dieser Effekt bei niedrigerem Abstand geringer und bei höherem Abstand stärker ausfällt. 
+    \item \textbf{Flächengröße:} Ähnliches zeigt sich auch beim Varianzkoeffizienten nur mit Faktor 8.
+    \item \textbf{Seitenverhältnis:} Das Seitenverhältnis bleibt im Grunde ähnlich durch die Ordnerkettenfaltung. Das Seitenverhältnis mit Ordnerkettenfaltung ist im Schnitt 0,2 Einheiten schlechter, was bei Betrachtung der Layouts kaum auffällt.
+    \item \textbf{Platznutzung:} Dadurch dass weniger Ordner im Layout sind, ist die relative Flächennutzung der Blätter logischerweise besser mit Faltung (bei einem relativen Abstand von etwa 1{,}5\% im Schnitt 10\% und bei 3\% sogar 20\%). 
+    \item \textbf{Zeitaufwand:} Der Faltungsschritt, so wie er implementiert ist, hat eine Laufzeit von $O(n)$. Der Layoutschritt hat auch eine Laufzeit von $O(n)$~\cite{bruls2000squarified}, weshalb sich die Faltung stark mit etwa 30\% mehr Zeitaufwand bemerkbar macht. Da wirken sich die 5\% weniger Knoten als Zeitersparnis kaum aus. Durch effizientere Implementierung und Integration in den ersten Layoutschritt könnte die Faltung den Zeitaufwand im Vergleich zur Berechnung ohne Faltung vermutlich sogar verringern.
+\end{enumerate}
 
-In den Kennzahlen zeigt sich eine konsistente Verbesserung durch das Falten von Ordnerketten: Sowohl die Anzahl fehlender Knoten als auch der Varianzkoeffizient des Flächenverhältnisses fallen über alle Abstandswerte günstiger aus (siehe Abbildungen \ref{fig:foldingChains_numberOfZeroAreaNodes_over_aimedRelativeMargin} und \ref{fig:foldingChains_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}).
+Insgesamt zeigt sich, dass die Faltung von Ordnerketten sowohl aus messtechnischer Sicht vorteilhaft ist.
+Da zugleich die Kriterien guter Visualisierungen verbessert oder zumindest nicht beeinträchtigt werden, ist aus gestalterischer Sicht die Faltung ebenfalls sinnvoll.
+Die Faltung von Ordnerketten wird daher in dieser Arbeit als sinnvolle Erweiterung des Squarify-Algorithmus betrachtet und in der Implementierung verwendet.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/folding/averageRatio_over_aimedRelativeMargin.png}
-    \caption[Seitenverhältnis über relativen Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten.}
-    \label{fig:foldingChains_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Das durchschnittliche Seitenverhältnis ist mit gefalteten Ordnerketten, anders als erwartet, leicht schlechter. Der Unterschied bleibt jedoch gering und ist im Regelfall vernachlässigbar (siehe Abbildung \ref{fig:foldingChains_averageRatio_over_aimedRelativeMargin}).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/folding/spaceForLeafNodesRatio_over_aimedRelativeMargin.png}
-    \caption[Platznutzung über relativen Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten. Werte näher bei 1 sind besser.}
-    \label{fig:foldingChains_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Der verfügbare Platz für Blattknoten ist bei gefalteten Ordnerketten klar höher, was durch die geringere Anzahl an Elternknoten im Layout zu erwarten war (siehe Abbildung \ref{fig:foldingChains_spaceForLeafNodesRatio_over_aimedRelativeMargin}).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/folding/timeNeededInMs_over_aimedRelativeMargin.png}
-    \caption[Zeitaufwand über relativen Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für gefaltete und ungefaltete Ordnerketten.}
-    \label{fig:foldingChains_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-Der Zeitaufwand ist bei den beiden Versionen nahezu identisch. Algorithmisch entsteht zwar zusätzlicher Aufwand durch das Auffinden und Zusammenfassen der Ketten mit linearer Laufzeit. Dieser wirkt sich jedoch praktisch kaum aus, da erstens die Layoutberechnung den dominierenden Anteil an der Gesamtlaufzeit darstellt und zweitens durch die Faltung Knoten entfallen, was die nachfolgende Layoutberechnung wiederum entlastet (siehe Abbildung \ref{fig:foldingChains_timeNeededInMs_over_aimedRelativeMargin}).
-
-\smallskip
-
-Die Daten zeigen in allen betrachteten Aspekten eine Verbesserung oder zumindest keine Verschlechterung durch das Falten von Ordnerketten. Da zugleich die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen verbessert oder zumindest nicht beeinträchtigt werden, spricht aus messtechnischer und gestalterischer Sicht nichts gegen das Falten von Ordnerketten. Lediglich der Umstand, dass tiefe Ordnerketten als solche weniger schnell ins Auge fallen, bleibt zu berücksichtigen. Im Ergebnis wird trotzdem empfohlen, Ordnerketten standardmäßig zu falten. Diese Vorgehensweise wird im Folgenden angewendet.
 
 
 
@@ -847,105 +697,43 @@ Viele bestehende Treemap- und Code-City-Visualisierungen weisen Abstände zwisch
     \label{fig:originalNested}
 \end{figure}
 
-Im Folgenden wird untersucht, ob Abstände zwischen Geschwistern für die vorliegende Anwendung sinnvoll sind oder ob das Entfernen dieser Abstände Vorteile bietet. Dazu werden die Auswirkungen auf die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen sowie auf die messbaren Kennzahlen betrachtet. Entfallen die Abstände zwischen Geschwistern, müssen Knoten visuell anders voneinander getrennt werden. Häufig werden dafür Cushion Treemaps, also Schattierungen, genutzt~\cite{cushionTreemaps}. Diese Option ist hier jedoch ungeeignet, da das Layout in 2.5D extrudiert werden soll, wodurch Schattierungen nicht mehr sinnvoll darstellbar sind. Stattdessen werden Umrandungen der Knoten vorgeschlagen, um diese voneinander abzugrenzen. Abbildung \ref{fig:umrandungBeispiel} zeigt zwei Beispiel-Treemaps mit Umrandung, links mit Abständen zwischen Geschwistern und rechts ohne solche Abstände.
-
+Im Folgenden wird untersucht, ob Abstände zwischen Geschwistern für die vorliegende Anwendung sinnvoll sind oder ob das Entfernen dieser Abstände Vorteile bietet. Dazu werden die Auswirkungen auf die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen sowie auf die messbaren Kennzahlen betrachtet. Entfallen die Abstände zwischen Geschwistern, müssen Knoten visuell anders voneinander getrennt werden. Häufig werden dafür Cushion Treemaps, also Schattierungen, genutzt~\cite{cushionTreemaps}. Diese Option ist hier jedoch ungeeignet, da das Layout in 2.5D extrudiert werden soll, wodurch Schattierungen nicht mehr sinnvoll darstellbar sind. Stattdessen werden Umrandungen der Knoten vorgeschlagen, um diese voneinander abzugrenzen. Abbildung \ref{fig:umrandungBeispiel} zeigt zwei Beispiel-Treemaps mit Umrandung.
+Zusätzlich wird eine dritte, neuartige Variante betrachtet, bei der Abstände nur zwischen Geschwister-Eltnern-Knoten bestehen, also nur zwischen Ordnern. Zwischen Ordnern und Dateien im selben Ordner entsteht damit ein halber Abstand, zwischen zwei Geschwister-Dateien entfällt der Abstand vollständig. Abbildung \ref{fig:AbstandOrdnerBeispiel} illustriert diese Variante.
 
 \begin{figure}[htbp]
     \centering
-    \subfloat[Mit Abstand zwischen Geschwistern\label{fig:siblingMargin}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/geschwisterAbstand.png}}
-    \hfill
     \subfloat[Ohne Abstand zwischen Geschwistern\label{fig:noSiblingMargin}]{
         \includegraphics[width=0.48\textwidth]{images/improve/keinGeschwisterAbstand.png}}
-    \caption[Treemaps mit und ohne Geschwisterabstände]{CodeCharta Analysis Softwareprojekt~\cite{code_charta_github} visualisiert als Treemap mit und ohne Abstände zwischen Geschwistern.}
+        \hfill
+    \subfloat[Abstand nur zwischen Ordnern\label{fig:AbstandOrdnerBeispiel}]{
+        \includegraphics[width=0.48\textwidth]{images/improve/onlyLeafNoMargin.png}}    
+    \caption[Treemaps mit verschiedenen Abstandsversionen]{CodeCharta Analysis Softwareprojekt~\cite{code_charta_github} visualisiert als Treemap mit verschiedenen Abstandsversionen.}
     \label{fig:umrandungBeispiel}
 \end{figure}
 
-Im Hinblick auf die Kriterien guter Visualisierungen ergeben sich beim Entfernen der Abstände zwischen Geschwistern und dem Einsatz von Umrandungen die folgenden Effekte:
 \begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Da weniger Platz für Abstände benötigt wird und somit mehr Fläche für die Knoten zur Verfügung steht, wird dieses Kriterium verbessert. 
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Einerseits liegen Geschwisterknoten enger beieinander, was die Struktur betonen kann. Andererseits kann das Layout insgesamt dichter und damit potenziell unübersichtlicher wirken, da die Trennung nur noch durch dünne Linien erfolgt. Die Anpassung hat also sowohl positive als auch negative Aspekte.
-    \item \textbf{Skalierbarkeit:} Umrandungen können bei kleinen Blattknoten die Farbflächen überdecken (siehe rotes Oval in Abbildung \ref{fig:siblingMargin}), wodurch die Metrikwerte nicht mehr erkannt werden können. Da Umrandungen ohne Geschwisterabstände zwingend erforderlich sind, verschlechtert sich die Skalierbarkeit tendenziell, insbesondere bei großen Codebasen mit vielen kleinen Knoten.
-    \item \textbf{Visuelle Metaphern:} Zuvor konnten Abstände zwischen Geschwistern als Straßen interpretiert werden. Ohne Abstände wirkt die Stadt dichter bebaut, was die Metapher geringfügig schwächt.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Ohne Abstände zwischen Geschwistern ist die Platzausnutzung am besten, da keine Fläche für Abstände verschwendet wird. Die Variante mit Abstand nur zwischen Ordnern liegt mittig, da hier etwas Platz für Ordnerabstände genutzt wird. Mit Abständen zwischen allen Geschwistern ist die Platzausnutzung am schlechtesten.
+    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Die Vairante mit Abständen zwischen allen Geschwistern ist sehr übersicht und geordnet und schneidet deshalb am besten ab. Die Variante mit Abstand nur zwischen Ordnern trennt Ordner klar voneinander ab und Dateien innerhalb eines Ordners sind klarer visuell zusammengehörig. Allerdings kann diese Visualisierung etwas chaotisch und ungleichmäßig wirken, weshalb sie schlechter abschneidet. Ohne Abstände zwischen Geschwistern ist die Verständlichkeit am schlechtesten, da die Trennung nur durch dünne Umrandungen erfolgt und das Layout dichter wirkt.
+    \item \textbf{Skalierbarkeit:} Der Aspekt der Sklalierbarkeit ist schwer zu bewerten. Abstände zwischen Geschwistern führen dazu, dass kleine Knoten schneller zu klein zum Erkennen werden. Allerdings muss ohne Abstände durch Umrandungen eine visuelle Trennung zwischen den Knoten geschaffen werden. Diese Umrandungen können ebenfalls dazu führen, dass kleine Knoten oder zumindest deren Farbe schlechter erkennbar sind. 
+    \item \textbf{Visuelle Metaphern:} Bei der Version ohne Abstände zwischen Geschwistern wirkt das Layout kompakter und geschlossener, es wird aber eventuell schwerer Straßen in die Visualisierung zu interpretieren, was die Stadtmetapher beeinträchtigen könnte. Die Version mit Abständen zwischen allen Geschwistern unterstützt die Interpretation von Straßen. In dieser Version sind alle Gebäude freistehend. In der Version mit Abständen nur zwischen Ordnern sind die Gebäude innerhalb eines Ordners eng beieinander, was die Interpretation dieser Ordner als zusammenstehenden Gebäudeblock unterstützt. Zwischen den Ordnern sind Straßen, was die Stadtmetapher ebenfalls unterstützt. Alle drei Versionen eignen sich für die Stadtmetapher, wobei die Version ohne Abstände zwischen Geschwistern am wenigsten die Stadtmetapher unterstützt. 
 \end{itemize}
 
-Aufgrund der gemischten Bewertung wird eine dritte Variante betrachtet, die nach Kenntnisstand bislang neu ist. Dabei existieren Abstände nur zwischen Geschwisterknoten, die keine Blattknoten sind, also nur zwischen Ordnern. Zwischen Ordnern und Dateien im selben Ordner entsteht damit ein halber Abstand, zwischen zwei Geschwisterdateien entfällt der Abstand vollständig. Abbildung \ref{fig:AbstandOrdnerBeispiel} illustriert diese Variante.
+Insgesamt schneidet die Version mit Abständen zwischen allen Geschwistern bei den Kriterien minimal besser ab, gefolgt von der Version mit Abständen nur zwischen Ordnern. 
+Da diese Unterschiede aber gering sind und jede Version ihre Vor- und Nachteile hat, ist es sinnvoll, die Auswirkungen auf die messbaren Kennzahlen zu betrachten, um eine fundierte Entscheidung zu treffen.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/onlyLeafNoMargin.png}
-    \caption[Abstand nur zwischen Ordnern]{Treemap mit Geschwisterabständen nur bei Ordnern.}
-    \label{fig:AbstandOrdnerBeispiel}
-\end{figure}
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} Die Version ohne Abstände zwischen Geschwistern erzielt bei den fehlenden Knoten die besten Werte. Die Anzahl an fehlenden Knoten ist um einen Faktor von etwa 6 geringer als bei der Version mit Abständen zwischen Geschister-Ordnern. Bei der Version mit Abständen zwischen allen Geschwistern fehlen im Durchschnitt etwa 5 Knoten mehr als bei der Version mit Abständen nur zwischen Ordnern.
+    \item \textbf{Flächengröße:} Beim Varianzkoeffizienten des Flächenverhältnisses zeigt die Variante ohne Abständen die besten Werte, gefolgt von der Version mit Abständen nur zwischen Ordnern. Dabei ist die Version mit Abständen mit einem Faktor von etwa 4 schlechter als die Version ohne Abstände und die Version mit Abständen nur zwischen Ordnern ist etwa um einen Faktor von 2 schlechter als die Version ohne Abstände.
+    \item \textbf{Seitenverhältnis:} Das durchschnittliche Seitenverhältnis unterscheidet sich bei den drei Varianten um maximal 0,5 Einheiten, was in der Praxis kaum auffällt.
+    \item \textbf{Platznutzung:} Die Platzausnutzung ist erwartungsgemäß ohne Abstände zwischen Geschwistern am besten. Die Variante mit Abständen nur zwischen Ordnern ist im Schnitt etwa 12\% schlechter und die Variante mit Abständen zwischen allen Geschwistern etwa 20\% schlechter.
+    \item \textbf{Zeitaufwand:} Bei der Laufzeit zeigen sich keine Unterschiede zwischen den drei Varianten, da auch die Algorithmuskomplexität identisch ist.
+\end{enumerate}
 
-Diese Variante wird im Rahmen der Kriterien wie folgt eingeordnet:
-\begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Zwischen den beiden anderen Varianten einzuordnen. Die Platzausnutzung ist besser als mit Abständen zwischen allen Geschwistern, aber schlechter als ohne Abstände zwischen Geschwistern.
-    \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Die Struktur wird klarer, da Ordner durch einen ganzen Abstand getrennt sind und Dateien im selben Ordner ohne Abstand eine visuelle Einheit bilden. Weshalb dieses Kriterium als besser gegenüber den beiden anderen Varianten eingeschätzt wird.
-    \item \textbf{Skalierbarkeit:} Aufgrund der weiterhin benötigten Umrandungen ist wirkt sich diese Variante schlechter als die Variante mit Abständen zwischen sämtlichen Geschwistern ohne Umrandungen auf die Skalierbarkeit aus. Allerdings ist es nur noch nötig Blattknoten zu umranden.
-    \item \textbf{Visuelle Metaphern:} Straßen als Metapher bleiben zwischen Ordnern erhalten. Ordner mit zugehörigen Dateien ohne Abstand können als Gebäudeblock ohne Straßeninterpretiert werden, was zur Stadtmetapher passt. Weshalb dieses Kriterium als besser gegenüber den beiden anderen Varianten eingeschätzt wird.
-\end{itemize}
+Die Variante ohne Abstände zwischen Geschwistern erzielt bei den Kennzahlen klar die besten Ergebnisse, schneidet jedoch bei den Kriterien am schlechtesten ab.
+Die Variante mit Abständen zwischen allen Geschwistern liegt bei den Kriterien vorne, ist aber bei den Kennzahlen überwiegend am schwächsten.
+Die Variante mit Abständen nur zwischen Ordnern schneidet bei den Kriterien nur leicht schlechter ab als die Variante mit Abständen zwischen allen Geschwistern und bei den Kennzahlen hat sie die zweitbesten Werte.
+Schlussendlich wird die Variante ohne Abstände zwischen Geschwistern verwendet, da die Kennzahlen so viel besser sind und vor allem die Knotensichtbarkeit, die in dieser Arbeit als die wichtigste Kennzahl betrachtet wird, so stark verbessert wird.
 
-Im Folgenden werden alle drei Varianten gegeneinander getestet und die Auswirkungen auf die Kennzahlen gemessen.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
-    \caption[Median fehlender Knoten über Abstand]{Median der Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
-    \label{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
-\end{figure}
-
-Die Version ohne Abstände zwischen Geschwistern erzielt bei den fehlenden Knoten die besten Werte. Die beiden anderen Varianten liegen nahe beieinander (siehe Abbildung \ref{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin}). Auffällig ist, dass die Werte durch die zuvor umgesetzten Optimierungen insgesamt sehr niedrig sind, im Median zwischen 0 und 6 fehlenden Knoten. Daher wird ergänzend der Durchschnitt betrachtet, um die Relationen deutlicher zu machen (siehe Abbildung \ref{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin_average}). Die Variante ohne Abstände zwischen Geschwistern bleibt durchgehend deutlich überlegen. Die Variante mit Abständen nur zwischen Ordnern schneidet etwas besser ab als die Variante mit Abständen zwischen allen Geschwistern.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin_average.png}
-    \caption[Durchschnitt fehlender Knoten über Abstand]{Durchschnittliche Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
-    \label{fig:margin_numberOfZeroAreaNodes_over_aimedRelativeMargin_average}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin_median.png}
-    \caption[Flächenverhältnis über Abstand]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
-    \label{fig:margin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
-
-Beim Varianzkoeffizienten des Flächenverhältnisses zeigt die Variante mit Abständen nur zwischen Ordnergeschwistern die besten Werte, gefolgt von der Version ohne Abstände zwischen Geschwistern. Am schlechtesten schneidet die Variante mit Abständen zwischen sämtlichen Geschwistern ab (siehe Abbildung \ref{fig:margin_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}). Erwartet worden war, dass die Version ohne Abstände am besten abschneidet, da Ordnerknoten weniger Platz durch Abstände verlieren und ihrer Sollfläche näherkommen. Die Messung widerspricht dieser Erwartung jedoch leicht.
-
-
-
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/averageRatio_over_aimedRelativeMargin_median.png}
-    \caption[Seitenverhältnis über Abstand]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
-    \label{fig:margin_averageRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Die Werte für das durchschnittliche Seitenverhältnis sind über alle Varianten hinweg sehr ähnlich. Die Variante mit Abständen nur zwischen Ordnern ist minimal im Vorteil (siehe Abbildung \ref{fig:margin_averageRatio_over_aimedRelativeMargin}).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/spaceForLeafNodesRatio_over_aimedRelativeMargin_median.png}
-    \caption[Platznutzung über Abstand]{Platznutzung in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern. Werte näher bei 1 sind besser.}
-    \label{fig:margin_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Die Platzausnutzung ist erwartungsgemäß ohne Abstände zwischen Geschwistern am besten, gefolgt von der Variante mit Abständen nur zwischen Ordnern. Am schwächsten ist die Variante mit Abständen zwischen allen Geschwistern (siehe Abbildung \ref{fig:margin_spaceForLeafNodesRatio_over_aimedRelativeMargin}).
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/siblingMargin/timeNeededInMs_over_aimedRelativeMargin_median.png}
-    \caption[Zeitaufwand über Abstand]{Zeitaufwand in Abhängigkeit des relativen Abstands für alle drei Varianten: Abstände zwischen Geschwistern, keine Abstände zwischen Geschwistern und Abstände nur zwischen Ordnern.}
-    \label{fig:margin_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-Bei der Laufzeit zeigen sich praktisch keine Unterschiede zwischen den drei Varianten (siehe Abbildung \ref{fig:margin_timeNeededInMs_over_aimedRelativeMargin}).
-
-\smallskip
-
-Insgesamt schneidet die Variante mit Abständen nur zwischen Ordnern bei den Kriterien am besten ab und liegt bei den Treemap-Kennzahlen überwiegend im mittleren Bereich. Die Variante ohne Abstände zwischen Geschwistern ist bei den Kriterien schwächer, erzielt bei den Kennzahlen jedoch meist die besten Ergebnisse. Die Variante mit Abständen zwischen allen Geschwistern liegt bei den Kriterien im Mittelfeld und ist bei den Kennzahlen überwiegend am schwächsten. Vor diesem Hintergrund wird die Variante mit Abständen nur zwischen Ordnern gewählt, da sie die qualitativen Kriterien am besten erfüllt und bei den Kennzahlen ebenfalls solide Ergebnisse liefert.
 
 
 
@@ -968,7 +756,7 @@ Die Beschriftung der Knoten ist ein zentraler Aspekt der Visualisierung, da sie 
     \label{fig:beschriftungSchwebend}
 \end{figure}
 
-Vorgeschlagen wird ein statischer Ansatz, bei dem ausschließlich die Beschriftungen der Top-N-Ordner angezeigt werden. Für die Beschriftungen wird sowohl bei der Größenanpassung als auch beim Layout explizit Platz reserviert. Am Ende werden die Beschriftungen in diesem Bereich so groß wie möglich platziert. Dieser Ansatz verbraucht jedoch signifikant Fläche und erzeugt ähnliche Herausforderungen für den Algorithmus wie die Abstände zwischen Knoten. Zudem kann die Beschriftung zu lang für die Breite des Knotens ausfallen, wodurch sie entweder abgeschnitten wird oder über den Knoten hinausragt. Es ist folglich zu erwarten, dass das Hinzufügen von Beschriftungen die Kennzahlen insgesamt verschlechtert. Die Größe N der beschrifteten Ordner fungiert als Stellschraube und ist nicht für jede Codebasis identisch. Eine weitere Stellschraube ist die vertikale Beschriftungshöhe, also die Länge des reservierten Bereichs, im Folgenden mit l bezeichnet.
+Vorgeschlagen wird ein statischer Ansatz, bei dem ausschließlich die Beschriftungen der oberen N Ordner angezeigt werden. Für die Beschriftungen wird sowohl bei der Größenanpassung als auch beim Layout explizit Platz reserviert. Am Ende werden die Beschriftungen in diesem Bereich so groß wie möglich platziert. Dieser Ansatz verbraucht jedoch signifikant Fläche und erzeugt ähnliche Herausforderungen für den Algorithmus wie die Abstände zwischen Knoten. Zudem kann die Beschriftung zu lang für die Breite des Knotens ausfallen, wodurch sie entweder abgeschnitten wird oder über den Knoten hinausragt. Es ist folglich zu erwarten, dass das Hinzufügen von Beschriftungen die Kennzahlen insgesamt verschlechtert. Die Größe N der beschrifteten Ordner fungiert als Stellschraube und ist nicht für jede Codebasis identisch. Eine weitere Stellschraube ist die vertikale Beschriftungshöhe, also die Länge des reservierten Bereichs, im Folgenden mit l bezeichnet.
 
 Die Auswirkungen auf die Visualisierungskriterien werden wie folgt eingeordnet:
 \begin{itemize}
@@ -983,65 +771,45 @@ Die Effekte der Beschriftungen auf die Kriterien fallen gemischt aus. Insgesamt 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/labels/numberOfZeroAreaNodes_over_labelLength.png}
-    \caption[Fehlende Knoten vs. Länge]{Anzahl der fehlenden Knoten in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
+    \caption[Fehlende Knoten vs. Länge]{Anzahl der fehlenden Knoten in Abhängigkeit der Beschriftungslänge für verschiedene Anzahlen an Beschriftungen.}
     \label{fig:labels_numberOfZeroAreaNodes_over_labelLength}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/labels/variationCoefficientOfAreaDifferences_over_labelLength.png}
-    \caption[Flächenverhältnis vs. Länge]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
-    \label{fig:labels_variationCoefficientOfAreaDifferences_over_labelLength}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/labels/averageRatio_over_labelLength.png}
-    \caption[Seitenverhältnis vs. Länge]{Durchschnittliches Seitenverhältnis in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
-    \label{fig:labels_averageRatio_over_labelLength}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/labels/spaceForLeafNodesRatio_over_labelLength.png}
-    \caption[Platznutzung vs. Länge]{Platznutzung in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N. Werte näher bei 1 sind besser.}
-    \label{fig:labels_spaceForLeafNodesRatio_over_labelLength}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/labels/timeNeededInMs_over_labelLength.png}
-    \caption[Zeitaufwand vs. Länge]{Zeitaufwand in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N.}
-    \label{fig:labels_timeNeededInMs_over_labelLength}
-\end{figure}
-
-In den Abbildungen \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength}, \ref{fig:labels_variationCoefficientOfAreaDifferences_over_labelLength}, \ref{fig:labels_averageRatio_over_labelLength}, \ref{fig:labels_spaceForLeafNodesRatio_over_labelLength} und \ref{fig:labels_timeNeededInMs_over_labelLength} ist zu erkennen, dass sowohl die Wahl von N als auch die Wahl von l deutliche Auswirkungen auf die Kennzahlen haben. Mit steigenden Werten von N und l verschlechtern sich die Kennzahlen erwartungsgemäß, da infolge der Flächenreservierung für Beschriftungen weniger Platz für die Knoten verbleibt und die Schwierigkeit des Treemap-Problems zunimmt. Eine Ausnahme bilden die Seitenverhältnisse, die sich durch beide Parameter kaum verändern. Gleiches gilt weitgehend für die Laufzeit.
+Abbildung \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt exemplarisch an der Anzahl an fehlenden Knoten, dass sowohl die Wahl von N als auch die Wahl von l deutliche Auswirkungen auf die Kennzahlen haben. Mit steigenden Werten von N und l verschlechtern sich die Kennzahlen der fehlenden Knoten, des Wert-Fläche-Verhältnisses und der Platzausnutzung erwartungsgemäß. Die Seitenverhältnisse bleiben hingegen weitgehend unverändert. Gleiches gilt für die Laufzeit.
 
 \smallskip
 
-Es wurde gezeigt, dass die Wahl von N und l sowohl die Kriterien als auch die Kennzahlen stark beeinflusst. Als praktikable Empfehlung, die Vor- und Nachteile abwägt, bieten sich Werte für N zwischen 2 und 5 an. Da die mittlere Knotentiefe bei 7 liegt, ist es in der Regel nicht notwendig, alle Ordner der oberen Ebenen mit Beschriftungen zu versehen, da andernfalls zu viel Fläche beansprucht würde. Beschriftungen sind notwendig, um der Visualisierung Bedeutung zu geben. Es existieren zahlreiche Möglichkeiten zur Gestaltung von Beschriftungen und erhebliches Entwicklungspotenzial in diese Richtung. Die hier vorgestellte Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Anstoß und Orientierung für weitere Ansätze und Verbesserungen dienen.
+Insgesamt verbessert die Erhöhung von N und l also die Kriterien guter Visualisierungen, verschlechtert jedoch die messbaren Kennzahlen. Es handelt sich um einen Kompromiss, der je nach Ziel der Visualisierung unterschiedlich gewichtet werden kann.
+Da die mittlere Knotentiefe bei 7 liegt (siehe Abschnitt \ref{sec:Bewertungsgrundlage}) und es in der Regel nicht notwendig ist, alle Ordner der unteren Ebenen mit Beschriftungen zu versehen, sind Werte für N zwischen 2 und 5 praktikabel. Die Wahl von l hängt stark von der Größe der Visualisierung ab. Sinnvolle Werte liegen zwischen 10 und 100 Einheiten.
+
+Abschließend ist festzuhalten, dass Ordnerbeschriftungen notwendig sind, um der Visualisierung Bedeutung zu geben. In der Literatur existieren zahlreiche Möglichkeiten zur Gestaltung von Beschriftungen und erhebliches Entwicklungspotenzial in diese Richtung. Die hier vorgestellte Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Anstoß und Orientierung für weitere Ansätze und Verbesserungen dienen.
+
+
+
+
+
 
 \section{Fazit}
-In diesem Kapitel wurden verschiedene Erweiterungen und Anpassungen des Squarify-Algorithmus für die vorliegenden Anforderungen vorgestellt und evaluiert. Dabei kamen sowohl etablierte Ansätze aus der Literatur als auch neue, in dieser Form bislang nicht publizierte Strategien zum Einsatz. Zudem zeigt sich, dass Literaturansätze wie der von Lü und Fogarty nicht in jedem Kontext die besten Ergebnisse liefern, was die Notwendigkeit unterstreicht, solche Verfahren regelmäßig zu hinterfragen, anzupassen und anhand eigener Kriterien auszuwerten~\cite{lu2008cascaded}.
+Zusammenfassend werden folgende Ausprägungen für den Algorithmus empfohlen und in der Implementierung verwendet:
 
-Der einzige Ansatz, der nicht weiterverfolgt werden muss, ist die mehrfache Berechnung des Layouts. Es ergab sich kein Hinweis darauf, dass zusätzliche Anpassungen an dieser Idee zu besseren Ergebnissen führen würden. Gleichzeitig lassen sich die verwendeten Ansätze weiter verbessern. Ein Großteil der hier eingesetzten Verfahren ist neu und in dieser Form bislang nicht beschrieben. Es handelt sich um erste Versionen, die voraussichtlich weiter optimiert werden können.
+\begin{table}[H]
+    \hspace*{-0.2cm}
+    \scriptsize
+    \begin{tabularx}{1.4\textwidth}{ll}
+        Abstände zwischen Knoten: & \textbf{Manuelle Wahl} zwischen 0{,}5\% und 3\% relativem Abstand \\ 
+        Angestrebtes Seitenverhältnis: & \textbf{1{,}05} \\ 
+        Reihenfolge der Knoten: & \textbf{Absteigend nach Größe} \\ 
+        Größenanpassung: & \textbf{Relative Größenanpassung} \\ 
+        Zweiter Layoutschritt: & \textbf{Neusortierung absteigend nach Größe} \\ 
+        Mehrfache Berechnung: & \textbf{Nicht verwenden} \\ 
+        Optimierung von Ordnerketten: & \textbf{Verwenden} \\ 
+        Abstände zwischen Geschwistern: & \textbf{Keine} \\ 
+        Beschriftung der Knoten: & \textbf{Manuelle Wahl} von Anzahl und Größe der Beschriftungen \\ 
+    \end{tabularx}
+\end{table}
 
-Das Treemap-Problem wurde für die betrachtete Anwendung durch den vorgestellten Ansatz deutlich verbessert. Es bleibt jedoch ein NP-hartes Problem, weshalb keine perfekte Lösung existiert. Es bieten sich zahlreiche Ideen zur weiteren Verbesserung an, etwa die Verwendung dynamischer statt fester Abstände, die Berücksichtigung der Tiefe oder der Anzahl der Geschwister, alternative Größenanpassungen auf Basis anderer Heuristiken, abweichende Sortier- und Platzierungsstrategien oder neue Ansätze für die Integration von Beschriftungen in die Knoten.
 
-Empfohlen werden folgende Einstellungen für den Algorithmus:
-\begin{itemize}
-    \item \textbf{Abstände zwischen Knoten:} Manuelle Wahl zwischen 0{,}5\% und 3\% relativem Abstand je nach Software und Ziel der Visualisierung (siehe Abschnitt \ref{sec:AbständeGeschwister}).
-    \item \textbf{Angestrebtes Seitenverhältnis:} 1{,}05 (siehe Abschnitt \ref{sec:Seitenverhältnis}).
-    \item \textbf{Reihenfolge der Knoten:} Absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnoten}).
-    \item \textbf{Größenanpassung:} Relative Größenanpassung (siehe Abschnitt \ref{sec:RelativeGrößenanpassung}).
-    \item \textbf{Zweiter Layoutschritt:} Neusortierung absteigend nach Größe (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout}).
-    \item \textbf{Mehrfache Berechnung:} Nicht verwenden (siehe Abschnitt \ref{sec:MehrfacheBerechnung}).
-    \item \textbf{Optimierung von Ordnerketten:} Verwenden (siehe Abschnitt \ref{sec:OrderKettenOptimierung}).
-    \item \textbf{Abstände zwischen Geschwistern:} Nur zwischen Ordnern (siehe Abschnitt \ref{sec:AbständeGeschwister}).
-    \item \textbf{Beschriftung der Knoten:} Manuelle Wahl von Anzahl und Größe der Beschriftungen (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
-\end{itemize}
-
-Ein letztes Mal wird der verbesserte Algorithmus dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit drei Labels der Länge 20.
+Abschließend wird der verbesserte Algorithmus mit den zuvor genannten Ausprägungen dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit drei Labels der Länge 20.
 
 \begin{figure}[htbp]
     \centering
@@ -1050,40 +818,20 @@ Ein letztes Mal wird der verbesserte Algorithmus dem d3.js Nested-Algorithmus ge
     \label{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
-Um den Faktor 4 verbessert.
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist zu erkennen, dass die Anzahl der fehlenden Knoten beim verbesserten Squarify-Algorithmus deutlich geringer ist als beim d3.js Nested-Algorithmus. Der Nested-Algorithmus hat bereits ohne Abstand etwa 200 fehlende Knoten im Median, während der verbesserte Squarify-Algorithmus bei einem Abstand von etwa 2\% erst 200 fehlende Knoten im Median aufweist. 
+    \item \textbf{Flächengröße:} Lü und Fogarty berichten, dass sie mit ihrem Verfahren keine generelle Verbesserung im Wert-Fläche-Verhältnis festgestellt werden konnten~\cite{lu2008cascaded}. Der verbesserte Squarify-Algorithmus dieser Arbeit erzielt hingegen im Vergleich zum d3.js Nested-Algorithmus Ergebnisse, die um den Faktor von etwa 2{,}5 besser sind.
+    \item \textbf{Seitenverhältnis:} Der Median des Seitenverhältnisses ist beim verbesserten Squarify-Algorithmus im Schnitt um eine Einheit besser als beim d3.js Nested-Algorithmus.
+    \item \textbf{Platznutzung:} Die Platzausnutzung ist beim verbesserten Squarify-Algorithmus im Schnitt um etwa 23 Prozentpunkte besser.
+    \item \textbf{Zeitaufwand:} Die Laufzeit des verbesserten Squarify-Algorithmus ist im Schnitt um etwa 50\% höher als die des d3.js Nested-Algorithmus. In allen Durchläufen dieses Kapitels liegen die Laufzeiten unter 50 ms, weshalb dieser Nachteil in der Praxis kaum ins Gewicht fällt.
+\end{enumerate}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/variationCoefficientOfAreaDifferences_over_aimedRelativeMargin_median.png}
-    \caption[Flächenverhältnis im Vergleich]{Varianzkoeffizient des Flächenverhältnisses in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
-    \label{fig:finalCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}
-\end{figure}
 
-Um faktor 3 verbessert.
+Insgesamt wird das Treemap-Problem für die vorliegende Anwendung durch den verbesserten Squarify-Algorithmus deutlich entschärft. Zudem weißt die vorgestellte Version in allen Kennzahlen bis auf die Laufzeit bessere Werte als der d3.js Nested-Algorithmus auf.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/averageRatio_over_aimedRelativeMargin_median.png}
-    \caption[Seitenverhältnis im Vergleich]{Durchschnittliches Seitenverhältnis in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
-    \label{fig:finalCompare_averageRatio_over_aimedRelativeMargin}
-\end{figure}
+\bigskip
 
-Um faktor 1,5 verbessert.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/spaceForLeafNodesRatio_over_aimedRelativeMargin_median.png}
-    \caption[Platznutzung im Vergleich]{Platznutzung in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus. Werte näher bei 1 sind besser.}
-    \label{fig:finalCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin}
-\end{figure}
-
-Um 0,2 Prozentpunkte verbessert.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/finalCompare/timeNeededInMs_over_aimedRelativeMargin_median.png}
-    \caption[Zeitaufwand im Vergleich]{Zeitaufwand in Abhängigkeit des relativen Abstands für den d3.js Nested-Algorithmus und den verbesserten Squarify-Algorithmus.}
-    \label{fig:finalCompare_timeNeededInMs_over_aimedRelativeMargin}
-\end{figure}
-
-In allen Abbildungen ist zu erkennen, dass der verbesserte Squarify-Algorithmus in sämtlichen Kennzahlen deutlich besser abschneidet als der d3.js Nested-Algorithmus, mit Ausnahme der Laufzeit, die um ungefähr 50\% höher liegt (siehe Abbildungen \ref{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}, \ref{fig:finalCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}, \ref{fig:finalCompare_averageRatio_over_aimedRelativeMargin}, \ref{fig:finalCompare_spaceForLeafNodesRatio_over_aimedRelativeMargin} und \ref{fig:finalCompare_timeNeededInMs_over_aimedRelativeMargin}). Demgegenüber sind die resultierenden Treemaps in allen anderen visuell erkennbaren Kennzahlen durchweg überlegen. Diese Verbesserungen sind signifikant und Ausschlaggeben, wenn zum Beispiel statt 20 fehlenden Knoten nur noch 5 Knoten fehlen oder das durchschnittliche Seitenverhältnis von 4,5 auf 2,5 sinkt. Insgesamt wird das Treemap-Problem für die vorliegende Anwendung durch den verbesserten Squarify-Algorithmus deutlich entschärft.
+In diesem Kapitel wurden verschiedene Erweiterungen und Anpassungen des Squarify-Algorithmus für die vorliegenden Anforderungen vorgestellt und evaluiert. Literaturansätze wie der von Lü und Fogarty liefern nicht in jedem Kontext die besten Ergebnisse, was die Notwendigkeit unterstreicht, solche Verfahren regelmäßig zu hinterfragen, anzupassen und anhand eigener Kriterien auszuwerten.
+Dabei kamen sowohl etablierte Ansätze aus der Literatur als auch neue, in dieser Form bislang nicht publizierte Strategien zum Einsatz.
+Bei den neuen Methoden handelt es sich um erste Versionen, die in weiterer Forschung optimiert werden können.
+Das Treemap-Problem ist ein NP-hartes Problem~\cite[4]{bruls2000squarified}, weshalb keine perfekte Lösung existiert. Es bieten sich zahlreiche Ideen zur weiteren Verbesserung an, etwa die Verwendung dynamischer statt fester Abstände, die Berücksichtigung der Tiefe oder der Anzahl der Geschwister, alternative Größenanpassungen auf Basis anderer Heuristiken, abweichende Sortier- und Platzierungsstrategien oder neue Ansätze für die Integration von Beschriftungen in die Knoten.
