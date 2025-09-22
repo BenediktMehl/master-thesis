@@ -92,7 +92,7 @@ Im Mittel wurde jede Visualisierung in jedem Szenario von 10 Personen bewertet. 
             4 & Treemap & 4.2 & 1.2 & 3.1 & 1.4 & 1.1 \\
             5 & Sunburst & 3.9 & 1.2 & 3.3 & 1.4 & 0.6 \\
             6 & Treemap & 3.7 & 1.1 & 1.6 & 1.3 & 2.2 \\
-            7 & Code City & 3.8 & 1.5 & 3.3 & 1.4 & 0.5 \\ \hline
+            7 & CodeCity & 3.8 & 1.5 & 3.3 & 1.4 & 0.5 \\ \hline
             \multicolumn{2}{|c|}{Durchschnitt} & 3.9 & 1.2 & 2.7 & 1.5 & 1.2 \\ \hline
     \end{tabular}
     \caption[Passend vs. nicht passend]{Unterschied in der Bewertung von passenden und nicht passenden Visualisierungen pro Szenario. Ø = Durchschnitt, $\sigma$ = Standardabweichung.}
@@ -111,7 +111,7 @@ Auffallend groß ist der Erkennungswert bei Treemaps in den Szenarien 1 und 6. P
 
 In Abbildung \ref{fig:typSzenarioHeatmap} sind die durchschnittlichen Bewertung der passenden Visualisierungen pro Szenario dargestellt. Es lassen sich mehrere Punkte aus der Grafik ablesen. Erstens fallen die Bewertungen in den vergleichsweise einfachen Szenarien 1 und 4 erwartungsgemäß besser aus als in den anspruchsvolleren Szenarien 3, 6 und 7. Außerdem wird sichtbar, wie die verschiedenen Visualisierungen in den einzelnen Szenarien abschneiden. Treemap und Circular Treemap erreichen im Mittel die besten Werte, mit nahezu einem Punkt Vorsprung gegenüber der schwächsten Visualisierung Streetmap. 
 
-Die durchschnittliche Bewertung über alle passenden Visualisierungen und Szenarien beträgt 3,5 Punkte. Auffällig ist, dass die Treemap in allen Szenarien gleichauf oder deutlich über dem Durchschnitt von 3,5 liegt. Eine Ausnahme bildet Szenario 7, in dem die Treemap deutlich schlechter abschneidet als beispielsweise Code City. Ein möglicher Grund ist die fehlende Stabilität des Treemap-Algorithmus. Der Code-City-Algorithmus rendert aufgrund seines Bottom-up-Ansatzes gleiche Strukturen immer gleich, auch wenn diese in verschiedenen Ordnern liegen. Beim Treemap-Algorithmus ist dies nicht gewährleistet. Gleiche Strukturen können unterschiedlich gelayoutet werden, da der Elternknoten möglicherweise eine andere Größe und/oder ein anderes Seitenverhältnis aufweist.
+Die durchschnittliche Bewertung über alle passenden Visualisierungen und Szenarien beträgt 3,5 Punkte. Auffällig ist, dass die Treemap in allen Szenarien gleichauf oder deutlich über dem Durchschnitt von 3,5 liegt. Eine Ausnahme bildet Szenario 7, in dem die Treemap deutlich schlechter abschneidet als beispielsweise CodeCity. Ein möglicher Grund ist die fehlende Stabilität des Treemap-Algorithmus. Der CodeCity-Algorithmus rendert aufgrund seines Bottom-up-Ansatzes gleiche Strukturen immer gleich, auch wenn diese in verschiedenen Ordnern liegen. Beim Treemap-Algorithmus ist dies nicht gewährleistet. Gleiche Strukturen können unterschiedlich gelayoutet werden, da der Elternknoten möglicherweise eine andere Größe und/oder ein anderes Seitenverhältnis aufweist.
 
 Abschließend wird betrachtet, welche Visualisierung für welches Ziel am besten geeignet ist. Zur Erinnerung: Szenario 1 bis 3 zielen auf die Erkennung von Metriken ab, Szenario 4 bis 6 auf die Erkennung von Strukturproblemen, und Szenario 7 kombiniert beide Ziele.
 
@@ -122,7 +122,7 @@ Abschließend wird betrachtet, welche Visualisierung für welches Ziel am besten
     \label{fig:typGruppeHeatmap}
 \end{figure}
 
-Abbildung \ref{fig:typGruppeHeatmap} zeigt, dass Treemaps am besten für die Erkennung von Metriken geeignet sind. Circular Treemap und Code City schneiden hierfür ebenfalls vergleichsweise gut ab. Für die Erkennung von Strukturproblemen erzielt die Circular Treemap die besten Ergebnisse, gefolgt von Treemap und Code City.
+Abbildung \ref{fig:typGruppeHeatmap} zeigt, dass Treemaps am besten für die Erkennung von Metriken geeignet sind. Circular Treemap und CodeCity schneiden hierfür ebenfalls vergleichsweise gut ab. Für die Erkennung von Strukturproblemen erzielt die Circular Treemap die besten Ergebnisse, gefolgt von Treemap und CodeCity.
 
 \subsection{Direkte Bewertung der Visualisierungen} \label{sec:DirekteBewertungErgebnisse}
 In diesem Abschnitt werden die Ergebnisse der direkten Bewertung der Visualisierungen dargestellt. Diese direkte Bewertung wurde ausschließlich von den Visualisierungsexperten durchgeführt. Ziel ist es zu prüfen, ob die Bewertungen aus der Literaturrecherche auch von anderen erfahrenen Personen geteilt werden. Es wurden 8 Personen befragt. Die Standardabweichung der Expertenbewertungen liegt im Mittel bei einem Punkt. Bei einer Skala von 1 bis 5 und einer Stichprobengröße von 8 sind die Ergebnisse daher eher als Tendenz zu interpretieren.
@@ -135,7 +135,7 @@ In diesem Abschnitt werden die Ergebnisse der direkten Bewertung der Visualisier
          & \multicolumn{3}{c|}{\textbf{Informationsgehalt}} & \multicolumn{3}{c|}{\textbf{Visuelle Komplexität}} & \multicolumn{3}{c|}{\textbf{Skalierbarkeit}} & \multicolumn{3}{c|}{\textbf{Metapher}} & \multicolumn{3}{c|}{\textbf{Gesamtwertung}} \\ \hline
         \textbf{Name} &  U & L & U-L &  U & L & U-L &  U & L & U-L &  U & L & U-L &  U & L & U-L \\ \hline
         Treemap & 4.3 & 4 & 0.3 & 3.8 & 5 & -1.2 & 3.7 & 4 & -0.3 & 3.5 & 3 & 0.5 & 3.8 & 4.0 & -0.2 \\ \hline
-        Code City & 2.8 & 3 & -0.2 & 4.2 & 5 & -0.8 & 3.0 & 3 & 0.0 & 3.7 & 4 & -0.3 & 3.4 & 3.8 & -0.4 \\ \hline
+        CodeCity & 2.8 & 3 & -0.2 & 4.2 & 5 & -0.8 & 3.0 & 3 & 0.0 & 3.7 & 4 & -0.3 & 3.4 & 3.8 & -0.4 \\ \hline
         Sunburst & 3.3 & 3 & 0.3 & 3.0 & 5 & -2.0 & 2.2 & 4 & -1.8 & 3.3 & 2 & 1.3 & 3.0 & 3.5 & -0.5 \\ \hline
         Circular Treemap & 2.7 & 3 & -0.3 & 3.3 & 5 & -1.7 & 2.8 & 3 & -0.2 & 2.8 & 2 & 0.8 & 2.9 & 3.2 & -0.3 \\ \hline
         Streetmap & 2.2 & 3 & -0.8 & 2.3 & 5 & -2.7 & 2.7 & 3 & -0.3 & 3.2 & 4 & -0.8 & 2.6 & 3.8 & -1.2 \\ \hline
@@ -168,8 +168,8 @@ Werden die drei Ansätze zur Bewertung der Visualisierungen miteinander verglich
         \hline
         \textbf{Platzierung} & \textbf{Literaturrecherche} & \textbf{Szenarien} & \textbf{Direkte Bewertung} \\ \hline
         1 & Treemap (4.0) & \multirow{2}{*}{Treemap und Circular Treemap (3.9)} & Treemap (3.8) \\ \cline{1-2} \cline{4-4}
-        2 & \multirow{2}{*}{Code City und Streetmap (3.8)} &  & Code City (3.4) \\ \cline{1-1} \cline{3-4}
-        3 &  & Code City (3.7) & Sunburst (3.0) \\ \hline
+        2 & \multirow{2}{*}{CodeCity und Streetmap (3.8)} &  & CodeCity (3.4) \\ \cline{1-1} \cline{3-4}
+        3 &  & CodeCity (3.7) & Sunburst (3.0) \\ \hline
         4 & Sunburst (3.5) & Sunburst (3.1) & Circular Treemap (2.9) \\ \hline
         5 & Circular Treemap (3.2) & Streetmap (3.0) & Streetmap (2.6) \\ \hline
     \end{tabular}
@@ -179,4 +179,4 @@ Werden die drei Ansätze zur Bewertung der Visualisierungen miteinander verglich
 
 Auffällig ist, dass die Circular Treemap sowohl in der Literaturrecherche als auch bei den Experten schwach abschneidet, in den Szenarien jedoch zu den besten gehört. Zudem wurde die nicht passende Visualisierung der Circular Treemap vergleichsweise gut erkannt. An dieser Stelle deutet sich eine Diskrepanz zwischen den Bewertungskriterien und der wahrgenommenen Nützlichkeit in den Szenarien an. Möglicherweise können die vier Kriterien, um die Nachvollziehbarkeit von Visualiserungen direkt zu bewerten noch angepasst und verbesser werden, um die wahrgenommene Nützlichkeit der Visualisierungen zur Nachvollziehbarkeit von Expertenanalysen besser abzubilden.
 
-Die Streetmap Visualisierung ist in den Szenarien und in der direkten Bewertung der Visualisierungsexperten am unbeliebtesten. In der Literaturrecherche schneidet sie besser ab. eventuell wurde dort die visuelle Komplexität unterschätzt. Die Sunburst-Visualisierung erreicht in allen drei Ansätzen mittlere Werte. Code City erreicht auch mittlere Werte, schneidet aber durchweg etwas besser ab als Sunburst. Treemap Visualisierungen erzielen in allen drei Ansätzen die besten Ergebnisse und werden zusätzlich gut als nicht passend erkannt. Treemap Visualisierungen scheinen somit die beste Visualisierung für den in dieser Arbeit definierten Anwendungsfall zu sein.
+Die Streetmap Visualisierung ist in den Szenarien und in der direkten Bewertung der Visualisierungsexperten am unbeliebtesten. In der Literaturrecherche schneidet sie besser ab. eventuell wurde dort die visuelle Komplexität unterschätzt. Die Sunburst-Visualisierung erreicht in allen drei Ansätzen mittlere Werte. CodeCity erreicht auch mittlere Werte, schneidet aber durchweg etwas besser ab als Sunburst. Treemap Visualisierungen erzielen in allen drei Ansätzen die besten Ergebnisse und werden zusätzlich gut als nicht passend erkannt. Treemap Visualisierungen scheinen somit die beste Visualisierung für den in dieser Arbeit definierten Anwendungsfall zu sein.
