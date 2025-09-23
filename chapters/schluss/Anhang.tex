@@ -1,10 +1,12 @@
 \chapter{Anhang} \label{chap:anhang}
 
+Alle Implementierungen sind in TypeScript verfasst und für diese Arbeit leicht gekürzt, kommentiert und vereinfacht worden. Die vollständigen Implementierungen sind über diesen \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} erreichbar.
+
 \section*{Implementierung des Squarify-Algorithmus} \label{sec:SquarifyImplementation}
 
 Die Implementierung orientiert sich an der Implementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Die Implementierung integriert einige Optimierungen für eine leistungsfähigere Berechnung, entspricht also nicht exakt der Beschreibung in den Grundlagen.
 
-\begin{lstlisting}[language=typescript, caption={Vereinfachter Squarify-Algorithmus}, label={lst:squarify_code}]
+\begin{lstlisting}[language=typescript, caption={Implementierung des Squarify-Algorithmus}, label={lst:squarify_code}]
 function squarifyNode(parent: SquarifyNode) {
     // nodes sind die einzusortierenden Knoten
     const nodes: SquarifyNode[] = parent.children

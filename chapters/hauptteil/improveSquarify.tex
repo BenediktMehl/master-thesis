@@ -33,16 +33,13 @@ Zuvor wurden vier Kriterien für gute Softwarevisualisierungen definiert (siehe 
 
 \bigskip
 
-Diese fünf Kennzahlen werden mit einer breiten, repräsentativen Auswahl an Softwareprojekten evaluiert. Als Quelle für diese Daten dient GitHub. Um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen, wird eine gleichmäßige Verteilung hinsichtlich der Projektgröße und der verwendeten Programmiersprachen angestrebt. Eine reine Zufallsauswahl von GitHub würde zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen, da es deutlich mehr kleine Projekte auf GitHub gibt. Die Projekte sind gleichmäßg bis 1,5 GB verteilt und decken verschiedene Programmiersprachen mit verschiedenen Paradigmen ab. 
+Diese fünf Kennzahlen werden mit einer repräsentativen Auswahl an Softwareprojekten evaluiert. Als Quelle für diese Daten dient GitHub. Um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen, wird eine gleichmäßige Verteilung hinsichtlich der Projektgröße und der verwendeten Programmiersprachen angestrebt. Eine reine Zufallsauswahl von GitHub würde zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen, da es deutlich mehr kleine Projekte auf GitHub gibt. Die Projekte sind gleichmäßg bis 1,5 GB verteilt und decken verschiedene Programmiersprachen und -paradigmen ab. 
 Die vollständige Liste der 70 ausgewählten Softwareprojekte ist über diesen \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link} \cite{anhaenge_github} erreichbar. 
 
-
-\bigskip
-
 Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschließende Analyse mit dem \textit{unified Parser} des Analyse Tools \textit{CodeCharta Analysis}~\cite{code_charta_wiki_ana} gewonnen.
-Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner. 95 \% der Repositories haben weniger als 15.000 Dateien und 3000 Ordner.
-In Abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben und generell die Anzahl der Kinder pro Ordner eher niedrig ist.
-Das 95 \%-Quantil liegt bei 18 Kindern. 95 \% der Knoten liegen in den Tiefen von 3 bis 11, wobei die mittlere Tiefe bei 7 liegt.
+Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner.
+Die meisten Ordner haben nur ein Kind und die durchschnittliche Kinderzahl pro Ordner liegt bei etwa 5 (siehe Abbildung \ref{fig:anzahlKindZuOrdner}).
+95 \% der Knoten liegen in den Tiefen von 3 bis 11, wobei die mittlere Orderntiefe bei 7 liegt.
 
 \begin{figure}[htbp]
     \centering
@@ -61,7 +58,8 @@ Das 95 \%-Quantil liegt bei 18 Kindern. 95 \% der Knoten liegen in den Tiefen vo
 
 
 \section{Treemap-Problem} \label{sec:TreemapProblem}
-Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Ausgangslage für alle Anpassungen verwendet. Die genaue Implementierung ist so wie er im Anhang \ref{lst:squarify_code} dargestellt ist.
+
+Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt erzeugt die besten Seitenverhältnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}, weshalb er als Ausgangslage für alle folgenden Anpassungen verwendet wird. Die genaue Implementierung ist im Anhang dargestellt (siehe Listing \ref{lst:squarify_code}).
 
 
 Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts haben jedoch eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
