@@ -1,5 +1,7 @@
 \chapter{Anhang} \label{chap:anhang}
 
+\section*{Implementierung des Squarify-Algorithmus} \label{sec:SquarifyImplementation}
+
 Die Implementierung orientiert sich an der Implementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Die Implementierung integriert einige Optimierungen für eine leistungsfähigere Berechnung, entspricht also nicht exakt der Beschreibung in den Grundlagen.
 
 \begin{lstlisting}[language=typescript, caption={Vereinfachter Squarify-Algorithmus}, label={lst:squarify_code}]
@@ -79,4 +81,68 @@ function squarifyNode(parent: SquarifyNode) {
         i = j
     }
 }
+\end{lstlisting}
+
+\section*{Implementierung der absoluten Größenanpassung} \label{sec:AbsoluteValueIncreaseImplementation}
+
+\begin{lstlisting}[language=typescript, caption={Implementierung der absoluten Größenanpassung}, label={lst:absolute_value_increase}]
+    function absoluteValueIncrease(node: SquarifyNode, margin: number) {
+        const width = node.x1 - node.x0
+        const length = node.y1 - node.y0
+    
+        if (node.isLeaf) {
+            const valueIncrease = width * margin + length * margin + margin * margin
+            node.value += valueIncrease
+            return valueIncrease
+        }
+    
+        let childrenValueIncrease = 0
+        if (node.children) {
+            for (const child of node.children) {
+                childrenValueIncrease += absoluteValueIncrease(child, margin)
+            }
+        }
+    
+        const valueIncrease = 
+            width * margin * 2 +
+            length * margin * 2 +
+            margin * margin * 4 +
+            childrenValueIncrease
+    
+        node.value += valueIncrease
+        return valueIncrease
+    }
+\end{lstlisting}
+
+\section*{Implementierung der relativen Größenanpassung} \label{sec:RelativeValueIncreaseImplementation}
+
+\begin{lstlisting}[language=typescript, caption={Implementierung der relativen Größenanpassung}, label={lst:relative_value_increase}]
+    function relativeValueIncrease(node: SquarifyNode, margin: number) {
+        const width = node.x1 - node.x0
+        const length = node.y1 - node.y0
+    
+        if (node.isLeaf) {
+            const valueIncrease = width * margin + length * margin + margin * margin
+            node.value += valueIncrease
+            return valueIncrease
+        }
+    
+        let childrenValueIncrease = 0
+        if (node.children) {
+            for (const child of node.children) {
+                childrenValueIncrease += relativeValueIncrease(child, margin)
+            }
+        }
+    
+        const sideIncreaseFactor = Math.sqrt((node.value + childrenValueIncrease) / node.value)
+    
+        const valueIncrease =
+            sideIncreaseFactor * width * margin * 2 +
+            sideIncreaseFactor * length * margin * 2 +
+            margin * margin * 4 +
+            childrenValueIncrease
+    
+        node.value += valueIncrease
+        return valueIncrease
+    }
 \end{lstlisting}
