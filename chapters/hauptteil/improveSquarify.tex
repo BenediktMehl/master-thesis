@@ -61,7 +61,7 @@ Das 95\%-Quantil liegt bei 18 Kindern. 95\% der Knoten liegen in den Tiefen von 
 
 
 \section{Treemap-Problem} \label{sec:TreemapProblem}
-In der Literatur existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Ausgangslage für alle Anpassungen verwendet. Die genaue Implementierung ist so wie er im Anhang \ref{lst:squarify_code} dargestellt ist.
+Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Ausgangslage für alle Anpassungen verwendet. Die genaue Implementierung ist so wie er im Anhang \ref{lst:squarify_code} dargestellt ist.
 
 
 Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts haben jedoch eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
@@ -147,8 +147,7 @@ Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden
 
 
 \section{Lösungsansatz des Treemap-Problems} \label{sec:TreemapProblem-VerwandteArbeiten}
-Eine explizite Behandlung des Treemap-Problems oder zumindest die Erwähnung der Problematik in der Literatur ist selten. Selbst die Autoren und Erfinder der Treemap-Layouts mit Abständen erwähnen das Problem nicht~\cite{johnson1991tree}.
-Eine explizite Behandlung dieses Problems findet sich anscheinend nur in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
+Eine explizite Behandlung des Treemap-Problems findet sich nur in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
 
 Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor. Im \textit{Cascaded Treemap}-Ansatz werden Kindknoten nicht direkt innerhalb, sondern leicht versetzt über ihren Elternknoten dargestellt, wodurch ein subtiler 3D-Effekt entsteht und der Platzverlust im Vergleich zur klassischen Verschachtelung reduziert wird (siehe Abbildung \ref{fig:cascaded}). Diese Visualisierung ist nicht auf den Anwendungsfall dieser Arbeit übertragbar, da sie nicht sinnvoll in 2.5D extrudiert werden kann. Dennoch ist der zugrunde liegende Algorithmus zur Flächenaufteilung interessant, da er Abstände zwischen Knoten berücksichtigt und somit das zuvor beschriebene Treemap-Problem adressiert.
 
@@ -230,10 +229,10 @@ Je nach Ziel der Visualisierung und Softwaregröße und -struktur kann es sinnvo
 \begin{figure}[htbp]
     \centering
     \subfloat[Relativer Abstand 1\% (Absoluter Abstand 4)\label{fig:margin4to1}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/basic/qwen3_4_to_1.png}}
+        \includegraphics[width=0.49\textwidth]{images/improve/basic/qwen3_4_to_1.png}}
     \hfill
     \subfloat[Relativer Abstand 3\% (Absoluter Abstand 12)\label{fig:margin12to3}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/basic/qwen3_12_to_3.png}}
+        \includegraphics[width=0.49\textwidth]{images/improve/basic/qwen3_12_to_3.png}}
     \caption[Squarify mit verschiedenen Abständen]{Ergebnisse des Squarify-Algorithmus mit unterschiedlichen Abständen. Datengrundlage ist das Qwen3 Repository~\cite{githubqwen3_2025}}
     \label{fig:absoluteToRelativeMargin}
 \end{figure}
@@ -252,10 +251,10 @@ Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor
 \begin{figure}[htbp]
     \centering
     \subfloat[Seitenverhältnis 1 (resultierendes Seitenverhältnis 1{,}7)\label{fig:squarifyRatio1}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/edgeRatioAim1Real17.png}}
+        \includegraphics[width=0.49\textwidth]{images/improve/edgeRatioAim1Real17.png}}
     \hfill
     \subfloat[Seitenverhältnis 5 (resultierendes Seitenverhältnis 3{,}8)\label{fig:squarifyRatio5}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/edgeRatioAim5Real38.png}}
+        \includegraphics[width=0.49\textwidth]{images/improve/edgeRatioAim5Real38.png}}
     \caption[Squarify mit unterschiedlichen Ziel-Seitenverhältnissen]{Ergebnisse des Squarify-Algorithmus mit zwei unterschiedlichen Ziel-Seitenverhältnissen}
     \label{fig:squarifyRatio}
 \end{figure}
@@ -591,7 +590,20 @@ Die Anzahl an Ordnern in Ordnerketten liegt bei etwa 7\% bei Java ist das besond
 
 Einige dieser Ketten sind nicht nur wenige Ebenen tief, sondern sind bis zu 6 Ordner tief (siehe Abbildung \ref{fig:kettentiefe}). Dies verbraucht durch die Verschachtelung erheblich Platz für Abstände, da in der Tiefe jeweils zusätzliche Fläche für Abstand anfällt, obwohl diese Strukturierung inhaltlich oft keinen zusätzlichen Informationsgewinn liefert. Viele IDEs, etwa IntelliJ IDEA oder VS Code, verbergen derartige Strukturen automatisch, indem Ordnerketten als ein Ordner mit zusammengefügtem Namen dargestellt werden, beispielsweise \textit{main/kotlin/de/maibornwolff/codecharta/analysers}. In der Praxis sind solche Ordnerketten nicht unüblich und gelten als Best Practice, um Namensräume von Paketen abzubilden.
 
-Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerketten zu einem Ordner zusammengefasst werden. Da es sich hierbei nicht nur um eine algorithmische Änderung handelt, sondern auch um einen Eingriff in die Darstellung, werden im Folgenden sowohl die Auswirkungen auf die messbaren Kennzahlen als auch die Implikationen für die allgemeinen Kriterien guter Visualisierungen betrachtet, wie in Abschnitt \ref{sec:MethodikAuswertung} definiert. Daraus ergeben sich folgende Effekte auf die Ziele der Visualisierung:
+Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerketten zu einem Ordner zusammengefasst werden. In Abbildung \ref{fig:foldingChains_example} ist klar zu erkennen, dass durch die Faltung von Ordnerketten weniger Platz für Abstände benötigt wird. 
+
+\begin{figure}[htbp]
+    \centering
+    \subfloat[Keine Ordnerkettenfaltung\label{fig:notCollapsed}]{
+        \includegraphics[width=0.49\textwidth]{images/improve/codeChartaAnaNotCollapsed.png}}
+    \hfill
+    \subfloat[Mit Ordnerkettenfaltung\label{fig:collapsed}]{
+        \includegraphics[width=0.49\textwidth]{images/improve/codeChartaAnaCollapsed.png}}
+    \caption[Ordnerkettenfaltung Beispiel]{Beispielhafte Visualisierung der Codebasis \textit{CodeCharta Analysis}~\cite{code_charta_github}}
+    \label{fig:foldingChains_example}
+\end{figure}
+
+Da es sich hierbei nicht nur um eine algorithmische Änderung handelt, sondern auch um einen Eingriff in die Darstellung, werden im Folgenden sowohl die Auswirkungen auf die messbaren Kennzahlen als auch die Implikationen für die allgemeinen Kriterien guter Visualisierungen betrachtet, wie in Abschnitt \ref{sec:MethodikAuswertung} definiert. Daraus ergeben sich folgende Effekte auf die Ziele der Visualisierung:
 \begin{itemize}
     \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Verbesserung durch weniger benötigte Abstände zwischen Ordnern und eine geringere Anzahl von Knoten im Layout.
     \item \textbf{Niedrige visuelle Komplexität und Abstraktion:} Codebasen mit tiefen Ordnerstrukturen werden einfacher und übersichtlicher. Die Identifikation sehr tiefer Ordnerketten kann jedoch erschwert sein, da diese nicht mehr explizit in der Struktur visualisiert werden, sondern im Namen zusammengefasst sind. In der Praxis ist dies unproblematisch, da Ordnerketten in der Regel keinen unmittelbaren Handlungsbedarf signalisieren und daher nicht zwingend ins Auge fallen müssen.
@@ -600,17 +612,6 @@ Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerk
 \end{itemize}
 
 Die positiven Effekte überwiegen damit zunächst. Im Folgenden werden Datenlage und Kennzahlen betrachtet, um zu beurteilen, ob die Faltung von Ordnerketten auch aus dieser Perspektive sinnvoll ist.
-%auf diese bilder eingehen
-\begin{figure}[htbp]
-    \centering
-    \subfloat[Keine Ordnerkettenfaltung\label{fig:notCollapsed}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/codeChartaAnaNotCollapsed.png}}
-    \hfill
-    \subfloat[Mit Ordnerkettenfaltung\label{fig:collapsed}]{
-        \includegraphics[width=0.48\textwidth]{images/improve/codeChartaAnaCollapsed.png}}
-    \caption[Ordnerkettenfaltung Beispiel]{Beispielhafte Visualisierung der Codebasis \textit{CodeCharta Analysis}~\cite{code_charta_github}}
-    \label{fig:foldingChains_example}
-\end{figure}
 
 Im Median werden etwa 12 Ordner pro Codebasis gefaltet. Bei rund 242 Knoten im Median entspricht dies ungefähr 5\% der Knoten, die durch die Faltung entfallen.
 
@@ -641,15 +642,17 @@ Viele bestehende Treemap- und CodeCity-Visualisierungen weisen Abstände zwische
 Im Folgenden wird untersucht, ob Abstände zwischen Geschwistern für die vorliegende Anwendung sinnvoll sind oder ob das Entfernen dieser Abstände Vorteile bietet. Dazu werden die Auswirkungen auf die in Abschnitt \ref{sec:MethodikAuswertung} definierten Kriterien guter Visualisierungen sowie auf die messbaren Kennzahlen betrachtet. Entfallen die Abstände zwischen Geschwistern, daher werden Umrandungen genutzt, um Knoten voneinander abzugrenzen (siehe Abbildung \ref{fig:umrandungBeispiel}).
 Zusätzlich wird eine dritte, neuartige Variante betrachtet, bei der Abstände nur zwischen Geschwister-Eltnern-Knoten bestehen, also nur zwischen Ordnern. Zwischen Ordnern und Dateien im selben Ordner entsteht damit ein halber Abstand, zwischen zwei Geschwister-Dateien entfällt der Abstand vollständig. Abbildung \ref{fig:AbstandOrdnerBeispiel} illustriert diese Variante.
 
-% mache hier ein kleineres beispielbild
 \begin{figure}[htbp]
     \centering
+    \subfloat[Mit Abstand zwischen Geschwistern\label{fig:siblingMargin}]{
+        \includegraphics[width=0.49\textwidth]{images/improve/kleinGeschwisterAbstand.png}}
+    \hfill
     \subfloat[Ohne Abstand zwischen Geschwistern\label{fig:noSiblingMargin}]{
-        \includegraphics[width=0.6\textwidth]{images/improve/keinGeschwisterAbstand.png}}
+        \includegraphics[width=0.49\textwidth]{images/improve/kleinKeinGeschwisterAbstand.png}}
     \hfill
     \subfloat[Abstand nur zwischen Ordnern\label{fig:AbstandOrdnerBeispiel}]{
-        \includegraphics[width=0.6\textwidth]{images/improve/onlyLeafNoMargin.png}}    
-    \caption[Treemaps mit verschiedenen Abstandsversionen]{CodeCharta Analysis Softwareprojekt~\cite{code_charta_github} visualisiert als Treemap mit verschiedenen Abstandsversionen}
+        \includegraphics[width=0.49\textwidth]{images/improve/kleinOnlyLeafNoMargin.png}}    
+    \caption[Treemaps mit verschiedenen Abstandsversionen]{Qwen3 Softwareprojekt~\cite{githubqwen3_2025} visualisiert als Treemap mit unterschiedlichen Abstandsversionen}
     \label{fig:umrandungBeispiel}
 \end{figure}
 
@@ -710,7 +713,7 @@ Abbildung \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt exemplar
 Insgesamt verbessert die Erhöhung von N und l also die Kriterien guter Visualisierungen, verschlechtert jedoch die messbaren Kennzahlen. Es handelt sich um einen Kompromiss, der je nach Ziel der Visualisierung unterschiedlich gewichtet werden kann.
 Da die mittlere Knotentiefe bei 7 liegt (siehe Abschnitt \ref{sec:Bewertungsgrundlage}) und es nicht notwendig ist, alle Ordner der unteren Ebenen mit Beschriftungen zu versehen, sind Werte für N zwischen 2 und 5 praktikabel. Die Wahl von l hängt stark von der Größe der Visualisierung ab. Sinnvolle Werte liegen zwischen 10 und 100 Einheiten.
 
-Abschließend ist festzuhalten, dass Ordnerbeschriftungen notwendig sind, um der Visualisierung Bedeutung zu geben. In der Literatur existieren zahlreiche Möglichkeiten zur Gestaltung von Beschriftungen und erhebliches Entwicklungspotenzial in diese Richtung. Die hier vorgestellte Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Anstoß und Orientierung für weitere Ansätze und Verbesserungen dienen.
+Abschließend ist festzuhalten, dass Ordnerbeschriftungen notwendig sind, um der Visualisierung Bedeutung zu geben. Es gibt zahlreiche Möglichkeiten zur Gestaltung von Beschriftungen und erhebliches Entwicklungspotenzial in diese Richtung. Die hier vorgestellte Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Anstoß und Orientierung für weitere Ansätze und Verbesserungen dienen.
 
 
 
