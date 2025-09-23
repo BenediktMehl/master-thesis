@@ -24,7 +24,7 @@ Zuvor wurden vier Kriterien für gute Softwarevisualisierungen definiert (siehe 
     
     \item \textbf{Flächengröße:} Um die Korrelation mit dem zugrunde liegenden Code sicherzustellen, sollte die Fläche der Knoten proportional zum Metrikwert sein. Die Bewertung erfolgt, indem die Fläche des Knotens durch den Metrikwert geteilt wird. Im Optimalfall ist dieser Quotient für alle Knoten identisch, was eine perfekte Proportionalität impliziert. Gemessen wird die Abweichung dieses Flächen-Metrik-Verhältnisses vom Mittelwert. Zur besseren Einordnung und Vergleichbarkeit wird der Varianzkoeffizient verwendet. Dieses Kriterium ist als das zweitwichtigste einzustufen, da die Fläche der Knoten eine zentrale visuelle Eigenschaft darstellt, die die Metrikwerte möglichst genau widerspiegeln sollte.
     
-    \item \textbf{Seitenverhältnis:} Zur Reduktion visueller Komplexität und zur Erhöhung der Verständlichkeit sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit und erleichtert die Informationsaufnahme. Zur Berechnung wird die größere Seitenlänge durch die kleinere Seitenlänge geteilt. Ein Wert von 1 entspricht einem perfekten Quadrat, höhere Werte deuten auf längliche Rechtecke hin.
+    \item \textbf{Seitenverhältnis:} Zur Reduktion visueller Komplexität und zur Erhöhung der Verständlichkeit sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit und erleichtert die Informationsaufnahme. Zur Berechnung wird die größere Seitenlänge durch die kleinere Seitenlänge geteilt. Ein Wert von 1 entspricht einem perfekten Quadrat, höhere Werte deuten auf längliche Knoten hin.
     
     \item \textbf{Platznutzung:} Es sollte möglichst wenig Fläche ohne Informationsgehalt verbleiben. Als Gegenbeispiel dienen die Ordner-Knoten, wie in der CodeCity-Arbeit beschrieben, bei denen die Knotenfläche nicht proportional zur Anzahl der Codezeilen ist, wodurch die Fläche an sich keinen Informationsgehalt mehr besitzt und zusätzlich viel ungenutzte Fläche entsteht. Gemessen wird dies, indem die Summe der Flächen aller Blatt-Knoten durch die Fläche des Wurzelknotens geteilt wird. Ein Wert von 1 bedeutet, dass die gesamte Fläche des Wurzelknotens von den Blatt-Knoten eingenommen wird.
     
@@ -61,33 +61,19 @@ Die meisten Ordner haben nur ein Kind und die durchschnittliche Kinderzahl pro O
 
 Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt erzeugt die besten Seitenverhältnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}, weshalb er als Ausgangslage für alle folgenden Anpassungen verwendet wird. Die genaue Implementierung ist im Anhang dargestellt (siehe Listing \ref{lst:squarify_code}).
 
+Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts haben eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
 
-Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts haben jedoch eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
-Die Wahrnehmeung der Struktur ist jedoch für den Anwendungsfall dieser Arbeit essentiell.
+Die Wahrnehmeung der Struktur ist jedoch für den Anwendungsfall dieser Arbeit und für viele weitere Anwendungsfälle essenziell.
+Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln deshalb in einer späteren Arbeit die \textit{Cushion Treemaps}~\cite{cushionTreemaps}, die auch bereits in der Literaturrecherche vorkamen. Andere Autoren schlagen unterschiedlich dicke Umrisslinien vor~\cite{largeHierarchicalRepositories, 2010-perception-treemaps} oder nutzen Farben, um Ordner visuell zu trennen~\cite{d3_treemap_doku}. Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch nicht für die Implementierung in 2.5D-Treemaps wie es in dieser Arbeit gemacht wird geeignet. Schatten und verschieden dicke Umrisse sind bei Extrusion nicht konsistent und raumübergreifend darstellbar und Farben werden bereits zur Darstellung von Metrikwerten genutzt.
 
-Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln deshalb in einer späteren Arbeit sogenannte \textit{Cushion Treemaps}~\cite{cushionTreemaps}. Jedem Knoten wird dabei ein Innenraumschatten zugewiesen, der über Schattierungseffekte die hierarchische Struktur hervorhebt, während das klassische Layout erhalten bleibt (siehe Abbildung \ref{fig:cushion}). Andere Autoren schlagen alternativ unterschiedlich dicke Umrisslinien vor, um Zugehörigkeit und Tiefe von Knoten in der Hierarchie hervorzuheben~\cite{largeHierarchicalRepositories, 2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}) oder auch die Einfärbung der Knoten entsprechend ihrer Ordner zugehörigkeit (siehe Abbildung \ref{fig:treemapExample}).
+Für die Implementierung in dieser Arbeit eignen sich Abstände zwischen Knoten, um Hierarchieebenen zu verdeutlichen. Johnson und Shneiderman bezeichnen diese Art der Treemaps als \textit{Nested Treemaps}~\cite{johnson1991tree}. 
+Der Abstand zwischen Knoten wird realisiert, indem jeder Knoten um den Abstand vergleinert wird. 
 
-\begin{figure}[htbp]
-    \centering
-    \subfloat[Cushion Treemap~\cite{cushion_treemap_2025}\label{fig:cushion}]{
-        \includegraphics[width=0.36\textwidth]{images/improve/problem/cushionTreemap.png}}
-    \hspace{0.1\textwidth}
-    \subfloat[Outlines mit variabler Dicke~\cite{2010-perception-treemaps}\label{fig:thickOutline}]{
-        \includegraphics[width=0.38\textwidth]{images/improve/problem/lineThickness.png}}
-    \caption[Struktur-Verdeutlichung mit Treemaps]{Zwei unterschiedliche Ansätze Struktur in Treemaps zu verdeutlichen}
-    \label{fig:solAns}
-\end{figure}
-
-Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch nicht umsetzbar für 2.5D-Treemaps, da Schatten und Outlines bei Extrusionen nicht konsistent und flächenübergreifend darstellbar sind oder zum Beispiel die Farbe zur Darstellung von Metrikwerten reserviert ist.
-
-Für die Extrusion in 2.5D eignen sich Abstände zwischen Rechtecken, um Hierarchieebenen zu verdeutlichen~\cite{johnson1991tree}. Johnson und Shneiderman bezeichnen diese Art der Treemap als \textit{Nested Treemap}. 
-Der Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten der Abstand abgezogen wird. 
-
-Die Probleme die durch diesen Ansatz entstehen sind in den Abbildungen \ref{fig:differentMargins} verdeutlicht.
+Die Auswirkungen auf das Layout sind in Abbildung \ref{fig:differentMargins} verdeutlicht.
 In Abbildung \ref{fig:zeroMargin} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Alle Knoten sind sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten.
 In Abbildung \ref{fig:oneMargin} ist Abstand zwischen den Knoten hinzugefügt worden. Die Flächen sind nicht mehr exakt proportional zu den Werten. 
-Beispielsweise haben Knoten 2 und Knoten 4 die selben Werte (siehe Abbildung \ref{fig:zeroMargin}). Die Fläche von Knoten 2 ist aber deutlich größer als die von Knoten 4. Dies verdeutlicht, dass Abstände die Flächenproportionalität erheblich beeinträchtigen.
-In Abbildung \ref{fig:threeMargin} ist der Abstand zwischen den Knoten noch größer. Es werden einige Knoten, beispielsweise der zuvor oben links gelegene Knoten 5, nicht mehr dargestellt, da die Breite des Knotens kleiner als der vorgegebene Abstand ist und damit die resultierende Breite kleiner als 0 wird. Relevante Informationen gehen also verloren und Rechtecke verschwinden teilweise vollständig. Zusätzlich ist die Flächenproportionalität weiter verschlechtert.
+Beispielsweise haben Knoten 2 und Knoten 4 die selben Werte, die Fläche von Knoten 2 ist aber deutlich größer als die von Knoten 4. Dies verdeutlicht, dass Abstände die Flächenproportionalität verschlechtern.
+In Abbildung \ref{fig:threeMargin} ist der Abstand zwischen den Knoten größer als zuvor. Der eigentlich oben links gelegene Knoten 4 wird nicht mehr dargestellt, da die Breite des Knotens kleiner als der Abstand ist, wodurch die resultierende Breite kleiner als 0 wird. Knoten und damit relevante Information können durch Abstände also vollständig verschwinden.
 
 \begin{figure}[htbp]
     \centering
@@ -110,34 +96,33 @@ Konkret entstehen durch Abstände zwei Probleme, die wir in dieser Arbeit als \t
 \end{itemize}
 
 In den Abbildungen \ref{fig:flareDifferentMargins} wird deutlich, dass diese Probleme auch bei echten Software-Projekten auftritt und nicht bloß konstruiert ist.
-In Abbildung \ref{fig:flareZeroMargin} ist das Treemap-Layout generiert mit dem Squarify-Algorithmus ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flareMargin} ist das gleiche Layout mit Abstand dargestellt. Hier fehlen insgesamt 48 Knoten. Oben links fehlt beispielsweise der Knoten 79 und oben rechts existiert ein Ordner ohne dargestellte Kindknoten, da Knoten 220 fehlt (beides mit roten Ovalen gekennzeichnet). Außerdem sind die Flächen der Knoten nicht mehr proportional zu den Werten der Knoten.
-
+In Abbildung \ref{fig:flareZeroMargin} ist das Treemap-Layout ohne Abstand dargestellt. Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten. In Abbildung \ref{fig:flareMargin} ist das gleiche Layout mit Abstand dargestellt. Hier fehlen insgesamt 48 Knoten. Oben links fehlt beispielsweise Knoten 79 und oben rechts existiert ein Ordner ohne dargestellte Kindknoten, da Knoten 220 fehlt (beides mit roten Ovalen gekennzeichnet).
 
 \begin{figure}[htbp]
     \centering
     \subfloat[Kein Abstand\label{fig:flareZeroMargin}]{
-        \includegraphics[width=0.6\textwidth]{images/improve/problem/flarezero.png}}
+        \includegraphics[width=0.7\textwidth]{images/improve/problem/flarezero.png}}
     \hfill
     \subfloat[Mit Abstand (48 Knoten fehlen)\label{fig:flareMargin}]{
-        \includegraphics[width=0.6\textwidth]{images/improve/problem/flare48Missing.png}}
+        \includegraphics[width=0.7\textwidth]{images/improve/problem/flare48Missing.png}}
     \caption[Unterschiedliche Abstände in Flare-Projekt]{Treemap-Layout des \textit{flare}-Projekts~\cite{flare_d3js} erzeugt mit dem Squarify-Alorithmus}
     \label{fig:flareDifferentMargins}
 \end{figure}
 
 \smallskip
 
-Das zentrale Dilemma entsteht dadurch, dass eine Kernanforderung der Daten für Treemap-Algorithmen verletzt wird: Die benötigte Fläche aller Knoten einer Hierarchieebene muss vor deren Anordnung bekannt sein. Wird jedoch Fläche für Abstände benötigt, ist vorab unklar, wie viel Raum tatsächlich für jeden Knoten zur Verfügung steht. Die effektive Belegungsfläche hängt wesentlich von der jeweiligen Anordnung der Knoten ab.
+Das Treemap-Problem entsteht dadurch, dass die benötigte Fläche aller Knoten vor der Layout-Berechnung bekannt sein muss. Wird jedoch Fläche für Abstände benötigt, ist vor der Layout-Berechnung unklar, wie viel Fläche jeder Knoten benötigt. Allerdings lässt sich die Knotenfläche inklusive Abstand nur berechnen, wenn das Seitenverhältnis der Knoten bekannt sind, welches wiederum vom Layout abhängt.
 
-Abbildung \ref{fig:marginAreaDifference} illustriert diesen Sachverhalt. Zwei Rechtecke identischer Fläche (16 Einheiten) benötigen im Layout mit einem Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \times 4$) oder länglich (z. B. $8 \times 2$) sind. Die Fläche des quadratischen Rechtecks inklusive Abstände beträgt $5 \cdot 5 = 25$ Einheiten, während die Fläche des länglichen Rechtecks inklusive Abstände $9 \cdot 3 = 27$ Einheiten beträgt. Das bedeutet, dass die Anordnung der Knoten die tatsächlich benötigte Fläche beeinflusst, was wiederum die Anordnung selbst beeinflusst.
+Folgendes Beispiel verdeutlicht diese Abhängigkeit. Zwei Knoten mit identischem Wert (16 Einheiten) benötigen im Layout mit einem Abstand von 1 unterschiedlich große Gesamtflächen, je nachdem, ob sie quadratisch (z. B. $4 \times 4$) oder länglich (z. B. $8 \times 2$) sind. Die Fläche des quadratischen Knotens inklusive Abstände beträgt $5 \cdot 5 = 25$ Einheiten, während die Fläche des länglichen Knotens inklusive Abstände $9 \cdot 3 = 27$ Einheiten beträgt (siehe Abbildung \ref{fig:marginAreaDifference}). 
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/problem/marginArea.png}
-    \caption[Abstandsfläche bei verschiedenen Seitenverhältnissen]{Zwei Rechtecke der Fläche 16 mit Abstand 1 (transparent)}
+    \caption[Abstandsfläche bei verschiedenen Seitenverhältnissen]{Zwei Knoten der Fläche 16 mit Abstand 1 (transparent)}
     \label{fig:marginAreaDifference}
 \end{figure}
 
-Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche inklusive Abständen bekannt ist. Diese hängt jedoch wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb in diesem Kapitel verschiedene Ansätze zur Minimierung dieses Problems untersucht werden.
+Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden, wenn die tatsächlich benötigte Knotenfläche inklusive Abständen bekannt ist. Diese hängt jedoch wiederum vom Layout ab. Eine triviale Lösung existiert hierfür nicht, weshalb im folgenden Lösungsansätze für dieses Problem untersucht werden.
 
 
 
@@ -282,7 +267,7 @@ In dieser Arbeit wird also der Zielwert von 1{,}05 für das Seitenverhältnis ve
 
 
 \section{Reihenfolge der Knoten} \label{sec:ReihenfolgeKnoten}
-Die Reihenfolge, in der die Knoten in das Layout eingefügt werden, hat einen maßgeblichen Einfluss auf das resultierende Layout. In früheren Arbeiten wurde gezeigt, dass die Ergebnisse am besten ausfallen, wenn die Knoten in absteigender Reihenfolge ihrer Größe eingefügt werden. Begründet wird dies mit insgesamt günstigeren Seitenverhältnissen der Rechtecke~\cite{johnson1991tree}.
+Die Reihenfolge, in der die Knoten in das Layout eingefügt werden, hat einen maßgeblichen Einfluss auf das resultierende Layout. In früheren Arbeiten wurde gezeigt, dass die Ergebnisse am besten ausfallen, wenn die Knoten in absteigender Reihenfolge ihrer Größe eingefügt werden. Begründet wird dies mit insgesamt günstigeren Seitenverhältnissen der Knoten~\cite{johnson1991tree}.
 Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch für die verwendeten Daten die besten Ergebnisse liefert und inwieweit sich dies auf weitere Kriterien neben dem Seitenverhältnis auswirkt. 
 
 \begin{figure}[htbp]
