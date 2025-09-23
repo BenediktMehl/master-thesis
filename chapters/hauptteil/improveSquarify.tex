@@ -130,9 +130,13 @@ Es entsteht ein Zirkelschluss: Das endgültige Layout kann erst berechnet werden
 
 
 \section{Lösungsansatz des Treemap-Problems} \label{sec:TreemapProblem-VerwandteArbeiten}
-Eine explizite Behandlung des Treemap-Problems findet sich nur in \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty. Diese Arbeit bildet eine konzeptionelle Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarified-Treemap-Algorithmus.
 
-Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor. Im \textit{Cascaded Treemap}-Ansatz werden Kindknoten nicht direkt innerhalb, sondern leicht versetzt über ihren Elternknoten dargestellt, wodurch ein subtiler 3D-Effekt entsteht und der Platzverlust im Vergleich zur klassischen Verschachtelung reduziert wird (siehe Abbildung \ref{fig:cascaded}). Diese Visualisierung ist nicht auf den Anwendungsfall dieser Arbeit übertragbar, da sie nicht sinnvoll in 2.5D extrudiert werden kann. Dennoch ist der zugrunde liegende Algorithmus zur Flächenaufteilung interessant, da er Abstände zwischen Knoten berücksichtigt und somit das zuvor beschriebene Treemap-Problem adressiert.
+\begin{quote}
+    Missing nodes are not uncommon, and we later discuss treemaps for a real-world dataset that have hundreds of missing nodes. Despite this, missing nodes are not addressed in the existing treemap literature.~\cite[5]{lu2008cascaded}
+\end{quote}
+Eine explizite Behandlung des Treemap-Problems findet sich auch aktuell nur in der Arbeit \textit{Cascaded treemaps: examining the visibility and stability of structure in treemaps}~\cite{lu2008cascaded} von Lü und Fogarty, welche deshalb im Folgenden detailliert beschrieben wird.
+
+Im Gegensatz zu Nested-Treemaps, bei denen Kindknoten strikt innerhalb der Elternelemente platziert werden, schlagen Lü und Fogarty eine leichte Versetzung der Kindknoten vor, wodurch ein subtiler 3D-Effekt entsteht und der Platzverlust im Vergleich zur klassischen Verschachtelung reduziert wird (siehe Abbildung \ref{fig:cascaded}). Diese Visualisierung ist nicht auf den Anwendungsfall dieser Arbeit übertragbar, da sie nicht sinnvoll in 2.5D extrudiert werden kann. Dennoch ist der zugrunde liegende Algorithmus interessant, da er Abstände zwischen Knoten berücksichtigt und somit das zuvor beschriebene Treemap-Problem adressiert.
 
 \begin{figure}[htbp]
     \centering
@@ -145,17 +149,16 @@ Im Gegensatz zu verschachtelten (\textit{Nested}) Ansätzen, bei denen Kindknote
     \label{fig:nestedVsCascaded}
 \end{figure}
 
-Lü und Fogarty adressieren das Treemap-Problem mit einem zweistufigen Prozess: Zunächst erfolgt die Flächenaufteilung mittels Squarified-Treemap~\cite{bruls2000squarified}. Anschließend werden Abstände und Beschriftungsflächen je Knoten neu berechnet, wobei die Knotengrößen, nicht jedoch deren Positionen angepasst werden. Das Verschwinden von Knoten bleibt möglich, wenn für Beschriftung und Abstand nicht genügend Raum vorhanden ist. Pseudocode geben die Autoren nicht an, was Nachvollziehbarkeit und quantitativen Vergleich erschwert.
-
-Das Verfahren wird wie folgt beschrieben:
+Lü und Fogarty adressieren das Treemap-Problem mit einem zweistufigen Prozess: Zunächst erfolgt die Flächenaufteilung mittels Squarified-Treemap-Algorithmus. Anschließend werden Abstände für jeden Knoten berechnet und damit die Knotenfläche angepasst. Die Positionen den Knoten bleiben aber gleich. 
+Den genauen Algorithmus geben die Autoren nicht an, wodurch Nachvollziehbarkeit und quantitativer Vergleich erschwert werden. Sie beschreiben jedoch das Vorgehen in Worten:
 \begin{quote}
     The function then computes how much vertical space is needed for offsets [...]. The remaining space is for the content of the treemap, and so the layout function gives each side of the split the space computed as necessary for [...] offsets as well as a portion of the remaining content space based on the relative weights of nodes on each side of the split. The layout procedure is then ready to recurse on both sides of the split, as it knows how much space will be used by [...] offsets and has ensured that the remaining space is appropriately divided by node weight~\cite[6]{lu2008cascaded}.
 \end{quote}
+Für jeden Knoten wird die verfügbare Fläche neu bestimmt. Für jede Reihe wird die Fläche berechnet, die in dieser Reihe für Abstände benötigt wird und zusätzlich wird die Fläche berechnet, die außerhalb dieser Reihe für Abstände benötigt wird. 
+Anschließend wird die verbleibende Fläche für die Knoten ohne Abstand berechnet, indem die Abstandsfläche von der Gesamtfläche subtrahiert wird. Dann wird die verbleibende Fläche proportional zu den Werten der Knoten aufgeteilt.
+So ist in jeder Reihe Fläche für die erforderlichen Abstände eingeplant und die Knoten sind entsprechend ihrer Gewichtung skaliert.
 
-Für jeden Knoten wird die verfügbare Fläche neu bestimmt. An jeder Teilungskante (horizontal oder vertikal) wird die für Abstände benötigte Fläche berechnet. Die Berechnung betrachtet jeweils eine Reihe entlang der Teilungskante. Zunächst wird der Platzbedarf für Abstände entlang dieser Kante bestimmt. Anschließend wird der verbleibende Raum für die eigentlichen Knoten berechnet, indem die Abstandsfläche von der Gesamtfläche subtrahiert wird. So ist auf jeder Teilungsebene Platz für die erforderlichen Abstände eingeplant und die Knoten sind entsprechend ihrer Gewichtung skaliert.
-
-Ein grundlegendes Problem bleibt bestehen: Knoten können vollständig verschwinden, wenn der für Abstände erforderliche Platz größer ist als die verbleibende Fläche für die Knoten. Das Treemap-Problem wird damit abgemildert, jedoch nicht vollständig gelöst.
-
+Trotzdem können Knoten vollständig verschwinden, wenn der für Abstände erforderliche Platz größer ist, als die gesamte Fläche aller Knoten eines Ordners~\cite[6]{lu2008cascaded}. Dies ist besonders Wahrscheinlich, wenn ein Ordner viele kleine Knoten enthält, da dann mehr Fläche für Abstände benötigt wird.
 
 Der Ansatz von Lü und Fogarty bietet eine gute Grundlage für die in dieser Arbeit vorgenommenen Anpassungen am Squarify-Algorithmus. Im folgenden wird ihr zweistufiger Ansatz im Kontext des in dieser Arbeit betrachteten Anwendungsfalls evaluiert und weiterentwickelt. 
 
