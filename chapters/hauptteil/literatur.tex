@@ -1,21 +1,12 @@
 \chapter{Vergleich bestehender Visualisierungen} \label{sec:LiteraturRecherche}
-Ziel dieses Kapitels ist die Identifikation von 2{,}5D- und 3D-Visualisierungen, die sich für die Darstellung von Softwarequalitätsmetriken in der definierten Form eignen (siehe Abschnitt \ref{sec:Problemstellung}). Zunächst werden die Methodik zur Recherche und Bewertung der Layouts dargelegt sowie deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Anschließend werden die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen begründet, die in späteren Kapiteln implementiert, optimiert und evaluiert werden.
+
+Ziel dieses Kapitels ist die Identifikation von 2.5D- und 3D-Visualisierungen, die sich für die Darstellung von Softwarequalitätsmetriken eignen. Zunächst werden die Methodik zur Recherche und Bewertung der Layouts dargelegt sowie deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Anschließend werden die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen begründet, die in späteren Kapiteln implementiert, optimiert und evaluiert werden.
 
 \section{Methodik} \label{sec:Methodik}
 Die Methodik orientiert sich an der systematischen Literaturrecherche nach \textit{Procedures for performing systematic reviews}. Der Ansatz wurde angepasst, da der Fokus auf der Identifikation und Einordnung geeigneter Layouts liegt und nicht primär auf der Bewertung und dem Vergleich kompletter Studien~\cite{kitchenham2004procedures}.
 
 \subsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
-Die zugrunde liegenden Problemstellungen sind bereits definiert:
-
-\begin{quote}
-    Welche 3D-Code-Qualitätsmetrik-Visualisierungen lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren? (siehe Abschnitt \ref{sec:Problemstellung})
-\end{quote}
-
-\begin{quote}
-    Welche dieser Visualisierungen optimiert die Übersichtlichkeit und Verständlichkeit speziell im Hinblick auf den definierten Anwendungsfall? (siehe Abschnitt \ref{sec:Problemstellung})
-\end{quote}
-
-Daraus leiten sich zwei Ziele der Recherche ab:
+Aus den zuvor definierten Forschungsfragen (siehe Abschnitt \ref{sec:Problemstellung}) leiten sich zwei zentrale Ziele der Recherche ab:
 \begin{enumerate}
     \item Identifikation von 2.5D- und 3D-Visualisierungen in der Literatur und in bestehenden Tools, die sich für die Darstellung von Software-Qualitätsmetriken eignen.
     \item Bewertung und Vergleich der identifizierten Visualisierungen hinsichtlich ihrer Eignung für den spezifischen Anwendungsfall.
@@ -205,7 +196,7 @@ Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualis
     \caption[Link-Tree mit Metric Stripes]{Link-Tree-Diagramm mit \textit{Metric Stripes} zur Metrikkodierung~\cite[740]{visSoftwareMetricsBook}.}
     \label{fig:visHierarchy}
 \end{figure}
-Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings bleibt zwischen den Knoten viel Leerraum. Diese Kombination aus hoher Metrikzahl und geringer Flächennutzung führt für Informationsgehalt und Flächeneffizienz zur Bewertung 4. Die Struktur des Baumes ist klar, die Rechtecke sind einfach lesbar. Die Zuordnung vieler Streifenpositionen zu Metriken ist jedoch nicht selbsterklärend und ist kognitiv schlecht. Unter dieser Prämisse wird die visuelle Komplexität mit 4 bewertet. Link-Tree-Diagramme verlieren bei großen Hierarchien viel Fläche und werden schnell unübersichtlich, wie bereits in den Grundlagen dargelegt wurde (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Die Skalierbarkeit wird folglich mit 1 bewertet. Eine Metapher wird nicht verwendet, weshalb die Metaphernqualität 1 beträgt.
+Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings bleibt zwischen den Knoten viel Leerraum. Diese Kombination aus hoher Metrikzahl und geringer Flächennutzung führt für Informationsgehalt und Flächeneffizienz zur Bewertung 4. Die Struktur des Baumes ist klar, die Rechtecke sind einfach lesbar. Die Zuordnung vieler Streifenpositionen zu Metriken ist jedoch nicht selbsterklärend und ist kognitiv schlecht. Unter dieser Prämisse wird die visuelle Komplexität mit 4 bewertet. Link-Tree-Diagramme verlieren bei großen Hierarchien viel Fläche und werden schnell unübersichtlich (siehe Abschnitt \ref{sec:TreemapGrundlagen}). Die Skalierbarkeit wird folglich mit 1 bewertet. Eine Metapher wird nicht verwendet, weshalb die Metaphernqualität 1 beträgt.
 
 \smallskip
 

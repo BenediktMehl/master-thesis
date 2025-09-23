@@ -4,7 +4,7 @@ In diesem Kapitel werden Problemstellung und Forschungsfragen präzise definiert
 
 \section{Problemstellung und Forschungsfragen} \label{sec:Problemstellung}
 
-Durch die Motivation (siehe Abschnitt \ref{sec:Motivation}) wurde der Bedarf begründet, Softwarequalität für Personen ohne Programmierkenntnisse bzw. ohne Vertrautheit mit der Codebasis nachvollziehbar und belastbar darzustellen. Softwareanalysen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden, dabei können visuelle Darstellungen von Code-Qualitätsmetriken diese Aufgabe unterstützen.
+Durch die Motivation wurde der Bedarf begründet, Softwarequalität für Personen ohne Programmierkenntnisse bzw. ohne Vertrautheit mit der Codebasis nachvollziehbar und belastbar darzustellen. Softwareanalysen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden, dabei können visuelle Darstellungen von Code-Qualitätsmetriken diese Aufgabe unterstützen.
 Hieraus ergibt sich folgende Leitfrage:
 
 \begin{quote}
@@ -12,10 +12,11 @@ Hieraus ergibt sich folgende Leitfrage:
 \end{quote}
 
 Eine vollständige Beantwortung dieser Frage ist nicht möglich, da nicht alle denkbaren Visualisierungen empirisch getestet und verglichen werden können. Der Fokus liegt daher auf Visualisierungen, die in der Literatur und in bestehenden Tools als besonders geeignet für den vorliegenden Anwendungsfall erscheinen.
-Es ergeben sich daher zwei konkret beantwortbare Forschungsfragen, die in dieser Arbeit untersucht werden:
+Es ergeben sich daher drei konkret beantwortbare Forschungsfragen, die in dieser Arbeit untersucht werden:
 \begin{enumerate}
     \item Welche 3D-Visualisierungen von Code-Qualitätsmetriken lassen sich durch die Analyse verwandter Arbeiten und bestehender Tools identifizieren?
-    \item Welche dieser Visualisierungen optimiert die Übersichtlichkeit der Struktur und die Verständlichkeit der Qualität speziell im Hinblick auf den definierten Anwendungsfall?
+    \item Welche dieser Visualisierungen optimiert die Übersichtlichkeit der Struktur und die Nachvollziehbarkeit der Qualität speziell im Hinblick auf den definierten Anwendungsfall?
+    \item Wie lassen sich identifizierte Visualisierungen technisch und gestalterisch verbessern, um Informationen über die Software noch besser zu vermitteln?
 \end{enumerate}
 
 \section{Anwendungsfall und Anforderungen} \label{sec:Anwendungsfall}
@@ -63,3 +64,5 @@ Die zweite Forschungsfrage wird durch die Bewertung der durch die erste Frage id
     \item \textbf{Skalierbarkeit:} Auch umfangreiche Softwaresysteme müssen übersichtlich visualisierbar sein. Dieser Aspekt ist relevant, da Softwarevisualisierung insbesondere dann sinnvoll wird, wenn die Codebasis ohne Unterstützung nicht mehr überblickt werden kann. \enquote{Representations suitable for the presentation of small data sets do not automagically scale to larger data sets.}~\cite[161]{johnson1993treemapsPhd}
     \item \textbf{Visuelle Metaphern:} Eine geeignete Metapher erleichtert Orientierung und mentales Modell und steigert im Optimalfall sowohl Übersichtlichkeit als auch Verständlichkeit. \enquote{The research being described in this paper has tried to harness natural perceptual skills in this way, through the use of a very strong real world metaphor.}~\cite[2]{virtualButVisibleMunro}
 \end{itemize}
+
+Die dritte Forschungsfrage wird exemplarisch anhand einer vielversprechenden Visualisierung beantwortet. Die Optimierung erfolgt durch die Verbesserung des Algorithmus zur Berechnung des Layouts und durch gestalterische Anpassungen, um die Informationsvermittlung zu verbessern. Die Verbesserungen sollen zeigen, dass und wie die identifizierten Visualisierungen durch technische und gestalterische Maßnahmen für den Anwendungsfall der Softwarevisualisierung optimiert werden können. 

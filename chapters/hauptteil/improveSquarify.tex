@@ -1,16 +1,70 @@
 \chapter{Implementierung des Treemap-Layoutschritts} \label{sec:VerbesserungSquarify}
-Da die Treemap-Visualisierung die verbreitetste Methode zur Darstellung von Software-Qualitätsmetriken ist und in der Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturRecherche}) sehr gut abgeschnitten hat. Anders als die anderen Visualisierungstechniken, die zuvor implemenitert wurden (siehe Abschnitt \ref{sec:Implementierung}), gibt es beim Treemap-Layout zentrale Probleme die adressiert werden sollten, um die Qualität der Visualisierung für den betrachteten Anwendungsfall zu gewährleisten. 
+Die Treemap-Visualisierung ist die verbreitetste Methode zur Darstellung von Software-Qualitätsmetriken und schneidet in der Literaturrecherche (siehe Abschnitt \ref{sec:LiteraturErgebnisse}) am besten ab. 
+Asu diesem Grund wird anhand der treemap exemplarisch die dritte Forschungfrage beantwortet, wie sich bestehende Visualisierungen technisch und gestalterisch verbessern lassen, um Informationen über Software noch besser zu vermitteln.
 
-In diesem Kapitel werden zunächst diese Probleme detailliert beschrieben und analysiert (siehe Abschnitt \ref{sec:TreemapProblem}). Anschließend werden verwandte Arbeiten vorgestellt, die sich mit ähnlichen Problemen beschäftigen (siehe Abschnitt \ref{sec:TreemapProblem-VerwandteArbeiten}). Um zu beurteilen, welche Anpassungen der Treemap-Layouts für unseren Anwendungsfall sinnvoll sind, werden Kriterien für die Qualität der Treemap-Visualisierung formuliert und eine Datengrundlage für die Evaluation geschaffen (siehe Abschnitt \ref{sec:Bewertungsgrundlage}). Abschließend werden verschiedene Anpassungen und Erweiterungen des Squarify-Algorithmus beschrieben und evaluiert, um dann am Ende dieses Kapitels einen Vorschlag für ein verbessertes Treemap-Layout zu unterbreiten und die Qualitätsverbesserung zu quantifizieren.
+Um zu beurteilen, welche Anpassungen von Treemap-Layouts für unseren Anwendungsfall sinnvoll sind, werden zunächst Kennzahlen für die Qualität der Treemap-Visualisierung formuliert und eine Datengrundlage für die Evaluation geschaffen (siehe Abschnitt \ref{sec:Bewertungsgrundlage}).
+Das Treemap-Layout hat zentrale Probleme die adressiert werden müssen, um die Qualität zu gewährleisten und Kennzahlen zu erfüllen. Diese Probleme werden detailliert beschrieben und analysiert (siehe Abschnitt \ref{sec:TreemapProblem}). Anschließend werden verwandte Arbeiten vorgestellt, die sich mit ähnlichen Problemen beschäftigen, um potentielle Lösungsansätze kennenzulernen (siehe Abschnitt \ref{sec:TreemapProblem-VerwandteArbeiten}). Abschließend werden verschiedene Anpassungen und Erweiterungen des Squarify-Algorithmus beschrieben und evaluiert, um dann am Ende dieses Kapitels einen Vorschlag für ein verbessertes Treemap-Layout zu unterbreiten und die Qualitätsverbesserung zu quantifizieren.
 
 
-%die ausgangslage für den algorithmus ist in anhang 
+
+
+
+
+
+
+
+
+
+\section{Bewertungsgrundlage} \label{sec:Bewertungsgrundlage}
+Zuvor wurden vier Kriterien für gute Softwarevisualisierungen definiert (siehe Abschnitt \ref{sec:Bewertungsansatz}). Diese Kriterien sind nur schwer berechenbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, wie sich diese Kennzahlen auf die vier Kriterien auswirken.
+
+\begin{enumerate}
+    \item \textbf{Knotensichtbarkeit:} Es sollten keine Knoten existieren, die aufgrund von Abständen oder anderen Ursachen nicht sichtbar sind. Dieses Ziel adressiert das in Abschnitt \ref{sec:TreemapProblem} beschriebene Treemap-Problem. \enquote{Missing nodes are not addressed in the existing treemap literature.}~\cite[5]{lu2008cascaded} Dieser Wert wird ermittelt, indem alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium ist unter den genannten als das wichtigste anzusehen, da für den vorliegenden Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies gilt insbesondere, wenn ein 2D-Layout in 2.5D extrudiert wird. Auch Knoten mit sehr kleiner Fläche können eine große Höhe oder eine auffällige beziehungsweise unvorteilhafte Farbe aufweisen, weshalb ihre Sichtbarkeit dennoch von Bedeutung ist.
+    
+    \item \textbf{Flächengröße:} Um die Korrelation mit dem zugrunde liegenden Code sicherzustellen, sollte die Fläche der Knoten proportional zum Metrikwert sein. Die Bewertung erfolgt, indem die Fläche des Knotens durch den Metrikwert geteilt wird. Im Optimalfall ist dieser Quotient für alle Knoten identisch, was eine perfekte Proportionalität impliziert. Gemessen wird die Abweichung dieses Flächen-Metrik-Verhältnisses vom Mittelwert. Zur besseren Einordnung und Vergleichbarkeit wird der Varianzkoeffizient verwendet. Dieses Kriterium ist als das zweitwichtigste einzustufen, da die Fläche der Knoten eine zentrale visuelle Eigenschaft darstellt, die die Metrikwerte möglichst genau widerspiegeln sollte.
+    
+    \item \textbf{Seitenverhältnis:} Zur Reduktion visueller Komplexität und zur Erhöhung der Verständlichkeit sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit und erleichtert die Informationsaufnahme. Zur Berechnung wird die größere Seitenlänge durch die kleinere Seitenlänge geteilt. Ein Wert von 1 entspricht einem perfekten Quadrat, höhere Werte deuten auf längliche Rechtecke hin.
+    
+    \item \textbf{Platznutzung:} Es sollte möglichst wenig Fläche ohne Informationsgehalt verbleiben. Als Gegenbeispiel dienen die Ordner-Knoten, wie in der CodeCity-Arbeit beschrieben, bei denen die Knotenfläche nicht proportional zur Anzahl der Codezeilen ist, wodurch die Fläche an sich keinen Informationsgehalt mehr besitzt und zusätzlich viel ungenutzte Fläche entsteht. Gemessen wird dies, indem die Summe der Flächen aller Blatt-Knoten durch die Fläche des Wurzelknotens geteilt wird. Ein Wert von 1 bedeutet, dass die gesamte Fläche des Wurzelknotens von den Blatt-Knoten eingenommen wird.
+    
+    \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies fördert die Skalierbarkeit und die allgemeine Nutzbarkeit der Visualisierung. Die Messungen wurden auf einem M2 MacBook durchgeführt und die Implementierung erfolgte in TypeScript. Dies ist praxisnah, da viele Werkzeuge in JavaScript beziehungsweise TypeScript implementiert sind und bei Nutzenden lokal gerendert werden~\cite{code_charta_github,sereene_website,codeIsBeautiful}. Die gemessene Zeit bezieht sich ausschließlich auf die Ausführung des Layout-Algorithmus und umfasst nicht die Renderzeit der Visualisierung.
+\end{enumerate}
+
+\bigskip
+
+Diese fünf Kennzahlen werden mit einer breiten, repräsentativen Auswahl an Softwareprojekten evaluiert. Als Quelle für diese Daten dient GitHub. Um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen, wird eine gleichmäßige Verteilung hinsichtlich der Projektgröße und der verwendeten Programmiersprachen angestrebt. Eine reine Zufallsauswahl von GitHub würde zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen, da es deutlich mehr kleine Projekte auf GitHub gibt. Die Projekte sind gleichmäßg bis 1,5 GB verteilt und decken verschiedene Programmiersprachen mit verschiedenen Paradigmen ab. 
+Die vollständige Liste der 70 ausgewählten Softwareprojekte ist über diesen \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link} \cite{anhaenge_github} erreichbar. 
+
+
+\bigskip
+
+Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschließende Analyse mit dem \textit{unified Parser} des Analyse Tools \textit{CodeCharta Analysis}~\cite{code_charta_wiki_ana} gewonnen.
+Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner. 95\% der Repositories haben weniger als 15.000 Dateien und 3000 Ordner.
+In Abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben und generell die Anzahl der Kinder pro Ordner eher niedrig ist.
+Das 95\%-Quantil liegt bei 18 Kindern. 95\% der Knoten liegen in den Tiefen von 3 bis 11, wobei die mittlere Tiefe bei 7 liegt.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/improve/datenanalyse/breite.png}
+    \caption[Kinder pro Ordner]{Kinderzahlen pro Ordner.}
+    \label{fig:anzahlKindZuOrdner} 
+\end{figure}
+
+
+
+
+
+
+
+
+
 
 \section{Treemap-Problem} \label{sec:TreemapProblem}
-In der Literatur existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt einen sehr vielversprechenden Ansatz zur Erstellung von gut übersichtlichen Treemap-Layouts dar~\cite{bruls2000squarified}. Er wird außerdem von den meisten der zuvor vorgestellten Tools zur Visualisierungen von Softwaremetriken verwendet~\cite{code_charta_github,sereene_website,codeCity1}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Grundlage für die Treemap-Visualisierung verwendet.
+In der Literatur existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus zeigt jedoch hinsichtlich des Seitenverhältnisses der Knoten die besten Ergebnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung von übersichtlichen und platzfüllenden Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesen Gründen wird in dieser Arbeit der Squarify-Algorithmus als Ausgangslage für alle Anpassungen verwendet. Die genaue Implementierung ist so wie er im Anhang \ref{lst:squarify_code} dargestellt ist.
 
-Der Squarify-Algorithmus und auch alle anderen Treemap-Layout-Algoritmen haben jedoch eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
-Die Wahrnehmeung der Struktur ist jedoch für den Anwendungsfall dieser Arbeit essentiell (siehe Abschnitt \ref{sec:Problemstellung}).
+
+Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts haben jedoch eine Schwäche: Die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite[1]{lu2008cascaded}. 
+Die Wahrnehmeung der Struktur ist jedoch für den Anwendungsfall dieser Arbeit essentiell.
 
 Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000squarified} entwickeln deshalb in einer späteren Arbeit sogenannte \textit{Cushion Treemaps}~\cite{cushionTreemaps}. Jedem Knoten wird dabei ein Innenraumschatten zugewiesen, der über Schattierungseffekte die hierarchische Struktur hervorhebt, während das klassische Layout erhalten bleibt (siehe Abbildung \ref{fig:cushion}). Andere Autoren schlagen alternativ unterschiedlich dicke Umrisslinien vor, um Zugehörigkeit und Tiefe von Knoten in der Hierarchie hervorzuheben~\cite{largeHierarchicalRepositories, 2010-perception-treemaps} (siehe Abbildung \ref{fig:thickOutline}) oder auch die Einfärbung der Knoten entsprechend ihrer Ordner zugehörigkeit (siehe Abbildung \ref{fig:treemapExample}).
 
@@ -25,10 +79,10 @@ Die Autoren des ursprünglichen Squarified-Treemap-Algorithmus~\cite{bruls2000sq
     \label{fig:solAns}
 \end{figure}
 
-Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch nicht umsetzbar für 2.5D-Treemaps, da Schatten und Outlines bei Extrusionen nicht konsistent und flächenübergreifend darstellbar sind oder zum Beispiel die Farbe zur Darstellung von Metrikwerten reserviert ist (siehe Abschnitt \ref{sec:Architektur}).
+Diese Ansätze verbessern die Erkennbarkeit der Struktur in 2D, sind jedoch nicht umsetzbar für 2.5D-Treemaps, da Schatten und Outlines bei Extrusionen nicht konsistent und flächenübergreifend darstellbar sind oder zum Beispiel die Farbe zur Darstellung von Metrikwerten reserviert ist.
 
 Für die Extrusion in 2.5D eignen sich Abstände zwischen Rechtecken, um Hierarchieebenen zu verdeutlichen~\cite{johnson1991tree}. Johnson und Shneiderman bezeichnen diese Art der Treemap als \textit{Nested Treemap}. 
-Der Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten ein Rand abgezogen wird. 
+Der Abstand zwischen Rechtecken wird realisiert, indem von jedem Rechteck an allen vier Seiten der Abstand abgezogen wird. 
 
 Die Probleme die durch diesen Ansatz entstehen sind in den Abbildungen \ref{fig:differentMargins} verdeutlicht.
 In Abbildung \ref{fig:zeroMargin} ist ein Treemap-Layout ohne Abstände zwischen Knoten und Ordnern abgebildet. Alle Knoten sind sichtbar, und die Flächen aller Knoten sind proportional zu den jeweiligen Werten.
@@ -128,49 +182,9 @@ Der Ansatz von Lü und Fogarty bietet eine gute Grundlage für die in dieser Arb
 
 
 
-\section{Bewertungsgrundlage} \label{sec:Bewertungsgrundlage}
-Zuvor wurden vier Kriterien für gute Softwarevisualisierungen vorgestellt (siehe Abschnitt \ref{sec:Bewertungsansatz}). Diese Kriterien sind nur schwer berechenbar und beziehen sich auf die generelle Qualität von Softwarevisualisierungen. Für die Optimierung des Treemap-Layouts im Hinblick auf diese vier Kriterien werden im Folgenden fünf konkrete, messbare Kennzahlen definiert, die als Ziele für die Layoutoptimierung dienen. Zudem wird erläutert, wie sich diese Kennzahlen auf die vier Kriterien auswirken.
-
-\begin{enumerate}
-    \item \textbf{Knotensichtbarkeit:} Es sollten keine Knoten existieren, die aufgrund von Abständen oder anderen Ursachen nicht sichtbar sind. Dieses Ziel adressiert das in Abschnitt \ref{sec:TreemapProblem} beschriebene Treemap-Problem. \enquote{Missing nodes are not addressed in the existing treemap literature.}~\cite[5]{lu2008cascaded} Dieser Wert wird ermittelt, indem alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium ist unter den genannten als das wichtigste anzusehen, da für den vorliegenden Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies gilt insbesondere, wenn ein 2D-Layout in 2.5D extrudiert wird. Auch Knoten mit sehr kleiner Fläche können eine große Höhe oder eine auffällige beziehungsweise unvorteilhafte Farbe aufweisen, weshalb ihre Sichtbarkeit dennoch von Bedeutung ist.
-    
-    \item \textbf{Flächengröße:} Um die Korrelation mit dem zugrunde liegenden Code sicherzustellen, sollte die Fläche der Knoten proportional zum Metrikwert sein. Die Bewertung erfolgt, indem die Fläche des Knotens durch den Metrikwert geteilt wird. Im Optimalfall ist dieser Quotient für alle Knoten identisch, was eine perfekte Proportionalität impliziert. Gemessen wird die Abweichung dieses Flächen-Metrik-Verhältnisses vom Mittelwert. Zur besseren Einordnung und Vergleichbarkeit wird der Varianzkoeffizient verwendet. Dieses Kriterium ist als das zweitwichtigste einzustufen, da die Fläche der Knoten eine zentrale visuelle Eigenschaft darstellt, die die Metrikwerte möglichst genau widerspiegeln sollte.
-    
-    \item \textbf{Seitenverhältnis:} Zur Reduktion visueller Komplexität und zur Erhöhung der Verständlichkeit sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit und erleichtert die Informationsaufnahme. Zur Berechnung wird die größere Seitenlänge durch die kleinere Seitenlänge geteilt. Ein Wert von 1 entspricht einem perfekten Quadrat, höhere Werte deuten auf längliche Rechtecke hin.
-    
-    \item \textbf{Platznutzung:} Es sollte möglichst wenig Fläche ohne Informationsgehalt verbleiben. Als Gegenbeispiel dienen die Ordner-Knoten, wie in der CodeCity-Arbeit beschrieben, bei denen die Knotenfläche nicht proportional zur Anzahl der Codezeilen ist, wodurch die Fläche an sich keinen Informationsgehalt mehr besitzt und zusätzlich viel ungenutzte Fläche entsteht. Gemessen wird dies, indem die Summe der Flächen aller Blatt-Knoten durch die Fläche des Wurzelknotens geteilt wird. Ein Wert von 1 bedeutet, dass die gesamte Fläche des Wurzelknotens von den Blatt-Knoten eingenommen wird.
-    
-    \item \textbf{Zeitaufwand:} Die Generierung des Layouts sollte in einem angemessenen Zeitrahmen erfolgen, um eine schnelle Visualisierung zu ermöglichen. Dies fördert die Skalierbarkeit und die allgemeine Nutzbarkeit der Visualisierung. Die Messungen wurden auf einem M2 MacBook durchgeführt und die Implementierung erfolgte in TypeScript. Dies ist praxisnah, da viele Werkzeuge in JavaScript beziehungsweise TypeScript implementiert sind und bei Nutzenden lokal gerendert werden~\cite{code_charta_github,sereene_website,codeIsBeautiful}. Die gemessene Zeit bezieht sich ausschließlich auf die Ausführung des Layout-Algorithmus und umfasst nicht die Renderzeit der Visualisierung.
-\end{enumerate}
-
-\bigskip
-
-Diese fünf Kennzahlen werden mit einer breiten, repräsentativen Auswahl an Softwareprojekten evaluiert. Als Quelle für diese Daten dient GitHub. Um ein möglichst breites Spektrum abzudecken und spätere Aussagen zur Struktur von Softwareprojekten allgemeingültiger zu machen, wird eine gleichmäßige Verteilung hinsichtlich der Projektgröße und der verwendeten Programmiersprachen angestrebt. Eine reine Zufallsauswahl von GitHub würde zu einer Verzerrung zugunsten kleinerer, weniger bekannter Projekte mit häufig verwendeten Programmiersprachen führen, da es deutlich mehr kleine Projekte auf GitHub gibt. Die Projekte sind gleichmäßg bis 1,5 GB verteilt und decken verschiedene Programmiersprachen mit verschiedenen Paradigmen ab. 
-Die vollständige Liste der 70 ausgewählten Softwareprojekte ist über diesen \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link} \cite{anhaenge_github} erreichbar. 
-
-
-\bigskip
-
-Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschließende Analyse mit dem Analyse Tool \textit{CodeCharta Analysis}~\cite{code_charta_wiki_ana} gewonnen.
-Im Schnitt haben die analysierten Repositories 3262 Dateien und 958 Ordner. 95\% der Repositories haben weniger als 15.000 Dateien und 3000 Ordner.
-In Abbildung \ref{fig:anzahlKindZuOrdner} ist zu erkennen, dass die meisten Ordner nur ein Kind haben und generell die Anzahl der Kinder pro Ordner eher niedrig ist.
-Das 95\%-Quantil liegt bei 18 Kindern. 95\% der Knoten liegen in den Tiefen von 3 bis 11, wobei die mittlere Tiefe bei 7 liegt.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{images/improve/datenanalyse/breite.png}
-    \caption[Kinder pro Ordner]{Kinderzahlen pro Ordner.}
-    \label{fig:anzahlKindZuOrdner} 
-\end{figure}
-
-
-
-
-
-
 
 \section{Abstände zwischen Knoten} \label{sec:AbständeZwischenKnoten}
-Wie zuvor beschrieben (siehe Abschnitt \ref{sec:TreemapProblem}), entsteht das Treemap-Problem durch das Hinzufügen von Abständen zwischen Knoten. Je größer die Abstände sind, desto ausgeprägter wird das Problem. Dadurch entsteht ein Trade-off zwischen der Sichtbarkeit der Softwarestruktur und der Sichtbarkeit aller Knoten.
+Wie zuvor beschrieben, entsteht das Treemap-Problem durch das Hinzufügen von Abständen zwischen Knoten. Je größer die Abstände sind, desto ausgeprägter wird das Problem. Dadurch entsteht ein Trade-off zwischen der Sichtbarkeit der Softwarestruktur und der Sichtbarkeit aller Knoten.
 
 Die Wahl des Abstands ist also subjektiv und abhängig von der betrachteten Software sowie dem darzustellenden Fokus. Soll die Struktur betont werden oder die Metriken?
 
@@ -210,7 +224,7 @@ Insgesamt empfiehlt sich ein Abstand zwischen 0,5\% und 3\%, abhängig von der j
 
 
 \section{Seitenverhältnisse} \label{sec:Seitenverhältnis}
-Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor allem das Seitenverhältnis 1 als Idealwert betrachtet, erlauben viele Implementierungen, wie auch die der d3.js-Bibliothek~\cite{d3_treemap_doku}, die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt~\cite{goldenRatio}. Dieser Zielwert geht als Faktor in die Bedingung des Algorithmus ein, die bestimmt, wann eine Reihe abgeschlossen wird und wann eine neue Reihe begonnen wird. In Abbildung~\ref{fig:squarifyRatio} sind Beispiele dargestellt, die die Auswirkungen verschiedener Ziel-Seitenverhältnisse auf das resultierende Layout verdeutlichen.
+Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor allem das Seitenverhältnis 1 als Idealwert betrachtet, erlauben viele Implementierungen, wie auch die der d3.js-Bibliothek~\cite{d3_treemap_doku}, die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt~\cite{goldenRatio}. In Abbildung~\ref{fig:squarifyRatio} sind Beispiele dargestellt, die die Auswirkungen verschiedener Ziel-Seitenverhältnisse auf das resultierende Layout verdeutlichen.
 
 \begin{figure}[htbp]
     \centering
@@ -223,7 +237,7 @@ Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor
     \label{fig:squarifyRatio}
 \end{figure}
 
-In dieser Abbildung ist aber auch zu erkennen, dass das angestrebte Seitenverhältnis nicht dem tatsächlich erreichten Seitenverhältnis entspricht. Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}7, und ein Ziel-Seitenverhältnis von 5 ergibt ein durchschnittliches Seitenverhältnis von 3{,}8. Im folgenden wird untersucht, wie sich das angestrebte Seitenverhältnis auf das tatsächlich erreichte Seitenverhältnis auswirkt und welcher Zielwert die besten Ergebnisse liefert.
+Zudem sind in diesen Abbildungen zu erkennen, dass das angestrebte Seitenverhältnis nicht dem tatsächlich erreichten Seitenverhältnis entspricht. Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}7, und ein Ziel-Seitenverhältnis von 5 ergibt ein durchschnittliches Seitenverhältnis von 3{,}8. Im folgenden wird untersucht, wie sich das angestrebte Seitenverhältnis auf das tatsächlich erreichte Seitenverhältnis auswirkt und welcher Zielwert die besten Ergebnisse liefert.
 
 \begin{figure}[htbp]
     \centering
@@ -247,7 +261,7 @@ In dieser Arbeit wird also der Zielwert von 1{,}05 für das Seitenverhältnis ve
 
 
 
-\section{Reihenfolge der Knoten im ersten Layoutschritt} \label{sec:ReihenfolgeKnoten}
+\section{Reihenfolge der Knoten} \label{sec:ReihenfolgeKnoten}
 Die Reihenfolge, in der die Knoten in das Layout eingefügt werden, hat einen maßgeblichen Einfluss auf das resultierende Layout. In früheren Arbeiten wurde gezeigt, dass die Ergebnisse am besten ausfallen, wenn die Knoten in absteigender Reihenfolge ihrer Größe eingefügt werden. Begründet wird dies mit insgesamt günstigeren Seitenverhältnissen der Rechtecke~\cite{johnson1991tree}.
 Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch für die verwendeten Daten die besten Ergebnisse liefert und inwieweit sich dies auf weitere Kriterien neben dem Seitenverhältnis auswirkt. 
 
@@ -276,11 +290,11 @@ In den zentralen Kennzahlen erzielt die Sortierung nach Größe konsistent besse
 \section{Zweifache Berechnung} \label{sec:ZweifachBerechnung}
 Die zentrale Idee dieser Erweiterung besteht darin, die mit Abstand resultierende Knotenfläche über das Layout und die ohne Abstand berechnete Knotenfläche zu approximieren. Dazu erfolgt zunächst ein erster Durchlauf, in dem das Layout ohne Abstand berechnet wird. Anschließend werden die Knotengrößen auf Basis dieses Layouts angepasst, sodass die Größe der Knoten den Abstand explizit berücksichtigt. Darauf folgt ein zweiter Layoutschritt mit den angepassten Größen, der das finale Layout erzeugt.
 
-Vorab sei darauf hingewiesen, dass diese Erweiterung prinzipbedingt nicht optimal funktionieren kann. Die Anpassung der Knotengrößen beeinflusst das Layout im zweiten Durchlauf, wodurch die zuvor berechneten Größen wiederum nicht exakt passend sind. Genau hierin liegt das grundlegende Problem der Abhängigkeiten zwischen Größe und Anordnung (siehe Abschnitt \ref{sec:Problemstellung}). Die zweifache Berechnung stellt dennoch einen pragmatischen Ansatz dar, um sich dem nicht vollständig lösbaren Treemap-Problem schrittweise zu nähern und zu prüfen, ob sich weitere Forschung in diese Richtung lohnt.
+Vorab sei darauf hingewiesen, dass diese Erweiterung prinzipbedingt nicht optimal funktionieren kann. Die Anpassung der Knotengrößen beeinflusst das Layout im zweiten Durchlauf, wodurch die zuvor berechneten Größen wiederum nicht exakt passend sind. Genau hierin liegt das grundlegende Problem der Abhängigkeiten zwischen Größe und Anordnung. Die zweifache Berechnung stellt dennoch einen pragmatischen Ansatz dar, um sich dem nicht vollständig lösbaren Treemap-Problem schrittweise zu nähern und zu prüfen, ob sich weitere Forschung in diese Richtung lohnt.
 
 Der grundlegende Algorithmus bleibt weitgehend unverändert. Zwischen erstem und zweitem Durchlauf wird jedoch ein zusätzlicher Schritt \textit{Größenanpassung} eingefügt. Die einzige notwendige Änderung besteht darin, dass Knoten im \textit{Layoutschritt} nur innerhalb des Elternknotens mit dem definierten Abstand platziert werden und die verfügbare Fläche des Elternknotens um den Abstand reduziert wird. Der Schritt, in dem der Squarify-Algorithmus ausgeführt wird, wird als \textit{Layoutschritt} bezeichnet, der Schritt zur Anpassung der Knotengrößen als \textit{Größenanpassung}.
 
-Die Größenanpassung wird im nächsten Abschnitt ausführlich beschrieben (siehe Abschnitt \ref{sec:Größenanpassung}). Die Ergebnisse dieser Erweiterung werden anschließend dem Standard-Squarify-Algorithmus gegenübergestellt, um den generellen Nutzen der zweifachen Berechnung zu bewerten und die wirkungsvollere Variante der Größenanpassung zu identifizieren (siehe Abschnitt \ref{sec:VergleichDerAnsätze}).
+Die Größenanpassung wird im nächsten Abschnitt ausführlich beschrieben (siehe Abschnitt \ref{sec:Größenanpassung}).
 
 
 
@@ -501,7 +515,7 @@ Bei diesem Ansatz treten ähnliche Probleme auf wie zuvor, die sich auch in verg
 
 \subsection{Skalierung der Knoten} \label{sec:ScalingKnoten}
 Beide Ansätze der Größenanpassung haben das Problem, dass die Fläche der Knoten nicht exakt vorhergesagt werden kann, was, wie erläutert, grundsätzlich nicht möglich ist. Dadurch kann es passieren, dass Knoten über ihre Elternknoten hinauswachsen (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) oder dass freie Flächen innerhalb von Knoten entstehen (siehe Abbildung \ref{fig:relativeIncreaseMarginOne}), was beides nicht den Eigenschaften eines platzfüllenden Treemap-Layouts entspricht (siehe Definition in Abschnitt \ref{sec:TreemapGrundlagen}). Um dieses Problem zu beheben, werden die Knoten nach dem zweiten Layoutschritt skaliert, sodass sie genau in die Fläche des Elternknotens passen.
-Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten entsprechend skaliert, sodass sie genau in die Fläche des Elternknotens passen. Das resultierende Layout aus Anwendung von Skalierung auf das Ergebnis der relative Größenanpassung (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) ist in Abbildung \ref{fig:absoluteIncreaseMarginOneScale} dargestellt. Die zu großen Knoten wurden verkleinert, sodass sie genau in die Fläche des Elternknotens passen, wodurch das Problem der überstehenden Knoten behoben wurde, aber auf Kosten der Proportionalität der Knotenflächen. Knoten 10 ist kleiner als Knoten 5, obwohl beide denselben Wert haben.
+Vor jedem Squarify-Schritt wird dafür die tatsächlich verfügbare Fläche des Elternknotens berechnet und die Kindknoten gleichmäßig skaliert, sodass sie genau in die Fläche des Elternknotens passen. Das resultierende Layout aus Anwendung von Skalierung auf das Ergebnis der relative Größenanpassung (siehe Abbildung \ref{fig:simpleIncreaseMarginOne}) ist in Abbildung \ref{fig:absoluteIncreaseMarginOneScale} dargestellt. Die zu großen Knoten wurden verkleinert, sodass sie genau in die Fläche des Elternknotens passen, wodurch das Problem der überstehenden Knoten behoben wurde, aber auf Kosten der Proportionalität der Knotenflächen. Knoten 10 ist kleiner als Knoten 5, obwohl beide denselben Wert haben.
 
 \begin{figure}[htbp]
     \centering
@@ -598,7 +612,7 @@ Insgesamt zeigen die Ergebnisse, dass der Ansatz von Lü und Fogarty, die Knoten
 
 
 \section{Mehrfache Berechnung} \label{sec:MehrfacheBerechnung}
-Die grundlegende Idee dieser Erweiterung besteht darin, das Layout mehrfach zu berechnen und dabei die Flächen der Knoten schrittweise an die jeweils optimale Fläche anzupassen. Nach dem ersten Layoutschritt ist die Vorhersage der neuen Flächen häufig noch ungenau. Zudem können sich sowohl die Reihenfolge der Knoten als auch deren Form verändern. Durch den zweiten Layoutschritt kann sich wie zuvor erläutert (siehe Abschnitt \ref{sec:ReihenfolgeKnotenZweitesLayout}) eine veränderte Platzierung ergeben, wodurch die zuvor prognostizierten Flächen nicht exakt passen. Daher liegt es nahe, die Flächen nochmals zu berechnen und einen weiteren Layoutschritt durchzuführen, um das Ergebnis iterativ zu verbessern.
+Die grundlegende Idee dieser Erweiterung besteht darin, das Layout mehrfach zu berechnen und dabei die Flächen der Knoten schrittweise an die jeweils optimale Fläche anzupassen. Nach dem ersten Layoutschritt ist die Vorhersage der neuen Flächen häufig noch ungenau. Zudem können sich sowohl die Reihenfolge der Knoten als auch deren Form verändern. Durch den zweiten Layoutschritt kann sich wie zuvor erläutert eine veränderte Platzierung ergeben, wodurch die zuvor prognostizierten Flächen nicht exakt passen. Daher liegt es nahe, die Flächen nochmals zu berechnen und einen weiteren Layoutschritt durchzuführen, um das Ergebnis iterativ zu verbessern.
 
 Es wird die Hypothese aufgestellt, dass durch mehrfache Berechnung des Layouts und das fortlaufende Aktualisieren der Flächen alle betrachteten Kriterien, mit Ausnahme der Laufzeit, verbessert werden.
 Die mehrfache Berechnung kann sich in bestimmten Fällen jedoch auch negativ auswirken. Wenn zum Beispiel ein Knoten schmal ist und dadurch im Größenanpassungsschritt viel Fläche zugewiesen bekommt und der Knoten dadurch noch schmaler wird, wird dieser Effekt im nächsten Layout- und Größenanpassungsschritt noch verstärkt. Dieses Verhalten könnte sich in jedem Layoutschritt fortsetzen und multiplizieren, was für manche Knoten zu immer schlechteren Ergebnissen führen kann, was sich auf das gesamte Layout und die Kennzahlen auswirkt.
@@ -641,7 +655,7 @@ Die Anzahl an Ordnern in Ordnerketten liegt bei etwa 7\% bei Java ist das besond
     \label{fig:kettentiefe}
 \end{figure}
 
-Einige dieser Ketten sind nicht nur wenige Ebenen tief, sondern sind bis zu 6 Ordner tief (siehe Abbildung \ref{fig:kettentiefe}). Dies verbraucht durch die Verschachtelung erheblich Platz für Abstände, da in der Tiefe jeweils zusätzlicher Rand anfällt, obwohl diese Strukturierung inhaltlich oft keinen zusätzlichen Informationsgewinn liefert. Viele IDEs, etwa IntelliJ IDEA oder VS Code, verbergen derartige Strukturen automatisch, indem Ordnerketten als ein Ordner mit zusammengefügtem Namen dargestellt werden, beispielsweise \textit{main/kotlin/de/maibornwolff/codecharta/analysers}. In der Praxis sind solche Ordnerketten nicht unüblich und gelten häufig als Best Practice, um Namensräume von Paketen abzubilden.
+Einige dieser Ketten sind nicht nur wenige Ebenen tief, sondern sind bis zu 6 Ordner tief (siehe Abbildung \ref{fig:kettentiefe}). Dies verbraucht durch die Verschachtelung erheblich Platz für Abstände, da in der Tiefe jeweils zusätzliche Fläche für Abstand anfällt, obwohl diese Strukturierung inhaltlich oft keinen zusätzlichen Informationsgewinn liefert. Viele IDEs, etwa IntelliJ IDEA oder VS Code, verbergen derartige Strukturen automatisch, indem Ordnerketten als ein Ordner mit zusammengefügtem Namen dargestellt werden, beispielsweise \textit{main/kotlin/de/maibornwolff/codecharta/analysers}. In der Praxis sind solche Ordnerketten nicht unüblich und gelten häufig als Best Practice, um Namensräume von Paketen abzubilden.
 
 Diese Optimierung lässt sich auch für die Visualisierung nutzen, indem Ordnerketten zu einem Ordner zusammengefasst werden. Da es sich hierbei nicht nur um eine algorithmische Änderung handelt, sondern auch um einen Eingriff in die Darstellung, werden im Folgenden sowohl die Auswirkungen auf die messbaren Kennzahlen als auch die Implikationen für die allgemeinen Kriterien guter Visualisierungen betrachtet, wie in Abschnitt \ref{sec:MethodikAuswertung} definiert. Daraus ergeben sich folgende Effekte auf die Ziele der Visualisierung:
 \begin{itemize}
@@ -760,7 +774,7 @@ Vorgeschlagen wird ein statischer Ansatz, bei dem ausschließlich die Beschriftu
 
 Die Auswirkungen auf die Visualisierungskriterien werden wie folgt eingeordnet:
 \begin{itemize}
-    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Mit größeren Werten für N und l wird mehr Platz für Beschriftungen reserviert, was die Platzausnutzung verschlechtert. Gleichzeitig steigt der Informationsgehalt durch die Nennung der Knotennamen.
+    \item \textbf{Informationsgehalt und effiziente Nutzung des Platzes:} Mit größeren Werten für N und l wird mehr Platz für Beschriftungen reserviert, was die Platzausnutzung der Blatt-Knoten verschlechtert. Gleichzeitig steigt der Informationsgehalt durch die Nennung der Knotennamen.
     \item \textbf{Niedrige visuelle Komplexität und hohe Verständlichkeit:} Mit wachsendem N erhöht sich die visuelle Komplexität aufgrund der größeren Anzahl an Beschriftungen. Mit größerem l kann die Schrift größer gewählt werden, was die Lesbarkeit verbessert und die kognitive Last reduziert. Zusätzlich werden beschriftete Ordner leichter identifizierbar und besser voneinander unterscheidbar.
     \item \textbf{Skalierbarkeit:} Höhere Werte von N und l beeinträchtigen die Skalierbarkeit, da mehr Fläche für Beschriftungen reserviert wird. In großen Codebasen mit vielen Knoten werden Texte tendenziell kleiner, und die reduzierte Knotengröße erschwert die Erkennung der Flächen.
     \item \textbf{Visuelle Metaphern:} In die Stadtmetapher fügen sich Beschriftungen nur bedingt ein. Straßennamen sind zwar nicht unüblich, die Metapher wird insgesamt jedoch weder deutlich gestärkt noch stark beeinträchtigt.
@@ -775,7 +789,7 @@ Die Effekte der Beschriftungen auf die Kriterien fallen gemischt aus. Insgesamt 
     \label{fig:labels_numberOfZeroAreaNodes_over_labelLength}
 \end{figure}
 
-Abbildung \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt exemplarisch an der Anzahl an fehlenden Knoten, dass sowohl die Wahl von N als auch die Wahl von l deutliche Auswirkungen auf die Kennzahlen haben. Mit steigenden Werten von N und l verschlechtern sich die Kennzahlen der fehlenden Knoten, des Wert-Fläche-Verhältnisses und der Platzausnutzung erwartungsgemäß. Die Seitenverhältnisse bleiben hingegen weitgehend unverändert. Gleiches gilt für die Laufzeit.
+Abbildung \ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt exemplarisch an der Anzahl an fehlenden Knoten, dass sowohl die Wahl von N als auch die Wahl von l deutliche Auswirkungen auf die Kennzahlen haben. Mit steigenden Werten von N und l verschlechtern sich die Kennzahlen der fehlenden Knoten, des Wert-Fläche-Verhältnisses. Die Seitenverhältnisse bleiben hingegen weitgehend unverändert. Gleiches gilt für die Laufzeit.
 
 \smallskip
 
@@ -808,7 +822,7 @@ Zusammenfassend werden folgende Ausprägungen für den Algorithmus empfohlen und
     \end{tabularx}
 \end{table}
 
-
+Die komplette Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar.
 Abschließend wird der verbesserte Algorithmus mit den zuvor genannten Ausprägungen dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit drei Labels der Länge 20.
 
 \begin{figure}[htbp]
@@ -834,4 +848,4 @@ Insgesamt wird das Treemap-Problem für die vorliegende Anwendung durch den verb
 In diesem Kapitel wurden verschiedene Erweiterungen und Anpassungen des Squarify-Algorithmus für die vorliegenden Anforderungen vorgestellt und evaluiert. Literaturansätze wie der von Lü und Fogarty liefern nicht in jedem Kontext die besten Ergebnisse, was die Notwendigkeit unterstreicht, solche Verfahren regelmäßig zu hinterfragen, anzupassen und anhand eigener Kriterien auszuwerten.
 Dabei kamen sowohl etablierte Ansätze aus der Literatur als auch neue, in dieser Form bislang nicht publizierte Strategien zum Einsatz.
 Bei den neuen Methoden handelt es sich um erste Versionen, die in weiterer Forschung optimiert werden können.
-Das Treemap-Problem ist ein NP-hartes Problem~\cite[4]{bruls2000squarified}, weshalb keine perfekte Lösung existiert. Es bieten sich zahlreiche Ideen zur weiteren Verbesserung an, etwa die Verwendung dynamischer statt fester Abstände, die Berücksichtigung der Tiefe oder der Anzahl der Geschwister, alternative Größenanpassungen auf Basis anderer Heuristiken, abweichende Sortier- und Platzierungsstrategien oder neue Ansätze für die Integration von Beschriftungen in die Knoten.
+Es bieten sich zahlreiche Ideen zur weiteren Verbesserung an, etwa die Verwendung dynamischer statt fester Abstände, die Berücksichtigung der Tiefe oder der Anzahl der Geschwister, alternative Größenanpassungen auf Basis anderer Heuristiken, abweichende Sortier- und Platzierungsstrategien oder neue Ansätze für die Integration von Beschriftungen in die Knoten.
