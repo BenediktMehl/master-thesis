@@ -46,7 +46,7 @@ Das Treemap-Layout wird für die Visualisierung von Softwarequalitätsmetriken a
 
 Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x- und y-Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird Platz für Beschriftungen reserviert (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
 
-\subsection*{Visualisierungsschritt}
+\subsection*{Visualisierungsschritt} \label{sec:TreemapVisualisierungImplementierung}
 Der Visualisierungsschritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Höhen-Metrik. Die z-Position jedes Knotens ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layoutschritt reserviert worden. Die Beschriftungen werden zentral auf diesen Flächen positioniert und so skaliert, dass die Schriftgröße genau in den dafür reservierten Platz passt, ohne diesen horizontal oder vertikal zu überschreiten. Ein Beispiel ist in Abbildung \ref{fig:treemapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
