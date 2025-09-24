@@ -22,7 +22,7 @@ Zuvor wurden vier Kriterien für gute Softwarevisualisierungen definiert (siehe 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} Es sollten keine Knoten existieren, die aufgrund von Abständen oder anderen Ursachen nicht sichtbar sind. Dieses Ziel adressiert das in Abschnitt \ref{sec:TreemapProblem} beschriebene Treemap-Problem. \enquote{Missing nodes are not addressed in the existing treemap literature.}~\cite[5]{lu2008cascaded} Dieser Wert wird ermittelt, indem alle Knoten gezählt werden, deren Länge oder Breite kleiner oder gleich 0 ist. Dieses Kriterium ist unter den genannten als das wichtigste anzusehen, da für den vorliegenden Anwendungsfall die Sichtbarkeit aller Knoten essenziell ist. Dies gilt insbesondere, wenn ein 2D-Layout in 2.5D extrudiert wird. Auch Knoten mit sehr kleiner Fläche können eine große Höhe oder eine auffällige beziehungsweise unvorteilhafte Farbe aufweisen, weshalb ihre Sichtbarkeit dennoch von Bedeutung ist.
     
-    \item \textbf{Flächengröße:} Um die Korrelation mit dem zugrunde liegenden Code sicherzustellen, sollte die Fläche der Knoten proportional zum Metrikwert sein. Die Bewertung erfolgt, indem die Fläche des Knotens durch den Metrikwert geteilt wird. Im Optimalfall ist dieser Quotient für alle Knoten identisch, was eine perfekte Proportionalität impliziert. Gemessen wird die Abweichung dieses Flächen-Metrik-Verhältnisses vom Mittelwert. Zur besseren Einordnung und Vergleichbarkeit wird der Varianzkoeffizient verwendet. Dieses Kriterium ist als das zweitwichtigste einzustufen, da die Fläche der Knoten eine zentrale visuelle Eigenschaft darstellt, die die Metrikwerte möglichst genau widerspiegeln sollte.
+    \item \textbf{Wertproportionalität:} Um die Korrelation mit dem zugrunde liegenden Code sicherzustellen, sollte die Fläche der Knoten proportional zum Metrikwert sein. Die Bewertung erfolgt, indem die Fläche des Knotens durch den Metrikwert geteilt wird. Im Optimalfall ist dieser Quotient für alle Knoten identisch, was eine perfekte Proportionalität impliziert. Gemessen wird die Abweichung dieses Flächen-Metrik-Verhältnisses vom Mittelwert. Zur besseren Einordnung und Vergleichbarkeit wird der Varianzkoeffizient verwendet. Dieses Kriterium ist als das zweitwichtigste einzustufen, da die Fläche der Knoten eine zentrale visuelle Eigenschaft darstellt, die die Metrikwerte möglichst genau widerspiegeln sollte.
     
     \item \textbf{Seitenverhältnis:} Zur Reduktion visueller Komplexität und zur Erhöhung der Verständlichkeit sollte das Seitenverhältnis der Knoten möglichst nahe bei 1:1 liegen. Dies verbessert die Lesbarkeit und erleichtert die Informationsaufnahme. Zur Berechnung wird die größere Seitenlänge durch die kleinere Seitenlänge geteilt. Ein Wert von 1 entspricht einem perfekten Quadrat, höhere Werte deuten auf längliche Knoten hin.
     
@@ -174,15 +174,14 @@ Der Ansatz von Lü und Fogarty bietet eine gute Grundlage für die in dieser Arb
 
 
 \section{Abstände zwischen Knoten} \label{sec:AbständeZwischenKnoten}
-Wie zuvor beschrieben, entsteht das Treemap-Problem durch das Hinzufügen von Abständen zwischen Knoten. Je größer die Abstände sind, desto ausgeprägter wird das Problem. Dadurch entsteht ein Trade-off zwischen der Sichtbarkeit der Softwarestruktur und der Sichtbarkeit aller Knoten.
-
-Die Wahl des Abstands ist also subjektiv und abhängig von der betrachteten Software sowie dem darzustellenden Fokus. Soll die Struktur betont werden oder die Metriken?
-
+Wie zuvor beschrieben, entsteht das Treemap-Problem durch das Hinzufügen von Abständen zwischen Knoten. Je größer die Abstände sind, desto ausgeprägter wird das Problem. 
 \begin{quote}
     Nesting offsets give users control over the allocation of display space between internal and leaf nodes. Larger offsets put greater emphasis on internal nodes and hence the structure of the hierarchy; smaller offsets emphasize leaf nodes. \cite[48]{johnson1993treemapsPhd}
 \end{quote}
+Daher muss zwischen der Sichtbarkeit der Softwarestruktur auf der einen Seite und der Sichtbarkeit der Knoten, Wertproportionalität und der Platznutzung auf der anderen Seite abgwogen werden.
 
-Besitzt ein Knoten den metrischen Wert 16 für die Anzahl der Zeilen und Seitenlängen von $4 \cdot 4$ Einheiten, dann ergibt sich bei einem Abstand von beispielsweise einer Einheit eine angepasste Größe von $(4 + 1) \cdot (4 + 1) = 25$ Einheiten. Der Abstand von einer Einheit wird in beide Richtungen addiert. Der Knoten erhält somit nach oben, unten, links und rechts jeweils eine Vergrößerung von einer halben Einheit. Dies ist mit zwei Knoten bildlich dargestellt (siehe Abbildung \ref{fig:AbstandBeispiel}). Der Abstand von einer Einheit, markiert durch die rote gestrichelte Linie, entsteht dadurch, dass beide Knoten einen Abstand von einer halben Einheit zur jeweiligen Seite aufweisen, markiert durch die schwarzen gestrichelten Linien.
+Abstände werden realisiert, indem jeder Knoten oben, unten, links und rechts zusätzliche Fläche von einem halben Abstand erhält. Der volle Abstand entsteht dadurch, dass alle Knoten einen halben Abstand zu jeder Seite aufweisen.
+Besitzt ein Knoten zum Beispiel den metrischen Wert 16 für die Anzahl der Zeilen und Seitenlängen von $4 \cdot 4$ Einheiten, dann ergibt sich bei einem Abstand von beispielsweise einer Einheit eine angepasste Größe von $(4 + 1) \cdot (4 + 1) = 25$ Einheiten. Dies ist in Abbildung \ref{fig:AbstandBeispiel} dargestellt.
 
 \begin{figure}[htbp]
     \centering
@@ -191,7 +190,7 @@ Besitzt ein Knoten den metrischen Wert 16 für die Anzahl der Zeilen und Seitenl
     \label{fig:AbstandBeispiel}
 \end{figure}
 
-Analog entsteht der Abstand zwischen Eltern- und Kindknoten. Alle Elternknoten besitzen sowohl einen halben Abstand nach außen als auch einen halben Abstand nach innen. Dadurch ergibt sich derselbe effektive Abstand zwischen Eltern- und Kindknoten wie zwischen zwei Geschwisterknoten. Dies ist schematisch dargestellt (siehe Abbildung \ref{fig:AbstandBeispielEltern}).
+Analog entsteht der Abstand zwischen Eltern- und Kindknoten. Alle Elternknoten besitzen sowohl einen halben Abstand nach außen als auch einen halben Abstand nach innen. Dies ist beispielhaft dargestellt in Abbildung \ref{fig:AbstandBeispielEltern}.
 
 \begin{figure}[htbp]
     \centering
@@ -200,17 +199,8 @@ Analog entsteht der Abstand zwischen Eltern- und Kindknoten. Alle Elternknoten b
     \label{fig:AbstandBeispielEltern}
 \end{figure}
 
-Für die Visualisierung zählt der relative Abstand im Verhältnis zur Größe der Abbildung. Ein Wert von beispielsweise 1 Prozent bedeutet, dass der Abstand zwischen zwei Knoten 1 \% der Seitenlänge des Wurzelknotens beträgt. Da durch das Hinzufügen von Abständen auch die Fläche des Wurzelknotens zunimmt, ist dieser Zusammenhang nicht linear, wie in Diagramm \ref{fig:basic_aimedRelativeMargin_over_marginInput} zu sehen ist. Außerdem hängt der relative Abstand auch von der Struktur und Größe der Software ab. Je größer die Software, desto kleiner wird der relative Abstand bei gleichem absoluten Abstand. 
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/improve/basic/aimedRelativeMargin_over_marginInput.png}
-    \caption[Abstand: absolut vs. relativ]{Zusammenhang zwischen der absoluten Abstandseingabe und dem relativen Abstand im Verhältnis zur Seitenlänge des Wurzelknotens}
-    \label{fig:basic_aimedRelativeMargin_over_marginInput}
-\end{figure}
-
-Je nach Ziel der Visualisierung und Softwaregröße und -struktur kann es sinnvoll sein, unterschiedliche relative Abstände zu wählen. Bei kleineren Softwareprojekten kann es beispielsweise zweckmäßig sein, größere relative Abstände zu wählen, um die Struktur der Software deutlicher herauszuarbeiten, da selbst bei größeren Abständen die einzelnen Dateien und deren Werte gut erkennbar bleiben (siehe Abbildung \ref{fig:absoluteToRelativeMargin}).
-
+Da durch das Hinzufügen von Abständen auch die Fläche des Wurzelknotens zunimmt, ist der Zusammenhang zwischen absolutem Abstand zwischen den Knoten und dem relativem, wahrgenommenen Abstand nicht linear und abhängig von der Größe des Wurzelknotens. Ein Abstand von einer Einheit wirkt bei einem Wurzelknoten mit den Seitenlängen 10 deutlich größer als bei einem Wurzelknoten mit den Seitenlängen 1000.
+Für die Visualisierung zählt der relative Abstand im Verhältnis zur Größe der Abbildung. Ein Wert von beispielsweise einem Prozent bedeutet, dass der Abstand zwischen zwei Knoten ein Prozent der Seitenlänge des Wurzelknotens beträgt. In Abbildung \ref{fig:absoluteToRelativeMargin} sind zwei Beispiele mit unterschiedlichen relativen Abständen dargestellt. 
 
 \begin{figure}[htbp]
     \centering
@@ -219,12 +209,11 @@ Je nach Ziel der Visualisierung und Softwaregröße und -struktur kann es sinnvo
     \hfill
     \subfloat[Relativer Abstand 3 \% (Absoluter Abstand 12)\label{fig:margin12to3}]{
         \includegraphics[width=0.49\textwidth]{images/improve/basic/qwen3_12_to_3.png}}
-    \caption[Squarify mit verschiedenen Abständen]{Ergebnisse des Squarify-Algorithmus mit unterschiedlichen Abständen. Datengrundlage ist das Qwen3 Repository~\cite{githubqwen3_2025}}
+    \caption[Zwei Treemap-Layouts mit verschiedenen Abständen]{Zwei Treemap-Layouts mit unterschiedlichen Abständen. Datengrundlage ist das Qwen3 Repository~\cite{githubqwen3_2025}}
     \label{fig:absoluteToRelativeMargin}
 \end{figure}
 
-Insgesamt empfiehlt sich ein Abstand zwischen 0,5 \% und 3 \%, abhängig von der jeweiligen Software und dem Ziel der Visualisierung.
-
+Insgesamt empfiehlt sich ein relativer Abstand zwischen 0,5 \% und maximal 3 \%, abhängig von der jeweiligen Software und dem Ziel der Visualisierung.
 
 
 
@@ -232,20 +221,20 @@ Insgesamt empfiehlt sich ein Abstand zwischen 0,5 \% und 3 \%, abhängig von der
 
 
 \section{Seitenverhältnisse} \label{sec:Seitenverhältnis}
-Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} vor allem das Seitenverhältnis 1 als Idealwert betrachtet, erlauben viele Implementierungen, wie auch die der d3.js-Bibliothek~\cite{d3_treemap_doku}, die Annäherung an andere Zielwerte, beispielsweise an den Goldenen Schnitt~\cite{goldenRatio}. In Abbildung~\ref{fig:squarifyRatio} sind Beispiele dargestellt, die die Auswirkungen verschiedener Ziel-Seitenverhältnisse auf das resultierende Layout verdeutlichen.
+Obwohl die ursprüngliche Arbeit von Bruls et al.~\cite{bruls2000squarified} das Seitenverhältnis 1 als Idealwert betrachtet, verwenden viele Implementierungen, wie auch die Implementierung der d3.js-Bibliothek~\cite{d3_treemap_doku}, andere Seitenverhältnisse, beispielsweise den Goldenen Schnitt~\cite{goldenRatio}. In Abbildung~\ref{fig:squarifyRatio} sind Beispiele dargestellt, die die Auswirkungen verschiedener Ziel-Seitenverhältnisse auf das resultierende Layout verdeutlichen.
 
 \begin{figure}[htbp]
     \centering
-    \subfloat[Seitenverhältnis 1 (resultierendes Seitenverhältnis 1{,}7)\label{fig:squarifyRatio1}]{
+    \subfloat[Ziel-Seitenverhältnis 1 mit resultierendem Seitenverhältnis 1{,}7\label{fig:squarifyRatio1}]{
         \includegraphics[width=0.49\textwidth]{images/improve/edgeRatioAim1Real17.png}}
     \hfill
-    \subfloat[Seitenverhältnis 5 (resultierendes Seitenverhältnis 3{,}8)\label{fig:squarifyRatio5}]{
+    \subfloat[Ziel-Seitenverhältnis 5 mit resultierendem Seitenverhältnis 3{,}8\label{fig:squarifyRatio5}]{
         \includegraphics[width=0.49\textwidth]{images/improve/edgeRatioAim5Real38.png}}
-    \caption[Squarify mit unterschiedlichen Ziel-Seitenverhältnissen]{Ergebnisse des Squarify-Algorithmus mit zwei unterschiedlichen Ziel-Seitenverhältnissen}
+    \caption[Squarify mit unterschiedlichen Ziel-Seitenverhältnissen]{Auswirkung unterschiedlicher Ziel-Seitenverhältnisse auf Treemap-Layouts}
     \label{fig:squarifyRatio}
 \end{figure}
 
-Zudem sind in diesen Abbildungen zu erkennen, dass das angestrebte Seitenverhältnis nicht dem tatsächlich erreichten Seitenverhältnis entspricht. Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}7, und ein Ziel-Seitenverhältnis von 5 ergibt ein durchschnittliches Seitenverhältnis von 3{,}8. Im folgenden wird untersucht, wie sich das angestrebte Seitenverhältnis auf das tatsächlich erreichte Seitenverhältnis auswirkt und welcher Zielwert die besten Ergebnisse liefert.
+In diesen Abbildungen ist zu erkennen, dass das angestrebte Seitenverhältnis nicht dem tatsächlich erreichten Seitenverhältnis entspricht. Ein Ziel-Seitenverhältnis von 1 führt zu einem durchschnittlichen Seitenverhältnis von 1{,}7, und ein Ziel-Seitenverhältnis von 5 ergibt ein durchschnittliches Seitenverhältnis von 3{,}8. Im folgenden wird untersucht, wie sich das angestrebte Seitenverhältnis auf das tatsächlich erreichte Seitenverhältnis auswirkt und welcher Zielwert die besten Ergebnisse liefert.
 
 \begin{figure}[htbp]
     \centering
@@ -254,14 +243,9 @@ Zudem sind in diesen Abbildungen zu erkennen, dass das angestrebte Seitenverhäl
     \label{fig:aimedRatioZuRatio}
 \end{figure}
 
-Abbildung \ref{fig:aimedRatioZuRatio} stellt den Zusammenhang zwischen angestrebtem und tatsächlich erreichtem Seitenverhältnis dar. Es ist klar zu erkennen, dass der angestrebte Wert nie erreicht wird. Das tatsächliche Seitenverhältnis liegt stets deutlich höher. Werte in der Nähe von 1 liefern noch die besten Ergebnisse. Dennoch gelangt kein Zielwert in die Nähe des Goldenen Schnitts, geschweige denn zu einem Wert von 1. Ein Zielwert des Goldenen Schnitts führt zu einem Median des Seitenverhältnisses von 7{,}35 bei einem Durchschnitt von 18{,}8. Das ist deutlich schlechter als der Zielwert von 1 mit einem Median von 6{,}58 und einem Durchschnitt von 16{,}44.
-
-Anders als erwartet liefert ein angestrebtes Seitenverhältnis von 1 nicht das niedrigste realisierte Seitenverhältnis. Ein Zielwert von 1{,}05 resultiert in den niedrigsten Werten. Der Vorteil beträgt zwar nur 5 Prozent, ist aber dennoch vorhanden. Warum dies der Fall ist, lässt sich nicht eindeutig erklären und könnte Gegenstand vertiefender Forschung sein.
-Für die Darstellung von Softwaremetrikendaten stellt sich also die Frage gar nicht, ob ein Seitenverhältnis von 1 oder zum beispiel der Goldene Schnitt besser ist, da diese Seitenverhältnisse ohnehin nicht erreicht werden. Vielmehr sollte ein Zielwert gewählt werden, der das tatsächlich erreichte Seitenverhältnis minimiert.
-In dieser Arbeit wird also der Zielwert von 1{,}05 für das Seitenverhältnis verwendet.
-
-
-
+Abbildung \ref{fig:aimedRatioZuRatio} stellt den Zusammenhang zwischen angestrebtem und tatsächlich erreichtem Seitenverhältnis dar. Es ist klar zu erkennen, dass der angestrebte Wert nie erreicht wird. Das tatsächliche Seitenverhältnis liegt stets deutlich höher. Werte um den Wert von 1 liefern die besten Ergebnisse, erreichen jedoch nie den Wert des Goldenen Schnitts, geschweige denn den Wert 1.
+Für die Darstellung von Softwarequalitätsmetriken stellt sich also die Frage gar nicht, ob ein Seitenverhältnis von 1 oder zum beispiel der Goldene Schnitt besser ist, da diese Seitenverhältnisse ohnehin nicht erreicht werden können. Vielmehr sollte ein Zielwert gewählt werden, der das tatsächlich erreichte Seitenverhältnis minimiert.
+In dieser Arbeit wird also der Zielwert von 1 für das Seitenverhältnis verwendet.
 
 
 
@@ -282,7 +266,7 @@ Im Folgenden wird überprüft, ob die Sortierung der Knoten nach Größe auch f�
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist zu erkennen, dass fehlende Knoten bei sortierter Einfügung erst ab einem relativen Abstand von über 1 \% auftreten, während bei unsortierter Einfügung dies bereits früher der Fall ist. Insgesamt fehlen bei sortierter Einfügung deutlich weniger Knoten.
-    \item \textbf{Flächengröße:} Im Schnitt ist der Varianzkoeffizient des Flächen-Wert-Verhältnisses bei sortierter Einfügung um 0,5 Prozentpunkte niedriger als bei unsortierter Einfügung.
+    \item \textbf{Wertproportionalität:} Im Schnitt ist der Varianzkoeffizient des Flächen-Wert-Verhältnisses bei sortierter Einfügung um 0,5 Prozentpunkte niedriger als bei unsortierter Einfügung.
     \item \textbf{Seitenverhältnis:} Das Seitenverhältnis ohne Sortierung liegt im Schnitt bei etwa 5. Bei sortierter Einfügung sinkt das Seitenverhältnis auf etwa 2,5 ab.
     \item \textbf{Platznutzung:} Die Platznutzung ist bei beiden Varianten ähnlich.
     \item \textbf{Zeitaufwand:} Der Zeitaufwand für die Layoutberechnung mit Sortierung ist nur minimal höher als ohne Sortierung. Dies ist zu erwarten, da die Sortierung nur einen geringen Mehraufwand darstellt. Der Aufwand für die Sortierung beträgt im Schnitt $O(\text{Anzahl Ordner} \cdot \text{Anzahl Knoten pro Ordner} \cdot \log(\text{Anzahl Knoten pro Ordner}))$, wobei die Anzahl der Knoten pro Ordner im Schnitt bei nur 5 liegt (siehe Abschnitt \ref{sec:Bewertungsgrundlage}).
@@ -473,7 +457,7 @@ Im Folgenden werden die beiden Ansätze mit dem Standard Squarify Nested Algorit
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar erkennbar, dass beide Erweiterungen des Squarify-Algorithmus deutlich weniger fehlende Knoten aufweisen als der Standard-Squarify-Algorithmus von d3.js. Es zeigt sich eine sehr starke Verbesserung, die bei größeren Abständen noch deutlicher wird. Während der Standard-Squarify-Algorithmus bei einem Abstand von 1 \% im Mittel ungefähr 600 fehlende Knoten aufweist, verzeichnen die beiden Erweiterungen nahezu keine fehlenden Knoten. 
     Zudem ist zu erkennen, dass die absolute Größenanpassung bis 2{,}5 \% etwas mehr fehlende Knoten aufweist als die relative Größenanpassung.
-    \item \textbf{Flächengröße:} Bei allen drei Algorithmen steigt der Varianzkoeffizient des Flächenverhältnisses mit zunehmendem Abstand an (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und bewegt sich zwischen 0 und 3{,}5 \%.
+    \item \textbf{Wertproportionalität:} Bei allen drei Algorithmen steigt der Varianzkoeffizient des Flächenverhältnisses mit zunehmendem Abstand an (siehe Abbildung \ref{fig:basicCompare_variationCoefficientOfAreaDifferences_over_aimedRelativeMargin}) und bewegt sich zwischen 0 und 3{,}5 \%.
     Klar zu erkennen ist, dass die ungünstigsten Ergebnisse durch den d3.js-Squarify-Algorithmus erzielt werden. Dieser ist im Schnitt einen Prozentpunkt schlechter als die relative Größenanpassung, die das zweitbeste Ergebnis liefert. Die besten Werte entstehen durch die absolute Größenanpassung.
     \item \textbf{Seitenverhältnis:} Der Nested-Algorithmus erzeugt ab einem relativen Abstand von etwa 0{,}5 \% Seitenverhältnisse von 4{,}5 bis 5. Die beiden Erweiterungen des Squarify-Algorithmus erzeugen unabhängig vom Abstand Seitenverhältnisse von im Schnitt etwa 2,5.
     \item \textbf{Platznutzung:} Die Platznutzung bei den beiden Erweiterungen ist ähnlich, sinkt aber bei einem Abstand von 3 \% auf etwa 30 \% ab. Theoretisch wäre zu erwarten, dass alle drei Varianten ähnliche Werte produzieren, wenn der relative Abstand identisch ist. Allerdings fehlen beim Nested-Algorithmus mehr Blatt-Knoten, wodurch die belegte Fläche der Blatt-Knoten geringer ausfällt, als bei den beiden Erweiterungen, was sich auch in den Werten widerspiegelt, die im Schnitt etwa 20 Prozentpunkte niedriger sind als bei den beiden Erweiterungen.
@@ -505,7 +489,7 @@ Im Folgenden werden die drei Strategien anhand der definierten Kennzahlen gegen�
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist klar zu erkennen, dass die Strategie, die Knotenplatzierung beizubehalten, die meisten fehlenden Knoten erzeugt. Die beiden alternativen Strategien schneiden deutlich besser ab. Die Strategie mit Neusortierung nach Größe führt je nach Abstand zu 1 bis 5 weniger fehlenden Knoten als die Strategie, welche die Reihenfolge der Knoten beibehält. Insgesamt produziert die Neusortierung nach Größe bei allen Abständen die besten Ergebnisse. 
-    \item \textbf{Flächengröße:} Anders als erwartet sind die Ergebnisse bei allen drei Strategien sehr ähnliche Werte für den Varianzkoeffizienten. Ab höheren Abständen ab 2{,}5 \% schneidet die vollständige Beibehaltung der Platzierung sogar schlechter ab als die beiden alternativen Strategien.
+    \item \textbf{Wertproportionalität:} Anders als erwartet sind die Ergebnisse bei allen drei Strategien sehr ähnliche Werte für den Varianzkoeffizienten. Ab höheren Abständen ab 2{,}5 \% schneidet die vollständige Beibehaltung der Platzierung sogar schlechter ab als die beiden alternativen Strategien.
     \item \textbf{Seitenverhältnis:} Das Seitenverhältnis ist bei der Beibehaltung der Knotenplatzierung erwartungsgemäß am ungünstigsten. Es scheint sogar exponentiell mit dem Abstand anzusteigen, so dass bei einem Abstand von 3 \% im Median ein Seitenverhältnis von etwa 7 erreicht wird. Die beiden anderen Strategien schneiden deutlich besser ab und erzielen beide ähnliche Werte zwischen 2 und 3. 
     \item \textbf{Platznutzung:} Alle drei Strategien erzielen eine ähnliche Platzausnutzung.
     \item \textbf{Zeitaufwand:} Die Strategie mit beibehaltener Knotenplatzierung benötigt wie erwartet am wenigsten Zeit, da der Squarify-Algorithmus nur im ersten Layoutschritt ausgeführt werden muss. Die beiden anderen Strategien benötigen etwa 50 \% mehr Zeit, weil der Squarify-Algorithmus zweimal ausgeführt wird. Das Beibehalten der Reihenfolge ist dabei minimal schneller als die Neusortierung nach Größe, da nur einmal beim ersten Layoutschritt sortiert werden muss.
@@ -604,7 +588,7 @@ Im Median werden etwa 12 Ordner pro Codebasis gefaltet. Bei rund 242 Knoten im M
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} Im Schnitt fehlen mit Ordnerkettenfaltung 10 mal weniger Knoten, wobei dieser Effekt bei niedrigerem Abstand geringer und bei höherem Abstand stärker ausfällt. 
-    \item \textbf{Flächengröße:} Ähnliches zeigt sich auch beim Varianzkoeffizienten nur mit Faktor 8.
+    \item \textbf{Wertproportionalität:} Ähnliches zeigt sich auch beim Varianzkoeffizienten nur mit Faktor 8.
     \item \textbf{Seitenverhältnis:} Das Seitenverhältnis bleibt im Grunde ähnlich durch die Ordnerkettenfaltung. Das Seitenverhältnis mit Ordnerkettenfaltung ist im Schnitt 0,2 Einheiten schlechter, was bei Betrachtung der Layouts kaum auffällt.
     \item \textbf{Platznutzung:} Dadurch dass weniger Ordner im Layout sind, ist die relative Flächennutzung der Blätter logischerweise besser mit Faltung (bei einem relativen Abstand von etwa 1{,}5 \% im Schnitt 10 \% und bei 3 \% sogar 20 \%). 
     \item \textbf{Zeitaufwand:} Der Faltungsschritt, so wie er implementiert ist, hat eine Laufzeit von $O(n)$. Der Layoutschritt hat auch eine Laufzeit von $O(n)$~\cite{bruls2000squarified}, weshalb sich die Faltung stark mit etwa 30 \% mehr Zeitaufwand bemerkbar macht. Da wirken sich die 5 \% weniger Knoten als Zeitersparnis kaum aus. Durch effizientere Implementierung und Integration in den ersten Layoutschritt könnte die Faltung den Zeitaufwand im Vergleich zur Berechnung ohne Faltung vermutlich sogar verringern.
@@ -654,7 +638,7 @@ Da diese Unterschiede aber gering sind und jede Version ihre Vor- und Nachteile 
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} Die Version ohne Abstände zwischen Geschwistern erzielt bei den fehlenden Knoten die besten Werte. Die Anzahl an fehlenden Knoten ist um einen Faktor von etwa 6 geringer als bei der Version mit Abständen zwischen Geschister-Ordnern. Bei der Version mit Abständen zwischen allen Geschwistern fehlen im Durchschnitt etwa 5 Knoten mehr als bei der Version mit Abständen nur zwischen Ordnern.
-    \item \textbf{Flächengröße:} Beim Varianzkoeffizienten des Flächenverhältnisses zeigt die Variante ohne Abständen die besten Werte, gefolgt von der Version mit Abständen nur zwischen Ordnern. Dabei ist die Version mit Abständen mit einem Faktor von etwa 4 schlechter als die Version ohne Abstände und die Version mit Abständen nur zwischen Ordnern ist etwa um einen Faktor von 2 schlechter als die Version ohne Abstände.
+    \item \textbf{Wertproportionalität:} Beim Varianzkoeffizienten des Flächenverhältnisses zeigt die Variante ohne Abständen die besten Werte, gefolgt von der Version mit Abständen nur zwischen Ordnern. Dabei ist die Version mit Abständen mit einem Faktor von etwa 4 schlechter als die Version ohne Abstände und die Version mit Abständen nur zwischen Ordnern ist etwa um einen Faktor von 2 schlechter als die Version ohne Abstände.
     \item \textbf{Seitenverhältnis:} Das durchschnittliche Seitenverhältnis unterscheidet sich bei den drei Varianten um maximal 0,5 Einheiten, was in der Praxis kaum auffällt.
     \item \textbf{Platznutzung:} Die Platzausnutzung ist erwartungsgemäß ohne Abstände zwischen Geschwistern am besten. Die Variante mit Abständen nur zwischen Ordnern ist im Schnitt etwa 12 \% schlechter und die Variante mit Abständen zwischen allen Geschwistern etwa 20 \% schlechter.
     \item \textbf{Zeitaufwand:} Bei der Laufzeit zeigen sich keine Unterschiede zwischen den drei Varianten, da auch die Algorithmuskomplexität identisch ist.
@@ -714,7 +698,7 @@ Zusammenfassend werden folgende Ausprägungen für den Algorithmus empfohlen und
     \scriptsize
     \begin{tabularx}{1.4\textwidth}{ll}
         Abstände zwischen Knoten: & \textbf{Manuelle Wahl} zwischen 0{,}5 \% und 3 \% relativem Abstand \\ 
-        Angestrebtes Seitenverhältnis: & \textbf{1{,}05} \\ 
+        Angestrebtes Seitenverhältnis: & \textbf{1} \\ 
         Reihenfolge der Knoten: & \textbf{Absteigend nach Größe} \\ 
         Größenanpassung: & \textbf{Relative Größenanpassung} \\ 
         Zweiter Layoutschritt: & \textbf{Neusortierung absteigend nach Größe} \\ 
@@ -737,7 +721,7 @@ Abschließend wird der verbesserte Algorithmus mit den zuvor genannten Ausprägu
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} In Abbildung \ref{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} ist zu erkennen, dass die Anzahl der fehlenden Knoten beim verbesserten Squarify-Algorithmus deutlich geringer ist als beim d3.js Nested-Algorithmus. Der Nested-Algorithmus hat bereits ohne Abstand etwa 200 fehlende Knoten im Median, während der verbesserte Squarify-Algorithmus bei einem Abstand von etwa 2 \% erst 200 fehlende Knoten im Median aufweist. 
-    \item \textbf{Flächengröße:} Lü und Fogarty berichten, dass sie mit ihrem Verfahren keine generelle Verbesserung im Wert-Fläche-Verhältnis festgestellt werden konnten~\cite{lu2008cascaded}. Der verbesserte Squarify-Algorithmus dieser Arbeit erzielt hingegen im Vergleich zum d3.js Nested-Algorithmus Ergebnisse, die um den Faktor von etwa 2{,}5 besser sind.
+    \item \textbf{Wertproportionalität:} Lü und Fogarty berichten, dass sie mit ihrem Verfahren keine generelle Verbesserung im Wert-Fläche-Verhältnis festgestellt werden konnten~\cite{lu2008cascaded}. Der verbesserte Squarify-Algorithmus dieser Arbeit erzielt hingegen im Vergleich zum d3.js Nested-Algorithmus Ergebnisse, die um den Faktor von etwa 2{,}5 besser sind.
     \item \textbf{Seitenverhältnis:} Der Median des Seitenverhältnisses ist beim verbesserten Squarify-Algorithmus im Schnitt um eine Einheit besser als beim d3.js Nested-Algorithmus.
     \item \textbf{Platznutzung:} Die Platzausnutzung ist beim verbesserten Squarify-Algorithmus im Schnitt um etwa 23 Prozentpunkte besser.
     \item \textbf{Zeitaufwand:} Die Laufzeit des verbesserten Squarify-Algorithmus ist im Schnitt um etwa 50 \% höher als die des d3.js Nested-Algorithmus. In allen Durchläufen dieses Kapitels liegen die Laufzeiten unter 50 ms, weshalb dieser Nachteil in der Praxis kaum ins Gewicht fällt.

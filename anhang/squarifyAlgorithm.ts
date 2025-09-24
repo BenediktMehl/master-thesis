@@ -1,4 +1,4 @@
-export const aimedRatio: number = 1.05
+export const aimedRatio: number = 1
 
 export interface SquarifyNode {
     name: string
