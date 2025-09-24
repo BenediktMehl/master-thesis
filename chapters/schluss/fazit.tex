@@ -1,14 +1,45 @@
-\chapter{Fazit und Ausblick} \label{sec:Fazit}
-Die vorliegende Arbeit untersuchte verschiedene Ansätze, um zu bestimmen, welche Darstellungsform sich am besten zur Visualisierung von Softwarequalitätsmetriken eignet. Grundlage bildete eine umfassende Literaturrecherche mit anschließender Bewertung, aus der anhand spezifisch definierter Kriterien die vielversprechendsten Visualisierungsansätze ausgewählt wurden. Diese Ansätze wurden implementiert und in einer zweigeteilten Evaluation überprüft. Einerseits erfolgte eine direkte Bewertung durch Fachexperten auf Basis der zuvor festgelegten Kriterien. Andererseits wurden in einer Nutzerumfrage realitätsnahe Szenarien vorgegeben, in denen Teilnehmende die Visualisierungen einschätzen konnten.
+\chapter{Fazit} \label{sec:Fazit}
 
-Über alle Bewertungszugänge hinweg erwies sich die Treemap als die geeignetste Visualisierung, um die Anforderung zu erfüllen, Softwarequalität für Nicht-Experten nachvollziehbar darzustellen. Die Treemap wurde darüber hinaus gezielt für den hier betrachteten Einsatz optimiert. Dabei konnten Anpassungen am Standard-Treemap-Squarify-Algorithmus umgesetzt werden, die zu einer deutlichen Verbesserung der Treemap-Visualisierung führten.
+Dieses Kapitel ordnet die Ergebnisse der Arbeit in den Gesamtkontext ein, fasst die zentralen Erkenntnisse zusammen und gibt einen Ausblick auf mögliche weiterführende Arbeiten.
 
-\bigskip
+\section{Finale Bewertung der Visualisierungen} \label{sec:FinaleBewertung}
 
-Der Schwerpunkt lag auf dem Vergleich ganzer Visualisierungen. Einzelaspekte wie Farbwahl, Detailgrad, Interaktionsmöglichkeiten und Navigation standen nicht im Fokus. Diese Faktoren sind gleichwohl für Verständlichkeit und Nachvollziehbarkeit von Softwareanalysen wesentlich und eröffnen reichhaltiges Potenzial für weiterführende Untersuchungen, zumal in diesem Bereich bislang nur begrenzt geforscht wurde.
+Die drei Ansätze zur Bewertung der Visualisierungen werden gegenübergestellt und in eine Rangfolge gebracht. Das Ergebnis zeigt Tabelle \ref{tab:platzierungVergleich}.
 
-Die gezielte Optimierung bezog sich in dieser Arbeit auf die Treemap, da dieser Ansatz das größte Potenzial erkennen ließ. Eine systematische Weiterentwicklung der übrigen Visualisierungen erscheint ebenfalls vielversprechend, um zu prüfen, ob sich deren Leistungsfähigkeit durch vergleichbare Optimierungsschritte steigern lässt. In der Evaluation wurden eine optimierte Treemap und weitgehend nicht optimierte Alternativen gegenübergestellt, was die Vergleichbarkeit einschränkt. Kritische Rückmeldungen, etwa zur Größe und Lesbarkeit von Beschriftungen, deuten darauf hin, dass bei den anderen Visualisierungen zusätzliche Verbesserungen realisierbar sind und weiteres Potenzial besteht.
+\begin{table}[htbp]
+    \hspace*{-0.9cm}
+    \scriptsize
+    \begin{tabular}{|c|l|l|l|}
+        \hline
+        \textbf{Platzierung} & \textbf{Literaturrecherche} & \textbf{Szenarien} & \textbf{Direkte Bewertung} \\ \hline
+        1 & Treemap (4.0) & \multirow{2}{*}{Treemap und Circular Treemap (3.9)} & Treemap (3.8) \\ \cline{1-2} \cline{4-4}
+        2 & \multirow{2}{*}{CodeCity und Streetmap (3.8)} &  & CodeCity (3.4) \\ \cline{1-1} \cline{3-4}
+        3 &  & CodeCity (3.7) & Sunburst (3.0) \\ \hline
+        4 & Sunburst (3.5) & Sunburst (3.1) & Circular Treemap (2.9) \\ \hline
+        5 & Circular Treemap (3.2) & Streetmap (3.0) & Streetmap (2.6) \\ \hline
+    \end{tabular}
+    \caption[Vergleich der Platzierungen]{Platzierung der Visualisierungen in den drei Bewertungsansätzen. In Klammern die jeweilige Durchschnittsbewertung.}
+    \label{tab:platzierungVergleich}
+\end{table}
 
-Im Freitextbereich der Umfrage wurde zudem der Wunsch nach der Einbeziehung von Beziehungsmetriken geäußert. Die Literaturrecherche verweist auf mehrere Ansätze zur Visualisierung solcher Metriken, die sich jedoch häufig als schnell komplex und schwer skalierbar erweisen. Gleichwohl besteht in diesem Feld erhebliches Forschungspotenzial, da Beziehungsmetriken für die Beurteilung der Softwarequalität eine zentrale Rolle spielen.
+Auffällig ist, dass die Circular Treemap in der Literaturrecherche und in der Expertenbewertung schwächer abschneidet, in den Szenarien allerdings zu den besten gehört. Möglich ist ein positiver Bias zugunsten etablierter Visualisierungstypen wie Treemap und CodeCity bei den Befragten mit Visualisierungserfahrung. Zudem wurde die nicht passende Visualisierung bei Circular Treemap vergleichsweise gut erkannt. Daraus ergibt sich eine Diskrepanz zwischen den direkten Bewertungskriterien und der in den Szenarien wahrgenommenen Nützlichkeit. Die vier Kriterien für die direkte Bewertung könnten daher weiter verfeinert werden, um die Nachvollziehbarkeit von Expert:innenanalysen noch besser abzubilden.
 
-Der Überblick über verwandte Arbeiten zeigt, dass für die hier betrachtete Anwendung bislang nur wenige systematische Untersuchungen vorliegen. Diese Lücke eröffnet vielfältige Chancen für zukünftige Forschung. Dies gilt insbesondere mit Blick auf Szenarien, in denen zunehmend Software durch KI generiert wird, während dennoch eine fundierte Qualitätsbeurteilung sowie ein verständlicher Überblick über die Software erforderlich bleiben, möglicherweise ohne den zugrunde liegenden Code im Detail kennen zu müssen.
+Die Streetmap-Visualisierung ist in den Szenarien sowie in der direkten Bewertung der Visualisierungsexpert:innen am unbeliebtesten. In der Literaturrecherche schneidet sie besser ab. Vermutlich wurde die visuelle Komplexität dort unterschätzt. Die Sunburst-Visualisierung erreicht in allen drei Ansätzen mittlere Werte. CodeCity liegt ebenfalls im mittleren Bereich, schneidet jedoch insgesamt etwas besser ab als Sunburst. Treemap-Visualisierungen erzielen in allen drei Ansätzen die besten Ergebnisse und werden zudem zuverlässig als nicht passend erkannt. Treemap-Visualisierungen sind damit die am besten geeignete Visualisierung für den in dieser Arbeit definierten Anwendungsfall.
+
+\section{Zusammenfassung} \label{sec:Zusammenfassung}
+
+Ziel war es zu bestimmen, welche Darstellungsform sich am besten zur Visualisierung von Softwarequalitätsmetriken eignet. Ausgangspunkt war eine Literaturrecherche mit anschließender Bewertung, auf deren Grundlage anhand definierter Kriterien die vielversprechendsten Visualisierungstypen ausgewählt wurden. Diese wurden implementiert und zweigleisig evaluiert. Einerseits erfolgte eine direkte Bewertung durch Fachpersonen auf Basis der festgelegten Kriterien. Andererseits wurden in einer Nutzerumfrage realitätsnahe Szenarien verwendet, in denen Teilnehmende die Visualisierungen beurteilen konnten.
+
+Über alle Bewertungszugänge hinweg erwies sich die Treemap als am besten geeignet, um Softwarequalität für Personen ohne tiefe Codekenntnisse nachvollziehbar zu machen. Die Treemap wurde zudem gezielt für den betrachteten Einsatz optimiert. Anpassungen am Standard-Squarify-Algorithmus führten zu deutlich verbesserten Treemap-Layouts, insbesondere in Bezug auf Knotensichtbarkeit, Wertproportionalität, Seitenverhältnisse und Platzausnutzung.
+
+\section{Ausblick} \label{sec:Ausblick}
+
+Der Fokus lag auf dem Vergleich kompletter Visualisierungen. Einzelaspekte wie Farbwahl, Detailgrad, Interaktionsmöglichkeiten und Navigation wurden bewusst ausgeklammert. Diese Faktoren beeinflussen Verständlichkeit und Nachvollziehbarkeit erheblich und bieten reichhaltiges Potenzial für weiterführende Untersuchungen, zumal hierzu bislang nur begrenzt empirische Evidenz vorliegt.
+
+Die gezielte Optimierung wurde auf die Treemap angewendet, da dieser Ansatz das größte Potenzial erkennen ließ. Eine systematische Weiterentwicklung der übrigen Visualisierungen erscheint ebenfalls vielversprechend, um zu prüfen, ob sich deren Leistungsfähigkeit durch vergleichbare Optimierungsschritte steigern lässt. In der Evaluation standen eine optimierte Treemap und weitgehend nicht optimierte Alternativen gegenüber, was die Vergleichbarkeit einschränkt. Kritische Rückmeldungen, etwa zur Größe und Lesbarkeit von Beschriftungen, deuten zusätzliche Optimierungsmöglichkeiten für andere Visualisierungen an.
+
+In den szenariobasierten Bewertungen schnitt die Circular Treemap gleich gut ab wie die Treemap. Eine vertiefte Untersuchung und Optimierung dieses Ansatzes erscheint daher lohnend, insbesondere weil die Treemap in der Umfrage bereits optimiert zum Einsatz kam.
+
+Im Freitextteil der Umfrage wurde der Wunsch nach der Einbeziehung von Beziehungsmetriken geäußert. Die Literatur verweist zwar auf entsprechende Ansätze, diese erweisen sich jedoch häufig als schnell komplex und schwer skalierbar. Gleichwohl besteht hier erhebliches Forschungspotenzial, da Beziehungsmetriken für die Qualitätsbeurteilung eine zentrale Rolle spielen.
+
+Der Überblick über verwandte Arbeiten zeigt, dass für den hier betrachteten Anwendungsfall bislang nur wenige systematische Untersuchungen vorliegen. Dadurch ergeben sich vielfältige Chancen für zukünftige Forschung. Dies gilt besonders im Hinblick auf Szenarien, in denen vermehrt Software durch KI generiert wird, während dennoch eine fundierte Qualitätsbeurteilung sowie ein verständlicher Überblick erforderlich bleiben, häufig ohne den zugrunde liegenden Code im Detail zu kennen.
