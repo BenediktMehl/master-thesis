@@ -42,7 +42,7 @@ Alle Visualisierungen bieten identische Einstellmöglichkeiten für Farben, Höh
 \section{Treemap} \label{sec:TreemapImplementierung}
 
 \subsection*{Layoutschritt}
-Das Treemap-Layout wird für die Visualisierung von Softwarequalitätsmetriken am häufigsten verwendet. Zudem ist es die Grundlage für alle CodeCity-Visualisierungen und hat im Vergleich der Visualisierungen am besten abgeschnitten (siehe Tabelle \ref{tab:visEval_full}). Trotzdem weist das klassische Treemap-Layout einige Nachteile und Probleme auf, die in Abschnitt \ref{sec:TreemapProblem} erläutert werden. Aus diesen Gründen wird das Treemap-Layout in dieser Arbeit exemplarisch nicht nur implementiert, sondern auch optimiert, um zu zeigen, dass die gezielte Verbesserung von Layout-Algorithmen für das spezifische Anwendungsgebiet dieser Arbeit sinnvoll ist und zu besseren Ergebnissen führen kann. Die vorgenommenen Verbesserungen werden in Kapitel \ref{sec:VerbesserungSquarify} beschrieben und evaluiert.
+Das Treemap-Layout wird für die Visualisierung von Software-Qualitätsmetriken am häufigsten verwendet. Zudem ist es die Grundlage für alle CodeCity-Visualisierungen und hat im Vergleich der Visualisierungen am besten abgeschnitten (siehe Tabelle \ref{tab:visEval_full}). Trotzdem weist das klassische Treemap-Layout einige Nachteile und Probleme auf, die in Abschnitt \ref{sec:TreemapProblem} erläutert werden. Aus diesen Gründen wird das Treemap-Layout in dieser Arbeit exemplarisch nicht nur implementiert, sondern auch optimiert, um zu zeigen, dass die gezielte Verbesserung von Layout-Algorithmen für das spezifische Anwendungsgebiet dieser Arbeit sinnvoll ist und zu besseren Ergebnissen führen kann. Die vorgenommenen Verbesserungen werden in Kapitel \ref{sec:VerbesserungSquarify} beschrieben und evaluiert.
 
 Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x- und y-Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird Platz für Beschriftungen reserviert (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
 
@@ -111,7 +111,7 @@ Der Visualisierungsschritt entspricht weitgehend dem der Treemap. Der Unterschie
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/umfrage/circlepacking/dreierKombi.png}
+    \includegraphics[width=0.7\textwidth]{images/umfrage/circlePacking/dreierKombi.png}
     \caption[Beispiel für Circular-Treemap-Implementierung]{Beispiel für Circular-Treemap-Implementierung}
     \label{fig:circularTreemapBeispielImplementierung}
 \end{figure}

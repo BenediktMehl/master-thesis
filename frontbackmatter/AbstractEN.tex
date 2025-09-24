@@ -6,17 +6,9 @@
 
 \begin{otherlanguage}{american}
 	\chapter*{Abstract}
-	A short summary of the contents in English of about one page. The following points should be addressed in particular:
-	\begin{itemize}
-		\item Motivation: Why did this work come about? Why is the topic of the work interesting (for the general public)? The motivation should be abstracted as far as possible from the specific tasks that may be given by a company.
-		\item Content: What is the content of this thesis? What exactly is covered in the thesis? The methodology and working method should be briefly discussed here.
-		\item Results: What are the results of this work? A brief overview of the most important results as a teaser to read the complete thesis.
-	\end{itemize}
-	\medskip
-	
-	\noindent
-	BTW: A great guide by Kent Beck how to write good abstracts can be found here:
-	\begin{center}
-		\url{https://plg.uwaterloo.ca/~migod/research/beckOOPSLA.html}
-	\end{center}
+Software quality is difficult for non-specialist stakeholders to assess because codebases and metrics are unfamiliar. Visual representations can make domain analyses understandable and support decision-making across roles. At the same time, there is a gap between research prototypes and practice-ready visualization tools. This work addresses that gap through a systematic comparison, a unified 2.5D implementation, and targeted improvements to practice-relevant treemap layouts.
+
+The study reviews and assesses 26 visualization approaches from the literature and existing tools, creating a comprehensive and usable inventory of current visualizations. On this basis, the five top-ranked visualization types are selected for a unified implementation. The study examines treemap, streetmap, CodeCity, sunburst, and circular treemap in a consistent 2.5D form, with three metrics encoded via area, height, and color. A user study with scenario-based assessments and a direct expert evaluation validate the findings and reflect the practice perspective. The work places an illustrative focus on technical improvements to treemap layouts based on the Squarify algorithm, because existing implementations frequently cause nodes to disappear, an issue not systematically addressed in research or practice. A two-stage algorithm is proposed, and its quality is evaluated on a broad open-source dataset using criteria such as node visibility and area proportionality.
+
+Across literature rankings, unified implementations, and user judgments, treemaps best support the traceability of quality statements. Circular treemaps also perform strongly on structure-oriented tasks, while streetmaps perform worse in practice. The improved Squarify algorithm reduces missing nodes by up to a factor of four, improves node aspect ratios to a median of 2.5, and halves the deviation in area proportionality compared to the original Squarify algorithm. The work provides a practice-ready and publicly available algorithm, along with robust guidelines for use in audits, health checks, and general communication about software. The well-founded comparison of the 26 approaches clarifies which visualizations are particularly suitable for presenting software quality and structure to non-specialist stakeholders, where optimization potential lies, and how it can be addressed. Overall, an evidence-based framework emerges that comprises a literature assessment, unified 2.5D implementations, and empirical user judgments, and supports the selection of suitable visualizations in practice.
 \end{otherlanguage}
