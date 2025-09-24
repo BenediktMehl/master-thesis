@@ -169,8 +169,8 @@ Mehrere visuelle Variablen erlauben mehr als vier Metriken. Gleichzeitig bleibt 
 \textit{Software cartography: Thematic software visualization with consistent layout}~\cite{softwareCartography} nutzt eine topographische Kartenmetapher (siehe Abbildung \ref{fig:softwareCartography}). Dateien werden als Hügel dargestellt. Die Höhe kodiert eine Metrik wie LOC. Die Grundfläche ergibt sich dann aus der Höhe. Das Layout wird mit einem speziellen MDS-Algorithmus (HiT-MDS) erzeugt, der als Stresswert die lexikalische Distanz zwischen Dateinamen verwendet. Die Hierarchie wird nicht abgebildet. Die Struktur wird ausschließlich über lexikalische Nähe dargestellt, die in Form von Distanzen zwischen Hügeln erscheint. Die Eingabedaten sind dennoch geeignet, da sie anhand der Dateinamen in eine hierarchische Struktur überführt werden können.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartography.png}
-    \caption[Software Cartography]{Topographische Kartenmetapher. Hügel repräsentieren Dateien. Die Höhe kodiert eine Metrik wie LOC~\cite{softwareCartography}.}
+    \includegraphics[width=0.8\textwidth]{images/literatur/softwareCartographySharpened.png}
+    \caption[Software Cartography]{Topographische Kartenmetapher. Hügel repräsentieren Dateien. Die Höhe kodiert eine Metrik wie LOC~\cite{softwareCartography} (mit KI nachbearbeitet)}
     \label{fig:softwareCartography}
 \end{figure}
 Nur eine Dateimetrik wird direkt kodiert und die Schachtelung fehlt vollständig. Damit bleiben Informationsdichte gering. Sie werden mit 1 bewertet. Das Bild ist reduziert und klar, doch lokale Kontraste, etwa kleine Hügel neben großen, erschweren die Höhenbeurteilung. Die Komplexitätwird daher mit 4 eingestuft. Bei großen Codebasen rücken viele Hügel dicht zusammen, wodurch Höhenvergleiche und Strukturverständnis leiden. Unter diesen Bedingungen wird die Skalierbarkeit mit 3 bewertet. Die Metapher ist geläufig und intuitiv. Die Metaphernqualität erhält die Bewertung 5.
@@ -384,7 +384,7 @@ Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die 
 
 \section{Zusammenfassung der Ergebnisse} \label{sec:LiteraturErgebnisse}
 
-Die Visualisierungen werden im Folgenden primär nach der Gesamtwertung geordnet, um geeignete Layouts auszuwählen. Als zweites Sortierungskriterium dient die Häufigkeit in der betrachteten Literatur, falls die Gesamtwertung gleich ist, um verbreitete Ansätze zu berücksichtigen.
+Eine Zusammenfassung aller Bewertungen ist in Tabelle \ref{tab:visEval_full} enthalten. Die Visualisierungen werden im Folgenden primär nach der Gesamtwertung geordnet, um geeignete Layouts auszuwählen. Als zweites Sortierungskriterium dient die Häufigkeit in der betrachteten Literatur, falls die Gesamtwertung gleich ist, um verbreitete Ansätze zu berücksichtigen.
 
 Die Anzahl der Layouts hat keinen wissenschaftlichen Eigenwert. Sie soll lediglich einen ersten Eindruck zu verbreiteten Layouts liefern und Kandidaten mit praktischer Relevanz identifizieren. Daraus folgt weder eine Aussage zur Überlegenheit einzelner Layouts noch ein valider Popularitätsvergleich.
 
