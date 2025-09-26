@@ -1,6 +1,6 @@
 \chapter{Vergleich bestehender Visualisierungen} \label{sec:LiteraturRecherche}
 
-Ziel dieses Kapitels ist die Identifikation von 2.5D- und 3D-Visualisierungen, die sich für die Darstellung von Software-Qualitätsmetriken eignen. Zunächst werden die Methodik zur Recherche und Bewertung der Layouts dargelegt sowie deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Anschließend werden die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen begründet, die in späteren Kapiteln implementiert, optimiert und evaluiert werden.
+Ziel dieses Kapitels ist die Identifikation von 2{.}5D- und 3D-Visualisierungen, die sich für die Darstellung von Software-Qualitätsmetriken eignen. Zunächst werden die Methodik zur Recherche und Bewertung der Layouts dargelegt sowie deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Anschließend werden die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen begründet, die in späteren Kapiteln implementiert, optimiert und evaluiert werden.
 
 \section{Methodik} \label{sec:Methodik}
 Die Methodik orientiert sich an der systematischen Literaturrecherche nach \textit{Procedures for performing systematic reviews}. Der Ansatz wurde angepasst, da der Fokus auf der Identifikation und Einordnung geeigneter Layouts liegt und nicht primär auf der Bewertung und dem Vergleich kompletter Studien~\cite{kitchenham2004procedures}.
@@ -8,7 +8,7 @@ Die Methodik orientiert sich an der systematischen Literaturrecherche nach \text
 \subsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
 Aus den zuvor definierten Forschungsfragen (siehe Abschnitt \ref{sec:Problemstellung}) leiten sich zwei zentrale Ziele der Recherche ab:
 \begin{enumerate}
-    \item Identifikation von 2.5D- und 3D-Visualisierungen in der Literatur und in bestehenden Tools, die sich für die Darstellung von Software-Qualitätsmetriken eignen.
+    \item Identifikation von 2{.}5D- und 3D-Visualisierungen in der Literatur und in bestehenden Tools, die sich für die Darstellung von Software-Qualitätsmetriken eignen.
     \item Bewertung und Vergleich der identifizierten Visualisierungen hinsichtlich ihrer Eignung für den spezifischen Anwendungsfall.
 \end{enumerate}
 
@@ -16,12 +16,12 @@ Aus den zuvor definierten Forschungsfragen (siehe Abschnitt \ref{sec:Problemstel
 Es werden wissenschaftliche Arbeiten sowie bestehende Tools und Ansätze identifiziert, die sich mit der Visualisierung von Software-Qualitätsmetriken befassen. Diese werden daraufhin analysiert, ob sie auf die spezifische Problemstellung übertragbar sind.
 
 Als primäre Quelle dient Google Scholar. Ausgangspunkt ist folgende Suchanfrage:\\
-\verb|("3D" OR "2.5D" OR "visualization" OR "hierarchical data") AND|\\
+\verb|("3D" OR "2{.}5D" OR "visualization" OR "hierarchical data") AND|\\
 \verb|("software" AND ("quality" OR "metrics"))|.\\
 Da die erweiterte Suche von Google Scholar keine verschachtelten booleschen Anfragen unterstützt,
 wird die Suche in zwei Teilanfragen zerlegt~\cite{scholar_queries_2023}:
 \begin{enumerate}
-    \item \verb|("3D" OR "2.5D" OR "visualization" OR "quality" OR "metrics")|\\
+    \item \verb|("3D" OR "2{.}5D" OR "visualization" OR "quality" OR "metrics")|\\
      \verb|AND "software"|
     \item \verb|("hierarchical data" OR "quality" OR "metrics") AND "software"|
 \end{enumerate}
@@ -41,16 +41,16 @@ Auf die Suchergebnisse werden folgende Filter angewandt, um irrelevante oder nic
     \item Zulässige Sprachen sind Deutsch und Englisch. Aufgrund der verwendeten Suchbegriffe sind nahezu alle Quellen englischsprachig. Eine Ausnahme ist das spanische Überblickspapier \textit{Software visualization tools and techniques: A systematic review of the literature}~\cite{cruz2016software}.
     \item Freier Zugriff über gängige Anbieter wie IEEE, SpringerLink, ACM Digital Library oder ResearchGate ist erforderlich. Die meisten Treffer erfüllen dies, mit Ausnahmen wie \textit{Understanding software evolution using a combination of software visualization and software metrics}~\cite{lanza2002understanding}.
     \item Thematische Passung ist zwingend. Fachfremde Domänen werden ausgeschlossen, etwa \textit{Open source software for visualization and quality control of continuous hydrologic and water quality sensor data}~\cite{horsburgh2015open}.
-    \item Es muss mindestens eine Visualisierung vorgestellt werden, entweder mindestens ein 2D-Layout oder eine 2.5D-Visualisierung. Arbeiten, die lediglich Metriken diskutieren, ohne Visualisierung einzuführen, werden ausgeschlossen, beispielsweise \textit{Existing model metrics and relations to model quality}~\cite{mohagheghi2009existing}.
+    \item Es muss mindestens eine Visualisierung vorgestellt werden, entweder mindestens ein 2D-Layout oder eine 2{.}5D-Visualisierung. Arbeiten, die lediglich Metriken diskutieren, ohne Visualisierung einzuführen, werden ausgeschlossen, beispielsweise \textit{Existing model metrics and relations to model quality}~\cite{mohagheghi2009existing}.
     \item Doppelte Treffer, wie zum Beispiel \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge}, werden nur in der ersten Suche betrachtet.
 \end{itemize}
 
 Für die allgemeine Google-Suche werden zusätzlich heuristische Filter eingesetzt, um Werbung, Dienstleistungsangebote und andere irrelevante Inhalte auszuschließen. Dazu gehören unter anderem die Analyse der Domain-Reputation, das Ausschließen kommerzieller Schlüsselwörter und die Bevorzugung von Repositorien, Dokumentationen und Open-Source-Projekten.
 
 \subsection*{4. Auswertung} \label{sec:MethodikAuswertung}
-Im Rahmen der Auswertung werden die identifizierten Layouts nach Eignung für eine 2.5D-/3D-Visualisierung gefiltert und strukturiert beurteilt.
+Im Rahmen der Auswertung werden die identifizierten Layouts nach Eignung für eine 2{.}5D-/3D-Visualisierung gefiltert und strukturiert beurteilt.
 Zunächst werden Layouts ausgeschlossen, deren Eingabedaten nicht der durch den Anwendungsfall bestimmten Form entsprechen (siehe Definition \ref{lst:nodeSchema}).
-Verbleibende Layouts werden dann mit Hilfe der zuvor definierten Kriterien (siehe Abschnitt \ref{sec:Bewertungsansatz}) auf einer Skala von 1 (Kriterium nicht erfüllt) bis 5 (Kriterium bestmöglich erfüllt) bewertet. Manche Arbeiten stellen 2D-Layouts anstatt von 2.5- oder 3D-Layouts vor. Diese 2D-Layouts sind meistens auf 2.5D erweiterbar. Die Bewertung dieser Layouts bezieht sich dann auf eine potentielle 2.5D-Variante des Layouts.
+Verbleibende Layouts werden dann mit Hilfe der zuvor definierten Kriterien (siehe Abschnitt \ref{sec:Bewertungsansatz}) auf einer Skala von 1 (Kriterium nicht erfüllt) bis 5 (Kriterium bestmöglich erfüllt) bewertet. Manche Arbeiten stellen 2D-Layouts anstatt von 2.5- oder 3D-Layouts vor. Diese 2D-Layouts sind meistens auf 2{.}5D erweiterbar. Die Bewertung dieser Layouts bezieht sich dann auf eine potentielle 2{.}5D-Variante des Layouts.
 
 \section{Ergebnisse der Suche und Auswertung} \label{sec:Ergebnisse}
 Dieser Abschnitt berichtet über die Ergebnisse der Suche unter Anwendung der Inklusions- und Exklusionskriterien und stellt die Auswertung der gefundenen Arbeiten anhand der zuvor formulierten Anforderungen vor.
@@ -69,7 +69,7 @@ In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics
     \label{fig:voronoiTree}
 \end{figure}
 
-Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2.5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung  darstellbar sind, wird die Informationsdichte zusammen mit der Flächeneffizienz mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken. Zudem werden diese unregelmäßigen Formen sowohl für die darstellung von Dateien als auch von Ordnern verwendet, die Komplexitätmit 3 bewertet wird. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 angesetzt. Eine ausdrückliche visuelle Metapher ist nicht vorhanden, weshalb die Metaphernqualität die Einstufung 1 erhält.
+Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Für die Bewertung wird eine 2{.}5D-Variante des 2D-Voronoi-Layouts angenommen. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird im 2D weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung  darstellbar sind, wird die Informationsdichte zusammen mit der Flächeneffizienz mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken. Zudem werden diese unregelmäßigen Formen sowohl für die darstellung von Dateien als auch von Ordnern verwendet, die Komplexitätmit 3 bewertet wird. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 angesetzt. Eine ausdrückliche visuelle Metapher ist nicht vorhanden, weshalb die Metaphernqualität die Einstufung 1 erhält.
 
 \smallskip
 
@@ -104,22 +104,22 @@ In \textit{Visualization of the static aspects of software: A survey} werden ver
 \end{figure}
 Die Kombination vieler visueller Variablen ermöglicht eine reiche Metrikdarstellung. Gleichzeitig geht zwischen Inseln Fläche verloren. Aus sehr hoher Informationsfülle und einigen Lücken resultiert für Informationsdichte  die Bewertung 4. Die Vielzahl an Symbolen und Farben erfordert eine genaue Legende und erhöht die kognitive Last. Daher wird die Komplexitätmit 2 bewertet. Zusätzliche Details und größere Abstände verschlechtern gegenüber klassischen CodeCity Ansätzen die Darstellung großer Systeme. Die Skalierbarkeit wird deshalb mit 2 angesetzt. Die Inselmetapher ist anschaulich und in der Regel schnell zugänglich. Ungewöhnliche Gebäudeformen schmälern die Eindeutigkeit. Die Metaphernqualität wird deshalb mit 4 bewertet.
 
-Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2.5D-Visualisierung basierend auf dem Circular-Treemap-Layout, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert (siehe Abbildung \ref{fig:hierarchicalNet3D}). Die Halbkugeln betonen die Gruppierung und damit die Struktur, nehmen aber die Höhenmetrik, da Höhe an den Durchmesser gebunden ist. Aus dieser Einschränkung bei konstanter Flächennutzung ergibt sich für Informationsdichte  die Bewertung 3. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität erhält daher 1. Komplexitätund Skalierbarkeit entsprechen Circular-Treemaps und werden mit 5 beziehungsweise 3 bewertet.
+Weiterhin wird \textit{hierarchical net} vorgestellt, eine 2{.}5D-Visualisierung basierend auf dem Circular-Treemap-Layout, die die Kreise nicht zu Zylindern, sondern zu Halbkugeln extrudiert (siehe Abbildung \ref{fig:hierarchicalNet3D}). Die Halbkugeln betonen die Gruppierung und damit die Struktur, nehmen aber die Höhenmetrik, da Höhe an den Durchmesser gebunden ist. Aus dieser Einschränkung bei konstanter Flächennutzung ergibt sich für Informationsdichte  die Bewertung 3. Eine Metapher wird nicht eingesetzt. Die Metaphernqualität erhält daher 1. Komplexitätund Skalierbarkeit entsprechen Circular-Treemaps und werden mit 5 beziehungsweise 3 bewertet.
 
 \smallskip
 
-In \textit{Visual realism for the visualization of software metrics}~\cite{visRealism} wird die Paketstruktur verwendet, typischerweise mit bis zu drei Ebenen. Dies ist kompatibel mit der Eingabeanforderung. Es kommen klassische Cushion-Treemaps zum Einsatz. Cushion-Treemap ist in dieser Form nicht extrudierbar, da die Schattierungen nur in 2D funktionieren. Dieser Aspekt wird deshalb hier nicht berücksichtigt. Kodiert werden Metriken über Fläche, Farbe und Textur (siehe Abbildung \ref{fig:structureTreemap}). Bei Extrusion in 2.5D wäre zusätzlich Höhe möglich.  
+In \textit{Visual realism for the visualization of software metrics}~\cite{visRealism} wird die Paketstruktur verwendet, typischerweise mit bis zu drei Ebenen. Dies ist kompatibel mit der Eingabeanforderung. Es kommen klassische Cushion-Treemaps zum Einsatz. Cushion-Treemap ist in dieser Form nicht extrudierbar, da die Schattierungen nur in 2D funktionieren. Dieser Aspekt wird deshalb hier nicht berücksichtigt. Kodiert werden Metriken über Fläche, Farbe und Textur (siehe Abbildung \ref{fig:structureTreemap}). Bei Extrusion in 2{.}5D wäre zusätzlich Höhe möglich.  
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/structureTreemap.png}
     \caption[Cushion-Treemap mit Textur]{Cushion-Treemap, die sowohl über Farbe als auch über Textur Metriken kodiert~\cite[6]{visRealism}.}
     \label{fig:structureTreemap}
 \end{figure}
-Die vollständige Flächennutzung gepaart mit bis zu vier visuellen Variablen ermöglicht eine dichte Darstellung. Daher werden Informationsdichte mit 5 bewertet. Texturen sind semantisch weniger selbsterklärend als Farben und die fehlende Schattierung in 2.5D erschwert die Strukturwahrnehmung. Unter diesen Bedingungen wird die Komplexitätmit 3 eingestuft. Die Grundstruktur skaliert gut, jedoch wird bei sehr großen Systemen die Hierarchie ohne Schattierung schwer lesbar. Die Skalierbarkeit wird daher mit 3 bewertet. Eine Metapher wird nicht verfolgt, folglich erhält die Metaphernqualität die Bewertung 1.
+Die vollständige Flächennutzung gepaart mit bis zu vier visuellen Variablen ermöglicht eine dichte Darstellung. Daher werden Informationsdichte mit 5 bewertet. Texturen sind semantisch weniger selbsterklärend als Farben und die fehlende Schattierung in 2{.}5D erschwert die Strukturwahrnehmung. Unter diesen Bedingungen wird die Komplexitätmit 3 eingestuft. Die Grundstruktur skaliert gut, jedoch wird bei sehr großen Systemen die Hierarchie ohne Schattierung schwer lesbar. Die Skalierbarkeit wird daher mit 3 bewertet. Eine Metapher wird nicht verfolgt, folglich erhält die Metaphernqualität die Bewertung 1.
 
 \smallskip
 
-\textit{CityVR: Gameful software visualization}~\cite{cityVR} verwendet hierarchische Eingabedaten und eine Stadtmetapher in VR. Das Layout ähnelt CodeCity und ist damit eine 2.5D-Variante, die die Anforderung erfüllt.
+\textit{CityVR: Gameful software visualization}~\cite{cityVR} verwendet hierarchische Eingabedaten und eine Stadtmetapher in VR. Das Layout ähnelt CodeCity und ist damit eine 2{.}5D-Variante, die die Anforderung erfüllt.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/vrCodeCity.png}
@@ -185,7 +185,7 @@ Nur eine Dateimetrik wird direkt kodiert und die Schachtelung fehlt vollständig
     \label{fig:exploringRelations}
 \end{figure}
 
-Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualisierungen wird angenommen, dass die Treemaps in 2.5D extrudiert werden. Die Hierarchie ist sichtbar, in den Treemaps lassen sich drei Metriken kodieren und auf oberer Ebene kommen Beziehungsmetriken hinzu. Da jedoch viel Fläche in der Graphansicht frei bleibt, werden Informationsdichte mit 4 bewertet. Zwei Darstellungsprinzipien treffen aufeinander und dieselbe Metrik erscheint als Kreisfläche auf oberen Ebenen und als Rechtecksfläche auf unteren Ebenen. Diese Dopplung kann irritieren. Entsprechend wird die Komplexitätmit 2 eingestuft. Mit wachsender Projektgröße schrumpfen die eingebetteten Treemaps und die Kanten werden unübersichtlich, während auf oberer Ebene Fläche ungenutzt bleibt. Die Skalierbarkeit wird daher mit 2 bewertet. Eine Metapher ist nicht beabsichtigt. Die Metaphernqualität liegt bei 1.
+Es handelt sich um ein 2D-Layout. Für die Vergleichbarkeit mit anderen Visualisierungen wird angenommen, dass die Treemaps in 2{.}5D extrudiert werden. Die Hierarchie ist sichtbar, in den Treemaps lassen sich drei Metriken kodieren und auf oberer Ebene kommen Beziehungsmetriken hinzu. Da jedoch viel Fläche in der Graphansicht frei bleibt, werden Informationsdichte mit 4 bewertet. Zwei Darstellungsprinzipien treffen aufeinander und dieselbe Metrik erscheint als Kreisfläche auf oberen Ebenen und als Rechtecksfläche auf unteren Ebenen. Diese Dopplung kann irritieren. Entsprechend wird die Komplexitätmit 2 eingestuft. Mit wachsender Projektgröße schrumpfen die eingebetteten Treemaps und die Kanten werden unübersichtlich, während auf oberer Ebene Fläche ungenutzt bleibt. Die Skalierbarkeit wird daher mit 2 bewertet. Eine Metapher ist nicht beabsichtigt. Die Metaphernqualität liegt bei 1.
 
 \smallskip
 
@@ -212,7 +212,7 @@ Die Metrikstreifen erlauben theoretisch viele Kennzahlen pro Knoten, allerdings 
     \label{fig:bubbleTreemap}
 \end{figure}
 
-Bei 2.5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, ähnlich der Treemap. Durch die runden Zellen geht etwas mehr Fläche verloren. Aus diesem Verhältnis ergibt sich für Informationsdichte die Bewertung 4. Kreise sind einfach zu unterscheiden und die Struktur ist klar. Dadurch bleibt die kognitive Anforderung gering. Im Vergleich zur Circular Treemap, die später beschrieben wird, ist die Interpretation jedoch etwas komplexer, da hier nicht nur einfache Kreise bzw. Zylinder verwendet werden, sondern auch komplexere Formen entstehen. Die Komplexitätwird daher mit 4 bewertet, auch weil im Vergleich dazu Voronoi ungleichmäßige Volumen sowohl für Ordner als auch für Dateien nutzt und mit 3 bewertet wurde. Das Layout vermeidet Überlappungen und bleibt bei vielen Elementen lesbar, hat aber das gleiche Problem wie Voronoi- und Treemap-Layouts, dass bei großen Codebasen kleine Elemente schwer zu erkennen sind. Die Skalierbarkeit wird also wie bei Voronoi und Treemap mit 4 eingestuft. Eine Metapher wird nicht verfolgt. Die Metaphernqualität liegt bei 1.
+Bei 2{.}5D-Extrusion zu Zylindern lassen sich zwei bis drei Metriken abbilden, ähnlich der Treemap. Durch die runden Zellen geht etwas mehr Fläche verloren. Aus diesem Verhältnis ergibt sich für Informationsdichte die Bewertung 4. Kreise sind einfach zu unterscheiden und die Struktur ist klar. Dadurch bleibt die kognitive Anforderung gering. Im Vergleich zur Circular Treemap, die später beschrieben wird, ist die Interpretation jedoch etwas komplexer, da hier nicht nur einfache Kreise bzw. Zylinder verwendet werden, sondern auch komplexere Formen entstehen. Die Komplexitätwird daher mit 4 bewertet, auch weil im Vergleich dazu Voronoi ungleichmäßige Volumen sowohl für Ordner als auch für Dateien nutzt und mit 3 bewertet wurde. Das Layout vermeidet Überlappungen und bleibt bei vielen Elementen lesbar, hat aber das gleiche Problem wie Voronoi- und Treemap-Layouts, dass bei großen Codebasen kleine Elemente schwer zu erkennen sind. Die Skalierbarkeit wird also wie bei Voronoi und Treemap mit 4 eingestuft. Eine Metapher wird nicht verfolgt. Die Metaphernqualität liegt bei 1.
 
 \smallskip
 
@@ -303,7 +303,7 @@ Das Hasso-Plattner-Institut berichtet über zahlreiche Arbeiten zur Softwarevisu
     \label{fig:sereene}
 \end{figure}
 
-Sereene nutzt ein 2.5D-Treemap-Layout und stellt Metriken über Fläche, Höhe und Farbe dar. Da die gesamte Fläche genutzt und zugleich mehrere Metriken sichtbar werden, werden Informationsdichte mit 4 bewertet. Die Formen bleiben einfach, die Struktur ist klar. Dadurch ist die kognitive Last gering. Die Komplexitätwird mit 5 eingestuft. Auch große Systeme können abgebildet werden, kleine Elemente verlieren jedoch an Lesbarkeit. Unter dieser Prämisse wird die Skalierbarkeit mit 4 bewertet. Die Metapher ist präsent, bleibt aber abstrakt, da typische Stadtstrukturen wie Straßen fehlen. Die Metapher wird daher mit 3 bewertet.
+Sereene nutzt ein 2{.}5D-Treemap-Layout und stellt Metriken über Fläche, Höhe und Farbe dar. Da die gesamte Fläche genutzt und zugleich mehrere Metriken sichtbar werden, werden Informationsdichte mit 4 bewertet. Die Formen bleiben einfach, die Struktur ist klar. Dadurch ist die kognitive Last gering. Die Komplexitätwird mit 5 eingestuft. Auch große Systeme können abgebildet werden, kleine Elemente verlieren jedoch an Lesbarkeit. Unter dieser Prämisse wird die Skalierbarkeit mit 4 bewertet. Die Metapher ist präsent, bleibt aber abstrakt, da typische Stadtstrukturen wie Straßen fehlen. Die Metapher wird daher mit 3 bewertet.
 
 \begin{figure}[htbp]
     \centering
@@ -333,7 +333,7 @@ Sowohl Treemap als auch Streetmap wurden bereits in sehr ähnlicher Form bewerte
 
 \smallskip
 
-Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\cite{ndepend} nutzen Cushion-Treemaps. Wie zuvor festgestellt, sind Cushion-Treemaps in 2.5D faktisch als normale Treemaps zu werten. Zusätzlich ist Textur als Metrik einsetzbar. Es gilt daher die gleiche Bewertung wie oben.
+Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\cite{ndepend} nutzen Cushion-Treemaps. Wie zuvor festgestellt, sind Cushion-Treemaps in 2{.}5D faktisch als normale Treemaps zu werten. Zusätzlich ist Textur als Metrik einsetzbar. Es gilt daher die gleiche Bewertung wie oben.
 
 \smallskip
 
@@ -348,7 +348,7 @@ UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreic
 
 \smallskip
 
-\textit{code-is-beautiful}~\cite{codeIsBeautiful} bietet CodeCity-Visualisierungen. Die entsprechende Bewertung wurde oben bereits vorgenommen und gilt hier ebenfalls. Das Sunburst-Layout entspricht einem Kreisdiagramm, das die Ordnerstruktur von innen nach außen zeigt. Größe als Sektorfläche und Farbe kodieren Metriken (siehe Abbildung \ref{fig:sunburst}). Eine 2.5D-Extrusion ist möglich.
+\textit{code-is-beautiful}~\cite{codeIsBeautiful} bietet CodeCity-Visualisierungen. Die entsprechende Bewertung wurde oben bereits vorgenommen und gilt hier ebenfalls. Das Sunburst-Layout entspricht einem Kreisdiagramm, das die Ordnerstruktur von innen nach außen zeigt. Größe als Sektorfläche und Farbe kodieren Metriken (siehe Abbildung \ref{fig:sunburst}). Eine 2{.}5D-Extrusion ist möglich.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/sunburst.png}
@@ -357,7 +357,7 @@ UML liefert reichhaltige Struktur- und Implementierungsdetails, die mit zahlreic
 \end{figure}
 In Sunburst wird ein zentraler Bereich für Ordner benötigt, der zum Beispiel bei Treemaps entfällt. Bei gleicher Metrikzahl sinkt dadurch die Flächeneffizienz leicht. Informationsgehalt und Flächenausnutzung werden also mit 3 bewertet. Die verschachtelte Struktur ist visuell sehr klar und einfach zu verfolgen. Die Komplexitätwird mit 5 eingestuft. Mit zunehmender Elementzahl leidet die Lesbarkeit kleiner Sektoren, insgesamt bleibt die Darstellung jedoch gut lesbar. Die Skalierbarkeit wird daher mit 4 bewertet. Eine Metapher ist nicht vorgesehen, aber wie der Name schon sagt, kann es als Sonne interpretiert werden, von der Sonnenstrahlen ausgehen, weshalb Wert 2 für die Metapher vergeben wird.
 
-Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2.5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert (siehe Abbildung \ref{fig:stack}).
+Das Stack-Layout entspricht einem linearen, von oben nach unten aufgebauten Partitionierungsdiagramm und ist dem Icicle Plot sehr ähnlich. Es wird in 2D dargestellt. Die Rechtecke können in 2{.}5D extrudiert werden. Metriken werden über Breite, Höhe und Farbe kodiert (siehe Abbildung \ref{fig:stack}).
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{images/literatur/stack.png}
@@ -380,7 +380,7 @@ Die oberen Hierarchieebenen nehmen vergleichsweise viel Platz ein, mehr als bei 
     \label{fig:circularTreemapx}
 \end{figure}
 
-Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die einzelnen Kreise in 2.5D extrudiert werden, also zu Zylindern. Gegenüber zum Beispiel Bubble-Treemaps geht zwischen Kreisen etwas mehr Fläche verloren, die Metrikzahl bleibt jedoch gleich. Deshalb werden Informationsdichte eine Stufe niedriger bewertet und erhalten 3. Die Kreisform und klare Abstände unterstützen die Wahrnehmung der Struktur stark. Die Komplexitätwird mit 5 bewertet. Durch zusätzliche Abstände werden kleine Elemente bei großen Systemen etwas schwerer erkennbar. Die Skalierbarkeit wird daher mit 3 eingestuft. Der Anbieter dieser Visualisierung schlägt eine Tatortmetapher vor, die roten Kreise sind als Blutflecken zu interpretieren. Diese Assoziation ist abstrakt und ergibt in 2.5D nur wenig Sinn. Die Metapher wird daher mit 2 bewertet.
+Es wird ein 2D-Layout vorgestellt. Für die Bewertung wird angenommen, dass die einzelnen Kreise in 2{.}5D extrudiert werden, also zu Zylindern. Gegenüber zum Beispiel Bubble-Treemaps geht zwischen Kreisen etwas mehr Fläche verloren, die Metrikzahl bleibt jedoch gleich. Deshalb werden Informationsdichte eine Stufe niedriger bewertet und erhalten 3. Die Kreisform und klare Abstände unterstützen die Wahrnehmung der Struktur stark. Die Komplexitätwird mit 5 bewertet. Durch zusätzliche Abstände werden kleine Elemente bei großen Systemen etwas schwerer erkennbar. Die Skalierbarkeit wird daher mit 3 eingestuft. Der Anbieter dieser Visualisierung schlägt eine Tatortmetapher vor, die roten Kreise sind als Blutflecken zu interpretieren. Diese Assoziation ist abstrakt und ergibt in 2{.}5D nur wenig Sinn. Die Metapher wird daher mit 2 bewertet.
 
 \section{Zusammenfassung der Ergebnisse} \label{sec:LiteraturErgebnisse}
 
@@ -432,8 +432,8 @@ Die Gesamtwertung der Visualisierungen ergibt sich durch das arithmetische Mitte
 
 Das in CodeCity verwendete Treemap-Layout weist charakteristische Unterschiede zu klassischen Treemaps auf, insbesondere durch größere Freiflächen und das Fehlen einer flächendeckenden, kantenbündigen Anordnung. Aus diesem Grund erfolgt eine Unterscheidung zwischen Treemap- und CodeCity-Layouts, obwohl CodeCity-Layouts formal Treemap-Layouts sind.
 
-Aus der Literaturanalyse ergeben sich folgende Beobachtungen. Treemap, CodeCity und Streetmap-Layouts schneiden am besten ab. Sie sind nicht sehr komplex und besitzen eine starke Metapher. Generell wird die Stadtmetapher sehr häufig verwendet. Sie bietet eine starke visuelle Metapher, erleichtert Orientierung und unterstützt ein mentales Modell, da Städte vertraut sind. Auffällig ist weiterhin, dass fast alle Visualisierungen 2.5D-Varianten sind. 3D-Visualisierungen sind selten und schneiden vergleichsweise schlechter ab. Dies dürfte sowohl auf die einfachere Implementierung als auch die bessere Übersichtlichkeit zurückzuführen sein. Zudem bilden nahezu alle Ansätze drei Metriken ab, typischerweise Fläche, Höhe und Farbe. Drei Metriken scheinen einen tragfähigen Kompromiss zwischen Informationsgehalt und Komplexität darzustellen. Mehr Metriken erhöhen die kognitive Last, weniger Metriken nutzen die 3D-Potenziale nicht aus.
+Aus der Literaturanalyse ergeben sich folgende Beobachtungen. Treemap, CodeCity und Streetmap-Layouts schneiden am besten ab. Sie sind nicht sehr komplex und besitzen eine starke Metapher. Generell wird die Stadtmetapher sehr häufig verwendet. Sie bietet eine starke visuelle Metapher, erleichtert Orientierung und unterstützt ein mentales Modell, da Städte vertraut sind. Auffällig ist weiterhin, dass fast alle Visualisierungen 2{.}5D-Varianten sind. 3D-Visualisierungen sind selten und schneiden vergleichsweise schlechter ab. Dies dürfte sowohl auf die einfachere Implementierung als auch die bessere Übersichtlichkeit zurückzuführen sein. Zudem bilden nahezu alle Ansätze drei Metriken ab, typischerweise Fläche, Höhe und Farbe. Drei Metriken scheinen einen tragfähigen Kompromiss zwischen Informationsgehalt und Komplexität darzustellen. Mehr Metriken erhöhen die kognitive Last, weniger Metriken nutzen die 3D-Potenziale nicht aus.
 
 Nur wenige Visualisierungen kombinieren eine hohe Anzahl an Metriken mit Hierarchierepräsentation, niedriger visueller Komplexität und effizienter Flächennutzung. Wenn die Strukturabbildung fehlt, reduziert dies zwar kurzfristig die Komplexität, wirkt sich jedoch bei großen Codebasen negativ auf die Übersichtlichkeit aus. Beziehungsmetriken liefern wertvolle Zusatzinformation. Keine der betrachteten Visualisierungen schafft es jedoch, diese bei großen Codebasen durchgängig übersichtlich darzustellen. Empfohlen wird daher, Beziehungsmetriken nur bei Bedarf und vorzugsweise nur auf oberen Ebenen zu zeigen, wie etwa bei \textit{Treemap Enhanced Hierarchical Graphs}.
 
-Insgesamt schneiden 2.5D-Visualisierungen mit einfachen Formen und Farben, klarer Struktur und begrenzter Metrikzahl (drei bis vier) am besten ab.
+Insgesamt schneiden 2{.}5D-Visualisierungen mit einfachen Formen und Farben, klarer Struktur und begrenzter Metrikzahl (drei bis vier) am besten ab.

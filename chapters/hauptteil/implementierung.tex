@@ -16,7 +16,7 @@ Es werden die fünf bestplatzierten Visualisierungen aus dem Vergleich der Visua
 
 \section{Gemeinsamkeiten und Architektur} \label{sec:Architektur}
 
-Alle der ausgewählten Visualisierungen sind 2.5D-Visualisierungen. Jede Visualisierung besitzt ein eigenes Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
+Alle der ausgewählten Visualisierungen sind 2{.}5D-Visualisierungen. Jede Visualisierung besitzt ein eigenes Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
 
 Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basieren jedoch auf einem einheitlichen Schema, das hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema aus Abschnitt \ref{sec:Anwendungsfall} (siehe Listing \ref{lst:nodeSchema}) sind die Attribute x, y, width und length hinzugekommen, die das Layout eindeutig beschreiben.
 
@@ -34,7 +34,7 @@ Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basieren
 Die Implementierung ist bei jeder Visualisierung in zwei klar getrennte Schritte gegliedert:
 \begin{enumerate}
     \item \textbf{Layoutschritt:} Aus den Eingabedaten, also der Hierarchie \texttt{children} und den Metrikwerten \texttt{values}, wird das 2D-Layout berechnet. Dabei werden die Felder \texttt{x}, \texttt{y}, \texttt{width} und \texttt{length} des in Listing \ref{lst:nodeLayoutSchema} definierten Layout-Schemas gesetzt.
-    \item \textbf{Visualisierungs-Schritt:} Das berechnete 2D-Layout wird in eine 2.5D-Visualisierung überführt. Ein Wert aus \texttt{values} steuert die Extrusionshöhe und ein anderer Wert aus \texttt{values} kodiert die Farbe.
+    \item \textbf{Visualisierungs-Schritt:} Das berechnete 2D-Layout wird in eine 2{.}5D-Visualisierung überführt. Ein Wert aus \texttt{values} steuert die Extrusionshöhe und ein anderer Wert aus \texttt{values} kodiert die Farbe.
 \end{enumerate}
 
 Alle Visualisierungen bieten identische Einstellmöglichkeiten für Farben, Höhen, Perspektiven und Metriken. Die Farbgebung folgt einer kontinuierlichen Skala mit grün für gute Werte, gelb für mittlere Werte und rot für schlechte Werte. Ordner werden grau eingefärbt und erhalten mit zunehmender Tiefe hellere Grautöne. Dadurch lassen sich Ordner klar von Dateien abgrenzen. Ordner erhalten zudem eine feste Extrusionshöhe.
