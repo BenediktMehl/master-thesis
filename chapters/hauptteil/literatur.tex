@@ -3,7 +3,7 @@
 Ziel dieses Kapitels ist die Identifikation von 2{.}5D- und 3D-Visualisierungen, die sich für die Darstellung von Software-Qualitätsmetriken eignen. Zunächst werden die Methodik zur Recherche und Bewertung der Visualisierungen dargelegt. Anschließend wird deren Umsetzung und die daraus resultierenden Ergebnisse beschrieben. Abschließend werden dann die Suchergebnisse zusammengefasst und die finale Auswahl der Visualisierungen, die in späteren Kapiteln implementiert, optimiert und evaluiert werden, begründet.
 
 \section{Methodik} \label{sec:Methodik}
-Die Methodik orientiert sich an der systematischen Literaturrecherche nach \textit{Procedures for performing systematic reviews}. Der Ansatz wurde angepasst, da der Fokus auf der Identifikation und Einordnung geeigneter Visualisierungen liegt und nicht primär auf der Bewertung und dem Vergleich von wissenschaftlichen Arbeiten~\cite{kitchenham2004procedures}.
+Die Methodik orientiert sich an der systematischen Literaturrecherche nach \textit{Procedures for performing systematic reviews}~\cite{kitchenham2004procedures}. Der Ansatz wurde angepasst, da der Fokus auf der Identifikation und Bewertung geeigneter Visualisierungen liegt und nicht von wissenschaftlichen Arbeiten.
 
 \subsection*{1. Forschungsfrage} \label{sec:Forschungsfrage}
 Aus den zuvor definierten Forschungsfragen (siehe Abschnitt \ref{sec:Problemstellung}) leiten sich zwei zentrale Ziele der Recherche ab:
@@ -31,23 +31,33 @@ da sie verschachtelte boolesche Suchanfragen unterstützt~\cite{ieee_xplore_bool
 Pro Suchanfrage werden die ersten 20 Ergebnisse gesichtet, um einen praktikablen Kompromiss zwischen Relevanz und Umfang herzustellen. Außerdem doppeln sich die Visualisierungen in den Suchergebnissen häufig, sodass eine größere Anzahl an Sichtungen nur einen geringen Mehrwert bieten würde.
 Die Suche berücksichtigt nicht nur Titel, sondern auch Volltexte. Dies ist insbesondere für die Begriffe \textit{quality} und \textit{metrics} relevant, die nicht immer im Titel oder Abstract erscheinen.
 
-Ergänzend werden mittels der allgemeinen Google-Suche existierende Tools, Repositorien und praxisorientierte Ressourcen identifiziert, die Ideen oder etablierte Ansätze zur Visualisierung von Software-Qualitätsmetriken liefern. Hierzu kommen verschiedene Suchanfragen und Kombinationen einschlägiger Schlagworte zum Einsatz.
+Ergänzend werden mittels der allgemeinen Google-Suche existierende Tools, Repositorien und praxisorientierte Ressourcen identifiziert, die Ideen oder etablierte Ansätze zur Visualisierung von Software-Qualitätsmetriken liefern.
 
 \subsection*{3. Inklusions- und Exklusionskriterien} \label{sec:InklusionExklusionKriterien}
 Auf die Suchergebnisse werden folgende Filter angewandt, um irrelevante oder nicht zugängliche Treffer zu exkludieren:
 
 \begin{itemize}
-    \item Zulässige Sprachen sind Deutsch und Englisch. Aufgrund der verwendeten Suchbegriffe sind nahezu alle Quellen englischsprachig. Eine Ausnahme ist das spanische Überblickspapier \textit{Software visualization tools and techniques: A systematic review of the literature}~\cite{cruz2016software}.
+    \item Zulässige Sprachen sind Deutsch und Englisch. Aufgrund der verwendeten Suchbegriffe sind nahezu alle Quellen englischsprachig. Eine Ausnahme ist die spanische Literaturrecherche \textit{Software visualization tools and techniques: A systematic review of the literature}~\cite{cruz2016software}.
     \item Freier Zugriff über gängige Anbieter wie IEEE, SpringerLink, ACM Digital Library oder ResearchGate ist erforderlich. Die meisten Treffer erfüllen dies, mit Ausnahmen wie \textit{Understanding software evolution using a combination of software visualization and software metrics}~\cite{lanza2002understanding}.
-    \item Thematische Passung ist zwingend. Fachfremde Domänen werden ausgeschlossen, etwa \textit{Open source software for visualization and quality control of continuous hydrologic and water quality sensor data}~\cite{horsburgh2015open}.
+    \item Die thematische Passung zum definierten Anwendungsfall der Softwarequalitäts-Visualisierung ist zwingend. Fachfremde Domänen werden ausgeschlossen, etwa \textit{Open source software for visualization and quality control of continuous hydrologic and water quality sensor data}~\cite{horsburgh2015open}.
     \item Es muss mindestens eine Visualisierung vorgestellt werden, entweder mindestens ein 2D-Layout oder eine 2{.}5D-Visualisierung. Arbeiten, die lediglich Metriken diskutieren, ohne Visualisierung einzuführen, werden ausgeschlossen, beispielsweise \textit{Existing model metrics and relations to model quality}~\cite{mohagheghi2009existing}.
     \item Doppelte Treffer, wie zum Beispiel \textit{Visualization-based analysis of quality for large-scale software systems}~\cite{visbasedlarge}, werden nur in der ersten Suche betrachtet.
-    \item Eingangsdaten der Visualisierung muss der Hierarchischenform wie sie in Listing \ref{lst:nodeSchema} definiert wurde entsprechen. Negativbeispiel ist \textit{3D representations for software visualization}~\cite{3dsoftwareMarcus}, das Metriken nicht hierarchisch auf Zeilenebene darstellt.
+    \item Eingangsdaten der Visualisierung muss der Hierarchischenform, wie sie in Listing \ref{lst:nodeSchema} definiert wurde, entsprechen. Negativbeispiel ist die Arbeit \textit{3D representations for software visualization}~\cite{3dsoftwareMarcus}, die Metriken nicht hierarchisch auf Dateiebene sondern flach auf Zeilenebene darstellt.
 \end{itemize}
 
 \subsection*{4. Bewertung} \label{sec:MethodikAuswertung}
 
-Verbleibende Visualisierungen werden dann mit Hilfe der zuvor definierten Kriterien (siehe Abschnitt \ref{sec:Bewertungsansatz}) auf einer Skala von 1 (Kriterium nicht erfüllt) bis 5 (Kriterium bestmöglich erfüllt) bewertet. Manche Arbeiten stellen 2D-Layouts anstatt von 2.5- oder 3D-Visualisierungen vor. Die Bewertung dieser Layouts bezieht sich dann auf eine 2{.}5D-Variante des Layouts.
+Die verbleibenden Visualisierungen werden anhand der zuvor definierten Kriterien (siehe Abschnitt \ref{sec:Bewertungsansatz}) auf einer fünfstufigen Likert-Skala von 1 (Kriterium nicht erfüllt) bis 5 (Kriterium bestmöglich erfüllt) bewertet. Um die Bewertung weniger subjektiv zu gestalten, werden die Bewertungen durch Richtlinien unterstützt:
+
+\begin{itemize}
+    \item \textbf{Informationsdichte:} Werden vier oder mehr Metriken ohne nennenswerte ungenutzte Fläche dargestellt oder werden deutlich mehr Metriken bei nur geringem Anteil ungenutzter Fläche gezeigt, erhält die Visualisierung die Bewertung 5. Werden weniger Metriken dargestellt oder bleibt viel Fläche ungenutzt, fällt die Bewertung entsprechend niedriger aus. Bei zwei bis drei Metriken werden je nach Qualität der Flächennutzung Bewertungen von 2 bis 4 vergeben. Bei lediglich einer Metrik oder sehr schlechter Flächennutzung wird die Bewertung 1 vergeben. Zusätzlich erfolgen Abwertungen, wenn die Hierarchiestruktur nicht oder nur unzureichend abgebildet wird.
+    \item \textbf{Niedrige Komplexität:} Ist die Visualisierung auf den ersten Blick verständlich, übersichtlich, einfach aufgebaut und sind die visuellen Variablen intuitiv interpretierbar, erfolgt die Bewertung mit 5. Fallen leichte Mehrkomplexität durch Komplexe Formen, Details oder Unübersichtlichkeiten und eine kurze Einarbeitungszeit an, werden 4 oder 3 vergeben. Ist die Darstellung unübersichtlich, schwer verständlich oder erfordert sie den ständigen Blick in eine Legende, werden 2 oder 1 vergeben.
+    \item \textbf{Skalierbarkeit:} Sind selbst bei sehr großen Codebasen Struktur sowie alle Details und Metriken klar erkennbar, erhält die Visualisierung die Bewertung 5. Ist die Struktur auch bei großen Codebasen noch erkennbar, während Details und Metriken in bestimmten Fällen schwer zu erkennen sind, werden 4 oder 3 vergeben. Ist die Struktur bei großen Codebasen nur noch sehr schwer oder gar nicht mehr erkennbar oder werden Informationen überlagert oder sind generell schwer erkennbar, wird die Bewertung auf 2 oder 1 reduziert.
+    \item \textbf{Metaphernqualität:} Eine Metapher, die vom Betrachter sofort verstanden wird und möglichst realitätsnah wirkt, erhält die Bewertung 5. Ist die Metapher abstrahiert, unrealistisch, ungewöhnlich oder schwer verständlich oder wird sie erst nach einer Erklärung verstanden, erfolgt eine Reduktion auf 4 oder 3. Ist eine Metapher selbst nach Erklärung nicht intuitiv zugänglich, wird mit 2 bewertet. Fehlt eine Metapher vollständig, wird die Bewertung 1 vergeben.
+\end{itemize}
+
+
+Manche Arbeiten stellen 2D-Layouts anstatt von 2.5- oder 3D-Visualisierungen vor. Die Bewertung dieser Layouts bezieht sich dann auf eine 2{.}5D-Variante des Layouts.
 
 \section{Ergebnisse der Suche und Bewertung} \label{sec:Ergebnisse}
 Dieser Abschnitt berichtet über die Ergebnisse der Suche unter Anwendung der Inklusions- und Exklusionskriterien und stellt die Bewertung der gefundenen Visualisierungen vor.
@@ -63,7 +73,7 @@ In der Arbeit \textit{Voronoi treemaps for the visualization of software metrics
     \label{fig:voronoiTree}
 \end{figure}
 
-Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Es lassen sich ähnlich wie bei Treemaps zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung darstellbar sind, wird die Informationsdichte mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken, weshalb die Komplexität mit 3 bewertet wird. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten bei großen Codebasen eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 bewertet. Eine visuelle Metapher ist nicht vorhanden, weshalb die Metapher die Einstufung 1 erhält.
+Zur Hervorhebung der Hierarchie werden ergänzend Kanten mit variierender Dicke und Knotenfärbung eingesetzt. Trotz des Ansatzes bestehen, wie bei Treemaps, weiterhin Struktur- und Abstandsprobleme. In der Arbeit werden diese überwiegend durch Farbe adressiert. Es lassen sich, ähnlich wie bei Treemaps, zwei bis drei Metriken darstellen, abhängig davon, ob Farbe als Metrik oder zur Strukturkodierung genutzt wird. Der verfügbare Platz wird weitgehend ausgeschöpft. Da drei Metriken bei nahezu vollständiger Flächennutzung darstellbar sind, wird die Informationsdichte mit 4 bewertet. Die Knoten sind klar abgegrenzt und die Kanten geben Orientierung. Gleichzeitig können unregelmäßige Polygonformen unruhig wirken, weshalb die Komplexität mit 3 bewertet wird. Überlappungen treten nicht auf und das Layout ist auch für große Codebasen geeignet. Da die Detailerkennbarkeit jedoch von der Metrikverteilung abhängt und kleine Knoten bei großen Codebasen eventuell schwer zu erkennen sind, wird die Skalierbarkeit mit 4 bewertet. Eine visuelle Metapher ist nicht vorhanden, weshalb die Metapher die Einstufung 1 erhält.
 
 \smallskip
 
@@ -305,12 +315,12 @@ Der Software Forest ist ein hügeliger Wald, bei dem jeder Baum eine Datei repr�
 
 \smallskip
 
-Das Open-Source-Projekt \textit{CodeCharta}~\cite{code_charta_github} nutzt Treemaps (siehe Abbildung \ref{fig:codeChartaTreemap}) und Streetmaps (siehe Abbildung \ref{fig:codeChartaStreetMap}) zur Visualisierung.
+Das Open-Source-Projekt \textit{CodeCharta}~\cite{code_charta_github} nutzt Treemaps und Streetmaps zur Visualisierung.
 Sowohl Treemap als auch Streetmap wurden bereits in sehr ähnlicher Form bewertet. Die Bewertungen werden daher übernommen.
 
 \smallskip
 
-Auch Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\cite{ndepend} nutzen Cushion-Treemaps. Es gelten daher die gleichen Bewertung wie oben.
+Auch Werkzeuge wie \textit{jArchitect}~\cite{jarchitect_2024} und \textit{NDepend}~\cite{ndepend} nutzen Cushion-Treemaps und kodieren eine weitere Metrik über die Struktur. Es gelten daher die gleichen Bewertung wie für die zuvor bewerteten Textured Treemaps.
 
 \smallskip
 
@@ -367,7 +377,8 @@ Gegenüber zum Beispiel Bubble-Treemaps geht zwischen Kreisen etwas mehr Fläche
 
 \section{Zusammenfassung der Ergebnisse} \label{sec:LiteraturErgebnisse}
 
-Eine Zusammenfassung aller Bewertungen ist in Tabelle \ref{tab:visEval_full} enthalten. 
+Eine Auflistung aller Bewertungen ist in Tabelle \ref{tab:visEval_full} enthalten. Es ist anzumerken, dass die Bewertungen trotz der definierten Kriterien und Richtlinien zur Bewertung subjektiv sind und eine einzelne Einschätzung darstellt. Sie dienen als erste Orientierung und Grundlage für die Auswahl geeigneter Visualisierungen. Die Bewerungen werden in Abschnitt \ref{sec:DirekteBewertungErgebnisse} durch die zusätzliche Bewertung von 9 Experten ergänzt, um die Subjektivität zu reduzieren. 
+Außerdem ist anzumerken, dass nur die ersten 20 Suchergebnisse der jeweiligen Suche berücksichtigt wurden. Es ist möglich, dass weitere relevante Visualisierungen existieren, die in dieser Arbeit nicht betrachtet wurden.
 
 Die Gesamtwertung der Visualisierungen ergibt sich durch das arithmetische Mittel aller Bewertungen. Die Gleichgewichtung der Kriterien stellt eine pragmatische Entscheidung dar. Für eine fundierte Bewertung könnte eine differenzierte Gewichtung sinnvoll sein, die jedoch wissenschaftlich überprüft werden müsste und Gegenstand zukünftiger Arbeiten sein kann.
 
@@ -411,7 +422,16 @@ Die Gesamtwertung der Visualisierungen ergibt sich durch das arithmetische Mitte
     \label{tab:visEval_full}
 \end{table}
 
-Aus der Literaturanalyse ergeben sich folgende Beobachtungen. Treemap, CodeCity und Streetmap-Layouts schneiden am besten ab. Sie sind nicht sehr komplex und besitzen eine starke Metapher. Generell wird die Stadtmetapher sehr häufig verwendet. Sie bietet eine starke visuelle Metapher, erleichtert Orientierung und unterstützt ein mentales Modell, da Städte vertraut sind. Auffällig ist weiterhin, dass fast alle Visualisierungen 2{.}5D-Varianten sind. 3D-Visualisierungen sind selten und schneiden vergleichsweise schlechter ab. Dies dürfte sowohl auf die einfachere Implementierung als auch die bessere Übersichtlichkeit zurückzuführen sein. Zudem bilden nahezu alle Ansätze drei Metriken ab, typischerweise Fläche, Höhe und Farbe. Drei Metriken scheinen einen tragfähigen Kompromiss zwischen Informationsgehalt und Komplexität darzustellen. Mehr Metriken erhöhen die kognitive Last, weniger Metriken nutzen die 3D-Potenziale nicht aus.
+Aus der Literaturanalyse ergeben sich folgende Beobachtungen. 
+Treemap-, CodeCity- und Streetmap-Layouts schneiden am besten ab. Sie sind alle nicht sehr komplex und besitzen eine starke Metapher. 
+Generell wird die Stadtmetapher häufig verwendet (bei 6 verschiedenen Visualisierungen). Sie bietet eine starke visuelle Metapher, erleichtert Orientierung und unterstützt ein mentales Modell, da Städte vertraut sind.
+Auffällig ist weiterhin, dass fast alle Visualisierungen 2{.}5D-Varianten sind. 3D-Visualisierungen sind selten und schneiden vergleichsweise schlechter ab. Dies dürfte sowohl auf die einfachere Implementierung als auch die bessere Übersichtlichkeit zurückzuführen sein.
+Zudem bilden nahezu alle Ansätze drei Metriken ab, typischerweise Fläche, Höhe und Farbe. Drei Metriken scheinen einen tragfähigen Kompromiss zwischen Informationsgehalt und Komplexität darzustellen. Mehr Metriken erhöhen die kognitive Last, weniger Metriken nutzen die 3D-Potenziale nicht aus.
+Fast alle graph-basierten Visualisierungen schneiden vergleichsweise schlecht ab. Dies liegt sowohl an der schlechten Skalierbarkeit als auch der fehlenden Metapher. Graphen erzeugen schnell Überlappungen und Unübersichtlichkeit, wenn viele Knoten und Kanten dargestellt werden.
+Interessant sind auch die Kartographie-Visualisierungstypen. Sie stellen die besten Metaphern dar, sind wenig komplex und gut skalierbar. Allerdings ist die Informationsdichte sehr gering, weshalb sie insgesamt nur mittelmäßig abschneiden.
+Sehr gute Metaphern leiden generell aufgrund der Detailtiefe oft darunter, dass sie entweder zu komplex werden, wie zum Beispiel die Minecraft City oder dass sie nicht genügend Informationen kodieren können, wie die Solar System Visualisierung.
+Wie bereits im Grundlagenabschnitt \ref{sec:TreemapGrundlagen} erwähnt sind Baumdiagramme nicht für die Darstellung großer Hierarchien geeignet, was erklärt, warum der Hyperbolic Tree, am schlechtesten abschneidet. Auch UML Digramme schneiden schlecht ab. Sie sind zu textlastig und komplex und nicht für die Darstellung von Softwarequalität sondern für die Planung und Dokumentation von Software entwickelt worden. Es zeigt sich die Notwendigkeit, Visualisierungen speziell für Softwarequalität und nicht Software im allgemeinen zu entwickeln.
+Generell ist die meist genutzte Visualisierungsvariante die Treemap, sei es in der platzfüllenden Variante, die in dieser Arbeit einfach als Treemap bezeichnet wird, oder in abgewandelten speziellen Varianten wie den CodeCity-Layouts, die ja nach Definition auch Treemap-Layouts sind (siehe Abschnitt \ref{sec:CodeCity}).
 
 Nur wenige Visualisierungen kombinieren eine hohe Anzahl an Metriken mit Hierarchierepräsentation, niedriger visueller Komplexität und effizienter Flächennutzung. Wenn die Strukturabbildung fehlt, reduziert dies zwar kurzfristig die Komplexität, wirkt sich jedoch bei großen Codebasen negativ auf die Übersichtlichkeit aus. Beziehungsmetriken liefern wertvolle Zusatzinformation. Keine der betrachteten Visualisierungen schafft es jedoch, diese bei großen Codebasen durchgängig übersichtlich darzustellen. Empfohlen wird daher, Beziehungsmetriken nur bei Bedarf und vorzugsweise nur auf oberen Ebenen zu zeigen, wie etwa bei \textit{Treemap Enhanced Hierarchical Graphs}.
 

@@ -3,10 +3,10 @@
 Im Folgenden werden Forschungsarbeiten vorgestellt, die die zuvor definierte Leitfrage, welche Visualisierung sich am besten zur Darstellung von Code-Qualitätsmetriken eignen, adressieren.
 
 \bigskip
-
-Pacione et al. vergleichen in \textit{A comparative evaluation of dynamic visualisation tools}~\cite{pacione2003comparative} fünf dynamische Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung, obwohl sie für die Analyse komplexer Softwaresysteme hohes Potenzial besitzen. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls betrachtet wird.
-
-Teyseyre et al. geben in \textit{An overview of 3D software visualization}~\cite{overview3D} einen systematischen Überblick über Ansätze und Werkzeuge der dreidimensionalen Softwarevisualisierung. Die Autoren unterscheiden folgende Kategorien:
+%A comparative evaluation of dynamic visualisation tools
+Pacione et al.~\cite{pacione2003comparative} vergleichen fünf dynamische Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung, obwohl sie für die Analyse komplexer Softwaresysteme hohes Potenzial besitzen. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls betrachtet wird.
+%An overview of 3D software visualization
+Teyseyre et al.~\cite{overview3D} geben einen systematischen Überblick über Ansätze und Werkzeuge der dreidimensionalen Softwarevisualisierung. Die Autoren unterscheiden folgende Kategorien:
 \begin{itemize}
     \item \textbf{Graphbasierte Ansätze:} 3D-Knoten-Kanten-Diagramme mit Fokus auf die Darstellung von Klassenbeziehungen.
     \item \textbf{Baumstrukturen:} Dreidimensionale Varianten wie \textit{Cone Trees}, \textit{Information Cubes} (im Wesentlichen 3D-Treemaps) oder \textit{hierarchical nets} (siehe Abbildung \ref{fig:hierarchicalNet3D}) zur hierarchischen Darstellung von Softwareelementen.
@@ -28,8 +28,8 @@ Teyseyre et al. geben in \textit{An overview of 3D software visualization}~\cite
 \end{figure}
 
 Einige Ansätze verwenden Metaphern aus der realen Welt, etwa Städte oder Landschaften. Von 22 analysierten Tools sind lediglich vier für Management oder Stakeholder ohne spezifische Entwicklungskompetenzen geeignet. Davon visualisiert nur eines die Software selbst, während die übrigen drei Ansätze Software-Anforderungen visualisieren. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze begrenzt.
-
-Caserta und Zendra geben in \textit{Visualization of the static aspects of software: A survey}~\cite{staticSurvey} einen Überblick über etablierte und aktuelle Visualisierungstechniken und ordnen diese unterschiedlichen Analyseebenen zu:
+%Visualization of the static aspects of software: A survey
+Caserta und Zendra~\cite{staticSurvey} geben einen Überblick über etablierte und aktuelle Visualisierungstechniken und ordnen diese unterschiedlichen Analyseebenen zu:
 \begin{itemize}
     \item \textbf{Quellcode-Ebene:} Zeilenorientierte Visualisierungen einzelner Dateien oder Klassen.
     \item \textbf{Klassen-/Mittel-Ebene:} Darstellungen von Strukturen oder Relationen zwischen Dateien oder Klassen.
@@ -37,7 +37,7 @@ Caserta und Zendra geben in \textit{Visualization of the static aspects of softw
 \end{itemize}
 Im Fokus dieser Arbeit steht die Architekturebene. Für die Visualisierung dieser Ebene werden insbesondere Tree- und Node-Link-Diagramme, Treemaps, Circular Treemaps, Sunburst- und Voronoi-Visualisierungen diskutiert. Diese Visualisierungen repräsentieren hierarchische Strukturen platzsparend und sind in 2D und 3D verfügbar. Identifizierte Probleme umfassen geringe Nutzbarkeit, kognitive Überlastung, Desorientierung in 3D-Darstellungen sowie eine geringe Verbreitung praxistauglicher Tools, da viele Lösungen bloß prototypischer Natur sind.
 
-Khan et al. stellen in \textit{Visualization and evolution of software architectures}~\cite{visualizationEvolution} verschiedene Visualisierungstechniken vor und unterscheiden zwischen hierarchischen und beziehungsorientierten Ansätzen. Unter anderem werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume betrachtet (siehe Abbildung \ref{fig:dreiVis}). Platzfüllende Treemaps werden als besonders geeignet für große Hierarchien hervorgehoben. Adressiert werden Einschränkungen bei der Visualisierung multipler Metriken und bei der Anschaulichkeit interner Strukturen.
+Khan et al.~\cite{visualizationEvolution} stellen verschiedene Visualisierungstechniken vor und unterscheiden zwischen hierarchischen und beziehungsorientierten Ansätzen. Unter anderem werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume betrachtet (siehe Abbildung \ref{fig:dreiVis}). Platzfüllende Treemaps werden als besonders geeignet für große Hierarchien hervorgehoben. Adressiert werden Einschränkungen bei der Visualisierung multipler Metriken und bei der Anschaulichkeit interner Strukturen.
 
 \begin{figure}[htbp]
     \centering
@@ -52,10 +52,10 @@ Khan et al. stellen in \textit{Visualization and evolution of software architect
     \caption[Drei Visualisierungen]{Drei Visualisierungen aus \textit{Visualization and evolution of software architectures}~\cite[4]{visualizationEvolution}}
     \label{fig:dreiVis}
 \end{figure}
-
-Bassil und Keller untersuchen in \textit{Software visualization tools: survey and analysis}~\cite{bassil2001software} Anforderungen von Nutzenden an Softwarevisualisierungstools. Als entscheidend werden hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen bewertet. Der Großteil der Befragten sind Experten und die meisten Werkzeuge richten sich primär an diese Zielgruppe statt an Endanwender wie Softwarekunden oder Management.
-
-Scheibel et al. bieten in \textit{Survey of treemap layout algorithms}~\cite{scheibel2020survey} eine detaillierte Übersicht über Treemap-Layout-Algorithmen und unterscheiden die Aufteilungsarten \textit{packing} und \textit{splitting}. Splitting bezeichnet die klassische Flächenteilung, während Packing die Rechtecke so platziert, dass möglichst wenig Platz verschwendet wird. Beide Ansätze erzeugen unterschiedliche Layouts (siehe Abbildung \ref{fig:splittingVsPacking}).
+%Software visualization tools: survey and analysis
+Bassil und Keller~\cite{bassil2001software} untersuchen Anforderungen von Nutzenden an Softwarevisualisierungstools. Als entscheidend werden hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen bewertet. Der Großteil der Befragten sind Experten und die meisten Werkzeuge richten sich primär an diese Zielgruppe statt an Endanwender wie Softwarekunden oder Management.
+%Survey of treemap layout algorithms
+Scheibel et al.~\cite{scheibel2020survey} bieten eine detaillierte Übersicht über Treemap-Layout-Algorithmen und unterscheiden die Aufteilungsarten \textit{packing} und \textit{splitting}. Splitting bezeichnet die klassische Flächenteilung, während Packing die Rechtecke so platziert, dass möglichst wenig Platz verschwendet wird. Beide Ansätze erzeugen unterschiedliche Layouts (siehe Abbildung \ref{fig:splittingVsPacking}).
 
 \begin{figure}[htbp]
     \hspace{0.13\textwidth}
