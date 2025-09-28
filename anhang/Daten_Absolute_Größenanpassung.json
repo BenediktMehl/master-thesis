@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "name": "root",
+      "type": "Folder",
+      "attributes": {},
+      "children": [
+        {
+          "name": "leaf 0",
+          "type": "File",
+          "attributes": {
+            "rloc": 10
+          }
+        },
+        {
+          "name": "small_parent_1",
+          "type": "Folder",
+          "attributes": {},
+          "children": [
+            {
+              "name": "leaf 1",
+              "type": "File",
+              "attributes": {
+                "rloc": 30
+              }
+            },
+            {
+              "name": "small_parent_2",
+              "type": "Folder",
+              "attributes": {},
+              "children": [
+                {
+                  "name": "leaf 2",
+                  "type": "File",
+                  "attributes": {
+                    "rloc": 30
+                  }
+                },
+                {
+                  "name": "small_parent_3",
+                  "type": "Folder",
+                  "attributes": {},
+                  "children": [
+                    {
+                      "name": "leaf 3",
+                      "type": "File",
+                      "attributes": {
+                        "rloc": 30
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "huge_parent",
+          "type": "Folder",
+          "attributes": {},
+          "children": [
+            {
+              "name": "huge leaf",
+              "type": "File",
+              "attributes": {
+                "rloc": 3000
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
