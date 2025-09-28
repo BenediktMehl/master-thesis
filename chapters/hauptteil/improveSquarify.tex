@@ -192,7 +192,7 @@ Die Reihenfolge, in der Knoten in das Layout eingefügt werden, beeinflusst das 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
+    \includegraphics[width=\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
     \caption[Fehlende Knoten über Abstand]{Anzahl fehlender Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe versus keine Sortierung}
     \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
@@ -526,7 +526,17 @@ Die Variante ohne Geschwisterabstände erzielt bei den Kennzahlen klar die beste
 
 Die Beschriftung der Knoten ist zentral für die Visualisierung, da sie die Identifikation der Knoten ermöglicht und die repräsentierten Informationen konkretisiert. In der Literatur und in Werkzeugen existieren zahlreiche Ansätze zur Gestaltung der Beschriftung~\cite{largeHierarchicalRepositories, code_charta_webdemo, lu2008cascaded}. Das Cascaded-Treemap-Verfahren reserviert bereits während des Layouts explizite Flächen für Beschriftungen~\cite{lu2008cascaded}.
 
-Im Folgenden wird ein flexibler Ansatz beschrieben, der ebenfalls bereits beim Layout Flächen für Beschriftungen reserviert. Dabei werden die Beschriftungen der oberen N-Ordner angezeigt. Für die Beschriftungen wird sowohl in der Größenanpassung als auch im Layoutschritt explizit Platz reserviert. Im Visualisierungsschritt (siehe Abschnitt~\ref{sec:TreemapVisualisierungImplementierung}) werden die Beschriftungen in diesen Bereichen so groß wie möglich skaliert. Dieser Ansatz verbraucht zusätzliche Fläche und erzeugt ähnliche Herausforderungen für den Algorithmus wie Abstände zwischen Knoten. Es ist daher zu erwarten, dass das Hinzufügen von Beschriftungen die Kennzahlen insgesamt verschlechtert. N ist eine Stellschraube und kann je nach Ziel angepasst werden. Eine weitere Stellschraube ist die Länge des für die Beschriftung reservierten Bereichs, im Folgenden mit L bezeichnet.
+Im Folgenden wird ein flexibler Ansatz beschrieben, der ebenfalls bereits beim Layout Flächen für Beschriftungen reserviert. Dabei werden die Beschriftungen der oberen N-Ordner angezeigt. Für die Beschriftungen wird sowohl in der Größenanpassung als auch im Layoutschritt explizit Platz reserviert. Dieser Ansatz verbraucht zusätzliche Fläche und erzeugt ähnliche Herausforderungen für den Algorithmus wie Abstände zwischen Knoten. Es ist daher zu erwarten, dass das Hinzufügen von Beschriftungen die Kennzahlen insgesamt verschlechtert. N ist dabei eine Stellschraube und kann je nach Ziel angepasst werden. Eine weitere Stellschraube ist die Länge L der Bereiche, die für die Beschriftungen reserviert werden. Genau wie beim Abstand auch, ist nicht die absolute Länge sondern die relative Länge von Bedeutung. Die relative Länge wird in Prozent angegeben und gibt die Flächenlänge im Verhältnis zur Länge des Wurzelknotens an.
+
+In Abbildung \ref{fig:labels_example} sind die Beschriftungsflächen zum Beispiel unter Knoten 2 zu erkennen. Auf diesen Flächen werden im Visualisierungsschritt (siehe Abschnitt~\ref{sec:TreemapVisualisierungImplementierung}) die Beschriftungen platziert und so groß wie möglich skaliert.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/improve/labels/qwen3_relL5_relMarg3_4labels.png}
+    \caption[Beschriftungen: Beispiel]{Visualisierung der Codebasis Qwen3 Softwareprojekt~\cite{githubqwen3_2025} mit Beschriftungen der oberen vier Ebenen und relativer Länge 5~\%}
+    \label{fig:labels_example}
+\end{figure}
+
 
 Die Auswirkungen auf die Visualisierungskriterien lassen sich wie folgt einordnen:
 \begin{itemize}
@@ -542,12 +552,12 @@ Abbildung~\ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt am Beisp
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{images/improve/labels/numberOfZeroAreaNodes_over_labelLength.png}
-    \caption[Beschriftungen: fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit der Beschriftungslänge für verschiedene Werte von N}
+    \includegraphics[width=\textwidth]{images/improve/labels/numberOfZeroAreaNodes_over_relativelabelLength.png}
+    \caption[Beschriftungen: fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit der relativen Beschriftungslänge für verschiedene Werte von N}
     \label{fig:labels_numberOfZeroAreaNodes_over_labelLength}
 \end{figure}
 
-Insgesamt verbessern höhere Werte von N und L die Kriterien guter Visualisierungen, verschlechtern jedoch die Kennzahlen. Es handelt sich um einen Kompromiss, der je nach Ziel der Visualisierung unterschiedlich gewichtet werden kann. Da die mittlere Knotentiefe bei 7 liegt (siehe Abschnitt~\ref{sec:Bewertungsgrundlage}) und es für die unteren Ebenen nicht erforderlich ist, alle Ordner zu beschriften, sind Werte für N zwischen 2 und 5 praktikabel. Die Wahl von L hängt von der Gesamtgröße und Struktur der Datengrundlage ab.
+Insgesamt verbessern höhere Werte von N und L die Kriterien guter Visualisierungen, verschlechtern jedoch die Kennzahlen. Es handelt sich um einen Kompromiss, der je nach Ziel der Visualisierung unterschiedlich gewichtet werden kann. Da die mittlere Knotentiefe bei 7 liegt (siehe Abschnitt~\ref{sec:Bewertungsgrundlage}) und es für die unteren Ebenen nicht erforderlich ist, alle Ordner zu beschriften, sind Werte für N zwischen 2 und 5 praktikabel. Die Wahl von L hängt von der Gesamtgröße und Struktur der Datengrundlage ab, es empfehlen sich aber Werte zwischen 3~\% und 10~\%.
 
 Abschließend ist festzuhalten, dass Ordnerbeschriftungen notwendig sind, um der Visualisierung Bedeutung zu geben. Es bestehen zahlreiche Gestaltungsmöglichkeiten und erhebliches Entwicklungspotenzial. Die hier beschriebene Methode verdeutlicht grundlegende Vor- und Nachteile und kann als Ausgangspunkt und Orientierung für weitere Ansätze und Verbesserungen dienen.
 
@@ -566,13 +576,13 @@ Zusammenfassend werden folgende Ausprägungen für den Algorithmus empfohlen und
         Mehrfache Berechnung: & \textbf{Nicht verwenden} \\ 
         Optimierung von Ordnerketten: & \textbf{Verwenden} \\ 
         Abstände zwischen Geschwistern: & \textbf{Keine} \\ 
-        Beschriftung der Knoten: & \textbf{Manuelle Wahl} von N und L \\ 
+        Beschriftung der Knoten: & \textbf{Manuelle Wahl} von N zwischen 2 und 5 sowie L zwischen 3 \% und 10 \% \\
     \end{tabularx}
 \end{table}
 
 Die komplette Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar.
 
-Abschließend wird der verbesserte Algorithmus mit den genannten Ausprägungen dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit Beschriftungen auf den oberen drei Hierarchieebenen mit Länge 20.
+Abschließend wird der verbesserte Algorithmus mit den genannten Ausprägungen dem d3.js Nested-Algorithmus gegenübergestellt, jeweils mit Beschriftungen auf den oberen drei Hierarchieebenen mit einer relativen Länge von im Median etwa 4 \%.
 
 \begin{enumerate}
     \item \textbf{Knotensichtbarkeit:} Abbildung~\ref{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin} zeigt, dass die Anzahl der fehlenden Knoten beim verbesserten Squarify-Algorithmus deutlich geringer ist als beim d3.js Nested-Algorithmus. Der Nested-Algorithmus weist bereits ohne Abstand etwa 200 fehlende Knoten im Median auf, während der verbesserte Squarify-Algorithmus einen Median von etwa 200 fehlenden Knoten erst bei einem Abstand von rund 2~\% erreicht.
