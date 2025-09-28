@@ -32,7 +32,7 @@ Die Struktur- und Metrikdaten werden durch Klonen der Repositories und anschlie�
 \end{figure}
 \section{Treemap-Problem} \label{sec:TreemapProblem}
 
-Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Algorithmus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus erzeugt die besten Seitenverhältnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung übersichtlicher und platzfüllender Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesem Grund dient er als Ausgangslage für alle folgenden Anpassungen. Die genaue Implementierung ist im Anhang dargestellt (siehe Listing~\ref{lst:squarify_code}).
+Es existieren zahlreiche Treemap-Algorithmen, etwa der Slice-and-Dice-Al\-go\-rith\-mus~\cite{asahi1995using} oder der Pivot-by-Middle-Algorithmus~\cite{shneiderman2001ordered}. Der Squarify-Algorithmus erzeugt die besten Seitenverhältnisse~\cite{shneiderman2001ordered} und stellt zudem einen vielversprechenden Ansatz zur Erstellung übersichtlicher und platzfüllender Treemap-Layouts dar~\cite{bruls2000squarified}. Aus diesem Grund dient er als Ausgangslage für alle folgenden Anpassungen. Die genaue Implementierung ist im Anhang dargestellt (siehe Listing~\ref{lst:squarify_code}).
 
 Der Squarify-Algorithmus und generell alle platzfüllenden Treemap-Layouts weisen eine Schwäche auf, nämlich die erschwerte Wahrnehmbarkeit der zugrunde liegenden Hierarchiestruktur~\cite{lu2008cascaded}.
 
@@ -479,7 +479,7 @@ Viele bestehende Treemap- und CodeCity-Visualisierungen weisen Abstände zwische
 
 Im Folgenden wird untersucht, ob Abstände zwischen Geschwistern für den vorliegenden Anwendungsfall geeignet sind oder ob das Entfernen dieser Abstände Vorteile bietet. Dazu werden die Auswirkungen sowohl auf die zuvor definierten Kriterien guter Visualisierungen als auch auf die messbaren Kennzahlen betrachtet. Entfallen die Abstände zwischen Geschwistern, werden Umrandungen verwendet, um Knoten visuell voneinander zu trennen, da andernfalls die Knoten optisch ineinander übergehen würden (siehe Abbildung~\ref{fig:umrandungBeispiel}).
 
-Zusätzlich zu den Darstellungen mit und ohne Geschwisterabständen wird eine dritte Variante betrachtet, bei der Abstände ausschließlich zwischen Geschwister-Ordnern bestehen, also nur zwischen Ordnern. Zwischen Ordnern und Dateien desselben Ordners entsteht damit effektiv ein halber Abstand und zwischen zwei Geschwister-Dateien entfällt der Abstand vollständig. Abbildung~\ref{fig:AbstandOrdnerBeispiel} illustriert diese Variante.
+Zusätzlich zu den Darstellungen mit und ohne Geschwisterabständen wird eine dritte Variante betrachtet, bei der Abstände ausschließlich zwischen Geschwister-Ordnern bestehen. Zwischen Ordnern und Dateien desselben Ordners entsteht damit effektiv ein halber Abstand und zwischen zwei Geschwister-Dateien entfällt der Abstand vollständig. Abbildung~\ref{fig:AbstandOrdnerBeispiel} illustriert diese Variante.
 
 \begin{figure}[htbp]
     \centering
