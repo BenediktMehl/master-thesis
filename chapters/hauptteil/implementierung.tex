@@ -1,6 +1,6 @@
 \chapter{Implementierung} \label{sec:Implementierung}
 
-Um eine faire Vergleichbarkeit in der Umfrage zwischen den Visualisierungen zu gewährleisten, werden die Visualisierungen für diese Arbeit einheitlich implementiert. Dieses Kapitel beschreibt zunächst die Implementierung sowie die gemeinsamen Grundlagen aller Visualisierungen. Anschließend wird die Implementierung der einzelnen Visualisierungstypen erläutert.
+Für eine faire Vergleichbarkeit in der Umfrage werden alle Visualisierungen einheitlich implementiert. Dieses Kapitel beschreibt zunächst die Implementierung sowie die gemeinsamen Grundlagen aller Visualisierungen. Anschließend wird die Implementierung der einzelnen Visualisierungstypen erläutert.
 
 Es werden die fünf bestplatzierten Visualisierungen aus dem Vergleich der Visualisierungen implementiert (siehe Tabelle \ref{tab:visEval_full}). Dabei wird kein Visualisierungstyp doppelt ausgewählt. Die Auswahl lautet:
 \begin{enumerate}
@@ -14,12 +14,11 @@ Es werden die fünf bestplatzierten Visualisierungen aus dem Vergleich der Visua
     \item \textbf{Circular Treemap}
 \end{enumerate}
 
-Anzumerken ist, dass die Circular Treemap die gleiche Bewertung wie noch fünf andere Visualisierungen erhalten hat. Die Entscheidung für die Circular Treemap fiel aufgrund der hohen Anzahl an Quellen, die diese Visualisierung verwenden. Anzumerken ist, dass die Anzahl der Quellen keinen wissenschaftlichen Eigenwert hat. Sie soll lediglich einen ersten Eindruck zur Bekanntheit der Visualisierung geben und wird lediglich als zweites Kriterium nach der Bewertung herangezogen. Daraus folgt weder eine Aussage zur Überlegenheit einzelner Visualiserungen noch ein valider Popularitätsvergleich.
-
+Die Circular Treemap hat die gleiche Bewertung wie fünf weitere Visualisierungen erhalten. Die Entscheidung für die Circular Treemap fällt aufgrund der Anzahl an Quellen, die diese Visualisierung verwenden. Anzumerken ist, dass die Anzahl der Quellen keinen wissenschaftlichen Eigenwert besitzt. Sie liefert ausschließlich einen ersten Eindruck zur Bekanntheit der Visualisierung und dient als nachrangiges Kriterium hinter der Bewertung. Daraus folgt weder eine Aussage zur Überlegenheit einzelner Visualisierungen noch ein valider Popularitätsvergleich.
 
 \section{Gemeinsamkeiten und Architektur} \label{sec:Architektur}
 
-Alle der ausgewählten Visualisierungen sind 2{.}5D-Visualisierungen. Jede Visualisierung besitzt ein eigenes Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
+Alle ausgewählten Visualisierungen sind 2{.}5D-Visualisierungen. Jede Visualisierung verwendet ein eigenes 2D-Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
 
 Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basieren jedoch auf einem einheitlichen Schema, das hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema aus Abschnitt \ref{sec:Anwendungsfall} (siehe Listing \ref{lst:nodeSchema}) sind die Attribute x, y, width und length hinzugekommen, die das Layout eindeutig beschreiben.
 
@@ -37,7 +36,7 @@ Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basieren
 Die Implementierung ist bei jeder Visualisierung in zwei klar getrennte Schritte gegliedert:
 \begin{enumerate}
     \item \textbf{Layoutschritt:} Aus den Eingabedaten, also der Hierarchie \texttt{children} und den Metrikwerten \texttt{values}, wird das 2D-Layout berechnet. Dabei werden die Felder \texttt{x}, \texttt{y}, \texttt{width} und \texttt{length} des in Listing \ref{lst:nodeLayoutSchema} definierten Layout-Schemas gesetzt.
-    \item \textbf{Visualisierungs-Schritt:} Das berechnete 2D-Layout wird in eine 2{.}5D-Visualisierung überführt. Ein Wert aus \texttt{values} steuert die Extrusionshöhe und ein anderer Wert aus \texttt{values} kodiert die Farbe.
+    \item \textbf{Visualisierungsschritt:} Das berechnete 2D-Layout wird in eine 2{.}5D-Visualisierung überführt. Ein Wert aus \texttt{values} steuert die Extrusionshöhe und ein anderer Wert aus \texttt{values} kodiert die Farbe.
 \end{enumerate}
 
 Alle Visualisierungen bieten identische Einstellmöglichkeiten für Farben, Höhen, Perspektiven und Metriken. Die Farbgebung folgt einer kontinuierlichen Skala mit grün für gute Qualitätswerte der entsprechenden Metrik, gelb für mittlere und rot für schlechte Werte. Ordner werden grau eingefärbt und erhalten mit zunehmender Tiefe hellere Grautöne. Dadurch lassen sich Ordner klar von Dateien abgrenzen. Ordner erhalten zudem eine feste Extrusionshöhe.
@@ -45,76 +44,75 @@ Alle Visualisierungen bieten identische Einstellmöglichkeiten für Farben, Höh
 \section{Treemap} \label{sec:TreemapImplementierung}
 
 \subsection*{Layoutschritt}
-Das Treemap-Layout wird für die Visualisierung von Software-Qualitätsmetriken am häufigsten verwendet. Zudem ist es die Grundlage für alle CodeCity-Visualisierungen und hat im Vergleich der Visualisierungen am besten abgeschnitten (siehe Tabelle \ref{tab:visEval_full}). Trotzdem weist das klassische Treemap-Layout einige Nachteile und Probleme auf, die in Abschnitt \ref{sec:TreemapProblem} erläutert werden. Aus diesen Gründen wird das Treemap-Layout in dieser Arbeit exemplarisch nicht nur implementiert, sondern auch optimiert, um zu zeigen, dass die gezielte Verbesserung von Layout-Algorithmen für das spezifische Anwendungsgebiet dieser Arbeit sinnvoll ist und zu besseren Ergebnissen führen kann. Die vorgenommenen Verbesserungen werden in Kapitel \ref{sec:VerbesserungSquarify} beschrieben und evaluiert.
+Das Treemap-Layout wird zur Visualisierung von Software-Qualitätsmetriken am häufigsten eingesetzt. Zugleich bildet es die Grundlage für alle CodeCity-Visualisierungen und hat im Vergleich der Visualisierungen am besten abgeschnitten (siehe Tabelle \ref{tab:visEval_full}). Gleichwohl weist das klassische Treemap-Layout einige Nachteile und Probleme auf, die in Abschnitt \ref{sec:TreemapProblem} erläutert werden. Aus diesen Gründen wird das Treemap-Layout in dieser Arbeit exemplarisch nicht nur implementiert, sondern auch optimiert, um zu demonstrieren, dass die gezielte Verbesserung von Layout-Algorithmen für das spezifische Anwendungsgebiet dieser Arbeit sinnvoll ist und zu besseren Ergebnissen führen kann. Die vorgenommenen Verbesserungen werden in Kapitel \ref{sec:VerbesserungSquarify} beschrieben und evaluiert.
 
-Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks mit den x- und y-Parametern sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird Platz für Beschriftungen reserviert (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
+Der Output des Layoutschritts beschreibt die Position der linken unteren Ecke des Rechtecks über die Parameter x und y sowie die Breite in x-Richtung und die Länge in y-Richtung. Bereits im Layoutschritt wird Platz für Beschriftungen reserviert (siehe Abschnitt \ref{sec:BeschriftungKnoten}).
 
 \subsection*{Visualisierungsschritt} \label{sec:TreemapVisualisierungImplementierung}
-Der Visualisierungsschritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Höhen-Metrik. Die z-Position jedes Knotens ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layoutschritt reserviert worden. Die Beschriftungen werden zentral auf diesen Flächen positioniert und so skaliert, dass die Schriftgröße genau in den dafür reservierten Platz passt, ohne diesen horizontal oder vertikal zu überschreiten. Ein Beispiel ist in Abbildung \ref{fig:treemapBeispielImplementierung} dargestellt.
+Der Visualisierungsschritt extrudiert alle Nicht-Blattknoten um einen festen Wert und alle Blattknoten entsprechend der Höhen-Metrik. Die z-Position jedes Knotens ergibt sich aus der z-Position des Elternknotens zuzüglich dessen Höhe. Die Fläche für die Beschriftung ist bereits im Layoutschritt reserviert worden. Die Beschriftungen werden zentral auf diesen Flächen positioniert und so skaliert, dass die Schriftgröße exakt in den dafür vorgesehenen Platz passt, ohne diesen horizontal oder vertikal zu überschreiten. Ein Beispiel ist in Abbildung \ref{fig:treemapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/treemap/dreierKombi.png}
-    \caption[Beispiel für Treemap-Implementierung]{Beispiel für Treemap-Implementierung}
+    \caption[Treemap-Implementierung]{Beispiel für Treemap-Implementierung}
     \label{fig:treemapBeispielImplementierung}
 \end{figure}
 
 \section{Streetmap}
 
 \subsection*{Layoutschritt}
-Als Streetmap-Layout-Algorithmus wird der Algorithmus des Open-Source-Tools \textit{CodeCharta} verwendet~\cite{code_charta_github}. Der Algorithmus ist ein Packing-Algorithmus, der die Knoten beginnend mit den tiefsten Knoten der Struktur platziert. Dadurch resultieren gleiche Strukturen stets in identischen Layouts, unabhängig von deren Platzierung.
+Für das Streetmap-Layout wird der Algorithmus des Open-Source-Tools \textit{CodeCharta} eingesetzt~\cite{code_charta_github}. Der Ansatz basiert auf Packing und platziert die Knoten ausgehend von den tiefsten Knoten der Hierarchie. Dadurch entstehen für gleiche Strukturen stets identische Layouts, unabhängig von der absoluten Position im Gesamtlayout.
 
 \subsection*{Visualisierungsschritt}
-Der Output des Layoutschritts entspricht dem der Treemap, sodass ein ähnlicher Visualisierungsschritt eingesetzt werden kann. Der Unterschied ist, dass alle Knoten auf der Höhe von Null liegen. Die Bezeichnungen der Ordner werden mittig in der Straße platziert und so groß wie möglich gerendert, ohne andere Knoten zu schneiden. Ein Beispiel ist in Abbildung \ref{fig:streetmapBeispielImplementierung} dargestellt.
+Die Ausgabe des Layoutschritts entspricht derjenigen der Treemap. Daher kann ein ähnlicher Visualisierungsschritt verwendet werden. Alle Knoten liegen auf der z-Koordinate Null. Ordnerbezeichnungen werden mittig in der jeweiligen Straße platziert und mit maximaler Schriftgröße gerendert, ohne andere Knoten zu schneiden oder zu überlagern. Ein Beispiel ist in Abbildung \ref{fig:streetmapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/streetmap/dreierKombi.png}
-    \caption[Beispiel für Streetmap-Implementierung]{Beispiel für Streetmap-Implementierung}
+    \caption[Streetmap-Implementierung]{Beispiel für Streetmap-Implementierung}
     \label{fig:streetmapBeispielImplementierung}
 \end{figure}
 
 \section{CodeCity}
 
 \subsection*{Layoutschritt}
-Eine offene Implementierung des CodeCity-Layouts liegt nicht vor. Die Implementierung orientiert sich daher an der Beschreibung in der Originalarbeit~\cite{codeCity1}. Der Algorithmus ist ein Packing-Algorithmus, der die Knoten, anders als der Splitting-Algorithmus des Treemap-Layouts, beginnend mit den tiefsten Knoten der Struktur platziert. Dadurch resultieren, wie beim Streetmap-Layout auch, gleiche Strukturen immer in den gleichen Layouts unabhängig von deren Platzierung. Die Knoten sind Quadrate, die von groß nach klein möglichst weit unten links positioniert werden. Bei der Platzierung wird darauf geachtet, dass die Elternknoten eine möglichst kleine Fläche haben. Dazu werden mehrere geeignete Positionen geprüft und die beste Position ausgewählt.
+Eine offene Implementierung des CodeCity-Layouts liegt nicht vor. Die hier verwendete Implementierung orientiert sich an der Beschreibung in der Originalarbeit~\cite{codeCity1}. Der Algorithmus ist ein Packing-Ansatz und unterscheidet sich vom Splitting-Verfahren des Treemap-Layouts. Die Knoten werden ausgehend von den tiefsten Knoten der Struktur platziert, wodurch gleiche Strukturen unabhängig von der absoluten Position im Layout zu identischen Anordnungen führen. Die Knoten sind Quadrate, die in absteigender Größe möglichst weit unten links positioniert werden. Bei der Platzierung wird darauf geachtet, dass die Elternknoten eine möglichst kleine Fläche aufweisen. Dazu werden mehrere geeignete Positionen evaluiert und anschließend die beste Lage ausgewählt.
 
 \subsection*{Visualisierungsschritt}
-Da der Output des Layoutschritts dem des Treemap-Layoutschritts entspricht, wird derselbe Visualisierungsschritt verwendet. Ein Unterschied besteht in der Beschriftung, für die im Layoutschritt kein eigener Platz reserviert wurde. Stattdessen werden die Beschriftungen in die ohnehin vorhandenen freien Flächen im rechten oberen Teil der Knoten gesetzt und so groß wie möglich skaliert, ohne andere Knoten zu schneiden oder über die Knotenfläche hinauszuragen. Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar. Ein Beispiel ist in Abbildung \ref{fig:codecityBeispielImplementierung} dargestellt.
-
+Da die Ausgabe des Layoutschritts dem Ergebnis des Treemap-Layouts entspricht, wird derselbe Visualisierungsschritt verwendet. Ein Unterschied besteht in der Beschriftung, für die im Layout kein eigener Platz reserviert wurde. Stattdessen werden die Beschriftungen in die ohnehin vorhandenen freien Bereiche im rechten oberen Teil der Knoten gesetzt und so groß wie möglich skaliert, ohne andere Knoten zu schneiden oder über die Knotenfläche hinauszuragen. Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar. Ein Beispiel ist in Abbildung \ref{fig:codecityBeispielImplementierung} dargestellt.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/codecity/dreierKombi.png}
-    \caption[Beispiel für CodeCity-Implementierung]{Beispiel für CodeCity-Implementierung}
+    \caption[CodeCity-Implementierung]{Beispiel für CodeCity-Implementierung}
     \label{fig:codecityBeispielImplementierung}
 \end{figure}
 
 \section{Sunburst}
 
 \subsection*{Layoutschritt}
-Zunächst werden die 360 Grad des Wurzelknotens proportional anhand der Werte der Kindknoten verteilt. Jeder Knoten erhält einen x-Wert als Startwinkel im Kreis sowie einen Breitenwert als Winkelbreite des Segments. Dieser Prozess wird rekursiv auf die Kindknoten angewendet, wobei jeweils die Winkelbreite des Elternknotens auf die Kinder verteilt wird. Die y-Position und die Länge werden für dieses Layout nicht benötigt. Sie ergeben sich implizit aus der Hierarchietiefe, die den Ring bestimmt.
+Zunächst werden die 360 Grad des Wurzelknotens proportional anhand der Werte der Kindknoten verteilt. Jeder Knoten erhält einen x-Wert als Startwinkel sowie einen Breitenwert als Winkelbreite des Segments. Dieser Prozess wird rekursiv auf die Kindknoten angewendet, wobei jeweils die Winkelbreite des Elternknotens anteilig auf die Kinder übertragen wird. Die y-Position und die Länge werden in diesem Layout nicht benötigt. Die Zuordnung zum Ring ergibt sich implizit aus der Hierarchietiefe.
 
 \subsection*{Visualisierungsschritt}
-Der Visualisierungsschritt rendert die Knoten als Kreissegmente. Die z-Position resultiert aus der Hierarchietiefe. Der Radius jedes Levels, also die Dicke der Segmente, ist fest vorgegeben. Die Beschriftungen werden mittig im Segment mit fester Schriftgröße platziert. Die Beschriftungen können über die Segmentkanten hinausragen. Ob ein Ordner eine Beschriftung erhält, hängt von seiner effektiven Breite ab. Diese ergibt sich aus der Größe des Winkelabschnitts und aus der Position im Kreis. Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar. Ein Beispiel ist in Abbildung \ref{fig:sunburstBeispielImplementierung} dargestellt.
+Die Visualisierung rendert die Knoten als Kreissegmente. Die z-Position ergibt sich aus der Hierarchietiefe. Der Radius jedes Levels, also die Segmentdicke, ist fest vorgegeben. Beschriftungen werden mittig im Segment mit fixer Schriftgröße platziert. Beschriftungen dürfen über Segmentkanten hinausragen. Ob ein Ordner eine Beschriftung erhält, hängt von seiner effektiven Breite ab, die sich aus der Größe des Winkelabschnitts und aus der Position im Kreis ergibt. Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar. Ein Beispiel ist in Abbildung \ref{fig:sunburstBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/sunburst/dreierKombi.png}
-    \caption[Beispiel für Sunburst-Implementierung]{Beispiel für Sunburst-Implementierung}
+    \caption[Sunburst-Implementierung]{Beispiel für Sunburst-Implementierung}
     \label{fig:sunburstBeispielImplementierung}
 \end{figure}
 
 \section{Circular Treemap}
 
 \subsection*{Layoutschritt}
-Der Layoutschritt basiert auf dem von d3.js bereitgestellten Circle-Packing-Algorithmus~\cite{d3_treemap_doku}. Dessen Output wird in das hier definierte Schema überführt. Dabei geben x und y die Position des Kreiszentrums an und die Breite den Durchmesser des Kreises. Die Länge wird nicht verwendet.
+Der Layoutschritt basiert auf dem von d3.js bereitgestellten Circle-Packing-Algorithmus~\cite{d3_treemap_doku}. Dessen Ausgabe wird in das hier definierte Schema überführt. Dabei geben x und y die Position des Kreiszentrums an und die Breite den Durchmesser des Kreises. Die Länge wird nicht verwendet.
 
 \subsection*{Visualisierungsschritt}
-Der Visualisierungsschritt entspricht weitgehend dem der Treemap. Der Unterschied liegt in der Geometrie. Knoten sind Kreise und werden zu Zylindern extrudiert. Im Layoutschritt wird kein Platz für Beschriftungen reserviert. Stattdessen werden die Beschriftungen, ähnlich wie bei CodeCity, in freien Bereichen der Kreise platziert. Beschriftungen können aus dem eigenen Knoten herausragen, sofern sie keine anderen Knoten schneiden. Dafür werden mehrere Positionen innerhalb des Kreises geprüft, um eine geeignete Lage zu finden. Die Schriftgröße wird so gewählt, dass der Text keine Überschneidungen mit anderen Knoten erzeugt. Ein Beispiel ist in Abbildung \ref{fig:circularTreemapBeispielImplementierung} dargestellt.
+Die Visualisierung entspricht weitgehend derjenigen der Treemap. Der Unterschied liegt in der Geometrie. Knoten sind Kreise und werden zu Zylindern extrudiert. Im Layoutschritt wird kein eigener Platz für Beschriftungen reserviert. Stattdessen werden die Beschriftungen, ähnlich wie bei CodeCity, in freien Bereichen der Kreise platziert. Beschriftungen dürfen aus dem eigenen Knoten herausragen, solange sie keine anderen Knoten schneiden. Zu diesem Zweck werden mehrere Positionen innerhalb des Kreises geprüft und eine geeignete Lage ausgewählt. Die Schriftgröße wird so gewählt, dass der Text keine Überschneidungen mit anderen Knoten erzeugt. Ein Beispiel ist in Abbildung \ref{fig:circularTreemapBeispielImplementierung} dargestellt.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.7\textwidth]{images/umfrage/circlePacking/dreierKombi.png}
-    \caption[Beispiel für Circular-Treemap-Implementierung]{Beispiel für Circular-Treemap-Implementierung}
+    \caption[Circular-Treemap-Implementierung]{Beispiel für Circular-Treemap-Implementierung}
     \label{fig:circularTreemapBeispielImplementierung}
 \end{figure}

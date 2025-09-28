@@ -4,7 +4,7 @@ Alle Implementierungen sind in TypeScript verfasst und für diese Arbeit leicht 
 
 \section*{Implementierung des Squarify-Algorithmus} \label{sec:SquarifyImplementation}
 
-Die Implementierung orientiert sich an der Implementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Die Implementierung integriert einige Optimierungen für eine leistungsfähigere Berechnung, entspricht also nicht exakt der Beschreibung in den Grundlagen.
+Die folgende Implementierung orientiert sich an der Referenzimplementierung des Squarify-Algorithmus in der JavaScript-Bibliothek d3.js~\cite{d3_treemap_github}. Sie enthält gezielte Optimierungen für eine leistungsfähigere Berechnung und folgt daher nicht in allen Details der Beschreibung in den Grundlagen.
 
 \begin{lstlisting}[language=typescript, caption={Implementierung des Squarify-Algorithmus}, label={lst:squarify_code}]
 function squarifyNode(parent: SquarifyNode) {
@@ -149,10 +149,10 @@ function squarifyNode(parent: SquarifyNode) {
     }
 \end{lstlisting}
 
-\section*{Geräte Spezifikationen} \label{sec:specs}
+\section*{Gerätespezifikationen} \label{sec:specs}
 \begin{itemize}
     \item Chip: Apple M2 Pro
-    \item Memory: 32 GB
+    \item Arbeitsspeicher: 32 GB
     \item macOS: Sequoia 15.7
-    \item Typescript Version: 5.9.2
+    \item TypeScript-Version: 5.9.2
 \end{itemize}
