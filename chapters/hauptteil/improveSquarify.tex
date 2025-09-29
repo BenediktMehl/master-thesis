@@ -80,13 +80,13 @@ Alle Knoten sind sichtbar und die Flächen sind proportional zu den Werten.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{images/improve/problem/flarezero.png}
-    \caption[Abstände im Flare-Projekt]{Treemap-Layout des \textit{flare}-Projekts~\cite{flare_d3js} ohne Abstand}
+    \caption[Flare-Projekt ohne Abstand]{Treemap-Layout des \textit{flare}-Projekts~\cite{flare_d3js} ohne Abstand}
     \label{fig:flareZeroMargin}
 \end{figure}
 \begin{figure}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{images/improve/problem/flare48Missing.png}
-    \caption[Abstände im Flare-Projekt]{Treemap-Layout des \textit{flare}-Projekts~\cite{flare_d3js} mit Abstand (48 Knoten fehlen)}
+    \caption[Flare-Projekt mit Abstand]{Treemap-Layout des \textit{flare}-Projekts~\cite{flare_d3js} mit Abstand (48 Knoten fehlen)}
     \label{fig:flareMargin}
 \end{figure}
 
@@ -209,7 +209,7 @@ Die Reihenfolge, in der Knoten in das Layout eingefügt werden, beeinflusst das 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{images/improve/sorting/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
-    \caption[Fehlende Knoten über Abstand]{Anzahl fehlender Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe versus keine Sortierung}
+    \caption[Sortierung: Fehlende Knoten]{Anzahl fehlender Knoten in Abhängigkeit des relativen Abstands für Sortierung nach Größe versus keine Sortierung}
     \label{fig:sorting_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 
@@ -373,7 +373,7 @@ Im Folgenden werden die beiden Ansätze mit dem Standard-Squarify-Algorithmus in
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=\textwidth]{images/improve/basicCompare/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-        \caption[Fehlende Knoten über Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei Größenanpassungen}
+        \caption[Größenanpassung: Fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei Größenanpassungen}
         \label{fig:basicCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
     \end{figure}
     Die Verbesserung ist stark und nimmt mit größerem Abstand weiter zu. Während der Standard-Squarify-Algorithmus bei einem Abstand von 1~\% im Mittel ungefähr 600 fehlende Knoten aufweist, verzeichnen die beiden Erweiterungen unter 10 fehlenden Knoten. Zudem ist erkennbar, dass die absolute Größenanpassung bis 2{,}5~\% etwas mehr fehlende Knoten erzeugt als die relative Größenanpassung.
@@ -403,7 +403,7 @@ Die drei Strategien werden anhand der definierten Kennzahlen verglichen:
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=\textwidth]{images/improve/secondsorting3/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-        \caption[Fehlende Knoten über Abstand]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei Strategien im zweiten Layoutschritt}
+        \caption[Zweiter Layoutschritt: Fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für die drei Strategien im zweiten Layoutschritt}
         \label{fig:secondsorting3_numberOfZeroAreaNodes_over_aimedRelativeMargin}
     \end{figure}
     Die beiden alternativen Strategien schneiden deutlich besser ab. Die Neusortierung nach Größe führt je nach Abstand zu zwischen 1 und 5 weniger fehlenden Knoten als die Strategie mit beibehaltener Reihenfolge und liefert über alle Abstände die besten Ergebnisse.
@@ -431,7 +431,7 @@ Exemplarisch werden in Abbildung~\ref{fig:incrementMargin_numberOfZeroAreaNodes_
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{images/improve/incrementMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin.png}
-    \caption[Fehlende Knoten: 10 Schritte]{Anzahl der fehlenden Knoten für 10 Schritte mit direkter vs. iterativer Abstandsvergrößerung}
+    \caption[Mehrfache Berechnung: Fehlende Knoten]{Anzahl der fehlenden Knoten für 10 Schritte mit direkter vs. iterativer Abstandsvergrößerung}
     \label{fig:incrementMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
 \end{figure}
 Ähnliche Ergebnisse zeigen sich für andere Anzahlen von Layoutschritten mit und ohne iterative Abstandsvergrößerung.
@@ -526,7 +526,7 @@ Insgesamt schneidet die Variante mit Geschwisterabständen bei den Kriterien etw
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=\textwidth]{images/improve/siblingMargin/numberOfZeroAreaNodes_over_aimedRelativeMargin_average.png}
-        \caption[Geschwisterabstände: fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für drei Varianten der Geschwisterabstände}
+        \caption[Geschwisterabstände: Fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für drei Varianten der Geschwisterabstände}
         \label{fig:siblingMargin_numberOfZeroAreaNodes_over_aimedRelativeMargin}
     \end{figure}
     Mit Geschwisterabständen fehlen im Durchschnitt etwa 5 Knoten mehr als bei der Variante mit Geschwisterabständen nur zwischen Ordnern. Die Variante ohne Geschwisterabstände weist im Median sogar gar keine fehlenden Knoten mehr auf. 
@@ -568,7 +568,7 @@ Abbildung~\ref{fig:labels_numberOfZeroAreaNodes_over_labelLength} zeigt am Beisp
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{images/improve/labels/numberOfZeroAreaNodes_over_relativelabelLength.png}
-    \caption[Beschriftungen: fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit der relativen Beschriftungslänge für verschiedene Werte von N}
+    \caption[Beschriftungen: Fehlende Knoten]{Anzahl der fehlenden Knoten in Abhängigkeit der relativen Beschriftungslänge für verschiedene Werte von N}
     \label{fig:labels_numberOfZeroAreaNodes_over_labelLength}
 \end{figure}
 Mit steigenden Werten von N und L verschlechtern sich die Kennzahlen zu den fehlenden Knoten und zum Wert-Fläche-Verhältnis. Die Seitenverhältnisse bleiben weitgehend stabil. Gleiches gilt für die Laufzeit.
@@ -607,7 +607,7 @@ Abschließend wird im Folgenden der verbesserte Algorithmus mit den genannten Au
     \begin{figure}[htbp]
         \centering
         \includegraphics[width=\textwidth]{images/improve/finalCompare/numberOfZeroAreaNodes_over_aimedRelativeMargin_median.png}
-        \caption[Finaler Vergleich: fehlende Knoten]{Median der Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für d3.js Nested und verbesserten Squarify}
+        \caption[Finaler Vergleich: Fehlende Knoten]{Median der Anzahl der fehlenden Knoten in Abhängigkeit des relativen Abstands für d3.js Nested und verbesserten Squarify}
         \label{fig:finalCompare_numberOfZeroAreaNodes_over_aimedRelativeMargin}
     \end{figure}
     Der Nested-Algorithmus weist bereits ohne Abstand etwa 200 fehlende Knoten im Median auf, während der verbesserte Squarify-Algorithmus einen Median von etwa 200 fehlenden Knoten erst bei einem Abstand von rund 2~\% erreicht.
