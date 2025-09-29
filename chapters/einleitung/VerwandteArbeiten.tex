@@ -1,14 +1,14 @@
 \chapter{Verwandte Arbeiten} \label{sec:VerwandteArbeiten}
 
-Im Folgenden werden Forschungsarbeiten vorgestellt, die die zuvor definierte Leitfrage adressieren, welche Visualisierung sich am besten zur Darstellung von Code-Qualitätsmetriken eignet. Die ersten beiden Arbeiten sind Studien mit dem Ziel, zu verstehen, was Visualisierungstools in der Praxis erfolgreich macht. Die folgenden vier Arbeiten geben einen Überblick über existierende Visualisierungen und nennen Vor- und Nachteile.
+Im Folgenden werden Forschungsarbeiten vorgestellt, die die zuvor definierte Leitfrage adressieren, nämlich welche Visualisierung sich am besten zur Darstellung von Code-Qualitätsmetriken eignet. Die ersten beiden Arbeiten sind Studien mit dem Ziel, zu verstehen, was Visualisierungstools in der Praxis erfolgreich macht. Die folgenden vier Arbeiten geben einen Überblick über existierende Visualisierungen und nennen Vor- und Nachteile.
 
 \bigskip
 %A comparative evaluation of dynamic visualisation tools
-Pacione et al.~\cite{pacione2003comparative} vergleichen fünf Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung. Ein Experte erhält verschiedene Aufgaben, die mit den Tools erledigt werden sollen. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls betrachtet wird.
+Pacione et al.~\cite{pacione2003comparative} vergleichen fünf Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung. Ein Experte bearbeitet verschiedene Aufgaben mithilfe der Tools. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls berücksichtigt wird.
 \smallskip
 
 %Software visualization tools: survey and analysis
-Bassil und Keller~\cite{bassil2001software} untersuchen Anforderungen von Nutzern an Softwarevisualisierungstools. Als entscheidend werden hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen bewertet. Der Großteil der Befragten sind Experten und die meisten Werkzeuge richten sich primär an diese Zielgruppe statt an Endanwender wie Softwarekunden oder Management. Es zeigt sich, dass Softwaretools Verständnis verbessern können und vor allem auf höheren Abstraktionsebenen hilfreich sind.
+Bassil und Keller~\cite{bassil2001software} untersuchen Anforderungen von Nutzern an Softwarevisualisierungstools. Als entscheidend gelten hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen. Die Mehrheit der Befragten sind Experten und die meisten Werkzeuge richten sich primär an diese Zielgruppe statt an Endanwender wie Softwarekunden oder Management. Es zeigt sich, dass Softwaretools das Verständnis verbessern können und besonders auf höheren Abstraktionsebenen hilfreich sind.
 
 \bigskip
 
@@ -21,14 +21,14 @@ Teyseyre et al.~\cite{overview3D} geben einen systematischen Überblick über An
 \end{itemize}
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/verwandte/hierarchicalNet3D.png}
+    \includegraphics[width=0.6\textwidth]{images/verwandte/hierarchicalNet3D.png}
     \caption[Hierarchisches Netz in 3D]{Hierarchisches Netz in 3D. Die hierarchische Struktur wird durch Kreise, Halbkugeln und deren Verbindungen dargestellt~\cite[6]{overview3D}.}
     \label{fig:hierarchicalNet3D}
 \end{figure}
-Einige Ansätze verwenden Metaphern aus der realen Welt, etwa Städte oder Landschaften. Von 22 analysierten Tools sind lediglich vier für Management oder Stakeholder ohne spezifische Entwicklungskompetenzen geeignet. Davon visualisiert nur eines die Software selbst, während die übrigen drei Ansätze Software-Anforderungen visualisieren. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze begrenzt. Um Vor- und Nachteile von 3D-Visualisierungen zu bewerten, werden Kriterien wie Informationsdichte, Metaphernbezug, Komplexität oder Verdeckung genutzt.
+Einige Ansätze verwenden Metaphern aus der realen Welt, etwa Städte oder Landschaften. Von 22 analysierten Tools sind lediglich vier für Management oder Stakeholder ohne spezifische Entwicklungskompetenzen geeignet. Davon visualisiert nur eines die Software selbst, während die übrigen drei Ansätze Software-Anforderungen visualisieren. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze begrenzt. Um Vor- und Nachteile von 3D-Visualisierungen zu bewerten, werden Kriterien wie Informationsdichte, Metaphernbezug, Komplexität und Verdeckung genutzt.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{images/verwandte/geometrischeFigurenOhneZoom.png}
+    \includegraphics[width=0.6\textwidth]{images/verwandte/geometrischeFigurenOhneZoom.png}
     \caption[Abstrakte Software-Visualisierung]{Abstrakte, geometrische Visualisierung von Software~\cite[7]{overview3D}. Die bunten Flächen repräsentieren Dateien und die Quader stehen für Attribute oder Methoden.}
     \label{fig:geometrischeFiguren}
 \end{figure}
@@ -41,36 +41,37 @@ Caserta und Zendra~\cite{staticSurvey} geben einen Überblick über etablierte u
     \item \textbf{Klassen-/Mittel-Ebene:} Darstellungen von Strukturen oder Relationen zwischen Dateien oder Klassen.
     \item \textbf{Architekturebene:} Globale Übersichten über Organisation und Qualitätsattribute, beispielsweise über Vererbungen und Aufrufstrukturen.
 \end{itemize}
-Im Fokus dieser Arbeit steht die Architekturebene. Für die Visualisierung dieser Ebene werden insbesondere Tree- und Node-Link-Diagramme, Treemaps, Circular Treemaps, Sunburst- und Voronoi-Visualisierungen diskutiert. Diese Visualisierungen repräsentieren hierarchische Strukturen platzsparend und sind in 2D und 3D verfügbar. Identifizierte Probleme umfassen geringe Nutzbarkeit, kognitive Überlastung, Desorientierung in 3D-Darstellungen sowie eine geringe Verbreitung praxistauglicher Tools, da viele Lösungen bloß prototypischer Natur sind.
+Im Fokus dieser Arbeit steht die Architekturebene. Für die Visualisierung dieser Ebene werden insbesondere Tree- und Node-Link-Diagramme, Treemaps, Circular Treemaps, Sunburst- und Voronoi-Visualisierungen diskutiert. Diese Visualisierungen repräsentieren hierarchische Strukturen platzsparend und sind in 2D und 3D verfügbar. Identifizierte Probleme umfassen geringe Nutzbarkeit, kognitive Überlastung, Desorientierung in 3D-Darstellungen sowie eine geringe Verbreitung praxistauglicher Tools, da viele Lösungen nur prototypischer Natur sind.
 
 \smallskip
 %Visualization and evolution of software architectures
-Khan et al.~\cite{visualizationEvolution} stellen verschiedene Visualisierungstechniken vor und unterscheiden zwischen hierarchischen und beziehungsorientierten Ansätzen. Unter anderem werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume betrachtet (siehe Abbildung~\ref{fig:dreiVis}). Platzfüllende Treemaps werden als besonders geeignet für große Hierarchien hervorgehoben. Adressiert werden Einschränkungen bei der Visualisierung multipler Metriken und bei der Anschaulichkeit interner Strukturen.
-
+Khan et al.~\cite{visualizationEvolution} stellen verschiedene Visualisierungstechniken vor und unterscheiden zwischen hierarchischen und beziehungsorientierten Ansätzen. Unter anderem werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume betrachtet (siehe Abbildung~\ref{fig:dreiVis}). 
 \begin{figure}[htbp]
     \centering
     \subfloat[Icicle Plot\label{fig:icicle3}]{
         \includegraphics[width=0.3\textwidth]{images/verwandte/icicle.png}}
     \hfill
     \subfloat[Sunburst-Diagramm\label{fig:sunburst3}]{
-        \includegraphics[width=0.3\textwidth]{images/verwandte/sunburst.png}}
+        \includegraphics[width=0.26\textwidth]{images/verwandte/sunburst.png}}
     \hfill
     \subfloat[Hyperbolic Tree\label{fig:hyperbolic3}]{
-        \includegraphics[width=0.3\textwidth]{images/verwandte/hyperbolic.png}}
+        \includegraphics[width=0.35\textwidth]{images/verwandte/hyperbolic.png}}
     \caption[Drei Visualisierungen]{Drei Visualisierungen aus \textit{Visualization and evolution of software architectures}~\cite[4]{visualizationEvolution}}
     \label{fig:dreiVis}
 \end{figure}
+Platzfüllende Treemaps werden als besonders geeignet für große Hierarchien hervorgehoben. Adressiert werden Einschränkungen bei der Visualisierung multipler Metriken und der Anschaulichkeit interner Strukturen.
+
 
 \smallskip
 %Survey of treemap layout algorithms
 Scheibel et al.~\cite{scheibel2020survey} bieten eine detaillierte Übersicht über Treemap-Layout-Algorithmen und unterscheiden die Aufteilungsarten \textit{packing} und \textit{splitting}. Splitting bezeichnet die klassische Flächenteilung, während Packing die Rechtecke so platziert, dass möglichst wenig Platz verschwendet wird. Beide Ansätze erzeugen unterschiedliche Layouts (siehe Abbildung~\ref{fig:splittingVsPacking}).
-\begin{figure}[htbp]
+\begin{figure}[h]
     \hspace{0.13\textwidth}
     \subfloat[Splitting\label{fig:splitting}]{
-        \includegraphics[width=0.3\textwidth]{images/verwandte/splitting.png}}
+        \includegraphics[width=0.27\textwidth]{images/verwandte/splitting.png}}
     \hspace{0.1\textwidth}
     \subfloat[Packing\label{fig:packing}]{
-        \includegraphics[width=0.3\textwidth]{images/verwandte/packing.png}}
+        \includegraphics[width=0.27\textwidth]{images/verwandte/packing.png}}
     \caption[Splitting vs. Packing]{Unterschied zwischen Layouts, die durch Splitting und Packing erzeugt wurden~\cite[3]{scheibel2020survey}.}
     \label{fig:splittingVsPacking}
 \end{figure}

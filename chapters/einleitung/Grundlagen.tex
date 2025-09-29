@@ -9,7 +9,7 @@ Die Norm ISO/IEC 25010~\cite{iso25010_2024} strukturiert Softwarequalität anhan
     Qualität wird als Abwesenheit von Fehlern im Systemverhalten verstanden, die Software verhält sich demnach so, wie der Benutzer es erwartet.~\cite[1]{Witte2018}
 \end{quote}
 
-Für die Ursachenanalyse von Qualitätsproblemen reicht die ausschließliche Betrachtung der Symptome aus Nutzersicht nicht aus. Seit den 1970er Jahren liegt daher der Fokus verstärkt auf der Messung der \textit{internen Qualität} bzw. \textit{Code-Qualität}, beispielsweise mit Metriken wie der McCabe-Komplexität~\cite{ludewig}. Software-Qualitätsmetriken sind zentrale Instrumente zur Messung und Bewertung der Qualität von Software und ermöglichen die objektive Analyse einzelner Eigenschaften der Software.
+Für die Ursachenanalyse von Qualitätsproblemen reicht die ausschließliche Betrachtung der Symptome aus Nutzersicht nicht aus. Seit den 1970er Jahren liegt daher der Fokus verstärkt auf der Messung der \textit{internen Qualität} bzw. der \textit{Code-Qualität}, beispielsweise mit Metriken wie der McCabe-Komplexität~\cite{ludewig}. Software-Qualitätsmetriken sind zentrale Instrumente zur Messung und Bewertung der Qualität von Software und ermöglichen die objektive Analyse einzelner Eigenschaften der Software.
 
 \begin{quote}
     Softwaremetrik ist ein quantitatives Maß, das verwendet wird, um die Eigenschaften eines Softwareproduktes oder des Softwareentwicklungsprozesses zu bewerten.~\cite{softwaremetriken_2019}
@@ -45,15 +45,15 @@ Für die Softwarevisualisierung wurden von Munro und Young Qualitätskriterien d
     \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte möglichst vollständig automatisiert erfolgen können.
 \end{itemize}
 
-Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei die Darstellung von Architektur und Programm-Code und weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}),
+Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{first_3D_vis}. Frühe Methoden fokussierten sich dabei auf die Darstellung von Architektur und Programmcode und weniger auf die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}).
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{images/grundlagen/visVRExample.png}
-    \caption[Frühe 3D-Visualisierung]{Beispiel für eine der frühen 3D-Software-Visualisierung~\cite[6]{visSoftwareVR}}
+    \caption[Frühe 3D-Visualisierung]{Beispiel für eine frühe 3D-Softwarevisualisierung~\cite[6]{visSoftwareVR}}
     \label{fig:3DVis}
 \end{figure}
-was diese Visualisierungen für nicht-technische Entscheidungsträger weniger zugänglich machte.
-In dieser Arbeit sind solche Visualisierungen nicht relevant, da der Fokus auf Darstellungen liegt, die auch für nicht-Entwickler verständlich sind. CodeCity stellt einen der ersten Ansätze dar, der diese Anforderung erfüllt.
+Dies machte diese Visualisierungen für nicht-technische Entscheidungsträger weniger zugänglich.
+In dieser Arbeit sind solche Visualisierungen nicht relevant, da der Fokus auf Darstellungen liegt, die auch für Nicht-Entwickler verständlich sind. CodeCity stellt einen der ersten Ansätze dar, der diese Anforderung erfüllt.
 
 \section{CodeCity: Grundstein für Stadtmetaphern} \label{sec:CodeCity}
 
@@ -67,15 +67,17 @@ In der Arbeit \textit{Visualizing Software Systems as Cities}~\cite{codeCity1} s
     \label{fig:codeCity}
 \end{figure}
 Klassen erscheinen als Gebäude, die als Quader dargestellt werden, und Pakete als Stadtbezirke, welche als flache Bereiche visualisiert werden. Den Objekten können verschiedene Attribute wie Dimensionen, Positionen, Farben, Farbsättigung und Transparenz zugeordnet werden, um Metriken darzustellen. Der Grundriss bzw. das Layout der Städte basiert auf einer Variante der Treemap-Algorithmen, die im nächsten Abschnitt erläutert werden.
+
+
 \section{Treemap-Layouts} \label{sec:TreemapGrundlagen}
 
 Hierarchische Daten können in Form von Listen, Baumdiagrammen oder Venn-Diagrammen dargestellt werden. Diese Darstellungen leiden jedoch unter Problemen wie ineffizienter Flächenausnutzung und der fehlenden Möglichkeit, zusätzlich zu den Beziehungen auch quantitativ-metrische Informationen anschaulich zu vermitteln~\cite{johnson1991tree}. In klassischen Baumdiagrammen besteht bei großen Datenmengen beispielsweise mehr als die Hälfte des dargestellten Bereichs aus leerem, informationslosem Raum~\cite{johnson1991tree}. Für große, strukturreiche und mengenorientierte Daten stoßen traditionelle Visualisierungsmethoden an Grenzen, da sie weder Informationen noch Hierarchien kompakt und intuitiv vermitteln können~\cite{johnson1991tree}.
 
-Zur Lösung dieser Herausforderungen entwickelten Shneiderman und Johnson 1991 das Konzept der \textit{Treemap}~\cite{johnson1991tree}. Als zentrale Ziele werden eine effiziente Platznutzung und Verständlichkeit betont. Ein maximaler Informationsgehalt soll auf minimalem Raum erreicht werden und zugleich sollen Hierarchien und Werte mit geringem kognitiven Aufwand erfassbar sein~\cite{johnson1991tree}. Das Prinzip von Treemaps besteht darin, jedem Knoten eines gewichteten Baums ein Rechteck zuzuweisen, dessen Fläche proportional zum Gewicht des Knotens ist. In dieser Arbeit zum Beispiel entspricht das Gewicht dem Wert einer Software-Qualitätsmetrik. Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus, sodass die Gesamtfläche der Kindknoten exakt der Fläche ihres Elternrechtecks entspricht. Ein Beispiel für eine Treemap ist dargestellt (siehe Abbildung~\ref{fig:treemapExample}).
+Zur Lösung dieser Herausforderungen entwickelten Shneiderman und Johnson 1991 das Konzept der \textit{Treemap}~\cite{johnson1991tree}. Als zentrale Ziele werden eine effiziente Platznutzung und Verständlichkeit betont. Ein maximaler Informationsgehalt soll auf minimalem Raum erreicht werden und zugleich sollen Hierarchien und Werte mit geringem kognitiven Aufwand erfassbar sein~\cite{johnson1991tree}. Das Prinzip von Treemaps besteht darin, jedem Knoten eines gewichteten Baums ein Rechteck zuzuweisen, dessen Fläche proportional zum Gewicht des Knotens ist. In dieser Arbeit zum Beispiel entspricht das Gewicht dem Wert einer Software-Qualitätsmetrik. Die Rechtecke aller Blätter füllen die Fläche des Wurzelrechtecks vollständig aus, sodass die Gesamtfläche der Kindknoten exakt der Fläche ihres Elternrechtecks entspricht. Ein Beispiel für eine Treemap ist in Abbildung~\ref{fig:treemapExample} dargestellt.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{images/grundlagen/treemapExampled3.png}
-    \caption[Treemap-Beispiel]{Treemap; generiert durch den Squarify-Algorithmus~\cite{d3_treemap_doku}}
+    \caption[Treemap-Beispiel]{Treemap, generiert durch den Squarify-Algorithmus~\cite{d3_treemap_doku}}
     \label{fig:treemapExample}
 \end{figure}
 
@@ -89,7 +91,7 @@ Shneiderman und Johnson definieren vier grundlegende Eigenschaften von Treemap-L
 
 Ein einfacher Algorithmus erfüllt diese Bedingungen, indem der verfügbare Raum abwechselnd vertikal und horizontal entsprechend den Gewichten der Kindknoten aufgeteilt wird. Die Berechnung läuft rekursiv von der Wurzel bis zu den Blättern. Ein Problem dieses Ansatzes besteht darin, dass die rekursive Unterteilung zu länglichen oder stark verzerrten Rechtecken führen kann~\cite{bruls2000squarified}, wodurch die Struktur der Daten schwer erkennbar ist und die Vergleichbarkeit der Flächen erschwert wird. Dieses Problem wird durch die Arbeit und das gleichnamige Layout der \textit{Squarified Treemaps} von Bruls et al. adressiert~\cite{bruls2000squarified}.
 
-Ziel dieses Layouts ist es, möglichst quadratische Rechtecke zu erzeugen, da diese leichter wahrzunehmen, zu vergleichen und in ihrer Größe intuitiver abschätzbar sind~\cite{bruls2000squarified}. Das zuvor abgebildete Treemap-Beispiel wurde auf Basis des Squarify-Algorithmus erstellt (siehe Abbildung~\ref{fig:treemapExample}). Wie bei vielen anderen Treemap-Algorithmen erfolgt die Aufteilung vom Wurzelknoten aus, indem die Fläche sukzessive in kleinere Teilrechtecke untergliedert wird, bis hin zur Blattknotenebene. Dabei strebt der Squarify-Algorithmus an, das Seitenverhältnis der Rechtecke so nah wie möglich an einen Zielwert von 1 zu bringen.
+Ziel dieses Layouts ist es, möglichst quadratische Rechtecke zu erzeugen, da diese leichter wahrzunehmen, zu vergleichen und in ihrer Größe intuitiver abschätzbar sind~\cite{bruls2000squarified}. Das zuvor abgebildete Treemap-Beispiel wurde auf Basis des Squarify-Algorithmus erstellt (siehe vorangegangene Abbildung~\ref{fig:treemapExample}). Wie bei vielen anderen Treemap-Algorithmen erfolgt die Aufteilung vom Wurzelknoten aus, indem die Fläche sukzessive in kleinere Teilrechtecke untergliedert wird, bis hin zur Blattknotenebene. Dabei strebt der Squarify-Algorithmus an, das Seitenverhältnis der Rechtecke so nah wie möglich an einen Zielwert von 1 zu bringen.
 
 Der Algorithmus füllt die zur Verfügung stehende Fläche in Reihen, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt iterativ. Zunächst wird ein Rechteck eingefügt und dessen Seitenverhältnis berechnet, anschließend das nächste Rechteck. Verschlechtert sich durch das Einfügen das schlechteste Seitenverhältnis der Rechtecke in der Reihe, wird eine neue Reihe begonnen.
 
@@ -102,7 +104,7 @@ Die Reihe wird ergänzt, bis das schlechteste Seitenverhältnis, also das ungün
 \begin{figure}[htbp]
     \hspace{-0.1\textwidth}
     \includegraphics[width=1.2\textwidth]{images/grundlagen/squarify_example_1.png}
-    \caption[Squarify-Beispiel: Reihe 1]{Die erste Reihe des Squarify-Algorithmus-Beispiels. Die Reihe ist im linken großen Rechteck in Hellgrau dargestellt, sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurde.}
+    \caption[Squarify-Beispiel: Reihe 1]{Die erste Reihe des Squarify-Algorithmus-Beispiels. Die Reihe ist im linken großen Rechteck in Hellgrau dargestellt. Sie kann nach rechts in der Breite variieren. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurden.}
     \label{fig:squarify_example_1}
 \end{figure}
 
@@ -112,11 +114,11 @@ beträgt nun $3 : 2 = 1{,}5$. Das neue schlechteste Seitenverhältnis ist besser
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{images/grundlagen/squarify_example_2.png}
-    \caption[Squarify-Beispiel: Reihe 2]{Die zweite Reihe des Squarify-Algorithmus-Beispiels. Die Reihe ist im linken großen Rechteck in Hellgrau dargestellt, sie kann nach oben in der Länge variieren. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil der zuvor abgeschlossenen Reihe sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurde.}
+    \caption[Squarify-Beispiel: Reihe 2]{Die zweite Reihe des Squarify-Algorithmus-Beispiels. Die Reihe ist im linken großen Rechteck in Hellgrau dargestellt. Sie kann nach oben in der Länge variieren. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil der zuvor abgeschlossenen Reihe sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurden.}
     \label{fig:squarify_example_2}
 \end{figure}
 
-Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe Abbildung~\ref{fig:squarify_example_2}). Das durch die zuvor erstellte Reihe verbliebene, zu füllende Rechteck hat die Abmessungen $3 \times 4$ (3 Einheiten breit und 4 Einheiten lang). Da die Reihe länger als breit ist, wird das nächste Rechteck eingefügt. Durch das Einfügen des Rechtecks entsteht ein schlechtestes Seitenverhältnis von $3 : 1{,}33 \approx 2{,}25$. Das Einfügen des nächsten Rechtecks mit der Fläche 3 Einheiten verbessert das schlechteste Seitenverhältnis auf etwa $2{,}33 : 1{,}29 \approx 1{,}8$. Das Einfügen des nächsten Rechtecks mit der Fläche 2 verschlechtert das schlechteste Seitenverhältnis auf $3 : 0{,}67 \approx 4{,}5$, sodass die Reihe abgeschlossen wird (Schritt 8).
+Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe Abbildung~\ref{fig:squarify_example_2}). Das durch die zuvor erstellte Reihe verbleibende, zu füllende Rechteck hat die Abmessungen $3 \times 4$ (3 Einheiten breit und 4 Einheiten lang). Da die Reihe länger als breit ist, wird das nächste Rechteck eingefügt. Durch das Einfügen des Rechtecks entsteht ein schlechtestes Seitenverhältnis von $3 : 1{,}33 \approx 2{,}25$. Das Einfügen des nächsten Rechtecks mit einer Fläche von 3 Einheiten verbessert das schlechteste Seitenverhältnis auf etwa $2{,}33 : 1{,}29 \approx 1{,}8$. Das Einfügen des nächsten Rechtecks mit einer Fläche von 2 Einheiten verschlechtert das schlechteste Seitenverhältnis auf $3 : 0{,}67 \approx 4{,}5$, sodass die Reihe abgeschlossen wird (Schritt 8).
 
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
 
@@ -132,10 +134,10 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke einsortiert sind (siehe Abbi
     \vspace{1em}
     \subfloat[Reihe 5]{
         \includegraphics[width=0.28\textwidth]{images/grundlagen/squarify_example_5.png}}
-    \caption[Squarify-Beispiel: Reihen 3 bis 5]{Die letzten drei Reihen des Squarify-Algorithmus-Beispiels. Die Reihen sind im linken großen Rechteck in Hellgrau dargestellt. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurde.}
+    \caption[Squarify-Beispiel: Reihen 3 bis 5]{Die letzten drei Reihen des Squarify-Algorithmus-Beispiels. Die Reihen sind im linken großen Rechteck in Hellgrau dargestellt. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurden.}
     \label{fig:squarify_examples}
 \end{figure}
 
 Zum besseren Verständnis ist im Anhang in Listing~\ref{lst:squarify_code} der Quellcode einer Variante dieses Algorithmus aufgeführt.
 
-Abschließend ist zu beachten, dass die Erfinder von CodeCity ihr Layout zwar als Treemap-Layout bezeichnen und es auch die Eigenschaften eines Treemap-Layouts erfüllt, jedoch werden Treemap-Layouts und CodeCity-Layouts in dieser Arbeit voneinander getrennt betrachtet. CodeCity-Layouts haben erheblichen freien Raum zwischen den Gebäuden, während Treemap-Layouts, die mit Hilfe des Squarify-Algorithmus erzeugt werden, darauf abzielen, möglichst wenig freien Raum zu erzeugen. Die resultierenden Visualisierungen unterscheiden sich dadurch deutlich, weshalb eine separate Betrachtung beider Layouts erforderlich ist.
+Abschließend ist zu beachten, dass die Erfinder von CodeCity ihr Layout zwar als Treemap-Layout bezeichnen und es auch die Eigenschaften eines Treemap-Layouts erfüllt, jedoch werden Treemap-Layouts und CodeCity-Layouts in dieser Arbeit voneinander getrennt betrachtet. CodeCity-Layouts haben erheblichen freien Raum zwischen den Gebäuden, während Treemap-Layouts, die mithilfe des Squarify-Algorithmus erzeugt werden, darauf abzielen, möglichst wenig freien Raum zu lassen. Die resultierenden Visualisierungen unterscheiden sich dadurch deutlich, weshalb eine separate Betrachtung beider Layouts erforderlich ist.
