@@ -1,19 +1,19 @@
 \chapter{Problemanalyse} \label{sec:Problemanalyse}
 
-Dieses Kapitel beschreibt zunächst den konkreten Anwendungsfall für Visualisierungen von Code-Qualitätsmetriken. Anschließend werden Problemstellung und Forschungsfragen abgeleitet. Den Abschluss bilden Lösungs- und Bewertungsansatz zur Beantwortung der Forschungsfragen.
+Dieses Kapitel beschreibt zunächst den konkreten Anwendungsfall für Visualisierungen von Code-Qualitätsmetriken. Anschließend werden die Forschungsfragen und passende Lösungsansätze vorgestellt.
 
 \section{Anwendungsfall und Anforderungen} \label{sec:Anwendungsfall}
 
 Zur präzisen Eingrenzung des Anwendungsfalls und der Ziele der Visualisierungen werden die fünf Dimensionen der Softwarevisualisierung nach Marcus et al. herangezogen~\cite{3dsoftwareMarcus}.
 
 \subsection*{1. Warum ist die Visualisierung von Code-Qualitätsmetriken wichtig?}
-Die Visualisierung von Code-Qualitätsmetriken ermöglicht die fundierte Bewertung und das bessere Verständnis der Softwarequalität. Sie unterstützt die rasche Orientierung in komplexen Codebasen, die Identifikation von Hotspots und die Kommunikation mit Nicht-Experten. Zusammenhänge zwischen Metriken werden unmittelbar sichtbar, was in rein tabellarischer oder isolierter Darstellung kaum erreichbar ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität anschaulich zu vermitteln, technische Analysen zu stützen und die Ergebnisse adressatengerecht zu kommunizieren.
+Die Visualisierung von Code-Qualitätsmetriken ermöglicht die fundierte Bewertung und das bessere Verständnis der Softwarequalität. Sie unterstützt die Orientierung in Codebasen, die Identifikation von Hotspots und die Kommunikation mit Nicht-Experten. Zusammenhänge zwischen Metriken werden unmittelbar sichtbar, was in tabellarischer oder isolierter Darstellung kaum erreichbar ist. Das Hauptziel besteht darin, das abstrakte Konzept der Codequalität anschaulich zu vermitteln und technische Analysen adressatengerecht zu kommunizieren.
 
 \subsection*{2. Wer ist die Zielgruppe der Visualisierung?}
-Adressaten sind primär Personen ohne tiefgehende Kenntnisse der Codebasis und ohne Programmierkenntnisse, etwa Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder mit Entscheidungsbefugnis in der Softwareentwicklung. Darüber hinaus profitieren Entwickler bei Projekteinstiegen sowie Teams, die systematisch die Softwarequalität verbessern möchten. Ziel ist eine Darstellung, die technische Inhalte für ein breites Publikum verständlich und zugänglich macht.
+Adressaten sind primär Personen ohne tiefgehende Kenntnisse der Codebasis oder ohne Programmierkenntnisse, etwa Projektmanager, Produktverantwortliche, Kunden oder andere Stakeholder mit Entscheidungsbefugnis in der Softwareentwicklung. Ziel ist eine Darstellung, die technische Inhalte für ein breites Publikum verständlich und zugänglich macht.
 
 \subsection*{3. Was ist die Datenquelle?}
-Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode extrahiert werden. Die Metriken werden auf Dateiebene erstellt, wie ursprünglich von CodeCity vorgeschlagen~\cite{codeCity1}. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software. Jeder Knoten der Hierarchie besitzt einen Namen und entweder eine Liste von Kindknoten oder eine Liste von Werten, die die Metriken repräsentieren (siehe Listing~\ref{lst:nodeSchema}).
+Grundlage bilden hierarchische Code-Qualitätsmetriken, die automatisiert aus dem Quellcode generiert werden. Die Metriken werden auf Dateiebene erstellt. Diese Granularität ermöglicht eine angemessene Beurteilung der Struktur und Qualität von Software~\cite{codeCity1}. Jeder Knoten ist entweder ein Ordner mit Kindknoten oder eine Datei mit Metrikwerten (siehe Listing~\ref{lst:nodeSchema}).
 
 \begin{lstlisting}[language=json, caption={Knotenschema}, label={lst:nodeSchema}]
     "node": {
@@ -30,7 +30,7 @@ Betrachtet werden 2{.}5D- und 3D-Visualisierungen. Dazu zählen einfache 2{.}5D-
 
 \section{Problemstellung und Forschungsfragen} \label{sec:Problemstellung}
 
-Durch die Motivation wurde der Bedarf begründet, Softwarequalität für Personen ohne Programmierkenntnisse bzw. ohne Vertrautheit mit der Codebasis nachvollziehbar und belastbar darzustellen (siehe Abschnitt~\ref{sec:Motivation}). Softwareanalysen von Experten müssen für ein breites Publikum verständlich und nachvollziehbar kommuniziert werden. Dies unterstützen visuelle Darstellungen von Code-Qualitätsmetriken, woraus sich folgende Leitfrage ergibt:
+Durch die Motivation wurde der Bedarf begründet, Softwarequalität für Personen ohne Programmierkenntnisse bzw. ohne Vertrautheit mit der Codebasis nachvollziehbar und belastbar darzustellen (siehe Abschnitt~\ref{sec:Motivation}). Dies unterstützen visuelle Darstellungen von Code-Qualitätsmetriken, woraus sich folgende Leitfrage ergibt:
 
 \begin{quote}
     Welche 3D-Visualisierung eignet sich am besten zur Darstellung von Code-Qualitätsmetriken für Personen ohne Programmierkenntnisse oder Vertrautheit mit der Codebasis?
@@ -42,7 +42,7 @@ Eine vollständige Beantwortung dieser Frage ist nicht möglich, da nicht alle d
     \item Wie gut eignen sich diese Visualisierungen, um die Übersichtlichkeit der Struktur und die Nachvollziehbarkeit der Qualität speziell im Hinblick auf den definierten Anwendungsfall darzustellen?
     \item Inwiefern lassen sich identifizierte Visualisierungen technisch und gestalterisch verbessern, um die Softwarequalität noch besser zu vermitteln?
 \end{enumerate}
-
+\newpage
 \section{Lösungs- und Bewertungsansatz} \label{sec:Bewertungsansatz}
 
 Die drei zuvor definierten Forschungsfragen werden für den beschriebenen Anwendungsfall wie folgt adressiert.

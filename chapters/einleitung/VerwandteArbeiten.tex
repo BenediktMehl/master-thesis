@@ -5,6 +5,7 @@ Im Folgenden werden Forschungsarbeiten vorgestellt, die die zuvor definierte Lei
 \bigskip
 %A comparative evaluation of dynamic visualisation tools
 Pacione et al.~\cite{pacione2003comparative} vergleichen fünf Visualisierungstools im Hinblick auf Softwareverständnis und Reverse Engineering. Ziel der Studie ist die Identifikation von Gründen für die geringe Nutzung solcher Werkzeuge außerhalb der Forschung. Ein Experte erhält verschiedene Aufgaben, die mit den Tools erledigt werden sollen. Die Ergebnisse zeigen, dass keines der untersuchten Tools alle Anforderungen an das Softwareverständnis vollständig erfüllt. Defizite bestehen insbesondere bei der Abbildung von Design-Patterns und bei Hotspot-Analysen, was im Rahmen der Evaluation dieser Arbeit ebenfalls betrachtet wird.
+\smallskip
 
 %Software visualization tools: survey and analysis
 Bassil und Keller~\cite{bassil2001software} untersuchen Anforderungen von Nutzern an Softwarevisualisierungstools. Als entscheidend werden hierarchische Repräsentationen, Benutzerfreundlichkeit und Skalierbarkeit bei großen Softwaresystemen bewertet. Der Großteil der Befragten sind Experten und die meisten Werkzeuge richten sich primär an diese Zielgruppe statt an Endanwender wie Softwarekunden oder Management. Es zeigt sich, dass Softwaretools Verständnis verbessern können und vor allem auf höheren Abstraktionsebenen hilfreich sind.
@@ -18,23 +19,21 @@ Teyseyre et al.~\cite{overview3D} geben einen systematischen Überblick über An
     \item \textbf{Baumstrukturen:} Dreidimensionale Varianten wie \textit{Cone Trees}, \textit{Information Cubes} (im Wesentlichen 3D-Treemaps) oder \textit{hierarchical nets} (siehe Abbildung~\ref{fig:hierarchicalNet3D}) zur hierarchischen Darstellung von Softwareelementen.
     \item \textbf{Abstrakte geometrische Darstellungen:} Nutzung verschiedener Formen zur Repräsentation von Metriken und Strukturen (siehe Abbildung~\ref{fig:geometrischeFiguren}).
 \end{itemize}
-
-\begin{figure}[htbp]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=0.7\textwidth]{images/verwandte/hierarchicalNet3D.png}
     \caption[Hierarchisches Netz in 3D]{Hierarchisches Netz in 3D. Die hierarchische Struktur wird durch Kreise, Halbkugeln und deren Verbindungen dargestellt~\cite[6]{overview3D}.}
     \label{fig:hierarchicalNet3D}
 \end{figure}
-
+Einige Ansätze verwenden Metaphern aus der realen Welt, etwa Städte oder Landschaften. Von 22 analysierten Tools sind lediglich vier für Management oder Stakeholder ohne spezifische Entwicklungskompetenzen geeignet. Davon visualisiert nur eines die Software selbst, während die übrigen drei Ansätze Software-Anforderungen visualisieren. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze begrenzt. Um Vor- und Nachteile von 3D-Visualisierungen zu bewerten, werden Kriterien wie Informationsdichte, Metaphernbezug, Komplexität oder Verdeckung genutzt.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{images/verwandte/geometrischeFigurenOhneZoom.png}
+    \includegraphics[width=0.7\textwidth]{images/verwandte/geometrischeFigurenOhneZoom.png}
     \caption[Abstrakte Software-Visualisierung]{Abstrakte, geometrische Visualisierung von Software~\cite[7]{overview3D}. Die bunten Flächen repräsentieren Dateien und die Quader stehen für Attribute oder Methoden.}
     \label{fig:geometrischeFiguren}
 \end{figure}
-Einige Ansätze verwenden Metaphern aus der realen Welt, etwa Städte oder Landschaften. Von 22 analysierten Tools sind lediglich vier für Management oder Stakeholder ohne spezifische Entwicklungskompetenzen geeignet. Davon visualisiert nur eines die Software selbst, während die übrigen drei Ansätze Software-Anforderungen visualisieren. Zudem wird ein Mangel an empirischen Nutzungsstudien im 3D-Bereich festgestellt, was die Praxistauglichkeit der Ansätze begrenzt. Um Vor- und Nachteile von 3D-Visualisierungen zu bewerten, werden Kriterien wie Informationsdichte, Metaphernbezug, Komplexität oder Verdeckung genutzt.
 
-
+\smallskip
 %Visualization of the static aspects of software: A survey
 Caserta und Zendra~\cite{staticSurvey} geben einen Überblick über etablierte und aktuelle Visualisierungstechniken und ordnen diese unterschiedlichen Analyseebenen zu:
 \begin{itemize}
@@ -44,6 +43,7 @@ Caserta und Zendra~\cite{staticSurvey} geben einen Überblick über etablierte u
 \end{itemize}
 Im Fokus dieser Arbeit steht die Architekturebene. Für die Visualisierung dieser Ebene werden insbesondere Tree- und Node-Link-Diagramme, Treemaps, Circular Treemaps, Sunburst- und Voronoi-Visualisierungen diskutiert. Diese Visualisierungen repräsentieren hierarchische Strukturen platzsparend und sind in 2D und 3D verfügbar. Identifizierte Probleme umfassen geringe Nutzbarkeit, kognitive Überlastung, Desorientierung in 3D-Darstellungen sowie eine geringe Verbreitung praxistauglicher Tools, da viele Lösungen bloß prototypischer Natur sind.
 
+\smallskip
 %Visualization and evolution of software architectures
 Khan et al.~\cite{visualizationEvolution} stellen verschiedene Visualisierungstechniken vor und unterscheiden zwischen hierarchischen und beziehungsorientierten Ansätzen. Unter anderem werden Icicle Plots, Sunburst-Diagramme und hyperbolische Bäume betrachtet (siehe Abbildung~\ref{fig:dreiVis}). Platzfüllende Treemaps werden als besonders geeignet für große Hierarchien hervorgehoben. Adressiert werden Einschränkungen bei der Visualisierung multipler Metriken und bei der Anschaulichkeit interner Strukturen.
 
@@ -61,9 +61,9 @@ Khan et al.~\cite{visualizationEvolution} stellen verschiedene Visualisierungste
     \label{fig:dreiVis}
 \end{figure}
 
+\smallskip
 %Survey of treemap layout algorithms
 Scheibel et al.~\cite{scheibel2020survey} bieten eine detaillierte Übersicht über Treemap-Layout-Algorithmen und unterscheiden die Aufteilungsarten \textit{packing} und \textit{splitting}. Splitting bezeichnet die klassische Flächenteilung, während Packing die Rechtecke so platziert, dass möglichst wenig Platz verschwendet wird. Beide Ansätze erzeugen unterschiedliche Layouts (siehe Abbildung~\ref{fig:splittingVsPacking}).
-
 \begin{figure}[htbp]
     \hspace{0.13\textwidth}
     \subfloat[Splitting\label{fig:splitting}]{
@@ -74,7 +74,6 @@ Scheibel et al.~\cite{scheibel2020survey} bieten eine detaillierte Übersicht ü
     \caption[Splitting vs. Packing]{Unterschied zwischen Layouts, die durch Splitting und Packing erzeugt wurden~\cite[3]{scheibel2020survey}.}
     \label{fig:splittingVsPacking}
 \end{figure}
-
 Weiterhin unterscheiden die Autoren zwischen Layout-Formen, beispielsweise rechteckig, kreisförmig, konvex oder nicht-konvex, und der Referenzraum-Dimension, also 2D versus 3D. Von 81 analysierten Ansätzen sind 54 rechteckig und 58 splitting-basiert, was die Präferenz in der Literatur für diese Verfahren deutlich macht. Neben klassischen Verfahren, etwa Slice-and-Dice, Squarified und Strip, werden auch Polygon-, Voronoi- und Circular-Treemaps sowie spezialisierte Layouts, etwa zur Optimierung des Aspektverhältnisses oder zur Ordnungserhaltung, beschrieben. Die Vielfalt der Ansätze verdeutlicht die Notwendigkeit einer gezielten, anwendungsspezifischen Algorithmusauswahl.
 
 \bigskip

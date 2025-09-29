@@ -20,8 +20,8 @@ Die Circular Treemap hat die gleiche Bewertung wie fünf weitere Visualisierunge
 
 Alle ausgewählten Visualisierungen sind 2{.}5D-Visualisierungen. Jede Visualisierung verwendet ein eigenes 2D-Layout, das in die dritte Dimension extrudiert wird. Dabei werden drei Metriken kodiert. Eine Metrik wird über die Fläche abgebildet, eine über die Höhe und eine über die Farbe.
 
-Die 2D-Layouts variieren hinsichtlich Form, Platzierung und Abständen, basieren jedoch auf einem einheitlichen Schema, das hier definiert wird (siehe Listing \ref{lst:nodeLayoutSchema}). Im Vergleich zum Eingabe-Daten-Schema aus Abschnitt \ref{sec:Anwendungsfall} (siehe Listing \ref{lst:nodeSchema}) sind die Attribute x, y, width und length hinzugekommen, die das Layout eindeutig beschreiben.
-
+Die 2D-Layouts basieren auf einem einheitlichen Schema, das in Listing \ref{lst:nodeLayoutSchema} definiert ist. 
+Im Vergleich zum Eingabe-Daten-Schema aus Abschnitt \ref{sec:Anwendungsfall} (siehe Listing \ref{lst:nodeSchema}) sind die Attribute x, y, width und length hinzugekommen, die das Layout eindeutig beschreiben.
 \begin{lstlisting}[language=json, caption={Layout-Knotenschema}, label={lst:nodeLayoutSchema}]
     "node": {
         "name": string,
@@ -53,7 +53,7 @@ Der Visualisierungsschritt extrudiert alle Nicht-Blattknoten um einen festen Wer
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/umfrage/treemap/dreierKombi.png}
+    \includegraphics[width=0.87\textwidth]{images/umfrage/treemap/dreierKombi.png}
     \caption[Treemap-Implementierung]{Beispiel für Treemap-Implementierung}
     \label{fig:treemapBeispielImplementierung}
 \end{figure}
@@ -68,7 +68,7 @@ Die Ausgabe des Layoutschritts entspricht derjenigen der Treemap. Daher kann ein
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/umfrage/streetmap/dreierKombi.png}
+    \includegraphics[width=0.87\textwidth]{images/umfrage/streetmap/dreierKombi.png}
     \caption[Streetmap-Implementierung]{Beispiel für Streetmap-Implementierung}
     \label{fig:streetmapBeispielImplementierung}
 \end{figure}
@@ -82,7 +82,7 @@ Eine offene Implementierung des CodeCity-Layouts liegt nicht vor. Die hier verwe
 Da die Ausgabe des Layoutschritts dem Ergebnis des Treemap-Layouts entspricht, wird derselbe Visualisierungsschritt verwendet. Ein Unterschied besteht in der Beschriftung, für die im Layout kein eigener Platz reserviert wurde. Stattdessen werden die Beschriftungen in die ohnehin vorhandenen freien Bereiche im rechten oberen Teil der Knoten gesetzt und so groß wie möglich skaliert, ohne andere Knoten zu schneiden oder über die Knotenfläche hinauszuragen. Die Implementierung ist unter folgendem \href{https://github.com/BenediktMehl/master-thesis/tree/main/anhang}{Link}~\cite{anhaenge_github} verfügbar. Ein Beispiel ist in Abbildung \ref{fig:codecityBeispielImplementierung} dargestellt.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/umfrage/codecity/dreierKombi.png}
+    \includegraphics[width=0.87\textwidth]{images/umfrage/codecity/dreierKombi.png}
     \caption[CodeCity-Implementierung]{Beispiel für CodeCity-Implementierung}
     \label{fig:codecityBeispielImplementierung}
 \end{figure}
@@ -97,7 +97,7 @@ Die Visualisierung rendert die Knoten als Kreissegmente. Die z-Position ergibt s
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/umfrage/sunburst/dreierKombi.png}
+    \includegraphics[width=0.87\textwidth]{images/umfrage/sunburst/dreierKombi.png}
     \caption[Sunburst-Implementierung]{Beispiel für Sunburst-Implementierung}
     \label{fig:sunburstBeispielImplementierung}
 \end{figure}
@@ -112,7 +112,7 @@ Die Visualisierung entspricht weitgehend derjenigen der Treemap. Der Unterschied
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{images/umfrage/circlePacking/dreierKombi.png}
+    \includegraphics[width=0.87\textwidth]{images/umfrage/circlePacking/dreierKombi.png}
     \caption[Circular-Treemap-Implementierung]{Beispiel für Circular-Treemap-Implementierung}
     \label{fig:circularTreemapBeispielImplementierung}
 \end{figure}

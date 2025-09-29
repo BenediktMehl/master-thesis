@@ -45,13 +45,14 @@ Für die Softwarevisualisierung wurden von Munro und Young Qualitätskriterien d
     \item \textbf{Automatisierung:} Die Generierung der Visualisierung sollte möglichst vollständig automatisiert erfolgen können.
 \end{itemize}
 
-Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei die Darstellung von Architektur und Programm-Code und weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}), was diese Visualisierungen für nicht-technische Entscheidungsträger weniger zugänglich machte.
+Bereits 1995 präsentierte Steven P. Reiss einen Ansatz für 3D-Softwarevisualisierung~\cite{first_3D_vis}, mit dem Ziel, Entwicklern einen schnellen Überblick über Struktur und Aufbau großer Systeme zu ermöglichen~\cite{visSoftwareVR}. Frühe Methoden fokussierten dabei die Darstellung von Architektur und Programm-Code und weniger die Visualisierung von Qualitätsmetriken (siehe Abbildung~\ref{fig:3DVis}),
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{images/grundlagen/visVRExample.png}
     \caption[Frühe 3D-Visualisierung]{Beispiel für eine der frühen 3D-Software-Visualisierung~\cite[6]{visSoftwareVR}}
     \label{fig:3DVis}
 \end{figure}
+was diese Visualisierungen für nicht-technische Entscheidungsträger weniger zugänglich machte.
 In dieser Arbeit sind solche Visualisierungen nicht relevant, da der Fokus auf Darstellungen liegt, die auch für nicht-Entwickler verständlich sind. CodeCity stellt einen der ersten Ansätze dar, der diese Anforderung erfüllt.
 
 \section{CodeCity: Grundstein für Stadtmetaphern} \label{sec:CodeCity}
@@ -93,9 +94,10 @@ Ziel dieses Layouts ist es, möglichst quadratische Rechtecke zu erzeugen, da di
 Der Algorithmus füllt die zur Verfügung stehende Fläche in Reihen, wobei in jeder Reihe möglichst quadratische Rechtecke entstehen sollen. Das Einfügen erfolgt iterativ. Zunächst wird ein Rechteck eingefügt und dessen Seitenverhältnis berechnet, anschließend das nächste Rechteck. Verschlechtert sich durch das Einfügen das schlechteste Seitenverhältnis der Rechtecke in der Reihe, wird eine neue Reihe begonnen.
 
 Im Folgenden wird der Algorithmus anhand eines Beispiels aus der Originalarbeit von Bruls et al.~\cite{bruls2000squarified} erläutert. Es sollen Rechtecke mit den Werten 6, 6, 4, 3, 2, 2, 1 in ein übergeordnetes Rechteck mit den Abmessungen $6 \times 4$ (Breite 6, Länge 4) eingefügt werden. 
-In dieser Arbeit wird die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente, also der Höhe im dreidimensionalen Raum, zu vermeiden. Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/anhang/squarify_example.mp4}{Link}~\cite{squarify_video_link} ein kurzes Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus verdeutlicht. Im Video ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert.
-
-Der Algorithmus beginnt mit dem leeren Rechteck mit den Abmessungen $6 \times 4$, in das die sieben Rechtecke eingefügt werden sollen. Da dieses Rechteck breiter als lang ist (Breite 6, Länge 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Länge 4 und kann nach rechts in der Breite variieren. Dies ist am linken großen Rechteck zu erkennen (siehe Abbildung~\ref{fig:squarify_example_1}). Die Reihe wird ergänzt, bis das schlechteste Seitenverhältnis, also das ungünstigste der enthaltenen Rechtecke, schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
+In dieser Arbeit wird die X-Koordinate als Breite und die Y-Koordinate als Länge bezeichnet, um Verwechslungen mit der Z-Komponente, also der Höhe im dreidimensionalen Raum, zu vermeiden. Zur besseren Veranschaulichung ist unter diesem \href{https://github.com/BenediktMehl/master-thesis/blob/main/anhang/squarify_example.mp4}{Link}~\cite{squarify_video_link} ein kurzes Video verfügbar, das das Füllen der ersten beiden Reihen des Algorithmus verdeutlicht. Im Video ist erkennbar, wie das Einfügen der Rechtecke die Reihen breiter macht und wie das letzte Rechteck in der Reihe entfernt wird, wenn es das schlechteste Seitenverhältnis verschlechtert. Eine bildliche Erklärung des Beispiels ist auf den folgenden Seiten dargestellt.
+\newpage
+Der Algorithmus beginnt mit dem leeren Rechteck mit den Abmessungen $6 \times 4$, in das die sieben Rechtecke eingefügt werden sollen. Da dieses Rechteck breiter als lang ist (Breite 6, Länge 4), werden die Rechtecke in einer vertikalen Reihe platziert. Diese vertikale Reihe hat stets die Länge 4 und kann nach rechts in der Breite variieren. Dies ist am linken großen Rechteck zu erkennen (siehe Abbildung~\ref{fig:squarify_example_1}).
+Die Reihe wird ergänzt, bis das schlechteste Seitenverhältnis, also das ungünstigste der enthaltenen Rechtecke, schlechter ist als das schlechteste Seitenverhältnis im vorherigen Schritt.
 
 \begin{figure}[htbp]
     \hspace{-0.1\textwidth}
@@ -104,7 +106,8 @@ Der Algorithmus beginnt mit dem leeren Rechteck mit den Abmessungen $6 \times 4$
     \label{fig:squarify_example_1}
 \end{figure}
 
-Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten in die noch leere Reihe eingefügt. Die Dimensionen dieses Rechtecks betragen $1{,}5 \times 4$ (1{,}5 Einheiten breit und 4 Einheiten lang). Das schlechteste Seitenverhältnis aller Rechtecke in der aktuellen Reihe ist in diesem Fall $4 : 1{,}5 \approx 2{,}67$ (es wird stets der größere Wert durch den kleineren geteilt). In Schritt 2 wird das nächste Rechteck mit einer Fläche von 6 Einheiten in die Reihe \textit{von oben} über das erste Rechteck eingefügt. Dadurch wird die Reihe und auch das erste Rechteck breiter. In diesem Fall haben beide Rechtecke die gleichen Dimensionen von $3 \times 2$. Das schlechteste Seitenverhältnis in der Reihe beträgt nun $3 : 2 = 1{,}5$. Das neue schlechteste Seitenverhältnis ist besser als das vorherige, sodass die Reihe weiter gefüllt werden kann. Im nächsten Schritt soll das Rechteck mit einer Fläche von 4 Einheiten eingefügt werden. Das Hinzufügen dieses Rechtecks macht die Reihe erneut breiter. Es entsteht ein neues schlechtestes Seitenverhältnis von $4 : 1 = 4$. Da das Seitenverhältnis nun schlechter ist als zuvor, wird die Reihe, wie sie zuvor war, als abgeschlossen betrachtet (Schritt 4). Das zuletzt eingefügte Rechteck mit Fläche 4 wird daher nicht mehr in dieser Reihe, sondern in einer neuen Reihe einsortiert (siehe Abbildung~\ref{fig:squarify_example_2}, Schritt 5).
+Zunächst wird in Schritt 1 das erste Rechteck mit einer Fläche von 6 Einheiten in die noch leere Reihe eingefügt. Die Dimensionen dieses Rechtecks betragen $1{,}5 \times 4$ (1{,}5 Einheiten breit und 4 Einheiten lang). Das schlechteste Seitenverhältnis aller Rechtecke in der aktuellen Reihe ist in diesem Fall $4 : 1{,}5 \approx 2{,}67$ (es wird stets der größere Wert durch den kleineren geteilt). In Schritt 2 wird das nächste Rechteck mit einer Fläche von 6 Einheiten in die Reihe \textit{von oben} über das erste Rechteck eingefügt. Dadurch wird die Reihe und auch das erste Rechteck breiter. In diesem Fall haben beide Rechtecke die gleichen Dimensionen von $3 \times 2$. Das schlechteste Seitenverhältnis in der Reihe
+beträgt nun $3 : 2 = 1{,}5$. Das neue schlechteste Seitenverhältnis ist besser als das vorherige, sodass die Reihe weiter gefüllt werden kann. Im nächsten Schritt soll das Rechteck mit einer Fläche von 4 Einheiten eingefügt werden. Das Hinzufügen dieses Rechtecks macht die Reihe erneut breiter. Es entsteht ein neues schlechtestes Seitenverhältnis von $4 : 1 = 4$. Da das Seitenverhältnis nun schlechter ist als zuvor, wird die Reihe, wie sie zuvor war, als abgeschlossen betrachtet (Schritt 4). Das zuletzt eingefügte Rechteck mit Fläche 4 wird daher nicht mehr in dieser Reihe, sondern in die nächste Reihe einsortiert. \newpage
 
 \begin{figure}[htbp]
     \centering
@@ -117,7 +120,9 @@ Nachdem die erste Reihe abgeschlossen ist, wird eine neue Reihe eröffnet (siehe
 
 Dieser Prozess wird fortgesetzt, bis alle Rechtecke einsortiert sind (siehe Abbildung~\ref{fig:squarify_examples}).
 
-\begin{figure}[htbp]
+\newpage
+
+\begin{figure}[htb]
     \centering
     \subfloat[Reihe 3]{
         \includegraphics[width=\textwidth]{images/grundlagen/squarify_example_3.png}}
@@ -126,11 +131,11 @@ Dieser Prozess wird fortgesetzt, bis alle Rechtecke einsortiert sind (siehe Abbi
         \includegraphics[width=\textwidth]{images/grundlagen/squarify_example_4.png}}
     \vspace{1em}
     \subfloat[Reihe 5]{
-        \includegraphics[width=0.3\textwidth]{images/grundlagen/squarify_example_5.png}}
+        \includegraphics[width=0.28\textwidth]{images/grundlagen/squarify_example_5.png}}
     \caption[Squarify-Beispiel: Reihen 3 bis 5]{Die letzten drei Reihen des Squarify-Algorithmus-Beispiels. Die Reihen sind im linken großen Rechteck in Hellgrau dargestellt. Rot sind die Rechtecke, deren Breite und Länge noch nicht festgelegt sind. Gelb sind die Rechtecke, die Teil von zuvor abgeschlossenen Reihen sind. Grün sind die Rechtecke, bei denen die Breite und Länge festgelegt wurde.}
     \label{fig:squarify_examples}
 \end{figure}
 
-Zum besseren Verständnis ist im Anhang in Listing~\ref{lst:squarify_code} der Quellcode einer Variante dieses Algorithmus aufgeführt. Diese Variante dient als Ausgangspunkt für die Implementierung und die Optimierungen in dieser Arbeit (siehe Abschnitte~\ref{sec:TreemapImplementierung} und~\ref{sec:VerbesserungSquarify}).
+Zum besseren Verständnis ist im Anhang in Listing~\ref{lst:squarify_code} der Quellcode einer Variante dieses Algorithmus aufgeführt.
 
-Abschließend ist zu beachten, dass die Erfinder von CodeCity ihr Layout zwar als Treemap-Layout bezeichnen und es gemäß gängiger Definition auch die Eigenschaften eines Treemap-Layouts erfüllt, jedoch werden Treemap-Layouts und CodeCity-Layouts in dieser Arbeit voneinander getrennt betrachtet. CodeCity-Layouts erlauben erheblichen freien Raum zwischen den Gebäuden, während Treemap-Layouts, die mit Hilfe des Squarify-Algorithmus erzeugt werden, darauf abzielen, möglichst wenig freien Raum zu belassen. Die resultierenden Visualisierungen unterscheiden sich dadurch deutlich, weshalb eine separate Betrachtung beider Layouts erforderlich ist.
+Abschließend ist zu beachten, dass die Erfinder von CodeCity ihr Layout zwar als Treemap-Layout bezeichnen und es auch die Eigenschaften eines Treemap-Layouts erfüllt, jedoch werden Treemap-Layouts und CodeCity-Layouts in dieser Arbeit voneinander getrennt betrachtet. CodeCity-Layouts haben erheblichen freien Raum zwischen den Gebäuden, während Treemap-Layouts, die mit Hilfe des Squarify-Algorithmus erzeugt werden, darauf abzielen, möglichst wenig freien Raum zu erzeugen. Die resultierenden Visualisierungen unterscheiden sich dadurch deutlich, weshalb eine separate Betrachtung beider Layouts erforderlich ist.
