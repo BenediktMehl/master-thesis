@@ -1,9 +1,17 @@
-Master Thesis – Benedikt Mehl
-
 # Vergleich und Optimierung von 3D-Visualisierungen für die Darstellung von Software-Qualitätsmetriken
 
-Softwarequalität ist für fachfremde Stakeholder schwer zugänglich, da Codebasen und Metriken nicht vertraut sind. Visuelle Darstellungen können fachliche Analysen verständlich machen und Entscheidungen über Rollen hinweg unterstützen. Gleichzeitig besteht eine Lücke zwischen Forschungsprototypen und praxistauglichen Visualisierungswerkzeugen. Diese Lücke wird adressiert durch einen systematischen Vergleich, eine einheitliche 2{,}5D-Implementierung und die gezielte Verbesserung praxisrelevanter Treemap-Layouts.
+Master Thesis – Benedikt Mehl
 
-Die Arbeit sichtet und bewertet 26 Visualisierungsansätze aus Forschung und Werkzeugen und schafft damit eine umfassende und nutzbare Bestandsaufnahme aktueller Visualisierungen. Auf dieser Basis werden die fünf bestplatzierten Visualisierungstypen für eine einheitliche Implementierung ausgewählt. Untersucht werden Treemap, Streetmap, CodeCity, Sunburst und Circular Treemap in einer konsistenten 2{,}5D-Ausprägung, wobei jeweils drei Metriken über Fläche, Höhe und Farbe kodiert werden. Eine Nutzerstudie mit szenariobasierten Bewertungen und eine direkte Expertenbewertung validieren die Befunde und spiegeln die Praxisperspektive wider. Ein exemplarischer Schwerpunkt liegt auf der technischen Verbesserung von Treemap-Layouts auf Basis des Squarify-Algorithmus vor dem Hintergrund, dass in bestehenden Implementierungen häufig Knoten verschwinden, ohne dass dies in Forschung oder Praxis systematisch adressiert wird. Vorgeschlagen wird ein zweistufiger Algorithmus, dessen Qualität auf einer breiten Open-Source-Datenbasis anhand von Kriterien wie Knotensichtbarkeit und Flächenproportionalität evaluiert wird.
+Softwarequalität ist für fachfremde Stakeholder schwer zugänglich, da Codebasen und Metriken nicht vertraut sind. Visuelle Darstellungen können fachliche Analysen verständlich machen und Entscheidungen über Rollen hinweg unterstützen. Gleichzeitig besteht eine Lücke zwischen Forschungsprototypen und praxistauglichen Visualisierungswerkzeugen. Diese Lücke wird adressiert durch einen systematischen Vergleich, eine einheitliche 2,5D-Implementierung und die gezielte Verbesserung praxisrelevanter Treemap-Layouts.
 
-Über Literaturranking, einheitliche Implementierungen und Nutzerurteile hinweg unterstützen Treemaps die Nachvollziehbarkeit von Qualitätsaussagen am besten. Circular Treemaps sind in strukturorientierten Aufgaben ebenfalls stark, Streetmaps schneiden in der Praxis schwächer ab. Der verbesserte Squarify-Algorithmus reduziert fehlende Knoten um bis zu einen Faktor von 4, verbessert die Seitenverhältnisse von Knoten auf im Median 2{,}5 und halbiert die Abweichung der Flächenproportionalität gegenüber dem ursprünglichen Squarify-Algorithmus. Die Arbeit liefert damit einen praxistauglichen und öffentlich verfügbaren Algorithmus sowie belastbare Leitlinien für die Anwendung in Audits, Health-Checks und der generellen Kommunikation über Software. Durch den fundierten Vergleich der 26 Ansätze wird zudem klar, welche Visualisierungen sich für die Darstellung von Softwarequalität und -struktur für fachfremde Stakeholder besonders eignen, wo Optimierungspotenziale liegen und wie diese adressiert werden können. Insgesamt entsteht ein evidenzbasierter Rahmen aus Literaturbewertung, einheitlichen 2{,}5D-Implementierungen und empirischen Nutzerurteilen, der die Auswahl geeigneter Visualisierungen in der Praxis unterstützt.
+## Thesis
+
+Die vollständige Arbeit ist hier zu finden: [thesis.pdf](https://github.com/BenediktMehl/master-thesis/blob/main/thesis.pdf)
+
+## Vergleich der Algorithmen
+
+Ein einfacher Vergleich der Algorithmen kann unter dieser URL selbst durchgeführt werden: https://benediktmehl.github.io/area-true-treemap/
+
+## Für Entwickler
+
+Hinweise zum LaTeX-Template, zur Konfiguration und zum Kompilieren der Arbeit stehen in [README_DEVELOPERS.md](README_DEVELOPERS.md).
